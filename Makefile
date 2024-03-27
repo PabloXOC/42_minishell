@@ -19,6 +19,10 @@ CFLAGS = -g
 LIB_DIR = libft/
 LIBS = $(LIB_DIR)libft.a
 INCLUDES = -I $(LIB_DIR) -I.
+
+LIB_SYS = -I ./include -I /Users/pximenez/.brew/opt/readline/include
+LIB_SYS2 = -L /Users/pximenez/.brew/opt/readline/lib -lreadline
+
 SRC_DIR = srcs/
 READLINE = -lreadline
 
@@ -34,7 +38,7 @@ all : $(NAME)
 
 $(NAME): $(OBJS) $(LIBS)
 	@echo "$(MAGENTA)$(BOLD)Compiling minishell...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS) $(LIBS) $(READLINE)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(LIB_SYS) $(LIB_SYS2) -o $@ $(OBJS) $(LIBS) $(READLINE)
 	@echo "$(CYAN)$(BOLD)Done$(RESET)"
 
 $(LIBS):

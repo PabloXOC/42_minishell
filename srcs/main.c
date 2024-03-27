@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/03/27 12:05:01 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:01:00 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@ int	main(int argc, char **argv)
 	char	*input;
 
 	input = readline("pabloXOC$ ");
-	ft_printf("<<%s>>\n", input);
+	rl_clear_history();
+	printf("<<%s>>\n", input);
 }

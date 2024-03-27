@@ -1,3 +1,15 @@
+# Colors
+BOLD	:= \033[1m
+BLACK	:= \033[30;1m
+RED		:= \033[31;1m
+GREEN	:= \033[32;1m
+YELLOW	:= \033[33;1m
+BLUE	:= \033[34;1m
+MAGENTA	:= \033[35;1m
+CYAN	:= \033[36;1m
+WHITE	:= \033[37;1m
+RESET	:= \033[0m
+
 #compiler
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror
@@ -31,23 +43,28 @@ INCLUDES = libft.h ft_printf.h
 all: $(NAME)
 
 $(NAME): $(OBJS) $(OBJS_B) $(INCLUDES)
-	ar rcs $(NAME) $(OBJS)
-	ar rcs $(NAME) $(OBJS_B)
+	@echo "$(YELLOW)$(BOLD)Compiling libft...$(RESET)"
+	@ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS_B)
+	@echo "$(CYAN)$(BOLD)Done.$(RESET)"
 
 #$(SRCS_DIR)/%.o: $(SRCS_DIR)/%.c
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
-	rm -f $(OBJS_B)
+	@echo "$(YELLOW)$(BOLD)Cleaning objects from libft...$(RESET)"
+	@rm -f $(OBJS)
+	@rm -f $(OBJS_B)
+	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
+
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
 bonus: $(OBJS_B) $(INCLUDES)
-	ar rcs $(NAME) $(OBJS_B)
+	@ar rcs $(NAME) $(OBJS_B)
 
 .DEFAULT_GOAL := all

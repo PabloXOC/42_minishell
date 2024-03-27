@@ -20,6 +20,7 @@ LIB_DIR = libft/
 LIBS = $(LIB_DIR)libft.a
 INCLUDES = -I $(LIB_DIR) -I.
 SRC_DIR = srcs/
+READLINE = -lreadline
 
 # Files
 SRCS = $(SRC_DIR)main.c 
@@ -33,7 +34,7 @@ all : $(NAME)
 
 $(NAME): $(OBJS) $(LIBS)
 	@echo "$(MAGENTA)$(BOLD)Compiling minishell...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS) $(LIBS)
+	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS) $(LIBS) $(READLINE)
 	@echo "$(CYAN)$(BOLD)Done$(RESET)"
 
 $(LIBS):

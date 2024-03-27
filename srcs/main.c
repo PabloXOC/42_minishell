@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/03/27 13:01:00 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:04:42 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ int	main(int argc, char **argv)
 	char	*input;
 
 	input = readline("pabloXOC$ ");
-	rl_clear_history();
-	printf("<<%s>>\n", input);
+	rl_replace_line("hi");
+	ft_printf("<<%s>>\n", input);
 }

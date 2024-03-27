@@ -1,7 +1,4 @@
-#gcc so_long.c map.c check_map.c MLX42/libmlx42.a libft/libft.a -Iinclude -lglfw -L "/Users/pximenez/.brew/opt/glfw/lib/" -o so_long
-#gcc so_long.c map.c check_map.c MLX42/libmlx42.a libft/libft.a -Iinclude -ldl -lglfw -pthread -lm -o so_long
-
-#//= Colors =//#
+# Colors
 BOLD	:= \033[1m
 BLACK	:= \033[30;1m
 RED		:= \033[31;1m
@@ -48,9 +45,9 @@ $(LIBS):
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	@echo "$(RED)$(BOLD)Cleaning objects from minishell...$(RESET)"
+	@echo "$(MAGENTA)$(BOLD)Cleaning objects from minishell...$(RESET)"
 	@rm -f $(OBJS)
-	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
+	@echo "$(CYAN)$(BOLD)Done.$(RESET)"
 	@make -C $(LIB_DIR) clean
 
 fclean: clean

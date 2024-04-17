@@ -148,6 +148,6 @@ config/application.yml
 .gitignore
 test.c
 
-so_long
+minishell
 *.ber
 *.ar

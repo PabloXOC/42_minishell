@@ -6,29 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/25 12:48:16 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/25 14:13:48 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_mysignal;
-
-int	ft_samestr(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	if (ft_strlen(s1) != ft_strlen(s2))
-		return (EXIT_FAILURE);
-	while (s1[i])
-	{
-		if (s1[i] - s2[i] != 0)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
 
 int	ft_correct_input(char *input)
 {
@@ -96,6 +80,7 @@ t_command	*ft_parse_input(char *input, char **env)
 	i = 0;
 	command = (t_command *) malloc (sizeof (t_command));
 	command->command_parsed = ft_split(input, ' ');
+	command->n_words = ft_count_words(command->command_parsed);
 	if (ft_correct_input(command->command_parsed[0]) == EXIT_FAILURE)
 		return (NULL);
 	while (env[i] != 0)
@@ -135,7 +120,6 @@ int	minishell(char **env)
 		//pars_env TO DO
 		input = readline("pabloXOC$ ");
 		rl_on_new_line();
-		
 		if (ft_first_check(input) == EXIT_SUCCESS)
 		{
 			command = ft_parse_input(input, env);
@@ -143,7 +127,7 @@ int	minishell(char **env)
 		}
 		else
 		{
-			
+			;
 		}
 		//parse input TO DO
 		//find command TO DO
@@ -159,25 +143,3 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	minishell(env);
 }
-
-/* int main(int argc, char **argv, char **env)
-{
-	(void) argc;
-	(void) argv;
-	(void) env;
-	char *new_line = "New line content";
-
-	// Read a line of input
-	char *input = readline("Enter some text: ");
-
-	// Replace the input line with a new line
-	rl_replace_line(new_line, 0);
-
-	// Redisplay the input line with the new content
-	rl_redisplay();
-
-	// Free the memory allocated by Readline
-	free(input);
-
-	return 0;
-} */

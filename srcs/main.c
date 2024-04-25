@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/18 11:49:32 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/25 12:48:16 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,15 @@ t_command	*ft_parse_input(char *input, char **env)
 	return (command);
 }
 
+int	ft_first_check(char *input)
+{
+	if (ft_empty(input) == true)
+		return (EXIT_FAILURE);
+	if (ft_not_complete(input) == true)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 int	minishell(char **env)
 {
 	long		i;
@@ -126,8 +135,16 @@ int	minishell(char **env)
 		//pars_env TO DO
 		input = readline("pabloXOC$ ");
 		rl_on_new_line();
-		add_history(input);
-		command = ft_parse_input(input, env);
+		
+		if (ft_first_check(input) == EXIT_SUCCESS)
+		{
+			command = ft_parse_input(input, env);
+			add_history(input);
+		}
+		else
+		{
+			
+		}
 		//parse input TO DO
 		//find command TO DO
 		if (ft_strncmp(input, "pablo es muy guapo", 19) == 0)

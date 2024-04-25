@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/04/25 13:57:12 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/25 19:17:58 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,16 @@ int	ft_count_words(char **argv)
 	while (argv[i] != 0)
 		i++;
 	return (i);
+}
+
+void	print_char_pp(char **stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack[i] != NULL)
+	{
+		ft_printf("%s\n", stack[i]);
+		i++;
+	}
 }

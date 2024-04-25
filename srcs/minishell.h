@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/25 13:57:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/25 19:35:35 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,29 @@ typedef struct s_command
 	int		n_words;
 	char	**command_parsed;
 	char	*full_address;
-}		t_command;
+	char	*input;
+
+	int		paired;
+	int		exit;
+}			t_command;
 
 /*------PROTOYPES-------*/
 int				main(int argc, char **argv, char **env);
 
-
-//utils
+/*------UTILS------*/
 bool	ft_empty(char *input);
 bool	ft_there_is_equal(char *input);
-int		ft_samestr(const char *s1, const char *s2);
-int		ft_count_words(char **argv);
+int	ft_samestr(const char *s1, const char *s2);
+int	ft_count_words(char **argv);
+void	print_char_pp(char **stack);
+
+/*------INPUT------*/
+t_command	*command_init(void);
+int	ft_pair(char *input, char c, int i, t_command *command);
+bool	ft_not_complete(char *input, t_command *command);
+char	*ft_join_input(char *s1, char *s2);
+
+/*------COMMANDS------*/
+int	find_command(t_command *command, char **env);
 
 #endif

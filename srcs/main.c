@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/17 19:22:09 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/18 11:49:32 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*ft_full_command(t_command *command, char **paths)
 		}
 		if (access(full_path, F_OK) == 0)
 			return (full_path);
+		free(full_path);
 		i++;
 	}
 	return (NULL);

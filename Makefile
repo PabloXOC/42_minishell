@@ -11,6 +11,7 @@ WHITE	:= \033[37;1m
 RESET	:= \033[0m
 
 # Compilers
+EOF
 CC = cc
 CFLAGS = -g
 LIB_DIR = libft/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/26 13:23:27 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/26 13:31:57 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ int	minishell(char **env)
 		command = command_init();
 		if (command == NULL)
 			return (MALLOC_ERROR);
-		command->input = readline("pabloXOC$ ");
+		terminal_entry(command, env);
+		command->input = readline(command->entry);
 		if (ft_first_check(command) == SUCCESS)
 		{
 			if (ft_parse_input(command, env) == EXIT_FAILURE)

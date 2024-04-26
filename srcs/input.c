@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/26 13:15:52 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/26 13:25:13 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@ t_command	*command_init(void)
 	command->command_parsed = NULL;
 	command->full_address = NULL;
 	command->input = NULL;
+	command->n_words = 0;
 	command->paired = 0;
 	command->exit = 0;
+	command->user = NULL;
+	command->hostname = NULL;
+	command->dir = NULL;
+	command->entry = NULL;
 	return (command);
 }
 

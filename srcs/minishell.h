@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/26 13:11:19 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/26 13:27:54 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ typedef struct s_command
 	char	*full_address;
 	char	*input;
 
+	char	*user;
+	char	*hostname;
+	char	*dir;
+	char	*entry;
+
 	int		paired;
 	int		exit;
 }			t_command;
@@ -100,9 +105,14 @@ char		*ft_join_input(char *s1, char *s2);
 /*------COMMANDS------*/
 int			find_command(t_command *command, char **env);
 
-
-
+/*------WRITE------*/
 int			ft_write_error_i(t_cases case_code, t_command *command);
 char		*ft_write_error_c(t_cases case_code, t_command *command);
+
+/*------TERMINAL------*/
+int	get_user(t_command *command, char **env);
+//int	get_hostname();
+int	ft_get_dir(t_command *command, char **env);
+int	terminal_entry(t_command *command, char **env);
 
 #endif

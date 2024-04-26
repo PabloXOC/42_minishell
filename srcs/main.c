@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/25 19:38:08 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/26 12:21:25 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_parse_input(t_command *command, char **env)
 		}
 		i++;
 	}
-	command->full_address = ft_full_command(command, paths); //TO DO
+	command->full_address = ft_full_command(command, paths);
 	printf("Command: %s\n", command->full_address);
 	return (EXIT_SUCCESS);
 }

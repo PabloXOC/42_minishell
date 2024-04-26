@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/25 19:35:35 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/26 12:21:46 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,25 @@ typedef struct s_command
 	int		exit;
 }			t_command;
 
+typedef enum e_command_code
+{
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT
+}			t_command_code;
+
 /*------PROTOYPES-------*/
-int				main(int argc, char **argv, char **env);
+int		main(int argc, char **argv, char **env);
 
 /*------UTILS------*/
 bool	ft_empty(char *input);
 bool	ft_there_is_equal(char *input);
-int	ft_samestr(const char *s1, const char *s2);
-int	ft_count_words(char **argv);
+int		ft_samestr(const char *s1, const char *s2);
+int		ft_count_words(char **argv);
 void	print_char_pp(char **stack);
 
 /*------INPUT------*/

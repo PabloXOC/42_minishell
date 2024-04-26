@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/26 12:21:46 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/26 12:25:40 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 /*-------INCLUDES-------*/
 # include "../libft/ft_printf.h"
 # include "../libft/libft.h"
@@ -26,6 +27,13 @@
 # include <curses.h>
 # include <signal.h>
 # include <stdbool.h>
+
+typedef enum e_cases
+{
+	SUCCESS,
+	FAILURE,
+	INVALID_COMMAND
+}		t_cases;
 
 typedef struct s_command
 {

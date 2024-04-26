@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/26 12:21:25 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/04/26 12:24:38 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	minishell(char **env)
 		if (ft_first_check(command) == EXIT_SUCCESS)
 		{
 			if (ft_parse_input(command, env) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+				ft_printf("Command '%s' not found.\n", command->command_parsed[0]);
 			find_command(command, env);
 			add_history(command->input);
 		}

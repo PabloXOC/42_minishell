@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/25 19:32:25 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/26 13:15:52 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_command	*command_init(void)
 
 	command = (t_command *) malloc (sizeof (t_command));
 	if (command == NULL)
-		return (NULL);
+		return (ft_write_error_c(MALLOC_ERROR, command));
 	command->command_parsed = NULL;
 	command->full_address = NULL;
 	command->input = NULL;

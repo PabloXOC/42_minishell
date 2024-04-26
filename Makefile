@@ -25,7 +25,9 @@ SRC_DIR = srcs/
 READLINE = -lreadline
 
 # Files
-SRCS = $(SRC_DIR)main.c $(SRC_DIR)utils.c $(SRC_DIR)input.c $(SRC_DIR)commands.c
+SRCS = $(SRC_DIR)main.c $(SRC_DIR)utils.c $(SRC_DIR)input.c $(SRC_DIR)commands.c \
+	$(SRC_DIR)write.c
+
 OBJS = $(SRCS:.c=.o)
 
 # Executable name

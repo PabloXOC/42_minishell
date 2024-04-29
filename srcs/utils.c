@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/04/26 13:30:55 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:44:17 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,17 @@ void	print_char_pp(char **stack)
 		ft_printf("%s\n", stack[i]);
 		i++;
 	}
+}
+
+void	ft_free_char_pp(char **stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack[i] != NULL)
+	{
+		free(stack[i]);
+		i++;
+	}
+	free (stack);
 }

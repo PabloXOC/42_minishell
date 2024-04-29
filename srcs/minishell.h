@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/26 13:27:54 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:58:16 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,25 @@ typedef enum e_cases
 
 typedef struct s_command
 {
-	int		n_words;
-	char	**command_parsed;
-	char	*full_address;
-	char	*input;
+	int			n_words;
+	char		**command_parsed;
+	char		*full_address;
+	char		*input;
 
-	char	*user;
-	char	*hostname;
-	char	*dir;
-	char	*entry;
+	char		*user;
+	char		*hostname;
+	char		*dir;
+	char		*entry;
 
-	int		paired;
-	int		exit;
+	int			paired;
+	int			exit;
+
+	t_list	*command_list;
+	char		*create_var;
+	char		*redirect_input;
+	char		*redirect_output;
+	char		*limiter;
+	char		*append_output;
 }			t_command;
 
 typedef enum e_command_code
@@ -95,6 +102,7 @@ bool		ft_there_is_equal(char *input);
 int			ft_samestr(const char *s1, const char *s2);
 int			ft_count_words(char **argv);
 void		print_char_pp(char **stack);
+void	ft_free_char_pp(char **stack);
 
 /*------INPUT------*/
 t_command	*command_init(void);
@@ -104,6 +112,8 @@ char		*ft_join_input(char *s1, char *s2);
 
 /*------COMMANDS------*/
 int			find_command(t_command *command, char **env);
+void	save_commands(t_command *command);
+void	delete_commands(t_command *command);
 
 /*------WRITE------*/
 int			ft_write_error_i(t_cases case_code, t_command *command);

@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/26 13:25:13 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/29 15:54:08 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ t_command	*command_init(void)
 	command->hostname = NULL;
 	command->dir = NULL;
 	command->entry = NULL;
+	command->command_list = NULL;
+	command->create_var = NULL;
+	command->redirect_input = NULL;
+	command->redirect_output = NULL;
+	command->limiter = NULL;
+	command->append_output = NULL;
 	return (command);
 }
 

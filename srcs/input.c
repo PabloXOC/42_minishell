@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/29 15:54:08 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/30 13:54:59 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_command	*command_init(void)
 	command->redirect_output = NULL;
 	command->limiter = NULL;
 	command->append_output = NULL;
+	command->var = NULL;
 	return (command);
 }
 

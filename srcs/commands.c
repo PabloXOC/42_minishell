@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/04/29 17:01:00 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/30 14:07:03 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	find_command(t_command *command, char **env)
 	}
 	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
 	{
+		delete_var(command, command->command_parsed[1]);
 		return (EXIT_SUCCESS);
 	}
 	if (ft_strncmp(com, "env", ft_strlen(com)) == 0)

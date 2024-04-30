@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/29 16:57:58 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/30 13:54:46 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int	minishell(char **env)
 			if (ft_parse_input(command, env) == EXIT_FAILURE)
 				ft_printf("Command '%s' not found.\n", command->command_parsed[0]);
 			save_commands(command);
+			safe_var(command);
 			find_command(command, env);
 			add_history(command->input);
 			delete_commands(command);

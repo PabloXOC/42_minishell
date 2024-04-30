@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/29 16:58:16 by farah            ###   ########.fr       */
+/*   Updated: 2024/04/30 14:05:32 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef enum e_cases
 	INVALID_COMMAND
 }		t_cases;
 
+typedef struct s_var
+{
+	char			*var;
+	char			*content;
+	struct s_var	*next;
+}					t_var;
+
 typedef struct s_command
 {
 	int			n_words;
@@ -80,6 +87,7 @@ typedef struct s_command
 	char		*redirect_output;
 	char		*limiter;
 	char		*append_output;
+	t_var		*var;
 }			t_command;
 
 typedef enum e_command_code
@@ -124,5 +132,9 @@ int	get_user(t_command *command, char **env);
 //int	get_hostname();
 int	ft_get_dir(t_command *command, char **env);
 int	terminal_entry(t_command *command, char **env);
+
+/*------VARIABLES------*/
+int	safe_var(t_command *command);
+int	delete_var(t_command *command, char *var_to_del);
 
 #endif

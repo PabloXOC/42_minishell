@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/04/30 14:02:03 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 13:14:22 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,36 @@ int	safe_var(t_command *command)
 {
 	char	**equality;
 	t_var	*var;
+	t_var	*temp;
 
 	if (command->create_var != NULL)
 	{
 		equality = ft_split(command->create_var, '=');
 		if (equality == NULL)
 			return (MALLOC_ERROR);
-		var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
-		ft_free_char_pp(equality);
-		if (var == NULL)
-			return (MALLOC_ERROR);
 		if (command->var == NULL)
-			command->var = var;
-		else
+		{
+			command->var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
+			printf("YES");
+			ft_free_char_pp(equality);
+			if (command->var == NULL)
+				return (MALLOC_ERROR);
+		}
+		if (command->var != NULL)
+		{
+			var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
+			ft_free_char_pp(equality);
+			if (var == NULL)
+				return (MALLOC_ERROR);
 			ft_varadd_back(&command->var, var);
+			printf("var:%s, cont: %s\n", var->var, var->content);
+		}
+	}
+	temp = command->var;
+	while(temp != NULL)
+	{
+		printf("2var:%s, 2cont: %s\n", temp->var, temp->content);
+		temp = temp->next;
 	}
 	return (SUCCESS);
 }
@@ -104,18 +120,23 @@ int	safe_var(t_command *command)
 int	delete_var(t_command *command, char *var_to_del)
 {
 	t_var	*vars;
+	t_var	*temp_var;
 
 	vars = command->var;
-	while (vars != NULL)
+	printf("HELLOOO\n");
+	while (vars->next != NULL)
 	{
 		if (vars->content != NULL && vars->var != NULL)
 		{
 			if (ft_strncmp(vars->var, var_to_del, ft_strlen(var_to_del)) == 0)
 			{
-				free(vars->content);
-				free(vars->var);
-				vars->content = NULL;
-				vars->var = NULL;
+				temp_var = vars->next;
+				printf("one: %s\n", temp_var->var);
+				vars->next = vars->next->next;
+				printf("two: %s\n", temp_var->var);
+				free(temp_var->content);
+				free(temp_var->var);
+				free(temp_var);
 				return (SUCCESS);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/04/30 14:07:03 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 12:45:26 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static int	write_in_command(t_command *command, int i)
 			return (MALLOC_ERROR);
 		i++;
 	}
-	print_char_pp(full_command);
+	//print_char_pp(full_command);
 	com = ft_lstnew(full_command);
 	if (com == NULL)
 		return (MALLOC_ERROR);

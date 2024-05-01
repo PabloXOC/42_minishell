@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/05/01 14:00:02 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 14:01:33 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	safe_var(t_command *command)
 {
 	char	**equality;
 	t_var	*var;
-	t_var	*temp;
 
 	if (command->create_var != NULL)
 	{
@@ -106,12 +105,6 @@ int	safe_var(t_command *command)
 			ft_varadd_back(&command->var, var);
 		}
 	}
-	temp = command->var;
-	while(temp != NULL)
-	{
-		printf("2var:%s, 2cont: %s\n", temp->var, temp->content);
-		temp = temp->next;
-	}
 	return (SUCCESS);
 }
 
@@ -125,7 +118,6 @@ int	delete_var(t_command *command, char *var_to_del)
 	{
 		if (vars->next->content != NULL && vars->next->var != NULL)
 		{
-			printf("YES");
 			if (ft_strncmp(vars->next->var, var_to_del, ft_strlen(var_to_del)) == 0)
 			{
 				temp_var = vars->next;

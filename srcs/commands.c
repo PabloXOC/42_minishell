@@ -6,17 +6,17 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/05/01 13:28:01 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 14:49:08 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_command(t_command *command, char **env)
+int	find_command(t_command *command, t_list *full_com, char **env)
 {
 	char	*com;
 
-	com = command->command_parsed[0];
+	com = full_com->content[0];
 	if (ft_strncmp(com, "echo", ft_strlen(com)) == 0)
 	{
 		return (EXIT_SUCCESS);
@@ -35,7 +35,7 @@ int	find_command(t_command *command, char **env)
 	}
 	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
 	{
-		delete_var(command, command->command_parsed[1]);
+		delete_var(command, full_com->content[1]);
 		return (EXIT_SUCCESS);
 	}
 	if (ft_strncmp(com, "env", ft_strlen(com)) == 0)
@@ -96,14 +96,19 @@ static int	write_in_command(t_command *command, int i)
 			return (MALLOC_ERROR);
 		i++;
 	}
-	//print_char_pp(full_command);
-	com = ft_lstnew(full_command);
-	if (com == NULL)
-		return (MALLOC_ERROR);
-	if (command->command_list != NULL)
-		ft_lstadd_back(&command->command_list, com);
+	if (command->command_list == NULL)
+	{
+		command->command_list = ft_lstnew(full_command);
+		if (command->command_list == NULL)
+			return (MALLOC_ERROR);
+	}
 	else
-		command->command_list = com;
+	{
+		com = ft_lstnew(full_command);
+		if (com == NULL)
+			return (MALLOC_ERROR);
+		ft_lstadd_back(&command->command_list, com);
+	}
 	return (i);
 }
 

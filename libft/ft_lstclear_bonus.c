@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:25:20 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/29 16:45:23 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 14:05:02 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	free(content);
 } */
 
-void	ft_lstclear(t_list **lst, void (*del)(void **))
+void	ft_lstclear(t_list **lst, void (*del)(char **))
 {
 	t_list	*int_list;
 

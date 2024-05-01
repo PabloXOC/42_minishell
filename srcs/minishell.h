@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/30 14:05:32 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 14:47:24 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ bool		ft_not_complete(char *input, t_command *command);
 char		*ft_join_input(char *s1, char *s2);
 
 /*------COMMANDS------*/
-int			find_command(t_command *command, char **env);
+int	find_command(t_command *command, t_list *com, char **env);
 void	save_commands(t_command *command);
 void	delete_commands(t_command *command);
 

@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:25:20 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/29 16:46:05 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 14:05:08 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	free(content);
 } */
 
-void	ft_lstdelone(t_list *lst, void (*del)(void **))
+void	ft_lstdelone(t_list *lst, void (*del)(char **))
 {
 	if (lst != NULL)
 		del(lst->content);

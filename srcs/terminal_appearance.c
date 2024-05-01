@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/05/01 13:20:08 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 13:22:46 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_user(t_command *command, char **env)
 	i = 0;
 	while (env[i] != 0)
 	{
-		if (ft_strncmp(env[i], "LOGNAME=", 9) == 0)
+		if (ft_strncmp(env[i], "LOGNAME=", 7) == 0)
 		{
 			command->user = ft_strtrim(env[i], "LOGNAME=");
 			if (command->user == NULL)

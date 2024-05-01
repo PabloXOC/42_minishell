@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/05/01 13:14:22 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 14:00:02 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,17 @@ int	safe_var(t_command *command)
 		if (command->var == NULL)
 		{
 			command->var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
-			printf("YES");
 			ft_free_char_pp(equality);
 			if (command->var == NULL)
 				return (MALLOC_ERROR);
 		}
-		if (command->var != NULL)
+		else
 		{
 			var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
 			ft_free_char_pp(equality);
 			if (var == NULL)
 				return (MALLOC_ERROR);
 			ft_varadd_back(&command->var, var);
-			printf("var:%s, cont: %s\n", var->var, var->content);
 		}
 	}
 	temp = command->var;
@@ -123,17 +121,15 @@ int	delete_var(t_command *command, char *var_to_del)
 	t_var	*temp_var;
 
 	vars = command->var;
-	printf("HELLOOO\n");
 	while (vars->next != NULL)
 	{
-		if (vars->content != NULL && vars->var != NULL)
+		if (vars->next->content != NULL && vars->next->var != NULL)
 		{
-			if (ft_strncmp(vars->var, var_to_del, ft_strlen(var_to_del)) == 0)
+			printf("YES");
+			if (ft_strncmp(vars->next->var, var_to_del, ft_strlen(var_to_del)) == 0)
 			{
 				temp_var = vars->next;
-				printf("one: %s\n", temp_var->var);
 				vars->next = vars->next->next;
-				printf("two: %s\n", temp_var->var);
 				free(temp_var->content);
 				free(temp_var->var);
 				free(temp_var);

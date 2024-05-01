@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/30 13:54:46 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 13:30:44 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,12 @@ int	minishell(char **env)
 	long		i;
 	t_command	*command;
 
+	command = command_init();
+	if (command == NULL)
+		return (MALLOC_ERROR);
+	terminal_entry(command, env);
 	while (g_mysignal == 0)
 	{
-		command = command_init();
-		if (command == NULL)
-			return (MALLOC_ERROR);
-		terminal_entry(command, env);
 		command->input = readline(command->entry);
 		if (ft_first_check(command) == SUCCESS)
 		{

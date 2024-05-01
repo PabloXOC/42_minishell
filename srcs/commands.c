@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/05/01 12:45:26 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 13:28:01 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,6 @@ void	delete_commands(t_command *command)
 	command->append_output = NULL;
 	ft_lstclear(&command->command_list, &ft_free_char_pp);
 	command->command_list = NULL;
+	ft_free_char_pp(command->command_parsed);
+	command->command_parsed = NULL;
 }

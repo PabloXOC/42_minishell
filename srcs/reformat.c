@@ -1,0 +1,102 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reformat.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
+/*   Updated: 2024/05/01 15:48:36 by paxoc01          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+static int	ft_count_sep_char(char *input)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (input[i] != 0)
+	{
+		if ((input[i] == '<' && input[i + 1] == '<') || (input[i] == '>' && input[i + 1] == '>'))
+		{
+			count +=2;
+			i +=2;
+		}
+		else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
+		{
+			count +=2;
+			i++;
+		}
+		else
+			i++;
+	}
+	return (count);
+}
+
+static char	*ft_paste_char(char *output, char *added, int pos, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		output[pos + i] = added[i];
+		i++;
+	}
+	return (output);
+}
+
+static void	ft_ifs(char *input, char *output, int i, int j)
+{
+	if (input[j] == '<')
+		ft_paste_char(output, " < ", i, 3);
+	if (input[j] == '>')
+		ft_paste_char(output, " > ", i, 3);
+	if (input[j] == '|')
+		ft_paste_char(output, " | ", i, 3);
+}
+
+static char	*ft_make_new_string(char *input,char *output, int i, int j)
+{
+	while (input[++j] != 0)
+	{
+		if ((input[j] == '<' && input[j + 1] == '<') || (input[j] == '>' && input[j + 1] == '>'))
+		{
+			if (input[j] == '<')
+				ft_paste_char(output, " << ", i, 4);
+			else
+				ft_paste_char(output, " >> ", i, 4);
+			i += 3;
+			j += 1;
+		}
+		else if (input[j] == '<' || input[j] == '>' || input[j] == '|')
+		{
+			ft_ifs(input, output, i, j);
+			i += 2;
+		}
+		else
+			output[i] = input[j];
+		i++;
+	}
+	return (output);
+}
+
+
+
+char	*ft_reformat_input(char *input)
+{
+	int		n_sep;
+	char	*output;
+	
+	n_sep = ft_count_sep_char(input);
+	output = (char *) malloc ((ft_strlen(input) + n_sep + 1) * sizeof(char));
+	if (!output)
+		return (NULL);
+	output = ft_memset(output, 100, ft_strlen(input) + n_sep);
+	output = ft_make_new_string(input, output, 0, -1);
+	return (output);
+}

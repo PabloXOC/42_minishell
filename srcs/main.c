@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/01 13:30:44 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 15:51:00 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int	minishell(char **env)
 				ft_printf("Command '%s' not found.\n", command->command_parsed[0]);
 			save_commands(command);
 			safe_var(command);
-			find_command(command, env);
+			//find_command(command, env);
 			add_history(command->input);
 			delete_commands(command);
 		}
@@ -147,10 +147,13 @@ int	minishell(char **env)
 	return (EXIT_SUCCESS);
 }
 
+
+
 int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
+	printf("%s\n", ft_reformat_input("hola qu>>e ta<>>l me l<<<lamo < pablo"));
 	if (minishell(env) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

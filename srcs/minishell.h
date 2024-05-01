@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/01 14:47:24 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/01 15:49:04 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,9 @@ int	terminal_entry(t_command *command, char **env);
 /*------VARIABLES------*/
 int	safe_var(t_command *command);
 int	delete_var(t_command *command, char *var_to_del);
+
+/*------REFORMAT------*/
+char	*ft_reformat_input(char *input);
+
 
 #endif

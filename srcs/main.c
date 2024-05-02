@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/01 15:51:00 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/02 19:42:57 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,12 @@ int	minishell(char **env)
 }
 
 
-
 int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
-	printf("%s\n", ft_reformat_input("hola qu>>e ta<>>l me l<<<lamo < pablo"));
-	if (minishell(env) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	printf("%s\n", ft_reformat_input("hola \\\\\\\\que tal\\\\\\ me llamo \\pablo\\\\"));
+	/* if (minishell(env) == EXIT_FAILURE)
+		return (EXIT_FAILURE); */
 	return (EXIT_SUCCESS);
 }

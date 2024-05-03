@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/04/30 13:54:59 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/03 17:29:44 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,38 @@
 
 t_command	*command_init(void)
 {
-	t_command	*command;
+	t_data	*data;
 
-	command = (t_command *) malloc (sizeof (t_command));
-	if (command == NULL)
-		return (ft_write_error_c(MALLOC_ERROR, command));
-	command->command_parsed = NULL;
-	command->full_address = NULL;
-	command->input = NULL;
-	command->n_words = 0;
-	command->paired = 0;
-	command->exit = 0;
-	command->user = NULL;
-	command->hostname = NULL;
-	command->dir = NULL;
-	command->entry = NULL;
-	command->command_list = NULL;
-	command->create_var = NULL;
-	command->redirect_input = NULL;
-	command->redirect_output = NULL;
-	command->limiter = NULL;
-	command->append_output = NULL;
-	command->var = NULL;
-	return (command);
+	data = (t_command *) malloc (sizeof (t_command));
+	if (data == NULL)
+		return (ft_write_error_c(MALLOC_ERROR, data));
+	data->command_parsed = NULL;
+	data->full_address = NULL;
+	data->input = NULL;
+	data->n_words = 0;
+	data->paired = 0;
+	data->exit = 0;
+	data->user = NULL;
+	data->hostname = NULL;
+	data->dir = NULL;
+	data->entry = NULL;
+	data->command_list = NULL;
+	data->create_var = NULL;
+	data->redirect_input = NULL;
+	data->redirect_output = NULL;
+	data->limiter = NULL;
+	data->append_output = NULL;
+	data->var = NULL;
+	return (data);
 }
 
-int	ft_pair(char *input, char c, int i, t_command *command)
+int	ft_pair(char *input, char c, int i, t_data *data)
 {
 	while (input[i] != 0)
 	{
 		if (input[i] == c)
 		{
-			command->paired = 2;
+			data->paired = 2;
 			i++;
 			break ;
 		}
@@ -54,7 +54,7 @@ int	ft_pair(char *input, char c, int i, t_command *command)
 	return (i);
 }
 
-bool	ft_not_complete(char *input, t_command *command)
+bool	ft_not_complete(char *input, t_data *data)
 {
 	int	i;
 
@@ -63,11 +63,11 @@ bool	ft_not_complete(char *input, t_command *command)
 	{
 		if (input[i] == '"' || input[i] == '\'')
 		{
-			command->paired = 1;
-			i = ft_pair(input, input[i], i + 1, command);
-			if (command->paired == 1)
+			data->paired = 1;
+			i = ft_pair(input, input[i], i + 1, data);
+			if (data->paired == 1)
 			{
-				command->paired = 0;
+				data->paired = 0;
 				return (true);
 			}
 		}

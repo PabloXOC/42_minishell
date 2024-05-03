@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/02 19:42:57 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/03 17:28:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_join_path_command(char *command, char **paths, int i)
 	return (str2);
 }
 
-char	*ft_full_command(t_command *command, char **paths)
+char	*ft_full_command(t_data *data, char **paths)
 {
 	int		i;
 	char	*full_path;
@@ -57,7 +57,7 @@ char	*ft_full_command(t_command *command, char **paths)
 	i = 0;
 	while (paths[i] != 0)
 	{
-		full_path = ft_join_path_command(command->command_parsed[0], paths, i);
+		full_path = ft_join_path_command(data->input_split[0], paths, i);
 		if (full_path == NULL)
 			return (NULL);
 		if (access(full_path, F_OK) == 0)
@@ -68,17 +68,17 @@ char	*ft_full_command(t_command *command, char **paths)
 	return (NULL);
 }
 
-int	ft_parse_input(t_command *command, char **env)
+int	ft_parse_input(t_data *data, char **env)
 {
 	char		**paths;
 	int			i;
 
 	i = 0;
-	command->command_parsed = ft_split(command->input, ' ');
-	if (command->command_parsed == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, command));
-	command->n_words = ft_count_words(command->command_parsed);
-	if (ft_correct_input(command->command_parsed[0]) == FAILURE)
+	data->split_input = ft_split(data->input, ' ');
+	if (data->split_imput == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	data->n_words = ft_count_words(data->input_split);
+	if (ft_correct_input(data->input_split[0]) == FAILURE)
 		return (FAILURE);
 	while (env[i] != 0)
 	{
@@ -86,31 +86,31 @@ int	ft_parse_input(t_command *command, char **env)
 		{
 			paths = ft_split(ft_strchr(env[i], '/'), ':');
 			if (paths == NULL)
-				return (ft_write_error_i(MALLOC_ERROR, command));
+				return (ft_write_error_i(MALLOC_ERROR, data));
 			break ;
 		}
 		i++;
 	}
-	command->full_address = ft_full_command(command, paths);
-	printf("Command: %s\n", command->full_address);
+	data->full_address = ft_full_command(data, paths);
+	printf("Command: %s\n", data->full_address);
 	return (SUCCESS);
 }
 
-int	ft_first_check(t_command *command)
+int	ft_first_check(t_data *data)
 {
 	char	*more_input;
 	char	*joined_input;
 	char	*temp_input;
 
-	if (ft_empty(command->input) == true)
+	if (ft_empty(data->input) == true)
 		return (EMPTY);
-	while (ft_not_complete(command->input, command) == true)
+	while (ft_not_complete(data->input, data) == true)
 	{
-		command->input = ft_join_input(command->input, "\n");
-		if (command->input == NULL)
-			return (ft_write_error_c(MALLOC_ERROR, command));
+		data->input = ft_join_input(data->input, "\n");
+		if (data->input == NULL)
+			return (ft_write_error_c(MALLOC_ERROR, data));
 		more_input = readline("> ");
-		command->input = ft_strjoin(command->input, more_input);
+		data->input = ft_strjoin(data->input, more_input);
 		free(more_input);
 	}
 	return (SUCCESS);
@@ -119,28 +119,28 @@ int	ft_first_check(t_command *command)
 int	minishell(char **env)
 {
 	long		i;
-	t_command	*command;
+	t_data	*data;
 
-	command = command_init();
-	if (command == NULL)
+	data = command_init();
+	if (data == NULL)
 		return (MALLOC_ERROR);
-	terminal_entry(command, env);
+	terminal_entry(data, env);
 	while (g_mysignal == 0)
 	{
-		command->input = readline(command->entry);
-		if (ft_first_check(command) == SUCCESS)
+		data->input = readline(data->entry);
+		if (ft_first_check(data) == SUCCESS)
 		{
-			if (ft_parse_input(command, env) == EXIT_FAILURE)
-				ft_printf("Command '%s' not found.\n", command->command_parsed[0]);
-			save_commands(command);
-			safe_var(command);
+			if (ft_parse_input(data, env) == EXIT_FAILURE)
+				ft_printf("Command '%s' not found.\n", data->input_split[0]);
+			save_commands(data);
+			safe_var(data);
 			//find_command(command, env);
-			add_history(command->input);
-			delete_commands(command);
+			add_history(data->input);
+			delete_commands(data);
 		}
 		//parse input TO DO
 		//find command TO DO
-		if (command->exit == 1)
+		if (data->exit == 1)
 			g_mysignal = 1;
 	}
 	rl_clear_history();
@@ -152,8 +152,8 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
-	printf("%s\n", ft_reformat_input("hola \\\\\\\\que tal\\\\\\ me llamo \\pablo\\\\"));
-	/* if (minishell(env) == EXIT_FAILURE)
-		return (EXIT_FAILURE); */
+	//printf("%s\n", ft_reformat_input("hola \\\\\\\\que tal\\\\\\ me llamo \\pablo\\\\"));
+	if (minishell(env) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

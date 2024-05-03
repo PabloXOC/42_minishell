@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/01 15:49:04 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/03 17:22:02 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,33 +62,40 @@ typedef enum e_cases
 typedef struct s_var
 {
 	char			*var;
-	char			*content;
-	struct s_var	*next;
+	char			**content;
+	t_var			*next;
 }					t_var;
 
 typedef struct s_command
 {
-	int			n_words;
-	char		**command_parsed;
-	char		*full_address;
+	char			**content;
+	char			*full_path;
+	t_command		*next;
+}					t_command;
+
+typedef struct s_data
+{
+	char		**input_split;
 	char		*input;
 
+	//for terminal entry information
 	char		*user;
 	char		*hostname;
 	char		*dir;
 	char		*entry;
 
-	int			paired;
-	int			exit;
+	int			paired; //to deal with '' ""
+	int			exit; //if command == exit
 
-	t_list	*command_list;
-	char		*create_var;
-	char		*redirect_input;
-	char		*redirect_output;
-	char		*limiter;
-	char		*append_output;
-	t_var		*var;
-}			t_command;
+	t_command	*command_list; //list of the commands in the input + command info
+	char		*text_input; //     < or <<
+	char		*redirect_input; // file name if we have a <
+	char		*redirect_output; // file name if we have a > or >>
+	char		*limiter; // string that stops <<
+	bool		append_output; // boolean for (true == >>) & (false == >)
+	t_var		*var; //list of all variables
+	t_var		*var_export; //list of all export variables
+}			t_data;
 
 typedef enum e_command_code
 {

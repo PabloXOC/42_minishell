@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/05/01 14:01:33 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/04 14:29:40 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,41 +79,41 @@ void	ft_vardelone(t_var *var)
 	free(var);
 }
 
-int	safe_var(t_command *command)
+int	save_variables(t_data *data)
 {
 	char	**equality;
 	t_var	*var;
 
-	if (command->create_var != NULL)
+	if (data->create_var != NULL)
 	{
-		equality = ft_split(command->create_var, '=');
+		equality = ft_split(data->create_var, '=');
 		if (equality == NULL)
-			return (MALLOC_ERROR);
-		if (command->var == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		if (data->var == NULL)
 		{
-			command->var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
+			data->var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
 			ft_free_char_pp(equality);
-			if (command->var == NULL)
-				return (MALLOC_ERROR);
+			if (data->var == NULL)
+				return (ft_write_error_i(MALLOC_ERROR, data));
 		}
 		else
 		{
 			var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
 			ft_free_char_pp(equality);
 			if (var == NULL)
-				return (MALLOC_ERROR);
-			ft_varadd_back(&command->var, var);
+				return (ft_write_error_i(MALLOC_ERROR, data));
+			ft_varadd_back(&data->var, var);
 		}
 	}
 	return (SUCCESS);
 }
 
-int	delete_var(t_command *command, char *var_to_del)
+int	delete_var(t_data *data, char *var_to_del)
 {
 	t_var	*vars;
 	t_var	*temp_var;
 
-	vars = command->var;
+	vars = data->var;
 	while (vars->next != NULL)
 	{
 		if (vars->next->content != NULL && vars->next->var != NULL)

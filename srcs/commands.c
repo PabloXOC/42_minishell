@@ -3,64 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/05/01 14:49:08 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/04 14:27:21 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_command(t_command *command, t_list *full_com, char **env)
+int	find_command(t_data *data, t_list *full_com, char **env)
 {
 	char	*com;
 
 	com = full_com->content[0];
 	if (ft_strncmp(com, "echo", ft_strlen(com)) == 0)
 	{
-		return (EXIT_SUCCESS);
+		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
 	{
-		return (EXIT_SUCCESS);
+		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "pwd", ft_strlen(com)) == 0)
 	{
-		return (EXIT_SUCCESS);
+		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "export", ft_strlen(com)) == 0)
 	{
-		return (EXIT_SUCCESS);
+		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
 	{
-		delete_var(command, full_com->content[1]);
-		return (EXIT_SUCCESS);
+		delete_var(data, full_com->content[1]);
+		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "env", ft_strlen(com)) == 0)
 		print_char_pp(env);
 	if (ft_strncmp(com, "exit", ft_strlen(com)) == 0)
 	{
-		command->exit = 1;
-		return (EXIT_SUCCESS);
+		data->exit = true;
+		return (SUCCESS);
 	}
+	return (INVALID_COMMAND);
 }
 
-static int	length_command(t_command *command, int i)
+static int	length_command(t_data *data, int i)
 {
 	int	len;
 
 	len = 0;
-	while (command->command_parsed[i] != NULL && ft_strncmp(command->command_parsed[i], "|", 1) != 0)
+	while (data->input_split[i] != NULL && ft_strncmp(data->input_split[i], "|", 1) != 0)
 	{
-		if (ft_strncmp(command->command_parsed[i], "<", 1) == 0)
+		if (ft_strncmp(data->input_split[i], "<", 1) == 0)
 			i++;
-		else if (ft_strncmp(command->command_parsed[i], ">", 1) == 0)
+		else if (ft_strncmp(data->input_split[i], ">", 1) == 0)
 			i++;
-		else if (ft_strncmp(command->command_parsed[i], "<<", 2) == 0)
+		else if (ft_strncmp(data->input_split[i], "<<", 2) == 0)
 			i++;
-		else if (ft_strncmp(command->command_parsed[i], ">>", 2) == 0)
+		else if (ft_strncmp(data->input_split[i], ">>", 2) == 0)
 			i++;
 		else
 			len++;
@@ -69,37 +70,37 @@ static int	length_command(t_command *command, int i)
 	return (len);
 }
 
-static int	write_in_command(t_command *command, int i)
+static int	write_in_command(t_data *data, int i)
 {
 	t_list	*com;
 	char	**full_command;
 	int		pos_command;
 
-	full_command = (char **)malloc((length_command(command, i) + 1)*sizeof(char *));
+	full_command = (char **)malloc((length_command(data, i) + 1)*sizeof(char *));
 	if (full_command == NULL)
 		return (MALLOC_ERROR);
-	full_command[length_command(command, i)] = NULL;
+	full_command[length_command(data, i)] = NULL;
 	pos_command = 0;
-	while (command->command_parsed[i] != NULL && ft_strncmp(command->command_parsed[i], "|", 1) != 0)
+	while (data->input_split[i] != NULL && ft_strncmp(data->input_split[i], "|", 1) != 0)
 	{
-		if (ft_strncmp(command->command_parsed[i], "<", 1) == 0)
-			command->redirect_input = command->command_parsed[++i];
-		else if (ft_strncmp(command->command_parsed[i], ">", 1) == 0)
-			command->redirect_output = command->command_parsed[++i];
-		else if (ft_strncmp(command->command_parsed[i], "<<", 2) == 0)
-			command->limiter = command->command_parsed[++i];
-		else if (ft_strncmp(command->command_parsed[i], ">>", 2) == 0)
-			command->append_output = command->command_parsed[++i];
+		if (ft_strncmp(data->input_split[i], "<", 1) == 0)
+			data->redirect_input = data->input_split[++i];
+		else if (ft_strncmp(data->input_split[i], ">", 1) == 0)
+			data->redirect_output = data->input_split[++i];
+		else if (ft_strncmp(data->input_split[i], "<<", 2) == 0)
+			data->limiter = data->input_split[++i];
+		else if (ft_strncmp(data->input_split[i], ">>", 2) == 0)
+			data->append_output = data->input_split[++i];
 		else
-			full_command[pos_command++] = ft_strdup(command->command_parsed[i]);
+			full_command[pos_command++] = ft_strdup(data->input_split[i]);
 		if (full_command[pos_command - 1] == NULL)
 			return (MALLOC_ERROR);
 		i++;
 	}
-	if (command->command_list == NULL)
+	if (data->command_list == NULL)
 	{
-		command->command_list = ft_lstnew(full_command);
-		if (command->command_list == NULL)
+		data->command_list = ft_lstnew(full_command);
+		if (data->command_list == NULL)
 			return (MALLOC_ERROR);
 	}
 	else
@@ -107,35 +108,35 @@ static int	write_in_command(t_command *command, int i)
 		com = ft_lstnew(full_command);
 		if (com == NULL)
 			return (MALLOC_ERROR);
-		ft_lstadd_back(&command->command_list, com);
+		ft_lstadd_back(&data->command_list, com);
 	}
 	return (i);
 }
 
-void	save_commands(t_command *command)
+int	save_commands(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (command->command_parsed[i] != NULL)
+	while (data->input_split[i] != NULL)
 	{
-		if (i == 0 && ft_strrchr(command->command_parsed[i], '=') != NULL)
-			command->create_var = command->command_parsed[i++];
-		i = write_in_command(command, i);
-		if (command->command_parsed[i] != NULL)
+		if (i == 0 && ft_strrchr(data->input_split[i], '=') != NULL)
+			data->create_var = data->input_split[i++];
+		i = write_in_command(data, i);
+		if (data->input_split[i] != NULL)
 			i++;
 	}
 }
 
-void	delete_commands(t_command *command)
+void	delete_commands(t_data *data)
 {
-	command->create_var = NULL;
-	command->redirect_input = NULL;
-	command->redirect_output = NULL;
-	command->limiter = NULL;
-	command->append_output = NULL;
-	ft_lstclear(&command->command_list, &ft_free_char_pp);
-	command->command_list = NULL;
-	ft_free_char_pp(command->command_parsed);
-	command->command_parsed = NULL;
+	data->create_var = NULL;
+	data->redirect_input = NULL;
+	data->redirect_output = NULL;
+	data->limiter = NULL;
+	data->append_output = NULL;
+	ft_lstclear(&data->command_list, &ft_free_char_pp);
+	data->command_list = NULL;
+	ft_free_char_pp(data->input_split);
+	data->input_split = NULL;
 }

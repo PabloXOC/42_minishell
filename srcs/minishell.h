@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/03 17:22:02 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/04 14:31:21 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_data
 	char		*entry;
 
 	int			paired; //to deal with '' ""
-	int			exit; //if command == exit
+	bool		exit; //if command == exit
 
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
@@ -95,6 +95,9 @@ typedef struct s_data
 	bool		append_output; // boolean for (true == >>) & (false == >)
 	t_var		*var; //list of all variables
 	t_var		*var_export; //list of all export variables
+
+	//errors
+	bool		malloc_error;
 }			t_data;
 
 typedef enum e_command_code
@@ -117,35 +120,35 @@ bool		ft_there_is_equal(char *input);
 int			ft_samestr(const char *s1, const char *s2);
 int			ft_count_words(char **argv);
 void		print_char_pp(char **stack);
-void	ft_free_char_pp(char **stack);
+void		ft_free_char_pp(char **stack);
 
 /*------INPUT------*/
-t_command	*command_init(void);
-int			ft_pair(char *input, char c, int i, t_command *command);
-bool		ft_not_complete(char *input, t_command *command);
+t_data		*data_init(void);
+int			ft_pair(char *input, char c, int i, t_data *data);
+bool		ft_not_complete(char *input, t_data *data);
 char		*ft_join_input(char *s1, char *s2);
 
 /*------COMMANDS------*/
-int	find_command(t_command *command, t_list *com, char **env);
-void	save_commands(t_command *command);
-void	delete_commands(t_command *command);
+int			find_command(t_data *data, t_list *com, char **env);
+int			save_commands(t_data *data);
+void		delete_commands(t_data *data);
 
 /*------WRITE------*/
-int			ft_write_error_i(t_cases case_code, t_command *command);
-char		*ft_write_error_c(t_cases case_code, t_command *command);
+int			ft_write_error_i(t_cases case_code, t_data *data);
+char		*ft_write_error_c(t_cases case_code, t_data *data);
 
 /*------TERMINAL------*/
-int	get_user(t_command *command, char **env);
+int			get_user(t_data *data, char **env);
 //int	get_hostname();
-int	ft_get_dir(t_command *command, char **env);
-int	terminal_entry(t_command *command, char **env);
+int			ft_get_dir(t_data *data, char **env);
+int			terminal_entry(t_data *data, char **env);
 
 /*------VARIABLES------*/
-int	safe_var(t_command *command);
-int	delete_var(t_command *command, char *var_to_del);
+
+int			delete_var(t_data *data, char *var_to_del);
 
 /*------REFORMAT------*/
-char	*ft_reformat_input(char *input);
+char		*ft_reformat_input(char *input, t_data *data);
 
 
 #endif

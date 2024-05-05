@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_appearance.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/05/01 13:22:46 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/04 13:47:12 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_user(t_command *command, char **env)
+int	get_user(t_data *data, char **env)
 {
 	int	i;
 
@@ -21,9 +21,9 @@ int	get_user(t_command *command, char **env)
 	{
 		if (ft_strncmp(env[i], "LOGNAME=", 7) == 0)
 		{
-			command->user = ft_strtrim(env[i], "LOGNAME=");
-			if (command->user == NULL)
-				return (FAILURE);
+			data->user = ft_strtrim(env[i], "LOGNAME=");
+			if (data->user == NULL)
+				return (ft_write_error_i(MALLOC_ERROR, data));
 		}
 		i++;
 	}
@@ -32,7 +32,7 @@ int	get_user(t_command *command, char **env)
 
 /* int	get_hostname(); */
 
-int	ft_get_dir(t_command *command, char **env)
+int	ft_get_dir(t_data *data, char **env)
 {
 	int	i;
 
@@ -41,37 +41,37 @@ int	ft_get_dir(t_command *command, char **env)
 	{
 		if (ft_strncmp(env[i], "PWD=", 4) == 0)
 		{
-			command->dir = ft_strtrim(env[i], "PWD=");
-			if (command->dir == NULL)
-				return (FAILURE);
+			data->dir = ft_strtrim(env[i], "PWD=");
+			if (data->dir == NULL)
+				return (ft_write_error_i(MALLOC_ERROR, data));
 		}
 		i++;
 	}
 	return (SUCCESS);
 }
 
-int	terminal_entry(t_command *command, char **env)
+int	terminal_entry(t_data *data, char **env)
 {
 	int	len_user;
 	int	len_dir;
 	int	len_hostname;
 	char	*entry;
 
-	if (get_user(command, env) == FAILURE || ft_get_dir(command, env) == FAILURE)
-		return (FAILURE);
-	len_user = ft_strlen(command->user);
-	len_dir = ft_strlen(command->dir);
+	if (get_user(data, env) == MALLOC_ERROR || ft_get_dir(data, env) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
+	len_user = ft_strlen(data->user);
+	len_dir = ft_strlen(data->dir);
 	len_hostname = ft_strlen("faraway");
 	entry = (char *)malloc((len_user + len_dir + len_hostname + 5));
 	if (entry == NULL)
-		return (FAILURE);
-	ft_memcpy(&entry[0], command->user, len_user);
+		return (MALLOC_ERROR);
+	ft_memcpy(&entry[0], data->user, len_user);
 	ft_memcpy(&entry[len_user], "@", 1);
 	ft_memcpy(&entry[len_user + 1], "faraway", len_hostname);
 	ft_memcpy(&entry[len_user + 1 + len_hostname], ":", 1);
-	ft_memcpy(&entry[len_user + 2 + len_hostname], command->dir, len_dir);
+	ft_memcpy(&entry[len_user + 2 + len_hostname], data->dir, len_dir);
 	ft_memcpy(&entry[len_user + 2 + len_hostname + len_dir], "$ ", 2);
 	entry[len_user + 4 + len_hostname + len_dir] = 0;
-	command->entry = entry;
+	data->entry = entry;
 	return (SUCCESS);
 }

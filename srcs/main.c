@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/03 17:28:22 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/04 14:38:28 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,14 @@
 
 int	g_mysignal;
 
-int	ft_correct_input(char *input)
+g_mysignal = 0;
+
+/* int	check_errors(command)
 {
-	//remove the beginning and end of the input (spaces) TO DO
-	if (ft_samestr(input, "cd") == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	if (ft_samestr(input, "echo") == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	if (ft_samestr(input, "pwd") == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	if (ft_samestr(input, "export") == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	if (ft_samestr(input, "unset") == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	if (ft_samestr(input, "env") == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	if (ft_samestr(input, "exit") == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
-}
+	//look for multiple tokens in a row
+	//check if commands exist && find if correct arguments/flags
+	//finding the path of the command
+} */
 
 char	*ft_join_path_command(char *command, char **paths, int i)
 {
@@ -68,16 +57,15 @@ char	*ft_full_command(t_data *data, char **paths)
 	return (NULL);
 }
 
-int	ft_parse_input(t_data *data, char **env)
+/* int	ft_parse_input(t_data *data, char **env)
 {
 	char		**paths;
 	int			i;
 
 	i = 0;
-	data->split_input = ft_split(data->input, ' ');
-	if (data->split_imput == NULL)
+	data->input_split = ft_split(data->input, ' ');
+	if (data->input_split == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	data->n_words = ft_count_words(data->input_split);
 	if (ft_correct_input(data->input_split[0]) == FAILURE)
 		return (FAILURE);
 	while (env[i] != 0)
@@ -94,9 +82,9 @@ int	ft_parse_input(t_data *data, char **env)
 	data->full_address = ft_full_command(data, paths);
 	printf("Command: %s\n", data->full_address);
 	return (SUCCESS);
-}
+} */
 
-int	ft_first_check(t_data *data)
+int	recieve_complete_input(t_data *data)
 {
 	char	*more_input;
 	char	*joined_input;
@@ -118,31 +106,38 @@ int	ft_first_check(t_data *data)
 
 int	minishell(char **env)
 {
-	long		i;
 	t_data	*data;
 
-	data = command_init();
+	data = data_init();
 	if (data == NULL)
 		return (MALLOC_ERROR);
 	terminal_entry(data, env);
-	while (g_mysignal == 0)
+	while (g_mysignal == 0 && data->malloc_error == false
+		&& data->exit = false) //find more reasons to break
 	{
 		data->input = readline(data->entry);
-		if (ft_first_check(data) == SUCCESS)
+		if (recieve_complete_input(data) == SUCCESS)
 		{
-			if (ft_parse_input(data, env) == EXIT_FAILURE)
-				ft_printf("Command '%s' not found.\n", data->input_split[0]);
-			save_commands(data);
-			safe_var(data);
+			//TO DO if << command->user_text = recieve_input();
+			add_history(data->input);  //TO DO  merge in different variable input + user text (if <<)
+			data->input = ft_reformat_input(data->input, data);
+			if (data->malloc_error == true)
+				return (MALLOC_ERROR);
+			if (check_if_we_save_variables(data) == true) //TO DO check =, non-alpha-num, pipes
+				save_variables(data); // TO DO save variables & edit '\\' & cut string
+			if (data->malloc_error == true)
+				return (MALLOC_ERROR);
+			if (save_commands(data) == MALLOC_ERROR)
+				return (MALLOC_ERROR);
 			//find_command(command, env);
-			add_history(data->input);
+			if (check_errors(data) == true)  //TO DO
+				return (FAILURE);  //specify errors
+			execute_commands(data); //TO DO LATER
 			delete_commands(data);
 		}
-		//parse input TO DO
-		//find command TO DO
-		if (data->exit == 1)
-			g_mysignal = 1;
+		// TO DO free stuff
 	}
+	// TO DO free even more stuff
 	rl_clear_history();
 	return (EXIT_SUCCESS);
 }
@@ -152,7 +147,6 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
-	//printf("%s\n", ft_reformat_input("hola \\\\\\\\que tal\\\\\\ me llamo \\pablo\\\\"));
 	if (minishell(env) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

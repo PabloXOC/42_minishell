@@ -6,36 +6,36 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/03 17:29:44 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/04 13:57:52 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_command	*command_init(void)
+t_data	*data_init(void)
 {
 	t_data	*data;
 
 	data = (t_command *) malloc (sizeof (t_command));
 	if (data == NULL)
 		return (ft_write_error_c(MALLOC_ERROR, data));
-	data->command_parsed = NULL;
-	data->full_address = NULL;
+	data->input_split = NULL;
 	data->input = NULL;
-	data->n_words = 0;
 	data->paired = 0;
-	data->exit = 0;
+	data->exit = false;
 	data->user = NULL;
 	data->hostname = NULL;
 	data->dir = NULL;
 	data->entry = NULL;
 	data->command_list = NULL;
-	data->create_var = NULL;
 	data->redirect_input = NULL;
 	data->redirect_output = NULL;
 	data->limiter = NULL;
-	data->append_output = NULL;
+	data->append_output = false;
 	data->var = NULL;
+	data->var_export = NULL;
+	data->text_input = NULL;
+	data->malloc_error = false;
 	return (data);
 }
 

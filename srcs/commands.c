@@ -6,12 +6,12 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/05/04 14:27:21 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/05 16:45:06 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/* 
 int	find_command(t_data *data, t_list *full_com, char **env)
 {
 	char	*com;
@@ -140,3 +140,4 @@ void	delete_commands(t_data *data)
 	ft_free_char_pp(data->input_split);
 	data->input_split = NULL;
 }
+ */

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/04 14:31:21 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/05 16:44:02 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@
 # define BM "\033[1;35m"      /* Bold Magenta */
 # define BC    "\033[1;36m"      /* Bold Cyan */
 # define BW   "\033[1;37m"      /* Bold White */
+
+
+typedef enum e_cases		t_cases;
+typedef struct s_var		t_var;
+typedef struct s_command	t_command;
 
 typedef enum e_cases
 {
@@ -150,5 +155,8 @@ int			delete_var(t_data *data, char *var_to_del);
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);
 
+
+/*------CHECK IF VAR------*/
+bool		check_if_we_save_variables(t_data *data);
 
 #endif

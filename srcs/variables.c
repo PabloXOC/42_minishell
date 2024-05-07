@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/05/04 14:29:40 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/05 16:45:25 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_var	*ft_varnew(char *var, char *content)
+/* t_var	*ft_varnew(char *var, char *content)
 {
 	t_var	*new_node;
 
@@ -132,3 +132,4 @@ int	delete_var(t_data *data, char *var_to_del)
 	}
 	return (SUCCESS);
 }
+ */

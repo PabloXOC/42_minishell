@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/04 14:38:28 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/05 18:06:30 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ g_mysignal = 0;
 	//check if commands exist && find if correct arguments/flags
 	//finding the path of the command
 } */
-
+/* 
 char	*ft_join_path_command(char *command, char **paths, int i)
 {
 	char	*str;
@@ -56,6 +56,7 @@ char	*ft_full_command(t_data *data, char **paths)
 	}
 	return (NULL);
 }
+ */
 
 /* int	ft_parse_input(t_data *data, char **env)
 {
@@ -131,7 +132,7 @@ int	minishell(char **env)
 				return (MALLOC_ERROR);
 			//find_command(command, env);
 			if (check_errors(data) == true)  //TO DO
-				return (FAILURE);  //specify errors
+				return (FAILURE);  // TO DO specify errors
 			execute_commands(data); //TO DO LATER
 			delete_commands(data);
 		}
@@ -143,6 +144,8 @@ int	minishell(char **env)
 }
 
 
+//what happens when export? do we save_variables or execute_commands
+
 int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
@@ -151,3 +154,32 @@ int	main(int argc, char **argv, char **env)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+
+
+/* int	main(int argc, char **argv, char **env)
+{
+	(void) argc;
+	(void) argv;
+	t_data *data = (t_data *)malloc(sizeof(t_data));
+	char **strings = (char **)malloc((10 + 1) * sizeof(char *));
+    // Assign 10 different strings
+    strings[0] = strdup(">");
+    strings[1] = strdup(">");
+    strings[2] = strdup("<<");
+    strings[3] = strdup("EOF");
+    strings[4] = strdup("String=5");
+    strings[5] = strdup("hi=feo\\");
+    strings[6] = strdup("String=7");
+    strings[7] = strdup("String=8");
+    strings[8] = strdup("String=9");
+    strings[9] = strdup("String=10");
+	strings[10] = 0;
+	data->input_split = strings;
+	if (check_if_we_save_variables(data) == true)
+		printf("true\n");
+	else
+		printf("false\n");
+	if (minishell(env) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+} */

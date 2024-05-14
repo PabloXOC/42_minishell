@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/05 18:06:30 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:15:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,52 @@ char	*ft_full_command(t_data *data, char **paths)
 	return (SUCCESS);
 } */
 
+
+char	*ft_user_text(char *eof, t_data *data)
+{
+	char	*input;
+	char	*user_text;
+
+	user_text = NULL;
+	while (42)
+	{
+		input = readline("> ");
+		if (ft_samestr(input, eof) == true)
+			return (user_text);
+		user_text = ft_strjoin(user_text, input);
+	}
+}
+
+//multiple << are possible
+int	get_text_input(t_data *data)
+{
+	int		i;
+	char	*ret_str;
+	char	*eof;
+
+	i = 0;
+	if (data->terminal_input == true)
+	{
+		while (data->input_split[i] != 0)
+		{
+			if (ft_samestr(data->input_split[i], "<<") == true)
+			{
+				i++;
+				if (data->input_split[i] != 0)
+				{
+					eof = data->input_split[i];
+					data->text_input = ft_strjoin(data->text_input, ft_user_text(eof, data));
+				}
+				else
+					return (INVALID_TOKEN);
+			}
+			i++;
+		}
+	}
+	if (data->file_input == true)
+		ft_open_file(data);
+}
+
 int	recieve_complete_input(t_data *data)
 {
 	char	*more_input;
@@ -97,11 +143,14 @@ int	recieve_complete_input(t_data *data)
 	{
 		data->input = ft_join_input(data->input, "\n");
 		if (data->input == NULL)
-			return (ft_write_error_c(MALLOC_ERROR, data));
+			return (ft_write_error_i(MALLOC_ERROR, data));
 		more_input = readline("> ");
 		data->input = ft_strjoin(data->input, more_input);
 		free(more_input);
 	}
+	data->input_split = ft_split(data->input, ' ');
+	if (data->input_split == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
 	return (SUCCESS);
 }
 
@@ -119,12 +168,12 @@ int	minishell(char **env)
 		data->input = readline(data->entry);
 		if (recieve_complete_input(data) == SUCCESS)
 		{
-			//TO DO if << command->user_text = recieve_input();
+			get_text_input(data);//TO DO if << command->user_text = recieve_input();
 			add_history(data->input);  //TO DO  merge in different variable input + user text (if <<)
 			data->input = ft_reformat_input(data->input, data);
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
-			if (check_if_we_save_variables(data) == true) //TO DO check =, non-alpha-num, pipes
+			if (check_if_we_save_variables(data) == true)
 				save_variables(data); // TO DO save variables & edit '\\' & cut string
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);

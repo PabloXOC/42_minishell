@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/04/29 16:44:17 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/14 15:30:56 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,20 @@ bool	ft_there_is_equal(char *input)
 	}
 }
 
-int	ft_samestr(const char *s1, const char *s2)
+bool	ft_samestr(const char *s1, const char *s2)
 {
 	size_t	i;
 
 	i = 0;
 	if (ft_strlen(s1) != ft_strlen(s2))
-		return (EXIT_FAILURE);
+		return (false);
 	while (s1[i])
 	{
 		if (s1[i] - s2[i] != 0)
-			return (EXIT_FAILURE);
+			return (false);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (true);
 }
 
 int	ft_count_words(char **argv)

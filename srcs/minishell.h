@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/05 16:44:02 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/14 15:54:29 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ typedef enum e_cases
 	FAILURE,
 	MALLOC_ERROR,
 	EMPTY,
-	INVALID_COMMAND
+	INVALID_COMMAND,
+	INVALID_TOKEN,
 }		t_cases;
 
 typedef struct s_var
@@ -96,7 +97,9 @@ typedef struct s_data
 	char		*text_input; //     < or <<
 	char		*redirect_input; // file name if we have a <
 	char		*redirect_output; // file name if we have a > or >>
-	char		*limiter; // string that stops <<
+	char		*limiter; // string that stops << I AM NOT USING THIS. INSTEAD LOCAL, VARIABLE
+	bool		*terminal_input; // boolean for (true == <<)
+	bool		*file_input; // boolean for (true == <)
 	bool		append_output; // boolean for (true == >>) & (false == >)
 	t_var		*var; //list of all variables
 	t_var		*var_export; //list of all export variables
@@ -122,7 +125,7 @@ int			main(int argc, char **argv, char **env);
 /*------UTILS------*/
 bool		ft_empty(char *input);
 bool		ft_there_is_equal(char *input);
-int			ft_samestr(const char *s1, const char *s2);
+bool			ft_samestr(const char *s1, const char *s2);
 int			ft_count_words(char **argv);
 void		print_char_pp(char **stack);
 void		ft_free_char_pp(char **stack);

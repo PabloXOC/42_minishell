@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/14 18:15:42 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:37:32 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,31 +104,7 @@ char	*ft_user_text(char *eof, t_data *data)
 //multiple << are possible
 int	get_text_input(t_data *data)
 {
-	int		i;
-	char	*ret_str;
-	char	*eof;
-
-	i = 0;
-	if (data->terminal_input == true)
-	{
-		while (data->input_split[i] != 0)
-		{
-			if (ft_samestr(data->input_split[i], "<<") == true)
-			{
-				i++;
-				if (data->input_split[i] != 0)
-				{
-					eof = data->input_split[i];
-					data->text_input = ft_strjoin(data->text_input, ft_user_text(eof, data));
-				}
-				else
-					return (INVALID_TOKEN);
-			}
-			i++;
-		}
-	}
-	if (data->file_input == true)
-		ft_open_file(data);
+	
 }
 
 int	recieve_complete_input(t_data *data)

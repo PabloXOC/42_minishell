@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:28:55 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/05/04 13:54:23 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:19:32 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@ int	ft_write_error_i(t_cases case_code, t_data *data)
 	{
 		ft_printf("Command '%s' not found.\n", data->input_split[0]);
 		return (INVALID_COMMAND);
+	}
+	if (case_code == OPEN_ERROR)
+	{
+		//ft_printf("Command '%s' not found.\n", data->input_split[0]);
+		return (-1);
+	}
+	if (case_code == CLOSE_ERROR)
+	{
+		//ft_printf("Command '%s' not found.\n", data->input_split[0]);
+		return (-1);
+	}
+	if (case_code == READ_ERROR)
+	{
+		//ft_printf("Command '%s' not found.\n", data->input_split[0]);
+		return (-1);
 	}
 	return (SUCCESS);
 }

@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:47:15 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/05/04 14:10:44 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/15 16:39:01 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_errors(command)
+/* int	check_errors(command)
 {
 	//look for multiple tokens in a row
 	//check if commands exist && find if correct arguments/flags
@@ -45,3 +45,4 @@ int	main(int argc, char **argv, char **env)
 	}
 	clear_history();
 }
+ */

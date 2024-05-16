@@ -6,14 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/14 18:37:32 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/16 10:46:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_mysignal;
-
+int g_mysignal;
 g_mysignal = 0;
 
 /* int	check_errors(command)
@@ -175,6 +174,8 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
+	t_data	*data;
+
 	if (minishell(env) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

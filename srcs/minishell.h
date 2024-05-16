@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/14 15:54:29 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/16 10:45:36 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ typedef enum e_cases
 	EMPTY,
 	INVALID_COMMAND,
 	INVALID_TOKEN,
+	OPEN_ERROR,
+	CLOSE_ERROR,
+	READ_ERROR,
 }		t_cases;
 
 typedef struct s_var
@@ -95,12 +98,13 @@ typedef struct s_data
 
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
-	char		*redirect_input; // file name if we have a <
+	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	char		*redirect_output; // file name if we have a > or >>
 	char		*limiter; // string that stops << I AM NOT USING THIS. INSTEAD LOCAL, VARIABLE
 	bool		*terminal_input; // boolean for (true == <<)
 	bool		*file_input; // boolean for (true == <)
 	bool		append_output; // boolean for (true == >>) & (false == >)
+	char		*next_eof; //pointer to where i left off in <<
 	t_var		*var; //list of all variables
 	t_var		*var_export; //list of all export variables
 
@@ -161,5 +165,13 @@ char		*ft_reformat_input(char *input, t_data *data);
 
 /*------CHECK IF VAR------*/
 bool		check_if_we_save_variables(t_data *data);
+
+
+
+
+
+int	open_input(t_data *data);
+
+
 
 #endif

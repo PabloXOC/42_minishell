@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/04 13:57:52 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/15 16:59:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_data	*data_init(void)
 {
 	t_data	*data;
 
-	data = (t_command *) malloc (sizeof (t_command));
+	data = (t_data *) malloc (sizeof (t_data));
 	if (data == NULL)
 		return (ft_write_error_c(MALLOC_ERROR, data));
 	data->input_split = NULL;
@@ -35,6 +35,8 @@ t_data	*data_init(void)
 	data->var = NULL;
 	data->var_export = NULL;
 	data->text_input = NULL;
+	data->text_input = NULL;
+	data->next_eof = NULL;
 	data->malloc_error = false;
 	return (data);
 }

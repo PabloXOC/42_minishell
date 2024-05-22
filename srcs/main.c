@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/16 10:46:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:55:17 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ char	*ft_user_text(char *eof, t_data *data)
 	}
 }
 
-//multiple << are possible
+/* //multiple << are possible
 int	get_text_input(t_data *data)
 {
 	
-}
+} */
 
 int	recieve_complete_input(t_data *data)
 {
@@ -129,7 +129,7 @@ int	recieve_complete_input(t_data *data)
 	return (SUCCESS);
 }
 
-int	minishell(char **env)
+/* int	minishell(char **env)
 {
 	t_data	*data;
 
@@ -138,7 +138,7 @@ int	minishell(char **env)
 		return (MALLOC_ERROR);
 	terminal_entry(data, env);
 	while (g_mysignal == 0 && data->malloc_error == false
-		&& data->exit = false) //find more reasons to break
+		&& data->exit == false) //find more reasons to break
 	{
 		data->input = readline(data->entry);
 		if (recieve_complete_input(data) == SUCCESS)
@@ -155,7 +155,7 @@ int	minishell(char **env)
 			if (save_commands(data) == MALLOC_ERROR)
 				return (MALLOC_ERROR);
 			//find_command(command, env);
-			if (check_errors(data) == true)  //TO DO
+			if (check_errors(data) == true)  //TO DO  check for consecutive input/output symbols
 				return (FAILURE);  // TO DO specify errors
 			execute_commands(data); //TO DO LATER
 			delete_commands(data);
@@ -165,7 +165,7 @@ int	minishell(char **env)
 	// TO DO free even more stuff
 	rl_clear_history();
 	return (EXIT_SUCCESS);
-}
+} */
 
 
 //what happens when export? do we save_variables or execute_commands
@@ -174,10 +174,26 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
+	/* if (minishell(env) == EXIT_FAILURE)
+		return (EXIT_FAILURE); */
 	t_data	*data;
 
-	if (minishell(env) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	data = data_init();
+	if (data == NULL)
+		return (MALLOC_ERROR);
+	//terminal_entry(data, env);
+	while (g_mysignal == 0 && data->malloc_error == false
+		&& data->exit == false) //find more reasons to break
+	{
+		data->input = readline("term $");
+		if (recieve_complete_input(data) == SUCCESS)
+		{
+			ft_printf("%s", data->input);
+		}
+		// TO DO free stuff
+	}
+	// TO DO free even more stuff
+	rl_clear_history();
 	return (EXIT_SUCCESS);
 }
 

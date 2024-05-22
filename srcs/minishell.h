@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/16 10:45:36 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:54:24 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef enum e_cases
 	OPEN_ERROR,
 	CLOSE_ERROR,
 	READ_ERROR,
+	OPEN_ERROR,
+	CLOSE_ERROR,
+	READ_ERROR,
 }		t_cases;
 
 typedef struct s_var
@@ -95,6 +98,8 @@ typedef struct s_data
 
 	int			paired; //to deal with '' ""
 	bool		exit; //if command == exit
+	int			input_index; //until where have we read the input
+	int			eof_index; //last eof read
 
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<

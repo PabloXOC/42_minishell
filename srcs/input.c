@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/15 16:59:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:54:51 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ t_data	*data_init(void)
 	data->text_input = NULL;
 	data->next_eof = NULL;
 	data->malloc_error = false;
+	data->input_index = 0;
+	data->eof_index = 0;
 	return (data);
 }
 
@@ -56,7 +58,56 @@ int	ft_pair(char *input, char c, int i, t_data *data)
 	return (i);
 }
 
-bool	ft_not_complete(char *input, t_data *data)
+char	*return_eof(char *input)
+{
+	size_t	len;
+	char	*eof;
+
+	len = 0;
+	while (input[len] != 32 && input[len] != 0 && input[len] != '\n' && input[len] != '<' && input[len] != '>' && input[len] != '|')
+		len++;
+	eof = (char *)malloc((len + 1) * sizeof(char));
+	if (eof == NULL)
+		return (NULL);
+	eof[len] = 0;
+	ft_memcpy(eof, input, len);
+	ft_printf("EOF:%sAAA\n",eof);
+	return (eof);
+}
+
+bool	eof_not_found(int i, t_data *data)
+{
+	char	*eof;
+	char	*input;
+
+	input = data->input;
+	while (input[i] == 32 && input[i] != 0)
+		i++;
+	ft_printf("EOFINPUT:%sAAA\n",&input[i]);
+	eof = return_eof(&input[i]);
+	if (data->input_index != 0)
+		i = data->input_index;
+	while (input[i] != 0)
+	{
+		if (input[i] == '\n')
+		{
+			i++;
+			ft_printf("comp:%sAA\n", &input[i]);
+			ft_printf("eof:%sAA\n", eof);
+			if (ft_memcmp(eof, &input[i], ft_strlen(eof)) == 0 && ('\0' == input[i + ft_strlen(eof)] || '\n' == input[i + ft_strlen(eof)]))
+			{
+				data->input_index = i + ft_strlen(eof);
+				free(eof);
+				return (false);
+			}
+		}
+		i++;
+	}
+	free(eof);
+	return (true);
+}
+
+bool ft_quotes_not_paired(char *input, t_data *data)
 {
 	int	i;
 
@@ -73,13 +124,103 @@ bool	ft_not_complete(char *input, t_data *data)
 				return (true);
 			}
 		}
+		i++;
+	}
+	return (false);
+}
+
+int	ft_ignore_quotes(char *input, int i, int quote)
+{
+	while (input[i] != 0 && input[i] != quote)
+		i++;
+	if (input[i] != 0)
+		i++;
+	return (i);
+}
+
+bool ft_backslash_not_paired(char *input, t_data *data)
+{
+	int	i;
+	int	num_of_bs;
+
+	i = 0;
+	num_of_bs = 0;
+	while (input[i] != 0)
+	{
+		if (input[i] == '"' || input[i] == '\'')
+			i = ft_ignore_quotes(&input[i], i + 1, input[i]);
+		while (input[i] == '\\')
+		{
+			num_of_bs++;
+			i++;
+		}
+		if (num_of_bs % 2 != 0 && input[i] == 0)
+			return (true);
+		num_of_bs = 0;
+		i++;
+	}
+	return (false);
+}
+
+bool ft_input_required(char *input, t_data *data)
+{
+	int	i;
+
+	i = data->eof_index;
+	while (input[i] != 0)
+	{
+		if (input[i] == '"' || input[i] == '\'')
+			i = ft_ignore_quotes(&input[i], i + 1, input[i]);
+		if (input[i] == '<' && input[i + 1] == '<')
+		{
+			if (eof_not_found(i + 2, data) == true)
+			{
+				data->eof_index = i + 2;
+				return (true);
+			}
+			i = i + 2;
+		}
+		i++;
+	}
+	return (false);
+}
+
+bool	ft_not_complete(char *input, t_data *data)
+{
+
+	if (ft_quotes_not_paired(input, data) == true)
+		return (true);
+	if (ft_backslash_not_paired(input, data) == true)
+		return (true);
+	if (ft_input_required(input, data) == true)
+		return (true);
+	data->input_index = 0;
+	data->eof_index = 0;
+	/* int	i;
+
+	i = 0;
+	while (input[i] != 0)
+	{
+		if (input[i] == '"' || input[i] == '\'')
+		{
+			data->paired = 1;
+			i = ft_pair(input, input[i], i + 1, data);
+			if (data->paired == 1)
+			{
+				data->paired = 0;
+				return (true);
+			}
+		}
+		if (input[i] == '<' && input[i + 1] == '<')
+			if (eof_not_found(&input[i + 2], data) == true)
+				return (true);
 		if (input[i] == '\\' && input[i + 1] == 0)
 			return (true);
 		if (input[i] == '\\' && input[i + 1] == '\\')
 			return (false);
 		if (input[i] != 0)
 			i++;
-	}
+	} */
 	return (false);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/05/05 16:45:25 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:49:20 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,42 @@ void	ft_vardelone(t_var *var)
 	free(var);
 }
 
-int	save_variables(t_data *data)
+int	safe_new_var(t_command *command, char **equality)
+{
+	t_var	*var;
+
+	var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
+	ft_free_char_pp(equality);
+	if (var == NULL)
+		return (MALLOC_ERROR);
+	ft_varadd_back(&command->var, var);
+	return (SUCCESS);
+}
+
+int	safe_existing_var(t_command *command, char **equality)
+{
+	t_var	*temp_var;
+
+	temp_var = command->var;
+	while (temp_var != NULL)
+	{
+		if (strncmp(temp_var->var, equality[0], ft_strlen(equality[0])) == 0)
+		{
+			free(temp_var->content);
+			temp_var->content = ft_strdup(equality[1]);
+			if (temp_var->content == NULL)
+				return (MALLOC_ERROR);
+			ft_free_char_pp(equality);
+			return (SUCCESS);
+		}
+		temp_var = temp_var->next;
+	}
+	return (FAILURE);
+}
+
+int	safe_var(t_command *command)
 {
 	char	**equality;
-	t_var	*var;
 
 	if (data->create_var != NULL)
 	{
@@ -98,11 +130,11 @@ int	save_variables(t_data *data)
 		}
 		else
 		{
-			var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
-			ft_free_char_pp(equality);
-			if (var == NULL)
-				return (ft_write_error_i(MALLOC_ERROR, data));
-			ft_varadd_back(&data->var, var);
+			if (safe_existing_var(command, equality) == FAILURE)
+			{
+				if (safe_existing_var(command, equality) == MALLOC_ERROR)
+					return (MALLOC_ERROR);
+			}
 		}
 	}
 	return (SUCCESS);

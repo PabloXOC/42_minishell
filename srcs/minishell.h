@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/22 14:54:24 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/22 15:08:54 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ bool		check_if_we_save_variables(t_data *data);
 
 
 int	open_input(t_data *data);
+int	recieve_complete_input(t_data *data);
 
 
 

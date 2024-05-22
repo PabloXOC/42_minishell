@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/22 14:55:17 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/22 15:08:39 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,30 +106,9 @@ int	get_text_input(t_data *data)
 	
 } */
 
-int	recieve_complete_input(t_data *data)
-{
-	char	*more_input;
-	char	*joined_input;
-	char	*temp_input;
 
-	if (ft_empty(data->input) == true)
-		return (EMPTY);
-	while (ft_not_complete(data->input, data) == true)
-	{
-		data->input = ft_join_input(data->input, "\n");
-		if (data->input == NULL)
-			return (ft_write_error_i(MALLOC_ERROR, data));
-		more_input = readline("> ");
-		data->input = ft_strjoin(data->input, more_input);
-		free(more_input);
-	}
-	data->input_split = ft_split(data->input, ' ');
-	if (data->input_split == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
-	return (SUCCESS);
-}
 
-/* int	minishell(char **env)
+int	minishell(char **env)
 {
 	t_data	*data;
 
@@ -143,15 +122,16 @@ int	recieve_complete_input(t_data *data)
 		data->input = readline(data->entry);
 		if (recieve_complete_input(data) == SUCCESS)
 		{
-			get_text_input(data);//TO DO if << command->user_text = recieve_input();
+			get_text_input(data);//TO DO char * of <<
 			add_history(data->input);  //TO DO  merge in different variable input + user text (if <<)
-			data->input = ft_reformat_input(data->input, data);
+			data->input = ft_reformat_input(data->input, data); //not \\ 
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
 			if (check_if_we_save_variables(data) == true)
 				save_variables(data); // TO DO save variables & edit '\\' & cut string
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
+			//open files (maybe after commands)
 			if (save_commands(data) == MALLOC_ERROR)
 				return (MALLOC_ERROR);
 			//find_command(command, env);
@@ -165,63 +145,18 @@ int	recieve_complete_input(t_data *data)
 	// TO DO free even more stuff
 	rl_clear_history();
 	return (EXIT_SUCCESS);
-} */
+}
 
 
 //what happens when export? do we save_variables or execute_commands
+
 
 int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
-	/* if (minishell(env) == EXIT_FAILURE)
-		return (EXIT_FAILURE); */
-	t_data	*data;
 
-	data = data_init();
-	if (data == NULL)
-		return (MALLOC_ERROR);
-	//terminal_entry(data, env);
-	while (g_mysignal == 0 && data->malloc_error == false
-		&& data->exit == false) //find more reasons to break
-	{
-		data->input = readline("term $");
-		if (recieve_complete_input(data) == SUCCESS)
-		{
-			ft_printf("%s", data->input);
-		}
-		// TO DO free stuff
-	}
-	// TO DO free even more stuff
-	rl_clear_history();
-	return (EXIT_SUCCESS);
-}
-
-
-/* int	main(int argc, char **argv, char **env)
-{
-	(void) argc;
-	(void) argv;
-	t_data *data = (t_data *)malloc(sizeof(t_data));
-	char **strings = (char **)malloc((10 + 1) * sizeof(char *));
-    // Assign 10 different strings
-    strings[0] = strdup(">");
-    strings[1] = strdup(">");
-    strings[2] = strdup("<<");
-    strings[3] = strdup("EOF");
-    strings[4] = strdup("String=5");
-    strings[5] = strdup("hi=feo\\");
-    strings[6] = strdup("String=7");
-    strings[7] = strdup("String=8");
-    strings[8] = strdup("String=9");
-    strings[9] = strdup("String=10");
-	strings[10] = 0;
-	data->input_split = strings;
-	if (check_if_we_save_variables(data) == true)
-		printf("true\n");
-	else
-		printf("false\n");
 	if (minishell(env) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
-} */
+}

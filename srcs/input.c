@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/22 14:54:51 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/22 15:08:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	ft_pair(char *input, char c, int i, t_data *data)
 	return (i);
 }
 
+
+//give the string, finds the first word
 char	*return_eof(char *input)
 {
 	size_t	len;
@@ -71,7 +73,6 @@ char	*return_eof(char *input)
 		return (NULL);
 	eof[len] = 0;
 	ft_memcpy(eof, input, len);
-	ft_printf("EOF:%sAAA\n",eof);
 	return (eof);
 }
 
@@ -187,40 +188,15 @@ bool ft_input_required(char *input, t_data *data)
 
 bool	ft_not_complete(char *input, t_data *data)
 {
-
-	if (ft_quotes_not_paired(input, data) == true)
+	if (ft_quotes_not_paired(input, data) == true) //works
 		return (true);
-	if (ft_backslash_not_paired(input, data) == true)
+	if (ft_backslash_not_paired(input, data) == true) //works
 		return (true);
-	if (ft_input_required(input, data) == true)
+	while (ft_input_required(input, data) == true)
 		return (true);
 	data->input_index = 0;
 	data->eof_index = 0;
-	/* int	i;
 
-	i = 0;
-	while (input[i] != 0)
-	{
-		if (input[i] == '"' || input[i] == '\'')
-		{
-			data->paired = 1;
-			i = ft_pair(input, input[i], i + 1, data);
-			if (data->paired == 1)
-			{
-				data->paired = 0;
-				return (true);
-			}
-		}
-		if (input[i] == '<' && input[i + 1] == '<')
-			if (eof_not_found(&input[i + 2], data) == true)
-				return (true);
-		if (input[i] == '\\' && input[i + 1] == 0)
-			return (true);
-		if (input[i] == '\\' && input[i + 1] == '\\')
-			return (false);
-		if (input[i] != 0)
-			i++;
-	} */
 	return (false);
 }
 
@@ -240,4 +216,27 @@ char	*ft_join_input(char *s1, char *s2)
 	str[len_1 + len_2] = 0;
 	free(s1);
 	return (str);
+}
+
+int	recieve_complete_input(t_data *data)
+{
+	char	*more_input;
+	char	*joined_input;
+	char	*temp_input;
+
+	if (ft_empty(data->input) == true)
+		return (EMPTY);
+	while (ft_not_complete(data->input, data) == true)
+	{
+		data->input = ft_join_input(data->input, "\n");
+		if (data->input == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		more_input = readline("> ");
+		data->input = ft_strjoin(data->input, more_input);
+		free(more_input);
+	}
+	data->input_split = ft_split(data->input, ' ');
+	if (data->input_split == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/24 11:15:44 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/24 11:30:12 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,11 @@ int	get_text_input(t_data *data)
 		{
 			get_text_input(data);//TO DO char * of <<
 			add_history(data->input);  //TO DO  merge in different variable input + user text (if <<)
-			data->input = ft_reformat_input(data->input, data); //not \\ 
+			data->input = ft_reformat_input(data->input, data); // reformat and split input (not \\)
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
 			if (check_if_we_save_variables(data) == true)
-				save_variables(data); // TO DO save variables & edit '\\' & cut string
+				safe_var(data); // TO DO edit '\\' & cut string
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
 			//open files (maybe after commands)

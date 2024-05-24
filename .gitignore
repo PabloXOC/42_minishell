@@ -146,7 +146,7 @@ config/application.yml
 *.swp
 *.txt
 .gitignore
-test.c
+pseudo.c
 
 minishell
 *.ber

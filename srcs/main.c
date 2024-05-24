@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/22 15:08:39 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/24 11:15:44 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	get_text_input(t_data *data)
 
 
 
-int	minishell(char **env)
+/* int	minishell(char **env)
 {
 	t_data	*data;
 
@@ -145,7 +145,7 @@ int	minishell(char **env)
 	// TO DO free even more stuff
 	rl_clear_history();
 	return (EXIT_SUCCESS);
-}
+} */
 
 
 //what happens when export? do we save_variables or execute_commands
@@ -155,8 +155,14 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
+	t_data	*data;;
 
-	if (minishell(env) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	/* if (minishell(env) == EXIT_FAILURE)
+		return (EXIT_FAILURE); */
+	data = data_init();
+	if (data == NULL)
+		return (MALLOC_ERROR);
+	ft_printf("REF:%sAAA\n", ft_reformat_input("hola que<< <tal \'me llamo pablo>>>\'\"\" y tu >>> >>>>", data));
+	
+	//recieve_complete_input(data);
 }

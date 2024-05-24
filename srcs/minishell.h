@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/22 15:08:54 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/24 11:20:10 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ typedef enum e_cases
 	OPEN_ERROR,
 	CLOSE_ERROR,
 	READ_ERROR,
-	OPEN_ERROR,
-	CLOSE_ERROR,
-	READ_ERROR,
 }		t_cases;
 
 typedef struct s_var
@@ -101,6 +98,9 @@ typedef struct s_data
 	int			input_index; //until where have we read the input
 	int			eof_index; //last eof read
 
+	char		*first_line;
+	char		*first_line_ref;
+	char		**first_line_split;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
 	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
@@ -112,6 +112,8 @@ typedef struct s_data
 	char		*next_eof; //pointer to where i left off in <<
 	t_var		*var; //list of all variables
 	t_var		*var_export; //list of all export variables
+	int			i;
+	int			j;
 
 	//errors
 	bool		malloc_error;

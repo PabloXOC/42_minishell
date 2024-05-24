@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/22 15:08:42 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/24 11:23:16 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,12 @@ t_data	*data_init(void)
 	data->malloc_error = false;
 	data->input_index = 0;
 	data->eof_index = 0;
+	data->first_line = NULL;
+	data->first_line_ref = NULL;
+	data->i = 0;
+	data->j = -1;
 	return (data);
 }
-
-int	ft_pair(char *input, char c, int i, t_data *data)
-{
-	while (input[i] != 0)
-	{
-		if (input[i] == c)
-		{
-			data->paired = 2;
-			i++;
-			break ;
-		}
-		i++;
-	}
-	return (i);
-}
-
 
 //give the string, finds the first word
 char	*return_eof(char *input)
@@ -108,7 +96,7 @@ bool	eof_not_found(int i, t_data *data)
 	return (true);
 }
 
-bool ft_quotes_not_paired(char *input, t_data *data)
+/* bool ft_quotes_not_paired(char *input, t_data *data)
 {
 	int	i;
 
@@ -128,15 +116,6 @@ bool ft_quotes_not_paired(char *input, t_data *data)
 		i++;
 	}
 	return (false);
-}
-
-int	ft_ignore_quotes(char *input, int i, int quote)
-{
-	while (input[i] != 0 && input[i] != quote)
-		i++;
-	if (input[i] != 0)
-		i++;
-	return (i);
 }
 
 bool ft_backslash_not_paired(char *input, t_data *data)
@@ -161,9 +140,9 @@ bool ft_backslash_not_paired(char *input, t_data *data)
 		i++;
 	}
 	return (false);
-}
+} */
 
-bool ft_input_required(char *input, t_data *data)
+/* bool ft_input_required(char *input, t_data *data)
 {
 	int	i;
 
@@ -184,20 +163,47 @@ bool ft_input_required(char *input, t_data *data)
 		i++;
 	}
 	return (false);
-}
+} */
 
-bool	ft_not_complete(char *input, t_data *data)
+int	first_line_complete(char *input, t_data *data)
 {
-	if (ft_quotes_not_paired(input, data) == true) //works
-		return (true);
-	if (ft_backslash_not_paired(input, data) == true) //works
-		return (true);
-	while (ft_input_required(input, data) == true)
-		return (true);
-	data->input_index = 0;
-	data->eof_index = 0;
+	int	i;
+	int	num_single_quote;
+	int	num_double_quote;
 
-	return (false);
+	num_single_quote = 0;
+	num_double_quote = 0;
+	i = 0;
+	while (input[i] != 0)
+	{
+		while (input[i] != '\n' || input[i] != '\0')
+		{
+			if (input[i] == '\\' && (input[i + 1] == '\'' || input[i + 1] == '\"'))
+				i += 2;
+			else if (input[i] == '\'' && num_double_quote % 2 == 0)
+				num_single_quote++;
+			else if (input[i] == '\"' && num_single_quote % 2 == 0)
+				num_double_quote++;
+			if (num_double_quote % 2 == 0 && num_single_quote % 2 == 0 && input[i] != '\\'
+				&& (input[i + 1] == '\n' || input[i + 1] == '\0'))
+			{
+				data->first_line = (char *) malloc ((i + 2) * sizeof(char));
+				if (data->first_line == NULL)
+					return (ft_write_error_i(MALLOC_ERROR, data));
+				ft_memcpy(data->first_line, input, i + 1);
+				data->first_line[i + 2] = 0;
+				if (input[i + 1] != '\0')
+					data->terminal_input == &input[i + 2];
+				else
+					data->terminal_input == &input[i + 1];
+				return (SUCCESS);
+			}
+			i++;
+		}
+		if (input[i] == '\n')
+			i++;
+	}
+	return (FAILURE);
 }
 
 char	*ft_join_input(char *s1, char *s2)
@@ -218,15 +224,44 @@ char	*ft_join_input(char *s1, char *s2)
 	return (str);
 }
 
+int	ft_ter_input(t_data *data)
+{
+	int	i;
+	int	num_single_quote;
+	int	num_double_quote;
+	char	*f_line;
+
+	f_line = data->first_line_ref;
+	num_single_quote = 0;
+	num_double_quote = 0;
+	i = 0;
+	while (f_line[i] != 0)
+	{
+		if (f_line[i] == '\\' && (f_line[i + 1] == '\'' || f_line[i + 1] == '\"'))
+			i += 2;
+		else if (f_line[i] == '\'' && num_double_quote % 2 == 0)
+			num_single_quote++;
+		else if (f_line[i] == '\"' && num_single_quote % 2 == 0)
+			num_double_quote++;
+		if (num_double_quote % 2 == 0 && num_single_quote % 2 == 0)
+		{
+			
+			i++;
+		}
+		i++;
+	}
+}
+
 int	recieve_complete_input(t_data *data)
 {
 	char	*more_input;
 	char	*joined_input;
 	char	*temp_input;
 
+	data->input = readline(data->entry);
 	if (ft_empty(data->input) == true)
 		return (EMPTY);
-	while (ft_not_complete(data->input, data) == true)
+	while (first_line_complete(data->input, data) == FAILURE)
 	{
 		data->input = ft_join_input(data->input, "\n");
 		if (data->input == NULL)
@@ -235,6 +270,16 @@ int	recieve_complete_input(t_data *data)
 		data->input = ft_strjoin(data->input, more_input);
 		free(more_input);
 	}
+	if (data->first_line == NULL)
+		return (MALLOC_ERROR);
+	data->first_line_ref = ft_reformat_input(data->first_line, data);
+	if (data->first_line_ref == NULL)
+		return (MALLOC_ERROR);
+	data->first_line_split = ft_split(data->first_line_ref, ' ');
+	if (data->first_line_split == NULL)
+		return (MALLOC_ERROR);
+	if (ft_ter_input(data) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
 	data->input_split = ft_split(data->input, ' ');
 	if (data->input_split == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));

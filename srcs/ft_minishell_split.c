@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_split.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:16:55 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/05/24 11:29:57 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/25 12:46:33 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 static void	ft_free_malloc(char **array, int row)
 {
@@ -25,7 +25,7 @@ static void	ft_free_malloc(char **array, int row)
 	free(array);
 }
 
-static int	ft_count_words(char const *s, char c)
+static int	count_words(char const *s, char c)
 {
 	int		count;
 	int		i;
@@ -117,7 +117,7 @@ char	**ft_minishell_split(char const *s, char c)
 	int		nwords;
 	char	**array;
 
-	nwords = ft_count_words(s, c);
+	nwords = count_words(s, c);
 	printf("nwords: %i\n", nwords);
 	array = (char **)malloc((nwords + 1) * sizeof(char *));
 	if (!(array))

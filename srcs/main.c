@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/24 11:30:12 by farah            ###   ########.fr       */
+/*   Updated: 2024/05/25 13:04:26 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
+	char str[] = "hello my name << is <<  pablo << ";
 	t_data	*data;;
 
 	/* if (minishell(env) == EXIT_FAILURE)
@@ -162,7 +163,8 @@ int	main(int argc, char **argv, char **env)
 	data = data_init();
 	if (data == NULL)
 		return (MALLOC_ERROR);
-	ft_printf("REF:%sAAA\n", ft_reformat_input("hola que<< <tal \'me llamo pablo>>>\'\"\" y tu >>> >>>>", data));
+	data->first_line_ref = str;
+	ft_printf("TOK:%d\n", ft_check_token(data));
 	
 	//recieve_complete_input(data);
 }

@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/29 12:29:29 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:11:51 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,34 +224,6 @@ char	*ft_join_input(char *s1, char *s2)
 	return (str);
 }
 
-int	ft_ter_input(t_data *data)
-{
-	int	i;
-	int	num_single_quote;
-	int	num_double_quote;
-	char	*f_line;
-
-	f_line = data->first_line_ref;
-	num_single_quote = 0;
-	num_double_quote = 0;
-	i = 0;
-	while (f_line[i] != 0)
-	{
-		if (f_line[i] == '\\' && (f_line[i + 1] == '\'' || f_line[i + 1] == '\"'))
-			i += 2;
-		else if (f_line[i] == '\'' && num_double_quote % 2 == 0)
-			num_single_quote++;
-		else if (f_line[i] == '\"' && num_single_quote % 2 == 0)
-			num_double_quote++;
-		if (num_double_quote % 2 == 0 && num_single_quote % 2 == 0)
-		{
-			
-			i++;
-		}
-		i++;
-	}
-}
-
 static bool ft_found_io(char *str, int i)
 {
 	if (str[i] == '<' && str[i + 1] == '<')
@@ -328,51 +300,158 @@ int	ft_check_token(t_data *data)
 	return (SUCCESS);
 }
 
-int	ft_eofsize(char *str, int i)
+static bool	ft_quote_switch(char *str, int i, bool single_q, bool double_q)
+{
+	if (str[i] == '\'' && single_q == false)
+		return (true);
+	else if (str[i] == '\'' && single_q == true)
+		return (false);
+	else if (str[i] == '\"' &&double_q == false)
+		return (true);
+	else if (str[i] == '\"' && double_q == true)
+		return (false);
+	return (false);
+}
+
+int	ft_eofsize(char *str, int i, bool single_q, bool double_q)
 {
 	int		size;
+
+	size = 0;
+	while ((((single_q == true || double_q == true) || (single_q == false
+		&& double_q == false && str[i] != ' '))) && str[i] != 0)
+	{
+		if (str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
+		{
+			i++;
+			size++;
+		}
+		else if (str[i] == '\'' && double_q == false)
+			single_q = ft_quote_switch(str, i, single_q, double_q);
+		else if (str[i] == '\"' && single_q == false)
+			double_q = ft_quote_switch(str, i, single_q, double_q);
+		else
+		{
+			size++;
+		}
+		i++;
+	}
+	return (size);
+}
+
+static char	*ft_write_eof(char *str, char *eof, int size, int i)
+{
+	int	j;
 	bool	single_q;
 	bool	double_q;
 
 	single_q = false;
 	double_q = false;
-	size = 0;
-	while (((single_q == true || double_q == true)
-		|| (str[i] != ' ')) && str[i] != 0)
+	j = 0;
+	while (j < size && str[i] != '\0')
 	{
-		if (str[i] == '\'' && single_q == false && double_q == false)
-			single_q = true;
-		else if (str[i] == '\'' && single_q == true && double_q == false)
-			single_q = false;
-		else if (str[i] == '\"' && single_q == false && double_q == false)
-			single_q = true;
-		else if (str[i] == '\"' && single_q == false && double_q == true)
-			double_q = false;
+
+		if (str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
+		{
+			eof[j++] = str[i + 1];
+			i += 2;
+		}
+		else if (str[i] == '\'' && double_q == false)
+			single_q = ft_quote_switch(str, i, single_q, double_q);
+		else if (str[i] == '\"' && single_q == false)
+			double_q = ft_quote_switch(str, i, single_q, double_q);
 		else
-			size++;
+			eof[j++] = str[i];
+		i++;
 	}
-	return (size);
+	eof[j] = 0;
+	return (eof);
 }
 
 char	*ft_find_eof(char *str, int i, t_data *data)
 {
 	int		j;
+	int		size;
 	char	*eof;
 
 	while (str[i] == ' ')
 		i++;
-	eof = (char *) malloc ((ft_eofsize(str, i) + 1) * sizeof(char));
+	size = ft_eofsize(str, i, false, false);
+	eof = (char *) malloc ((size + 1) * sizeof(char));
 	if (eof == NULL)
 		return (ft_write_error_c(MALLOC_ERROR, data));
-	j = 0;
-	while (str[i] != ' ' && str[i] != '\0')
-	{
-		eof[j] = str[i];
-		i++;
-		j++;
-	}
-	eof[j] = 0;
+	ft_write_eof(str, eof, size, i);
 	return (eof);
+}
+
+bool	ft_compare_eof(char *str, char *eof, t_data *data)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = ft_strlen(eof);
+	while (i < size && str[i] != 0 && str[i] != ' \n')
+	{
+		if (str[i] != eof[i])
+			return (false);
+		i++;
+	}
+	if (i != size)
+		return (false);
+	if (str[i] == '\n')
+	{
+		
+	}
+}
+
+int	ft_get_ter_input(t_data *data, char *eof)
+{
+	int	i;
+	char *str;
+
+	str = data->terminal_input;
+	i = 0;
+	while (str[i] != 0)
+	{
+		if (str[i] == '\n' && str[i] == '\0')
+		{
+			if (ft_compare_eof(&str[i + 1], eof, data) == true)
+			{
+				
+			}
+		}
+	}
+}
+
+int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote)
+{
+	int	i;
+	char	*f_line;
+	char	*eof;
+
+	f_line = data->first_line_ref;
+	i = 0;
+	while (f_line[i] != 0)
+	{
+		if (f_line[i] == '\\' && (f_line[i + 1] == '\'' || f_line[i + 1] == '\"'))
+			i += 2;
+		else if (f_line[i] == '\'' && num_double_quote % 2 == 0)
+			num_single_quote++;
+		else if (f_line[i] == '\"' && num_single_quote % 2 == 0)
+			num_double_quote++;
+		if (num_double_quote % 2 == 0 && num_single_quote % 2 == 0)
+		{
+			if (f_line[i] == '<' && f_line[i + 1] == '<')
+			{
+				eof = ft_find_eof(f_line, i + 2, data);
+				ft_get_ter_input(data, eof);
+				ft_printf("%s\n", eof);
+				i += 2;
+			}
+		}
+		i++;
+	}
 }
 
 int	recieve_complete_input(t_data *data)
@@ -400,7 +479,7 @@ int	recieve_complete_input(t_data *data)
 		return (MALLOC_ERROR);
 	if (ft_check_token(data) == INVALID_TOKEN)
 		return (INVALID_TOKEN);
-	if (ft_ter_input(data) == MALLOC_ERROR)
+	if (ft_ter_input(data, 0, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }

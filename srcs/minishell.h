@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/25 12:47:24 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/29 16:03:38 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_data
 	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	char		*redirect_output; // file name if we have a > or >>
 	char		*limiter; // string that stops << I AM NOT USING THIS. INSTEAD LOCAL, VARIABLE
-	char		*terminal_input; // boolean for (true == <<)
+	char		*terminal_input; // text remaining from <<
 	bool		*file_input; // boolean for (true == <)
 	bool		append_output; // boolean for (true == >>) & (false == >)
 	char		*next_eof; //pointer to where i left off in <<
@@ -181,6 +181,7 @@ char	**ft_minishell_split(char const *s, char c);
 int	open_input(t_data *data);
 int	recieve_complete_input(t_data *data);
 int	ft_check_token(t_data *data);
+int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote);
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/27 13:48:09 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:49:14 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,9 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
+	int	tok;
 	//char str[] = "hello my name << \'>> >> >\' << is >>  pablo < a";
-	char str[] = " <<  \"holaaa > > >\" mi padre lol >> h >> | a";
+	char str[] = " << \\\"hey \"what i\'s up\"feo < dos << '><> ' a\0";
 	t_data	*data;;
 
 	/* if (minishell(env) == EXIT_FAILURE)
@@ -165,7 +166,15 @@ int	main(int argc, char **argv, char **env)
 	if (data == NULL)
 		return (MALLOC_ERROR);
 	data->first_line_ref = str;
-	ft_printf("TOK:%d\n", ft_check_token(data));
+	tok = ft_check_token(data);
+	if (tok == 0)
+	{
+		ft_ter_input(data, 0, 0);
+	}
+	else
+	{
+		ft_printf("TOK: %d\n", tok);
+	}
 	
 	//recieve_complete_input(data);
 }

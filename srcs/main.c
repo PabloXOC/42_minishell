@@ -6,14 +6,14 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/25 13:04:26 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/27 13:48:09 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_mysignal;
-g_mysignal = 0;
+//int g_mysignal;
+//g_mysignal = 0;
 
 /* int	check_errors(command)
 {
@@ -155,7 +155,8 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
-	char str[] = "hello my name << is <<  pablo << ";
+	//char str[] = "hello my name << \'>> >> >\' << is >>  pablo < a";
+	char str[] = " <<  \"holaaa > > >\" mi padre lol >> h >> | a";
 	t_data	*data;;
 
 	/* if (minishell(env) == EXIT_FAILURE)

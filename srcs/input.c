@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/25 13:04:45 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/05/29 12:29:29 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,9 +193,9 @@ int	first_line_complete(char *input, t_data *data)
 				ft_memcpy(data->first_line, input, i + 1);
 				data->first_line[i + 2] = 0;
 				if (input[i + 1] != '\0')
-					data->terminal_input == &input[i + 2];
+					data->terminal_input = &input[i + 2];
 				else
-					data->terminal_input == &input[i + 1];
+					data->terminal_input = &input[i + 1];
 				return (SUCCESS);
 			}
 			i++;
@@ -252,6 +252,19 @@ int	ft_ter_input(t_data *data)
 	}
 }
 
+static bool ft_found_io(char *str, int i)
+{
+	if (str[i] == '<' && str[i + 1] == '<')
+		return (true);
+	if (str[i] == '<' && str[i + 1] == ' ')
+		return (true);
+	if (str[i] == '>' && str[i + 1] == '>')
+		return (true);
+	if (str[i] == '>' && str[i + 1] == ' ')
+		return (true);
+	return (false);
+}
+
 static bool ft_found_ter_input(char *str, int i)
 {
 	if (str[i] == '<' && str[i + 1] == '<')
@@ -267,6 +280,8 @@ static bool ft_bad_token(char *str, int i)
 		return (true);
 	if (str[i] == '\0')
 		return (true);
+	if (str[i] == '|')
+		return (true);
 	if (str[i] == '<' && str[i + 1] == '<')
 		return (true);
 	if (str[i] == '<' && str[i + 1] == ' ')
@@ -278,6 +293,19 @@ static bool ft_bad_token(char *str, int i)
 	return (false);
 }
 
+int	ft_skip_quote(char *str, int i, char c)
+{
+	i++;
+	while (str[i] != c)
+	{
+		if (str[i] == '\0')
+			return (i);
+		i++;
+	}
+	i++;
+	return (i);
+}
+
 int	ft_check_token(t_data *data)
 {
 	int	i;
@@ -285,7 +313,11 @@ int	ft_check_token(t_data *data)
 	i = 0;
 	while (data->first_line_ref[i] != '\0')
 	{
-		if (ft_found_ter_input(data->first_line_ref, i) == true)
+		if (data->first_line_ref[i] == '\'' || data->first_line_ref[i] == '\"')
+			i = ft_skip_quote(data->first_line_ref, i, data->first_line_ref[i]);
+		if (data->first_line_ref[i] == '\0')
+			break ;
+		if (ft_found_io(data->first_line_ref, i) == true)
 		{
 			i +=2;
 			if (ft_bad_token(data->first_line_ref, i) == true)
@@ -294,6 +326,53 @@ int	ft_check_token(t_data *data)
 		i++;
 	}
 	return (SUCCESS);
+}
+
+int	ft_eofsize(char *str, int i)
+{
+	int		size;
+	bool	single_q;
+	bool	double_q;
+
+	single_q = false;
+	double_q = false;
+	size = 0;
+	while (((single_q == true || double_q == true)
+		|| (str[i] != ' ')) && str[i] != 0)
+	{
+		if (str[i] == '\'' && single_q == false && double_q == false)
+			single_q = true;
+		else if (str[i] == '\'' && single_q == true && double_q == false)
+			single_q = false;
+		else if (str[i] == '\"' && single_q == false && double_q == false)
+			single_q = true;
+		else if (str[i] == '\"' && single_q == false && double_q == true)
+			double_q = false;
+		else
+			size++;
+	}
+	return (size);
+}
+
+char	*ft_find_eof(char *str, int i, t_data *data)
+{
+	int		j;
+	char	*eof;
+
+	while (str[i] == ' ')
+		i++;
+	eof = (char *) malloc ((ft_eofsize(str, i) + 1) * sizeof(char));
+	if (eof == NULL)
+		return (ft_write_error_c(MALLOC_ERROR, data));
+	j = 0;
+	while (str[i] != ' ' && str[i] != '\0')
+	{
+		eof[j] = str[i];
+		i++;
+		j++;
+	}
+	eof[j] = 0;
+	return (eof);
 }
 
 int	recieve_complete_input(t_data *data)
@@ -321,10 +400,7 @@ int	recieve_complete_input(t_data *data)
 		return (MALLOC_ERROR);
 	if (ft_check_token(data) == INVALID_TOKEN)
 		return (INVALID_TOKEN);
-	data->first_line_split = ft_minishell_split(data->first_line_ref, ' ');
-	if (data->first_line_split == NULL)
+	if (ft_ter_input(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
-	/* if (ft_ter_input(data) == MALLOC_ERROR)
-		return (MALLOC_ERROR); */
 	return (SUCCESS);
 }

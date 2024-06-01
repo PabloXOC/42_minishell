@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/29 16:03:38 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/01 22:57:50 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,17 @@ typedef struct s_command
 	t_command		*next;
 }					t_command;
 
+typedef struct s_input_var
+{
+	char		*first_line;
+	char		*first_line_ref;
+	char		**first_line_split;
+	char		*search_eof; //to search for eof
+	char		*terminal_input; // beggining of << terminal input
+	char		*final_text;
+}				t_input_var;
+
+
 typedef struct s_data
 {
 	char		**input_split;
@@ -96,20 +107,20 @@ typedef struct s_data
 	int			paired; //to deal with '' ""
 	bool		exit; //if command == exit
 	int			input_index; //until where have we read the input
-	int			eof_index; //last eof read
 
 	char		*first_line;
 	char		*first_line_ref;
 	char		**first_line_split;
+	char		*search_eof; //to search for eof
+	t_input_var	*input_info;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
 	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	char		*redirect_output; // file name if we have a > or >>
-	char		*limiter; // string that stops << I AM NOT USING THIS. INSTEAD LOCAL, VARIABLE
-	char		*terminal_input; // text remaining from <<
+	char		*terminal_input; // beggining of << terminal input
 	bool		*file_input; // boolean for (true == <)
 	bool		append_output; // boolean for (true == >>) & (false == >)
-	char		*next_eof; //pointer to where i left off in <<
+	char		*next_eof;
 	t_var		*var; //list of all variables
 	t_var		*var_export; //list of all export variables
 	int			i;

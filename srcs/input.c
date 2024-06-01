@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/29 17:11:51 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/01 22:58:02 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_data	*data_init(void)
 	data->command_list = NULL;
 	data->redirect_input = NULL;
 	data->redirect_output = NULL;
-	data->limiter = NULL;
 	data->append_output = false;
 	data->var = NULL;
 	data->var_export = NULL;
@@ -39,7 +38,6 @@ t_data	*data_init(void)
 	data->next_eof = NULL;
 	data->malloc_error = false;
 	data->input_index = 0;
-	data->eof_index = 0;
 	data->first_line = NULL;
 	data->first_line_ref = NULL;
 	data->i = 0;
@@ -401,8 +399,24 @@ bool	ft_compare_eof(char *str, char *eof, t_data *data)
 		return (false);
 	if (str[i] == '\n')
 	{
-		
+		data->search_eof = &str[i + 1];
+		return (true);
 	}
+	else
+		return (false);
+}
+
+int	ft_add_text(t_data *data)
+{
+	char	*more_input;
+
+	data->terminal_input = ft_join_input(data->terminal_input, "\n");
+	if (data->input == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	more_input = readline("> ");
+	data->terminal_input = ft_strjoin(data->terminal_input, more_input);
+	free(more_input);
+	return (SUCCESS);
 }
 
 int	ft_get_ter_input(t_data *data, char *eof)
@@ -410,18 +424,19 @@ int	ft_get_ter_input(t_data *data, char *eof)
 	int	i;
 	char *str;
 
-	str = data->terminal_input;
+	str = data->search_eof;
 	i = 0;
 	while (str[i] != 0)
 	{
 		if (str[i] == '\n' && str[i] == '\0')
 		{
 			if (ft_compare_eof(&str[i + 1], eof, data) == true)
-			{
-				
-			}
+				return (SUCCESS);
 		}
+		i++;
 	}
+	if (ft_add_text(data) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
 }
 
 int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote)
@@ -431,6 +446,7 @@ int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote)
 	char	*eof;
 
 	f_line = data->first_line_ref;
+	data->search_eof = data->terminal_input;
 	i = 0;
 	while (f_line[i] != 0)
 	{
@@ -445,13 +461,19 @@ int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote)
 			if (f_line[i] == '<' && f_line[i + 1] == '<')
 			{
 				eof = ft_find_eof(f_line, i + 2, data);
-				ft_get_ter_input(data, eof);
+				if (eof == NULL)
+					return (MALLOC_ERROR);
+				if (ft_get_ter_input(data, eof) == MALLOC_ERROR)
+					return (MALLOC_ERROR);
 				ft_printf("%s\n", eof);
+				free(eof);
 				i += 2;
 			}
 		}
 		i++;
 	}
+	
+	return (SUCCESS);
 }
 
 int	recieve_complete_input(t_data *data)

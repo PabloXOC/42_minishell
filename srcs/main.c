@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/05/29 15:49:14 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/02 23:10:47 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	get_text_input(t_data *data)
 
 
 
-/* int	minishell(char **env)
+int	minishell(char **env)
 {
 	t_data	*data;
 
@@ -145,7 +145,7 @@ int	get_text_input(t_data *data)
 	// TO DO free even more stuff
 	rl_clear_history();
 	return (EXIT_SUCCESS);
-} */
+}
 
 
 //what happens when export? do we save_variables or execute_commands

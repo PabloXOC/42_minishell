@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/01 22:58:02 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/02 23:13:36 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ bool ft_backslash_not_paired(char *input, t_data *data)
 		i++;
 	}
 	return (false);
-} */
+}
 
-/* bool ft_input_required(char *input, t_data *data)
+bool ft_input_required(char *input, t_data *data)
 {
 	int	i;
 
@@ -505,3 +505,8 @@ int	recieve_complete_input(t_data *data)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }
+
+/* int	recieve_complete_input(t_data *data)
+{
+	return (SUCCESS);
+} */

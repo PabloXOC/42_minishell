@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/02 23:10:47 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/04 19:15:36 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	get_text_input(t_data *data)
 
 
 
-int	minishell(char **env)
+/* int	minishell(char **env)
 {
 	t_data	*data;
 
@@ -145,7 +145,7 @@ int	minishell(char **env)
 	// TO DO free even more stuff
 	rl_clear_history();
 	return (EXIT_SUCCESS);
-}
+} */
 
 
 //what happens when export? do we save_variables or execute_commands
@@ -157,7 +157,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	int	tok;
 	//char str[] = "hello my name << \'>> >> >\' << is >>  pablo < a";
-	char str[] = " << \\\"hey \"what i\'s up\"feo < dos << '><> ' a\0";
+	char str[] = "hi << \"<<\"  feos todos << viva españa";
 	t_data	*data;;
 
 	/* if (minishell(env) == EXIT_FAILURE)
@@ -166,10 +166,13 @@ int	main(int argc, char **argv, char **env)
 	if (data == NULL)
 		return (MALLOC_ERROR);
 	data->first_line_ref = str;
+	data->n_eof = 2;
 	tok = ft_check_token(data);
 	if (tok == 0)
 	{
-		ft_ter_input(data, 0, 0);
+		ft_ter_input(data, 0, 0, 0);
+		ft_save_until_eof(data);
+		ft_printf("FINAL:%sAAA\n", data->final_text);
 	}
 	else
 	{

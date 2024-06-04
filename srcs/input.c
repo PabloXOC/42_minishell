@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/02 23:13:36 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/04 19:10:02 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_data	*data_init(void)
 	data->first_line_ref = NULL;
 	data->i = 0;
 	data->j = -1;
+	data->ii;
+	data->n_eof = 0;
 	return (data);
 }
 
@@ -210,8 +212,14 @@ char	*ft_join_input(char *s1, char *s2)
 	int		len_1;
 	int		len_2;
 
-	len_1 = ft_strlen(s1);
-	len_2 = ft_strlen(s2);
+	if (s1 != NULL)
+		len_1 = ft_strlen(s1);
+	else
+		len_1 = 0;
+	if (s2 != NULL)
+		len_2 = ft_strlen(s2);
+	else
+		len_2 = 0;
 	str = ft_calloc(len_1 + len_2 + 1, 1);
 	if (str == NULL)
 		return (NULL);
@@ -222,10 +230,13 @@ char	*ft_join_input(char *s1, char *s2)
 	return (str);
 }
 
-static bool ft_found_io(char *str, int i)
+static bool ft_found_io(char *str, int i, t_data *data)
 {
 	if (str[i] == '<' && str[i + 1] == '<')
+	{
+		data->n_eof++;
 		return (true);
+	}
 	if (str[i] == '<' && str[i + 1] == ' ')
 		return (true);
 	if (str[i] == '>' && str[i + 1] == '>')
@@ -287,7 +298,7 @@ int	ft_check_token(t_data *data)
 			i = ft_skip_quote(data->first_line_ref, i, data->first_line_ref[i]);
 		if (data->first_line_ref[i] == '\0')
 			break ;
-		if (ft_found_io(data->first_line_ref, i) == true)
+		if (ft_found_io(data->first_line_ref, i, data) == true)
 		{
 			i +=2;
 			if (ft_bad_token(data->first_line_ref, i) == true)
@@ -389,7 +400,7 @@ bool	ft_compare_eof(char *str, char *eof, t_data *data)
 
 	i = 0;
 	size = ft_strlen(eof);
-	while (i < size && str[i] != 0 && str[i] != ' \n')
+	while (i < size && str[i] != 0 && str[i] != '\n')
 	{
 		if (str[i] != eof[i])
 			return (false);
@@ -397,7 +408,7 @@ bool	ft_compare_eof(char *str, char *eof, t_data *data)
 	}
 	if (i != size)
 		return (false);
-	if (str[i] == '\n')
+	if (str[i] == '\n' || str[i] == '\0')
 	{
 		data->search_eof = &str[i + 1];
 		return (true);
@@ -411,7 +422,7 @@ int	ft_add_text(t_data *data)
 	char	*more_input;
 
 	data->terminal_input = ft_join_input(data->terminal_input, "\n");
-	if (data->input == NULL)
+	if (data->terminal_input == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
 	data->terminal_input = ft_strjoin(data->terminal_input, more_input);
@@ -421,32 +432,36 @@ int	ft_add_text(t_data *data)
 
 int	ft_get_ter_input(t_data *data, char *eof)
 {
-	int	i;
-	char *str;
-
-	str = data->search_eof;
-	i = 0;
-	while (str[i] != 0)
+	data->terminal_input;
+	while (42)
 	{
-		if (str[i] == '\n' && str[i] == '\0')
+		while (data->terminal_input != 0 && data->terminal_input[data->ii] != 0)
 		{
-			if (ft_compare_eof(&str[i + 1], eof, data) == true)
-				return (SUCCESS);
+			if (data->terminal_input[data->ii] == '\n')
+			{
+				if (ft_compare_eof(&data->terminal_input[data->ii + 1], eof, data) == true)
+					return (SUCCESS);
+			}
+			data->ii++;
 		}
-		i++;
+		if (ft_add_text(data) == MALLOC_ERROR)
+			return (MALLOC_ERROR);
 	}
-	if (ft_add_text(data) == MALLOC_ERROR)
-		return (MALLOC_ERROR);
+	return (FAILURE);
+	
 }
 
-int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote)
+int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote, int j)
 {
 	int	i;
 	char	*f_line;
 	char	*eof;
 
 	f_line = data->first_line_ref;
-	data->search_eof = data->terminal_input;
+	data->list_eof = (char **) malloc ((data->n_eof + 1) * (sizeof (char *)));
+	if (data->list_eof == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	//data->search_eof = data->terminal_input;
 	i = 0;
 	while (f_line[i] != 0)
 	{
@@ -466,13 +481,80 @@ int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote)
 				if (ft_get_ter_input(data, eof) == MALLOC_ERROR)
 					return (MALLOC_ERROR);
 				ft_printf("%s\n", eof);
-				free(eof);
+				data->list_eof[j++] = eof;
 				i += 2;
 			}
 		}
 		i++;
 	}
-	
+	data->list_eof[j] = 0;
+	return (SUCCESS);
+}
+
+int	ft_eofsize_total(t_data *data, int i, int j)
+{
+	bool	found;
+
+	while (data->list_eof[j] != 0)
+	{
+		found = false;
+		while (found == false)
+		{
+			if (data->terminal_input[i] == '\n');
+				i++;
+			if (ft_compare_eof(&data->terminal_input[i], data->list_eof[j], data))
+			{
+				found = true;
+				i += ft_strlen(data->list_eof[j]);
+			}
+			else
+			{
+				i++;
+				while (data->terminal_input[i] != '\n')
+					i++;
+			}
+		}
+		j++;
+	}
+	return (i);
+}
+
+int	ft_save_until_eof(t_data *data)
+{
+	int	len;
+	int	i;
+	int	j;
+	int	k;
+
+	len = ft_eofsize_total(data, 0, 0);
+	j = 0;
+	while ((data->list_eof[j]) != 0)
+	{
+		len -= (ft_strlen(data->list_eof[j]) + 1);
+		j++;
+	}
+	data->final_text = (char *) malloc ((len) * sizeof (char));
+	if (data->final_text == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	i = 1;
+	j = 0;
+	k = 0;
+	while (k < len - 1)
+	{
+		if ((i == 1 || data->terminal_input[i - 1] == '\n')
+		&& ft_compare_eof(&data->terminal_input[i], data->list_eof[j], data) == true)
+		{
+			i += ft_strlen(data->list_eof[j]) + 1;
+			j++;
+		}
+		else
+		{
+			data->final_text[k] = data->terminal_input[i];
+			i++;
+			k++;
+		}
+	}
+	data->final_text[k] = 0;
 	return (SUCCESS);
 }
 
@@ -501,7 +583,9 @@ int	recieve_complete_input(t_data *data)
 		return (MALLOC_ERROR);
 	if (ft_check_token(data) == INVALID_TOKEN)
 		return (INVALID_TOKEN);
-	if (ft_ter_input(data, 0, 0) == MALLOC_ERROR)
+	if (ft_ter_input(data, 0, 0, 0) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
+	if (ft_save_until_eof(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }

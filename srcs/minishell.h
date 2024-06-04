@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/01 22:57:50 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/04 19:10:15 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,11 @@ typedef struct s_input_var
 	char		*first_line;
 	char		*first_line_ref;
 	char		**first_line_split;
-	char		*search_eof; //to search for eof
+	char		*search_eof; //to search through terminal input to find eof
 	char		*terminal_input; // beggining of << terminal input
-	char		*final_text;
+	char		*final_text; //what we will actually use for << input text
+	char		**list_eof;
+	int			n_eof;
 }				t_input_var;
 
 
@@ -111,7 +113,10 @@ typedef struct s_data
 	char		*first_line;
 	char		*first_line_ref;
 	char		**first_line_split;
+	int			n_eof;
+	char		**list_eof;  //all the eof in order;
 	char		*search_eof; //to search for eof
+	char		*final_text; //what we will actually use for << input text
 	t_input_var	*input_info;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
@@ -125,6 +130,7 @@ typedef struct s_data
 	t_var		*var_export; //list of all export variables
 	int			i;
 	int			j;
+	int			ii;
 
 	//errors
 	bool		malloc_error;
@@ -192,7 +198,9 @@ char	**ft_minishell_split(char const *s, char c);
 int	open_input(t_data *data);
 int	recieve_complete_input(t_data *data);
 int	ft_check_token(t_data *data);
-int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote);
+int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote, int j);
+int	ft_get_ter_input(t_data *data, char *eof);
+int	ft_save_until_eof(t_data *data);
 
 
 

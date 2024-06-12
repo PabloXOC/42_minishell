@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:51:57 by farah             #+#    #+#             */
-/*   Updated: 2024/05/29 15:10:29 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:40:40 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_info	*ft_commands(char **argv, char **envp, int argc);
 
 /* Lists */
 t_clist	*ft_new_t_clist(char **command, char *path);
-void	ft_t_clist_add_back(t_clist **lst, t_clist *new);
+void	ft_t_clist_add_back(t_clist **lst, t_clist *lst_new);
 t_clist	*ft_t_clist_last(t_clist *lst);
 void	ft_t_clist_delone(t_clist *lst);
 void	ft_t_clist_clear(t_clist **lst);

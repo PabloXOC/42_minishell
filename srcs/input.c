@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/04 19:10:02 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/12 11:50:06 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,27 @@ bool ft_input_required(char *input, t_data *data)
 	return (false);
 } */
 
+char	*init_terminal_input(t_data *data, char *input, int i)
+{
+	char *terminal_input;
+	int	size;
+	int	j;
+
+	size = ft_strlen(&input[i]);
+	terminal_input = (char *) malloc ((size + 1) * sizeof(char));
+	if (terminal_input == NULL)
+		return (ft_write_error_c(MALLOC_ERROR, data));
+	j = 0;
+	while (input[i] != 0)
+	{
+		terminal_input[j] = input[i];
+		i++;
+		j++;
+	}
+	terminal_input[j] = 0;
+	return (terminal_input);
+}
+
 int	first_line_complete(char *input, t_data *data)
 {
 	int	i;
@@ -192,10 +213,9 @@ int	first_line_complete(char *input, t_data *data)
 					return (ft_write_error_i(MALLOC_ERROR, data));
 				ft_memcpy(data->first_line, input, i + 1);
 				data->first_line[i + 2] = 0;
-				if (input[i + 1] != '\0')
-					data->terminal_input = &input[i + 2];
-				else
-					data->terminal_input = &input[i + 1];
+				data->terminal_input = init_terminal_input(data, input, i + 1);
+				if (data->terminal_input == NULL)
+					return (MALLOC_ERROR);
 				return (SUCCESS);
 			}
 			i++;
@@ -226,7 +246,8 @@ char	*ft_join_input(char *s1, char *s2)
 	ft_memcpy(str, s1, len_1);
 	ft_memcpy(&str[len_1], s2, len_2);
 	str[len_1 + len_2] = 0;
-	free(s1);
+	if (s1 != NULL)
+		free(s1);
 	return (str);
 }
 
@@ -589,8 +610,3 @@ int	recieve_complete_input(t_data *data)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }
-
-/* int	recieve_complete_input(t_data *data)
-{
-	return (SUCCESS);
-} */

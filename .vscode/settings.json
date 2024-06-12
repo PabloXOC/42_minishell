@@ -3,6 +3,7 @@
 		"minishell.h": "c",
 		"readline.h": "c",
 		"curses.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"libft.h": "c"
 	}
 }

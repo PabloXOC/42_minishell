@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/04 19:10:15 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:21:37 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 /*-------INCLUDES-------*/
 # include "../libft/ft_printf.h"
 # include "../libft/libft.h"
+# include "../libft_lst/lst_com.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -53,7 +54,6 @@
 
 typedef enum e_cases		t_cases;
 typedef struct s_var		t_var;
-typedef struct s_command	t_command;
 
 typedef enum e_cases
 {
@@ -71,16 +71,9 @@ typedef enum e_cases
 typedef struct s_var
 {
 	char			*var;
-	char			**content;
+	char			*content;
 	t_var			*next;
 }					t_var;
-
-typedef struct s_command
-{
-	char			**content;
-	char			*full_path;
-	t_command		*next;
-}					t_command;
 
 typedef struct s_input_var
 {
@@ -118,6 +111,7 @@ typedef struct s_data
 	char		*search_eof; //to search for eof
 	char		*final_text; //what we will actually use for << input text
 	t_input_var	*input_info;
+	char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
 	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
@@ -180,6 +174,7 @@ int			ft_get_dir(t_data *data, char **env);
 int			terminal_entry(t_data *data, char **env);
 
 /*------VARIABLES------*/
+int	save_variables(t_data *data);
 
 int			delete_var(t_data *data, char *var_to_del);
 
@@ -195,12 +190,14 @@ char	**ft_minishell_split(char const *s, char c);
 
 
 
+
 int	open_input(t_data *data);
 int	recieve_complete_input(t_data *data);
 int	ft_check_token(t_data *data);
 int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote, int j);
 int	ft_get_ter_input(t_data *data, char *eof);
 int	ft_save_until_eof(t_data *data);
+char	*ft_reformat_input(char *input, t_data *data);
 
 
 

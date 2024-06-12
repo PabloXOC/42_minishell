@@ -6,14 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/04 19:15:36 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/12 11:54:53 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//int g_mysignal;
-//g_mysignal = 0;
+int g_mysignal = 0;
 
 /* int	check_errors(command)
 {
@@ -108,7 +107,7 @@ int	get_text_input(t_data *data)
 
 
 
-/* int	minishell(char **env)
+int	minishell(char **env)
 {
 	t_data	*data;
 
@@ -119,33 +118,34 @@ int	get_text_input(t_data *data)
 	while (g_mysignal == 0 && data->malloc_error == false
 		&& data->exit == false) //find more reasons to break
 	{
-		data->input = readline(data->entry);
+		//data->input = readline(data->entry);
 		if (recieve_complete_input(data) == SUCCESS)
 		{
-			get_text_input(data);//TO DO char * of <<
+			//get_text_input(data);//TO DO char * of <<
 			add_history(data->input);  //TO DO  merge in different variable input + user text (if <<)
-			data->input = ft_reformat_input(data->input, data); // reformat and split input (not \\)
+			//data->input = ft_reformat_input(data->input, data); // reformat and split input (not \\)
+			data->first_line_split = ft_minishell_split(data->first_line_ref, ' ');
+			if (data->first_line_split == NULL)
+				return (ft_write_error_i(MALLOC_ERROR, data));
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
 			if (check_if_we_save_variables(data) == true)
-				safe_var(data); // TO DO edit '\\' & cut string
+				save_variables(data); // TO DO edit '\\' & cut string
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
 			//open files (maybe after commands)
 			if (save_commands(data) == MALLOC_ERROR)
 				return (MALLOC_ERROR);
 			//find_command(command, env);
-			if (check_errors(data) == true)  //TO DO  check for consecutive input/output symbols
-				return (FAILURE);  // TO DO specify errors
-			execute_commands(data); //TO DO LATER
-			delete_commands(data);
+			//execute_commands(data); //TO DO LATER
+			//delete_commands(data);
 		}
 		// TO DO free stuff
 	}
 	// TO DO free even more stuff
 	rl_clear_history();
 	return (EXIT_SUCCESS);
-} */
+}
 
 
 //what happens when export? do we save_variables or execute_commands
@@ -155,14 +155,14 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
-	int	tok;
+	//int	tok;
 	//char str[] = "hello my name << \'>> >> >\' << is >>  pablo < a";
-	char str[] = "hi << \"<<\"  feos todos << viva españa";
+	//char str[] = "hi << \"<<\"  feos todos << viva españa";
 	t_data	*data;;
 
-	/* if (minishell(env) == EXIT_FAILURE)
-		return (EXIT_FAILURE); */
-	data = data_init();
+	if (minishell(env) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	/* data = data_init();
 	if (data == NULL)
 		return (MALLOC_ERROR);
 	data->first_line_ref = str;
@@ -178,6 +178,6 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_printf("TOK: %d\n", tok);
 	}
-	
+	 */
 	//recieve_complete_input(data);
 }

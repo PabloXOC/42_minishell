@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/05/29 15:00:37 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:41:00 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ int	ft_t_clist_size(t_clist *lst)
 	return (count);
 }
 
-void	ft_t_clist_add_back(t_clist **lst, t_clist *new)
+void	ft_t_clist_add_back(t_clist **lst, t_clist *lst_new)
 {
 	t_clist	*last;
 
-	if (lst != NULL && new != NULL)
+	if (lst != NULL && lst_new != NULL)
 	{
 		last = ft_t_clist_last(*lst);
 		if (last == NULL)
-			(*lst) = new;
+			(*lst) = lst_new;
 		else
-			last->next = new;
+			last->next = lst_new;
 	}
 }
 

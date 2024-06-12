@@ -9,7 +9,7 @@ INCLUDES = -I $(LIB_DIR) -I.
 
 # Files
 SRCS = access_files.c aid.c aid2.c command_path.c cleanup.c \
-	main.c bonus.c lists.c
+	 bonus.c lists.c
 
 OBJS = $(SRCS:.c=.o)
 

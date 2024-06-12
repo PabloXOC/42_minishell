@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/05/22 15:30:34 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/07 13:07:52 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	safe_existing_var(t_data *data, char **equality)
 	return (FAILURE);
 }
 
-int	safe_var(t_data *data)
+int	save_variables(t_data *data)
 {
 	char	**equality;
 	int		i;

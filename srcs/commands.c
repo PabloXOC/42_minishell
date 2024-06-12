@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/05/22 16:02:09 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/10 14:25:12 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static int	length_command(t_data *data, int i)
 	int	len;
 
 	len = 0;
-	while (data->input_split[i] != NULL && ft_strncmp(data->input_split[i], "|", 1) != 0)
+	while (data->first_line_split[i] != NULL && ft_strncmp(data->first_line_split[i], "|", 1) != 0)
 	{
-		if (ft_strncmp(data->input_split[i], "<", 1) == 0)
+		if (ft_strncmp(data->first_line_split[i], "<", 1) == 0)
 			i++;
-		else if (ft_strncmp(data->input_split[i], ">", 1) == 0)
+		else if (ft_strncmp(data->first_line_split[i], ">", 1) == 0)
 			i++;
-		else if (ft_strncmp(data->input_split[i], "<<", 2) == 0)
+		else if (ft_strncmp(data->first_line_split[i], "<<", 2) == 0)
 			i++;
-		else if (ft_strncmp(data->input_split[i], ">>", 2) == 0)
+		else if (ft_strncmp(data->first_line_split[i], ">>", 2) == 0)
 			i++;
 		else
 			len++;
@@ -73,7 +73,7 @@ static int	length_command(t_data *data, int i)
 
 static int	write_in_command(t_data *data, int i)
 {
-	t_list	*com;
+	t_command	*com;
 	char	**full_command;
 	int		pos_command;
 
@@ -82,34 +82,34 @@ static int	write_in_command(t_data *data, int i)
 		return (MALLOC_ERROR);
 	full_command[length_command(data, i)] = NULL;
 	pos_command = 0;
-	while (data->input_split[i] != NULL && ft_strncmp(data->input_split[i], "|", 1) != 0)
+	while (data->first_line_split[i] != NULL && ft_strncmp(data->first_line_split[i], "|", 1) != 0)
 	{
-		if (ft_strncmp(data->input_split[i], "<", 1) == 0)
-			data->redirect_input = data->input_split[++i];
-		else if (ft_strncmp(data->input_split[i], ">", 1) == 0)
-			data->redirect_output = data->input_split[++i];
-		else if (ft_strncmp(data->input_split[i], "<<", 2) == 0)
-			data->limiter = data->input_split[++i];
-		else if (ft_strncmp(data->input_split[i], ">>", 2) == 0)
-			data->append_output = data->input_split[++i];
+		if (ft_strncmp(data->first_line_split[i], "<", 1) == 0)
+			data->redirect_input = data->first_line_split[++i];
+		else if (ft_strncmp(data->first_line_split[i], ">", 1) == 0)
+			data->redirect_output = data->first_line_split[++i];
+		else if (ft_strncmp(data->first_line_split[i], "<<", 2) == 0)
+			data->limiter = data->first_line_split[++i];
+		else if (ft_strncmp(data->first_line_split[i], ">>", 2) == 0)
+			data->append_output = data->first_line_split[++i];
 		else
-			full_command[pos_command++] = ft_strdup(data->input_split[i]);
+			full_command[pos_command++] = ft_strdup(data->first_line_split[i]);
 		if (full_command[pos_command - 1] == NULL)
 			return (MALLOC_ERROR);
 		i++;
 	}
 	if (data->command_list == NULL)
 	{
-		data->command_list = ft_lstnew(full_command);
+		data->command_list = ft_lstnew_com(full_command);
 		if (data->command_list == NULL)
 			return (MALLOC_ERROR);
 	}
 	else
 	{
-		com = ft_lstnew(full_command);
+		com = ft_lstnew_com(full_command);
 		if (com == NULL)
 			return (MALLOC_ERROR);
-		ft_lstadd_back(&data->command_list, com);
+		ft_lstadd_back_com(&data->command_list, com);
 	}
 	return (i);
 }
@@ -119,12 +119,12 @@ int	save_commands(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->input_split[i] != NULL)
+	while (data->first_line_split[i] != NULL)
 	{
-		while (ft_strrchr(data->input_split[i], '=') != NULL)
+		while (ft_strrchr(data->first_line_split[i], '=') != NULL)
 			i++;
 		i = write_in_command(data, i);
-		if (data->input_split[i] != NULL)
+		if (data->first_line_split[i] != NULL)
 			i++;
 	}
 }
@@ -135,8 +135,8 @@ void	delete_commands(t_data *data)
 	data->redirect_output = NULL;
 	data->limiter = NULL;
 	data->append_output = NULL;
-	ft_lstclear(&data->command_list, &ft_free_char_pp);
+	ft_lstclear_com(&data->command_list, &ft_free_char_pp);
 	data->command_list = NULL;
-	ft_free_char_pp(data->input_split);
-	data->input_split = NULL;
+	ft_free_char_pp(data->first_line_split);
+	data->first_line_split = NULL;
 }

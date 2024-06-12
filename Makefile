@@ -15,21 +15,23 @@ RESET	:= \033[0m
 CC = cc
 CFLAGS = -g
 LIB_DIR = libft/
-LIBS = $(LIB_DIR)libft.a
-INCLUDES = -I $(LIB_DIR) -I.
+LIBFT_LST_DIR = libft_lst/
+
+LIBS = $(LIB_DIR)libft.a $(LIBFT_LST_DIR)lst_com.a
+INCLUDES = -I $(LIB_DIR) -I. -I $(LIBFT_LST_DIR)
 
 LIB_SYS = -I ./include -I /Users/pximenez/.brew/opt/readline/include
 LIB_SYS2 = -L /Users/pximenez/.brew/opt/readline/lib -lreadline
 
-SRC_DIR = srcs/
+SRC_DIR = srcs
 READLINE = -lreadline
 
+
 # Files
-SRCS = $(SRC_DIR)main.c $(SRC_DIR)input.c $(SRC_DIR)write.c $(SRC_DIR)utils.c \
-	$(SRC_DIR)reformat.c $(SRC_DIR)ft_minishell_split.c 
-#$(SRC_DIR)main.c $(SRC_DIR)utils.c $(SRC_DIR)input.c $(SRC_DIR)commands.c \
-	$(SRC_DIR)write.c $(SRC_DIR)terminal_appearance.c $(SRC_DIR)variables.c  \
-	$(SRC_DIR)check_if_save_input.c $(SRC_DIR)open_input.c $(SRC_DIR)ft_minishell_split.c 
+SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/input.c $(SRC_DIR)/commands.c \
+	$(SRC_DIR)/write.c $(SRC_DIR)/terminal_appearance.c $(SRC_DIR)/variables.c  \
+	$(SRC_DIR)/check_if_save_input.c $(SRC_DIR)/open_input.c $(SRC_DIR)/ft_minishell_split.c \
+	$(SRC_DIR)/reformat.c
 OBJS = $(SRCS:.c=.o)
 
 # Executable name
@@ -45,6 +47,7 @@ $(NAME): $(OBJS) $(LIBS)
 
 $(LIBS):
 	@make -C $(LIB_DIR)
+	@make -C $(LIBFT_LST_DIR)
 
 %.o: %.c minishell.h
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/07 13:07:52 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/12 21:34:26 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,12 @@ int	save_variables(t_data *data)
 	int		i;
 
 	i = 0;
-	while (data->input_split[i] != NULL)
+	while (data->input_info->first_line_split[i] != NULL)
 	{
 
-		if (ft_strrchr(data->input_split[i], '=') != NULL)
+		if (ft_strrchr(data->input_info->first_line_split[i], '=') != NULL)
 		{
-			equality = ft_split(data->input_split[i], '=');
+			equality = ft_split(data->input_info->first_line_split[i], '=');
 			if (equality == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			if (data->var == NULL)

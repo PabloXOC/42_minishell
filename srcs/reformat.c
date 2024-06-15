@@ -6,12 +6,31 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/05/24 11:26:13 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 16:35:23 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//to make ft_count_sep_char fit in 25 lines
+static int	ft_count_sep_char_util(char *input, int i)
+{
+	if (input[i] == '\'')
+	{
+		i++;
+		while (input[i] != '\'')
+			i++;
+	}
+	if (input[i] == '\"')
+	{
+		i++;
+		while (input[i] != '\"')
+			i++;
+	}	
+	return (i);
+}
+
+//find how many additional characters we are going to require
 static int	ft_count_sep_char(char *input)
 {
 	int	i;
@@ -21,26 +40,15 @@ static int	ft_count_sep_char(char *input)
 	count = 0;
 	while (input[i] != 0)
 	{
-		if (input[i] == '\'')
-		{
-			i++;
-			while (input[i] != '\'')
-				i++;
-		}
-		if (input[i] == '\"')
-		{
-			i++;
-			while (input[i] != '\"')
-				i++;
-		}
+		i = ft_count_sep_char_util(input, i);
 		if ((input[i] == '<' && input[i + 1] == '<') || (input[i] == '>' && input[i + 1] == '>'))
 		{
-			count +=2;
-			i +=2;
+			count += 2;
+			i += 2;
 		}
 		else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
 		{
-			count +=2;
+			count += 2;
 			i++;
 		}
 		else
@@ -49,6 +57,7 @@ static int	ft_count_sep_char(char *input)
 	return (count);
 }
 
+//used to substitute "str" with " str "
 static char	*ft_paste_char(char *output, char *added, int pos, int size)
 {
 	int	i;
@@ -62,6 +71,7 @@ static char	*ft_paste_char(char *output, char *added, int pos, int size)
 	return (output);
 }
 
+//to make ft_make_new_string fit in 25 lines
 static void	ft_ifs(char *input, char *output, int i, int j)
 {
 	if (input[j] == '<')
@@ -72,6 +82,8 @@ static void	ft_ifs(char *input, char *output, int i, int j)
 		ft_paste_char(output, " | ", i, 3);
 }
 
+
+//if we find quotations we skip until we are outside
 static char	*ft_skip_quote(char *input, char *output, t_data *d)
 {
 	if (input[d->j] == '\'')
@@ -87,7 +99,7 @@ static char	*ft_skip_quote(char *input, char *output, t_data *d)
 		}
 		output[d->i] = input[d->j];
 	}
-	if (input[d->j] == '\"')
+	else if (input[d->j] == '\"')
 	{
 		output[d->i] = input[d->j];
 		d->i++;
@@ -102,12 +114,15 @@ static char	*ft_skip_quote(char *input, char *output, t_data *d)
 	}
 	return (output);
 }
+
+//knowing the size of the new string, we can actually reformat (25 lines max funct)
 static char	*ft_make_new_string(char *input,char *output, t_data *d)
 {
 	while (input[++d->j] != 0)
 	{
 		output = ft_skip_quote(input, output, d);
-		if ((input[d->j] == '<' && input[d->j + 1] == '<') || (input[d->j] == '>' && input[d->j + 1] == '>'))
+		if ((input[d->j] == '<' && input[d->j + 1] == '<')
+			|| (input[d->j] == '>' && input[d->j + 1] == '>'))
 		{
 			if (input[d->j] == '<')
 				ft_paste_char(output, " << ", d->i, 4);
@@ -125,34 +140,11 @@ static char	*ft_make_new_string(char *input,char *output, t_data *d)
 			output[d->i] = input[d->j];
 		d->i++;
 	}
+	output[d->i] = 0;
 	return (output);
 }
 
-int	ft_count_bars(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i] != 0)
-	{
-		if (str[i] == '\\' && str[i + 1] == '\\')
-		{
-			i += 2;
-			count +=2;
-		}
-		else if (str[i] == '\\')
-		{
-			i += 1;
-			count += 1;
-		}
-		else
-			i++;
-	}
-	return (count);
-}
-
+//reformat input
 char	*ft_reformat_input(char *input, t_data *data)
 {
 	int		n_sep;
@@ -165,6 +157,7 @@ char	*ft_reformat_input(char *input, t_data *data)
 		return ((ft_write_error_c(MALLOC_ERROR, data)));
 	output = ft_memset(output, 100, ft_strlen(input) + n_sep);
 	output = ft_make_new_string(input, output, data);
+	output[ft_strlen(input) + n_sep] = 0;
 	//free(input);
 	return (output);
 }

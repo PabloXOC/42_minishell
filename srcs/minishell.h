@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/10 14:21:37 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 16:57:57 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,23 @@ typedef struct s_var
 
 typedef struct s_input_var
 {
-	char		*first_line;
-	char		*first_line_ref;
-	char		**first_line_split;
+	char		*init_input; //the inital input recieved
+	char		**init_input_split; // the initial input recieved split with spaces
+	char		*first_line;  // the final first line
+	char		*first_line_ref; //the final first line reformated (spaces and /)
+	char		**first_line_split; //the final first line split with spaces
 	char		*search_eof; //to search through terminal input to find eof
-	char		*terminal_input; // beggining of << terminal input
+	char		*terminal_input; // beginning of << terminal input
 	char		*final_text; //what we will actually use for << input text
-	char		**list_eof;
-	int			n_eof;
+	char		**list_eof; //list of all the eof to look for
+	int			n_eof; //how many eof to look for
+	char		*first_line_and_final_text;//first_line + final_text
 }				t_input_var;
-
 
 typedef struct s_data
 {
-	char		**input_split;
-	char		*input;
+	//char		**input_split;
+	//char		*input;
 
 	//for terminal entry information
 	char		*user;
@@ -103,27 +105,29 @@ typedef struct s_data
 	bool		exit; //if command == exit
 	int			input_index; //until where have we read the input
 
-	char		*first_line;
-	char		*first_line_ref;
-	char		**first_line_split;
-	int			n_eof;
-	char		**list_eof;  //all the eof in order;
-	char		*search_eof; //to search for eof
-	char		*final_text; //what we will actually use for << input text
+	//char		*first_line;
+	//char		*first_line_ref;
+	//char		**first_line_split;
+	//int			n_eof;
+	//char		**list_eof;  //all the eof in order;
+	//char		*search_eof; //to search for eof
+	//char		*final_text; //what we will actually use for << input text
 	t_input_var	*input_info;
 	char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
 	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	char		*redirect_output; // file name if we have a > or >>
-	char		*terminal_input; // beggining of << terminal input
+	//char		*terminal_input; // beggining of << terminal input
 	bool		*file_input; // boolean for (true == <)
 	bool		append_output; // boolean for (true == >>) & (false == >)
 	char		*next_eof;
 	t_var		*var; //list of all variables
 	t_var		*var_export; //list of all export variables
 	int			i;
+	int			i_ter;
 	int			j;
+	int			k;
 	int			ii;
 
 	//errors
@@ -151,12 +155,21 @@ bool			ft_samestr(const char *s1, const char *s2);
 int			ft_count_words(char **argv);
 void		print_char_pp(char **stack);
 void		ft_free_char_pp(char **stack);
+bool		ft_quote_switch(char *str, int i, bool single_q, bool double_q);
 
 /*------INPUT------*/
-t_data		*data_init(void);
-int			ft_pair(char *input, char c, int i, t_data *data);
-bool		ft_not_complete(char *input, t_data *data);
 char		*ft_join_input(char *s1, char *s2);
+int			recieve_complete_input(t_data *data);
+
+/*------TERMINAL_INPUT------*/
+int	ft_terminal_input(t_data *data, int n_single_q, int n_double_q);
+
+/*------TERMINAL_INPUT_UTILS------*/
+int	ft_eofsize(char *str, int i, bool single_q, bool double_q);
+char	*ft_write_eof(char *str, char *eof, int size, int i);
+char	*ft_find_eof(char *str, int i, t_data *data);
+bool	ft_compare_eof(char *str, char *eof, t_data *data);
+
 
 /*------COMMANDS------*/
 int			find_command(t_data *data, t_list *com, char **env);
@@ -189,15 +202,21 @@ bool		check_if_we_save_variables(t_data *data);
 char	**ft_minishell_split(char const *s, char c);
 
 
+/*------TOKEN DETECTION------*/
+int	ft_check_token(t_data *data);
+
+/*------INIT------*/
+t_data	*data_init(void);
+int		init_input_struct(t_data *data);
 
 
-int	open_input(t_data *data);
+/* int	open_input(t_data *data);
 int	recieve_complete_input(t_data *data);
 int	ft_check_token(t_data *data);
 int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote, int j);
 int	ft_get_ter_input(t_data *data, char *eof);
 int	ft_save_until_eof(t_data *data);
-char	*ft_reformat_input(char *input, t_data *data);
+char	*ft_reformat_input(char *input, t_data *data); */
 
 
 

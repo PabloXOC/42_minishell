@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:02:00 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/10 14:19:54 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/12 21:11:31 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,20 @@ bool	check_if_we_save_variables(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->first_line_split[i] != 0)
+	while (data->input_info->first_line_split[i] != 0)
 	{
-		if (ft_charcomp(data->first_line_split[i], ">") == true || ft_charcomp(data->first_line_split[i], "<") == true
-			|| ft_charcomp(data->first_line_split[i], ">>") == true || ft_charcomp(data->first_line_split[i], "<<") == true)
+		if (ft_charcomp(data->input_info->first_line_split[i], ">") == true
+			|| ft_charcomp(data->input_info->first_line_split[i], "<") == true
+			|| ft_charcomp(data->input_info->first_line_split[i], ">>") == true
+			|| ft_charcomp(data->input_info->first_line_split[i], "<<") == true)
 			i++;
-		else if (ft_charcomp(data->first_line_split[i], "|") == true) //we have pipes
+		else if (ft_charcomp(data->input_info->first_line_split[i], "|") == true) //we have pipes
 			return (false);
-		else if (ft_there_is_equal(data->first_line_split[i]) == false) //we dont have an equal sign
+		else if (ft_there_is_equal(data->input_info->first_line_split[i]) == false) //we dont have an equal sign
 			return (false);
-		else if (ft_isspecial(data->first_line_split[i]) == true) //we have a special character
+		else if (ft_isspecial(data->input_info->first_line_split[i]) == true) //we have a special character
 			return (false);
-		if (data->first_line_split[i] != 0)
+		if (data->input_info->first_line_split[i] != 0)
 			i++;
 	}
 	return (true);

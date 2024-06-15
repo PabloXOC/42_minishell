@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:28:55 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/05/29 12:20:02 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/12 21:34:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_write_error_i(t_cases case_code, t_data *data)
 	}
 	if (case_code == INVALID_COMMAND)
 	{
-		ft_printf("Command '%s' not found.\n", data->input_split[0]);
+		ft_printf("Command '%s' not found.\n", data->input_info->first_line_split[0]);
 		return (INVALID_COMMAND);
 	}
 	if (case_code == OPEN_ERROR)
@@ -52,7 +52,7 @@ char	*ft_write_error_c(t_cases case_code, t_data *data)
 	}
 	if (case_code == INVALID_COMMAND)
 	{
-		ft_printf("Command '%s' not found.\n", data->input_split[0]);
+		ft_printf("Command '%s' not found.\n", data->input_info->first_line_split[0]);
 		return (NULL);	
 	}
 	return (NULL);

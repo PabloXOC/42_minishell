@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/05/29 12:30:06 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:19:29 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//boolan, if there is no content it returns that the input is empty
+//spaces are considered to still be empty
 bool	ft_empty(char *input)
 {
 	int	i;
@@ -89,4 +91,17 @@ void	ft_free_char_pp(char **stack)
 		i++;
 	}
 	free (stack);
+}
+
+bool	ft_quote_switch(char *str, int i, bool single_q, bool double_q)
+{
+	if (str[i] == '\'' && single_q == false)
+		return (true);
+	else if (str[i] == '\'' && single_q == true)
+		return (false);
+	else if (str[i] == '\"' &&double_q == false)
+		return (true);
+	else if (str[i] == '\"' && double_q == true)
+		return (false);
+	return (false);
 }

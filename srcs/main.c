@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/12 11:54:53 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:32:00 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,48 @@ int	get_text_input(t_data *data)
 	
 } */
 
+void	ft_free_char_star_star(char **list)
+{
+	int	i;
 
+	i = 0;
+	if (list != NULL)
+	{
+		while (list[i] != 0)
+		{
+			if (list[i] != NULL)
+				free(list[i]);
+			i++;
+		}
+		free(list);
+	}
+}
+
+void	ft_free_input_info(t_data *data)
+{
+	if (data->input_info != NULL)
+	{
+		if (data->input_info->final_text != NULL)
+			free(data->input_info->final_text);
+		if (data->input_info->first_line != NULL)
+			free(data->input_info->first_line);
+		if (data->input_info->first_line_and_final_text != NULL)
+			free(data->input_info->first_line_and_final_text);
+		if (data->input_info->first_line_ref != NULL)
+			free(data->input_info->first_line_ref);
+		if (data->input_info->first_line_split != NULL)
+			free(data->input_info->first_line_split);
+		if (data->input_info->init_input != NULL)
+			free(data->input_info->init_input);
+		if (data->input_info->init_input_split != NULL)
+			free(data->input_info->init_input_split);
+		ft_free_char_star_star(data->input_info->list_eof);
+		if (data->input_info->terminal_input != NULL)
+			free(data->input_info->terminal_input);
+		free(data->input_info);
+	}
+	data->input_info = NULL;
+}
 
 int	minishell(char **env)
 {
@@ -121,11 +162,10 @@ int	minishell(char **env)
 		//data->input = readline(data->entry);
 		if (recieve_complete_input(data) == SUCCESS)
 		{
-			//get_text_input(data);//TO DO char * of <<
-			add_history(data->input);  //TO DO  merge in different variable input + user text (if <<)
+			add_history(data->input_info->first_line_and_final_text);
 			//data->input = ft_reformat_input(data->input, data); // reformat and split input (not \\)
-			data->first_line_split = ft_minishell_split(data->first_line_ref, ' ');
-			if (data->first_line_split == NULL)
+			data->input_info->first_line_split = ft_minishell_split(data->input_info->first_line_ref, ' ');
+			if (data->input_info->first_line_split == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
@@ -140,7 +180,7 @@ int	minishell(char **env)
 			//execute_commands(data); //TO DO LATER
 			//delete_commands(data);
 		}
-		// TO DO free stuff
+		ft_free_input_info(data);// TO DO free stuff
 	}
 	// TO DO free even more stuff
 	rl_clear_history();

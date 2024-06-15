@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:43:17 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/05/22 15:44:16 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/12 21:33:29 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,27 +92,26 @@ int	open_input(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->input_split[i] != 0 && ft_samestr(data->input_split[i], "\n") == false)
+	while (data->input_info->first_line_split[i] != 0
+		&& ft_samestr(data->input_info->first_line_split[i], "\n") == false)
 	{
-		printf("LINE %d: %s\n", i, (data->input_split[i]));
-		if (ft_samestr(data->input_split[i], "<") == true)
+		if (ft_samestr(data->input_info->first_line_split[i], "<") == true)
 		{
-			write(1, "yo\n", 3);
 			i++;
 			if (data->text_input != NULL)
 				free(data->text_input);
-			if (ft_open(data->input_split[i], data) != SUCCESS)
+			if (ft_open(data->input_info->first_line_split[i], data) != SUCCESS)
 				return (FAILURE);
 		}
-		if (ft_samestr(data->input_split[i], "<<") == true)
+		if (ft_samestr(data->input_info->first_line_split[i], "<<") == true)
 		{
-			write(1, "by\n", 3);
 			i++;
 			if (data->text_input != NULL)
 				free(data->text_input);
-			if (ft_read(data->input_split[i], data) != SUCCESS)
+			if (ft_read(data->input_info->first_line_split[i], data) != SUCCESS)
 				return (FAILURE);
 		}
 		i++;
 	}
+	return (SUCCESS);
 }

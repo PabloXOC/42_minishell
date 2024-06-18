@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/18 15:58:53 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/18 16:11:38 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_data	*data_init(void)
 	data->dir = NULL;
 	data->entry = NULL;
 	data->command_list = NULL;
+	data->redirect_input = NULL;
 	data->redirect_output = NULL;
 	data->append_output = false;
 	data->file_input = true;

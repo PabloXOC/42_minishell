@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 13:48:45 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/18 16:14:27 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,11 @@ static int	write_in_command(t_data *data, int i)
 	{
 		if (ft_strncmp(data->input_info->first_line_split[i], "<", 1) == 0)
 		{
-			data->text_input = data->input_info->first_line_split[++i];
+			data->redirect_input = data->input_info->first_line_split[++i];
 			data->file_input = true;
 		}
 		else if (ft_strncmp(data->input_info->first_line_split[i], "<<", 2) == 0)
 		{
-			data->text_input = data->input_info->final_text;
 			data->file_input = false;
 		}
 		else if (ft_strncmp(data->input_info->first_line_split[i], ">", 1) == 0)

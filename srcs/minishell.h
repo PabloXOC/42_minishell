@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/18 15:59:49 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/18 16:09:42 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_data
 	//char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
-	//char		*redirect_input; // file name if we have a < I AM NOT USING THIS
+	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	char		*redirect_output; // file name if we have a > or >>
 	//char		*terminal_input; // beggining of << terminal input
 	bool		file_input; // boolean for (true == <)

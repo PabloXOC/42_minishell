@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/18 16:48:00 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 16:56:10 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_data	*data_init(void)
 	data->dir = NULL;
 	data->entry = NULL;
 	data->command_list = NULL;
+	data->redirect_input = NULL;
 	data->redirect_output = NULL;
 	data->append_output = false;
 	data->file_input = true;

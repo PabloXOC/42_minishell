@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/18 11:18:48 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 12:07:35 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,12 @@ typedef struct s_input_var
 	char		**first_line_split; //the final first line split with spaces
 	char		*search_eof; //to search through terminal input to find eof
 	char		*terminal_input; // beginning of << terminal input
-	char		*final_text; //what we will actually use for << input text
+	char		*final_text; //what we will actually use for << input text BAD
+	char		*final_text_last; //what we will actually use for << input text GOOD
 	char		**list_eof; //list of all the eof to look for
 	int			n_eof; //how many eof to look for
 	char		*first_line_and_final_text;//first_line + final_text
+	bool		invalid_token;
 }				t_input_var;
 
 typedef struct s_data

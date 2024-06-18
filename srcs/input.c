@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/15 20:32:58 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 13:17:29 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,50 @@ int	ft_save_until_eof(t_data *data)
 	return (SUCCESS);
 }
 
+int	ft_len_to_eof(t_data *data, t_input_var *input_info, int i, int k)
+{
+	int	len;
+
+	len = 0;
+	while (input_info->terminal_input[i] != 0)
+	{
+		if ((input_info->terminal_input[i - 1] == '\n' || len == 0) && ft_compare_eof(&input_info->terminal_input[i],
+			input_info->list_eof[k], data) == true)
+			return (len);
+		i++;
+		len++;
+	}
+	return (len);
+}
+
+int	ft_save_last_eof(t_data *data, t_input_var *input_info, int i, int j)
+{
+	int	k;
+	int	len;
+
+	k = 0;
+	if (input_info->n_eof == 0)
+		return (SUCCESS);
+	while (k + 1 < input_info->n_eof)
+	{
+		if ((input_info->terminal_input[i - 1] == '\n' || i == 0)
+			&& ft_compare_eof(&input_info->terminal_input[i],
+			input_info->list_eof[k], data) == true)
+			k++;
+		i++;
+	}
+	while (input_info->terminal_input[i - 1] != '\n')
+		i++;
+	len = ft_len_to_eof(data, input_info, i, k);
+	input_info->final_text_last = (char *) malloc ((len + 1) * sizeof(char));
+	if (input_info->final_text_last == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	while (j < len)
+		input_info->final_text_last[j++] = input_info->terminal_input[i++];
+	input_info->final_text_last[j] = 0;
+	return (SUCCESS);
+}
+
 //if the input is not complete we ask the user for more input and join it to the initial input
 int	ft_ask_user_for_more_input(t_data *data)
 {
@@ -218,6 +262,8 @@ int	recieve_complete_input(t_data *data)
 	if (ft_terminal_input(data, 0, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	if (ft_save_until_eof(data) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
+	if (ft_save_last_eof(data, data->input_info, 0, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	if (ft_combine_fl_ft(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/18 11:12:00 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 12:53:16 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int	minishell(char **env)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
-			if (check_if_we_save_variables(data) == true)
-				save_variables(data); // TO DO edit '\\' & cut string
+			/* if (check_if_we_save_variables(data) == true)
+				save_variables(data); // TO DO edit '\\' & cut string */
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
 			//open files (maybe after commands)
@@ -104,6 +104,8 @@ int	minishell(char **env)
 			//execute_commands(data); //TO DO LATER
 			//delete_commands(data);
 		}
+		else if (data->input_info->invalid_token = true)
+			add_history(data->input_info->first_line);
 		ft_free_input_info(data);// TO DO free stuff
 	}
 	// TO DO free even more stuff

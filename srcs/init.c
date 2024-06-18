@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 20:33:19 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:54:12 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ int	init_input_struct(t_data *data)
 	data->input_info->terminal_input = NULL;
 	data->input_info->final_text = NULL;
 	data->input_info->list_eof = NULL;
+	data->input_info->first_line_and_final_text = NULL;
 	data->input_info->n_eof = 0;
+	data->input_info->invalid_token = false;
 	data->input_index = 0;
 	data->i = 0;
 	data->j = -1;

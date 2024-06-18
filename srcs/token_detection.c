@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 20:36:56 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:53:28 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ int	ft_check_token(t_data *data)
 		{
 			i += 2;
 			if (ft_invalid_token(data->input_info->first_line_ref, i) == true)
+			{
+				data->input_info->invalid_token = true;
 				return (INVALID_TOKEN);
+			}
 		}
 		i++;
 	}

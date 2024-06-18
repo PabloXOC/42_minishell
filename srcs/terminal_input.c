@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 20:36:28 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:59:21 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_get_ter_input(t_data *data, int i, char *f_line)
 }
 
 //to make ft_terminal_input fit in 25 lines
-int	ft_terminal_input_util(t_data *data, int	n_single_q, int n_double_q, char *f_line)
+int	ft_terminal_input_util(t_data *data, int n_single_q, int n_double_q, char *f_line)
 {
 	if (n_single_q % 2 == 0 && n_double_q % 2 == 0)
 	{

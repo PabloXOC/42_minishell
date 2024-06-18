@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/12 15:19:29 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:37:12 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ bool	ft_quote_switch(char *str, int i, bool single_q, bool double_q)
 		return (true);
 	else if (str[i] == '\'' && single_q == true)
 		return (false);
-	else if (str[i] == '\"' &&double_q == false)
+	else if (str[i] == '\"' && double_q == false)
 		return (true);
 	else if (str[i] == '\"' && double_q == true)
 		return (false);

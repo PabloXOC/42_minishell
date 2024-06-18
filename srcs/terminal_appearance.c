@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/05/04 13:47:12 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:34:51 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	ft_get_dir(t_data *data, char **env)
 
 int	terminal_entry(t_data *data, char **env)
 {
-	int	len_user;
-	int	len_dir;
-	int	len_hostname;
+	int		len_user;
+	int		len_dir;
+	int		len_hostname;
 	char	*entry;
 
 	if (get_user(data, env) == MALLOC_ERROR || ft_get_dir(data, env) == MALLOC_ERROR)

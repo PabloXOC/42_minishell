@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/12 21:31:10 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:33:52 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ static int	length_command(t_data *data, int i)
 static int	write_in_command(t_data *data, int i)
 {
 	t_command	*com;
-	char	**full_command;
-	int		pos_command;
+	char		**full_command;
+	int			pos_command;
 
 	full_command = (char **)malloc((length_command(data, i) + 1)*sizeof(char *));
 	if (full_command == NULL)

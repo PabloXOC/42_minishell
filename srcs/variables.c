@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/12 21:34:26 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:37:21 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	ft_vardelone(t_var *var)
 	return (SUCCESS);
 } */
 
-
 int	safe_existing_var(t_data *data, char **equality)
 {
 	t_var	*temp_var;
@@ -121,7 +120,6 @@ int	save_variables(t_data *data)
 	i = 0;
 	while (data->input_info->first_line_split[i] != NULL)
 	{
-
 		if (ft_strrchr(data->input_info->first_line_split[i], '=') != NULL)
 		{
 			equality = ft_split(data->input_info->first_line_split[i], '=');

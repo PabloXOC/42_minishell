@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:16:55 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/06/10 14:21:32 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:33:24 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	count_words(char const *s, char c)
 
 static int	ft_len_words(int i, char const *s, char c)
 {
-	int	len_word;
+	int		len_word;
 	char	quote;
 
 	len_word = 0;

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:21:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/12 22:59:02 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:35:28 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_eofsize(char *str, int i, bool single_q, bool double_q)
 
 	size = 0;
 	while ((((single_q == true || double_q == true) || (single_q == false
-		&& double_q == false && str[i] != ' '))) && str[i] != 0)
+					&& double_q == false && str[i] != ' '))) && str[i] != 0)
 	{
 		if (str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
 		{
@@ -39,11 +39,10 @@ int	ft_eofsize(char *str, int i, bool single_q, bool double_q)
 	return (size);
 }
 
-
 //save the eof to the variable
 char	*ft_write_eof(char *str, char *eof, int size, int i)
 {
-	int	j;
+	int		j;
 	bool	single_q;
 	bool	double_q;
 
@@ -52,7 +51,6 @@ char	*ft_write_eof(char *str, char *eof, int size, int i)
 	j = 0;
 	while (j < size && str[i] != '\0')
 	{
-		
 		if (str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
 		{
 			eof[j++] = str[i + 1];

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/15 16:57:57 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:18:48 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@
 # define BM "\033[1;35m"      /* Bold Magenta */
 # define BC    "\033[1;36m"      /* Bold Cyan */
 # define BW   "\033[1;37m"      /* Bold White */
-
 
 typedef enum e_cases		t_cases;
 typedef struct s_var		t_var;
@@ -129,7 +128,6 @@ typedef struct s_data
 	int			j;
 	int			k;
 	int			ii;
-
 	//errors
 	bool		malloc_error;
 }			t_data;
@@ -151,7 +149,7 @@ int			main(int argc, char **argv, char **env);
 /*------UTILS------*/
 bool		ft_empty(char *input);
 bool		ft_there_is_equal(char *input);
-bool			ft_samestr(const char *s1, const char *s2);
+bool		ft_samestr(const char *s1, const char *s2);
 int			ft_count_words(char **argv);
 void		print_char_pp(char **stack);
 void		ft_free_char_pp(char **stack);
@@ -162,7 +160,7 @@ char		*ft_join_input(char *s1, char *s2);
 int			recieve_complete_input(t_data *data);
 
 /*------TERMINAL_INPUT------*/
-int	ft_terminal_input(t_data *data, int n_single_q, int n_double_q);
+int			ft_terminal_input(t_data *data, int n_single_q, int n_double_q);
 
 /*------TERMINAL_INPUT_UTILS------*/
 int	ft_eofsize(char *str, int i, bool single_q, bool double_q);

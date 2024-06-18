@@ -6,13 +6,11 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 17:41:46 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:33:19 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 //initialize the data struct and variables within
 t_data	*data_init(void)
@@ -46,7 +44,6 @@ t_data	*data_init(void)
 	data->ii = 0;
 	return (data);
 }
-
 
 //initialize the input struct and related variables
 int	init_input_struct(t_data *data)

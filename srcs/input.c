@@ -6,18 +6,17 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/15 17:21:17 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:32:58 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 char	*init_terminal_input(t_data *data, char *input, int i)
 {
-	char *terminal_input;
-	int	size;
-	int	j;
+	char	*terminal_input;
+	int		size;
+	int		j;
 
 	size = ft_strlen(&input[i]);
 	terminal_input = (char *) malloc ((size + 1) * sizeof(char));
@@ -34,7 +33,6 @@ char	*init_terminal_input(t_data *data, char *input, int i)
 	return (terminal_input);
 }
 
-
 //when we find a complete "first line", we save it to first_line variable and copy the contents
 int	found_end_first_line(t_data *data, int i, char *input)
 {
@@ -48,7 +46,6 @@ int	found_end_first_line(t_data *data, int i, char *input)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }
-
 
 //we determine if the "first line" is complete or we need more input from the user
 int	first_line_complete(char *input, t_data *data, int n_double_q, int n_single_q)
@@ -116,7 +113,7 @@ int	ft_eofsize_total(t_data *data, int i, int j)
 		found = false;
 		while (found == false)
 		{
-			if (data->input_info->terminal_input[i] == '\n');
+			if (data->input_info->terminal_input[i] == '\n')
 				i++;
 			if (ft_compare_eof(&data->input_info->terminal_input[i], data->input_info->list_eof[j], data))
 			{
@@ -158,7 +155,7 @@ int	ft_save_until_eof(t_data *data)
 	while (k < len - 1)
 	{
 		if ((i == 1 || data->input_info->terminal_input[i - 1] == '\n')
-		&& ft_compare_eof(&data->input_info->terminal_input[i], data->input_info->list_eof[j], data) == true)
+			&& ft_compare_eof(&data->input_info->terminal_input[i], data->input_info->list_eof[j], data) == true)
 		{
 			i += ft_strlen(data->input_info->list_eof[j]) + 1;
 			j++;
@@ -178,7 +175,7 @@ int	ft_save_until_eof(t_data *data)
 int	ft_ask_user_for_more_input(t_data *data)
 {
 	char	*more_input;
-	
+
 	data->input_info->init_input = ft_join_input(data->input_info->init_input, "\n");
 	if (data->input_info->init_input == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
@@ -190,7 +187,7 @@ int	ft_ask_user_for_more_input(t_data *data)
 
 int	ft_combine_fl_ft(t_data *data)
 {
-	char *str;
+	char	*str;
 
 	str = ft_strjoin(data->input_info->first_line, data->input_info->final_text);
 	if (str == NULL)
@@ -204,11 +201,11 @@ int	recieve_complete_input(t_data *data)
 	if (init_input_struct(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	data->input_info->init_input = readline(data->entry);
-	if (ft_empty(data->input_info->init_input) == true)  //could be more precise (TO DO)
+	if (ft_empty(data->input_info->init_input) == true)//could be more precise (TO DO)
 		return (EMPTY);
 	while (first_line_complete(data->input_info->init_input, data, 0, 0) == FAILURE)
 	{
-		if (ft_ask_user_for_more_input(data) == MALLOC_ERROR);
+		if (ft_ask_user_for_more_input(data) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
 	}
 	if (data->input_info->first_line == NULL)

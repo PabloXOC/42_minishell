@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 16:35:23 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:34:45 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_count_sep_char_util(char *input, int i)
 		i++;
 		while (input[i] != '\"')
 			i++;
-	}	
+	}
 	return (i);
 }
 
@@ -81,7 +81,6 @@ static void	ft_ifs(char *input, char *output, int i, int j)
 	if (input[j] == '|')
 		ft_paste_char(output, " | ", i, 3);
 }
-
 
 //if we find quotations we skip until we are outside
 static char	*ft_skip_quote(char *input, char *output, t_data *d)
@@ -149,9 +148,8 @@ char	*ft_reformat_input(char *input, t_data *data)
 {
 	int		n_sep;
 	char	*output;
-	
+
 	n_sep = ft_count_sep_char(input);
-	//n_sep -= ft_count_bars(input);
 	output = (char *) malloc ((ft_strlen(input) + n_sep + 1) * sizeof(char));
 	if (!output)
 		return ((ft_write_error_c(MALLOC_ERROR, data)));

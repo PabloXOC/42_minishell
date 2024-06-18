@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:43:17 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/12 21:33:29 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:34:16 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int ft_filesize(char *file, t_data *data)
 	return (size);
 }
 
-static int ft_readsize(char	*str, char *eof)
+static int	ft_readsize(char	*str, char *eof)
 {
 	int	i;
 

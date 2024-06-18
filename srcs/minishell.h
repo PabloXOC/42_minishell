@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/18 12:07:35 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 15:59:49 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,13 @@ typedef struct s_data
 	//char		*search_eof; //to search for eof
 	//char		*final_text; //what we will actually use for << input text
 	t_input_var	*input_info;
-	char		*limiter;
+	//char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //     < or <<
-	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
+	//char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	char		*redirect_output; // file name if we have a > or >>
 	//char		*terminal_input; // beggining of << terminal input
-	bool		*file_input; // boolean for (true == <)
+	bool		file_input; // boolean for (true == <)
 	bool		append_output; // boolean for (true == >>) & (false == >)
 	char		*next_eof;
 	t_var		*var; //list of all variables
@@ -187,8 +187,8 @@ int			ft_get_dir(t_data *data, char **env);
 int			terminal_entry(t_data *data, char **env);
 
 /*------VARIABLES------*/
+int	ft_varsize(t_var *var);
 int	save_variables(t_data *data);
-
 int			delete_var(t_data *data, char *var_to_del);
 
 /*------REFORMAT------*/

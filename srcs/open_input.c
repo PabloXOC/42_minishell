@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:43:17 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 20:34:16 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 16:33:44 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_readsize(char	*str, char *eof)
 	}
 }
 
-static int	ft_open(char *file, t_data *data)
+static int	ft_open_in(char *file, t_data *data)
 {
 	int		fd;
 	int		filesize;
@@ -73,17 +73,13 @@ static int	ft_open(char *file, t_data *data)
 	return (SUCCESS);
 }
 
-static int	ft_read(char *eof, t_data *data)
+static int	ft_read(t_data *data)
 {
 	int		size;
 
-	size = ft_readsize(data->next_eof, eof);
-	data->text_input = (char *) malloc ((size + 1) * sizeof(char));
+	data->text_input = ft_strdup(data->input_info->final_text_last);
 	if (data->text_input == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	ft_memcpy(data->text_input, data->next_eof, size);
-	data->text_input[size] = 0;
-	data->next_eof = &data->next_eof[size + ft_strlen(eof) + 2];
 	return (SUCCESS);
 }
 
@@ -100,7 +96,7 @@ int	open_input(t_data *data)
 			i++;
 			if (data->text_input != NULL)
 				free(data->text_input);
-			if (ft_open(data->input_info->first_line_split[i], data) != SUCCESS)
+			if (ft_open_in(data->input_info->first_line_split[i], data) != SUCCESS)
 				return (FAILURE);
 		}
 		if (ft_samestr(data->input_info->first_line_split[i], "<<") == true)
@@ -108,7 +104,7 @@ int	open_input(t_data *data)
 			i++;
 			if (data->text_input != NULL)
 				free(data->text_input);
-			if (ft_read(data->input_info->first_line_split[i], data) != SUCCESS)
+			if (ft_read(data) != SUCCESS)
 				return (FAILURE);
 		}
 		i++;

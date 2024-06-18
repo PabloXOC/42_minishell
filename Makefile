@@ -32,7 +32,7 @@ SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/input.c $(SRC_DIR)/comman
 	$(SRC_DIR)/write.c $(SRC_DIR)/terminal_appearance.c $(SRC_DIR)/variables.c  \
 	$(SRC_DIR)/check_if_save_input.c $(SRC_DIR)/open_input.c $(SRC_DIR)/ft_minishell_split.c \
 	$(SRC_DIR)/reformat.c $(SRC_DIR)/token_detection.c $(SRC_DIR)/init.c \
-	$(SRC_DIR)/terminal_input.c $(SRC_DIR)/terminal_input_utils.c
+	$(SRC_DIR)/terminal_input.c $(SRC_DIR)/terminal_input_utils.c $(SRC_DIR)/open_output.c 
 OBJS = $(SRCS:.c=.o)
 
 # Executable name

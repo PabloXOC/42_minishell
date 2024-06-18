@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 13:48:45 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/18 16:45:44 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,21 @@ static int	write_in_command(t_data *data, int i)
 		{
 			data->text_input = data->input_info->final_text;
 			data->file_input = false;
+			if (ft_open_out(data->redirect_output, data, data->append_output) != SUCCESS);
+				return (FAILURE);
 		}
 		else if (ft_strncmp(data->input_info->first_line_split[i], ">", 1) == 0)
 		{
 			data->redirect_output = data->input_info->first_line_split[++i];
 			data->append_output = false;
+			if (ft_open_out(data->redirect_output, data, data->append_output) != SUCCESS);
+				return (FAILURE);
 		}
 		else if (ft_strncmp(data->input_info->first_line_split[i], ">>", 2) == 0)
 		{
 			data->redirect_output = data->input_info->first_line_split[++i];
 			data->append_output = true;
+			
 		}
 		else
 			full_command[pos_command++] = ft_strdup(data->input_info->first_line_split[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:51:57 by farah             #+#    #+#             */
-/*   Updated: 2024/06/07 13:40:40 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 21:38:46 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include "srcs/minishell.h"
 
 # define OK 0
 # define ERROR 1
@@ -76,13 +77,13 @@ int		ft_open_infile(char *file, t_info *commands);
 int		ft_open_outfile(char *file, t_info *commands);
 int		ft_file_permissions(char *file1, char *file2, t_info *commands);
 char	*ft_create_file_name(void);
-int		**open_pipes(t_info *commands);
+int		**open_pipes(t_data *data);
 void	close_pipes(int	**pipe_fd, t_info *commands);
 
 /* Clean up */
 void	ft_cleanup(char *in_file, t_info *commands);
 
 /* Bonus */
-int		ft_bonus_father_child(t_info *commands);
+int		father_son_bonus(t_info *commands);
 
 #endif

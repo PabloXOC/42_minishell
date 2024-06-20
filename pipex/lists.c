@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/07 13:41:00 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/18 20:44:30 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft/ft_printf.h"
 #include "pipex.h"
 
-t_clist	*ft_new_t_clist(char **command, char *path)
+/* t_clist	*ft_new_t_clist(char **command, char *path)
 {
 	t_clist	*node;
 
@@ -79,4 +79,4 @@ void	ft_t_clist_delone(t_clist *lst)
 			free(lst->path);
 	}
 	free (lst);
-}
+} */

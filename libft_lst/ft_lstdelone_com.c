@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone_com.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:25:20 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/07 13:42:50 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:59:54 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@
 void	ft_lstdelone_com(t_command *lst, void (*del)(char **))
 {
 	if (lst != NULL)
+	{
 		del(lst->content);
+		free(lst->full_path);
+	}
 	free(lst);
 }
 

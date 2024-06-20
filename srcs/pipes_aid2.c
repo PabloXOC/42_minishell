@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aid2.c                                             :+:      :+:    :+:   */
+/*   pipes_aid2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 20:38:02 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/18 21:08:44 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "libft/ft_printf.h"
-#include "pipex.h"
+#include "minishell.h"
 
 /* int	ft_file_permissions(char *file1, char *file2, t_data *data)
 {

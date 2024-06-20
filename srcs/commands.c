@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 16:55:43 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:57:12 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/* 
-int	find_command(t_data *data, t_list *full_com, char **env)
+
+int	find_command(t_data *data, t_command *full_com, char **env)
 {
 	char	*com;
 
 	com = full_com->content[0];
 	if (ft_strncmp(com, "echo", ft_strlen(com)) == 0)
 	{
+		//path
 		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
@@ -27,6 +28,7 @@ int	find_command(t_data *data, t_list *full_com, char **env)
 	}
 	if (ft_strncmp(com, "pwd", ft_strlen(com)) == 0)
 	{
+		//path
 		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "export", ft_strlen(com)) == 0)
@@ -39,7 +41,10 @@ int	find_command(t_data *data, t_list *full_com, char **env)
 		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "env", ft_strlen(com)) == 0)
+	{
+		//path
 		print_char_pp(env);
+	}
 	if (ft_strncmp(com, "exit", ft_strlen(com)) == 0)
 	{
 		data->exit = true;
@@ -47,7 +52,7 @@ int	find_command(t_data *data, t_list *full_com, char **env)
 	}
 	return (INVALID_COMMAND);
 }
- */
+
 
 static int	length_command(t_data *data, int i)
 {
@@ -72,12 +77,14 @@ static int	length_command(t_data *data, int i)
 	return (len);
 }
 
-static int	write_in_command(t_data *data, int i)
+static int	write_in_command(t_data *data)
 {
 	t_command	*com;
 	char		**full_command;
 	int			pos_command;
+	int 		i;
 
+	i = data->idx_com;
 	full_command = (char **)malloc((length_command(data, i) + 1) * sizeof(char *));
 	if (full_command == NULL)
 		return (MALLOC_ERROR);
@@ -94,21 +101,20 @@ static int	write_in_command(t_data *data, int i)
 		else if (ft_strncmp(data->input_info->first_line_split[i], "<<", 2) == 0)
 		{
 			data->file_input = false;
-			if (ft_open_out(data->redirect_output, data, data->append_output) != SUCCESS);
-				return (FAILURE);
 		}
 		else if (ft_strncmp(data->input_info->first_line_split[i], ">", 1) == 0)
 		{
 			data->redirect_output = data->input_info->first_line_split[++i];
 			data->append_output = false;
-			if (ft_open_out(data->redirect_output, data, data->append_output) != SUCCESS);
-				return (FAILURE);
+			/* if (ft_open_out(data->redirect_output, data, data->append_output) != SUCCESS);
+				return (FAILURE); */
 		}
 		else if (ft_strncmp(data->input_info->first_line_split[i], ">>", 2) == 0)
 		{
 			data->redirect_output = data->input_info->first_line_split[++i];
 			data->append_output = true;
-			
+			/* if (ft_open_out(data->redirect_output, data, data->append_output) != SUCCESS);
+				return (FAILURE); */
 		}
 		else
 			full_command[pos_command++] = ft_strdup(data->input_info->first_line_split[i]);
@@ -118,18 +124,19 @@ static int	write_in_command(t_data *data, int i)
 	}
 	if (data->command_list == NULL)
 	{
-		data->command_list = ft_lstnew_com(full_command);
+		data->command_list = ft_lstnew_com(full_command, NULL);
 		if (data->command_list == NULL)
 			return (MALLOC_ERROR);
 	}
 	else
 	{
-		com = ft_lstnew_com(full_command);
+		com = ft_lstnew_com(full_command, NULL);
 		if (com == NULL)
 			return (MALLOC_ERROR);
 		ft_lstadd_back_com(&data->command_list, com);
 	}
-	return (i);
+	data->idx_com = i;
+	return (SUCCESS);
 }
 
 void	print_commands(t_data *data)
@@ -146,32 +153,32 @@ void	print_commands(t_data *data)
 
 int	save_commands(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	if (data->input_info->first_line_split == NULL)
 		return (0);
-	while (data->input_info->first_line_split[i] != NULL)
+	while (data->input_info->first_line_split[data->idx_com] != NULL)
 	{
-		if (ft_strrchr(data->input_info->first_line_split[i], '=') != NULL)
-			i++;
+		if (ft_strrchr(data->input_info->first_line_split[data->idx_com], '=') != NULL)
+			data->idx_com++;
 		else
 		{
-			i = write_in_command(data, i);
-			if (data->input_info->first_line_split[i] != NULL)
-				i++;
+			if (write_in_command(data) != SUCCESS)
+				return (FAILURE);
+			if (data->input_info->first_line_split[data->idx_com] != NULL)
+				data->idx_com++;
 		}
 	}
 	print_commands(data);
-	//problem with handling numbered errors
+	//problem with handling numbered errors, I THINK IT IS FIXED
 }
 
 void	delete_commands(t_data *data)
 {
 	data->text_input = NULL;
+	data->redirect_input = NULL;
 	data->redirect_output = NULL;
 	data->file_input = true;
 	data->append_output = false;
 	ft_lstclear_com(&data->command_list, &ft_free_char_pp);
 	data->command_list = NULL;
+	data->idx_com = 0;
 }

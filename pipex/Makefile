@@ -1,41 +1,50 @@
-# Makefile for pipex
+# Colors
+BOLD	:= \033[1m
+BLACK	:= \033[30;1m
+RED		:= \033[31;1m
+GREEN	:= \033[32;1m
+YELLOW	:= \033[33;1m
+BLUE	:= \033[34;1m
+MAGENTA	:= \033[35;1m
+CYAN	:= \033[36;1m
+WHITE	:= \033[37;1m
+RESET	:= \033[0m
 
-# Compilers
+#compiler
 CC = cc
-CFLAGS = -g
-LIB_DIR = libft/
-LIBS = $(LIB_DIR)libft.a
-INCLUDES = -I $(LIB_DIR) -I.
+CFLAGS = -g -Wall -Wextra -Werror
 
-# Files
-SRCS = access_files.c aid.c aid2.c command_path.c cleanup.c \
-	 bonus.c lists.c
+#executable
+NAME = pipex.a
 
+#files
+SRCS = access_files.c aid.c aid2.c cleanup.c command_path.c \
+	lists.c pipex_exec_coms.c
 OBJS = $(SRCS:.c=.o)
 
-# Executable name
-NAME = pipex
+INCLUDES = pipex.h
 
-# Rules
+#rules
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS) $(LIBS)
+$(NAME): $(OBJS) $(INCLUDES)
+	@echo "$(YELLOW)$(BOLD)Compiling pipex...$(RESET)"
+	@ar rcs $(NAME) $(OBJS)
+	@echo "$(CYAN)$(BOLD)Done.$(RESET)"
 
-$(LIBS):
-	make -C $(LIB_DIR)
-
-%.o: %.c pipex.h
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+#$(SRCS_DIR)/%.o: $(SRCS_DIR)/%.c
+.c.o:
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
-	make -C $(LIB_DIR) clean
+	@echo "$(YELLOW)$(BOLD)Cleaning objects from pipex...$(RESET)"
+	@rm -f $(OBJS)
+	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
+
 
 fclean: clean
-	rm -f $(NAME)
-	make -C $(LIB_DIR) fclean
+	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.DEFAULT_GOAL := all

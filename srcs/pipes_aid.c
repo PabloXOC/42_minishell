@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aid.c                                              :+:      :+:    :+:   */
+/*   pipes_aid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 17:43:25 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/18 21:41:46 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "libft/ft_printf.h"
-#include "pipex.h"
+#include "minishell.h"
 
-void	ft_free_char_pp(char **stack)
+/* void	ft_free_char_pp(char **stack)
 {
 	int	i;
 
@@ -25,7 +23,7 @@ void	ft_free_char_pp(char **stack)
 		i++;
 	}
 	free (stack);
-}
+} */
 
 int	ft_char_pp_len(char **stack)
 {
@@ -37,7 +35,7 @@ int	ft_char_pp_len(char **stack)
 	return (i);
 }
 
-void	print_char_pp(char **stack)
+/* void	print_char_pp(char **stack)
 {
 	int	i;
 
@@ -47,7 +45,7 @@ void	print_char_pp(char **stack)
 		ft_printf("%s\n", stack[i]);
 		i++;
 	}
-}
+} */
 
 /* int	ft_open_infile(char *file, t_info *commands)
 {

@@ -29,10 +29,9 @@ INCLUDES = lst_com.h
 #rules
 all: $(NAME)
 
-$(NAME): $(OBJS) $(OBJS_B) $(INCLUDES)
+$(NAME): $(OBJS) $(INCLUDES)
 	@echo "$(YELLOW)$(BOLD)Compiling libft...$(RESET)"
 	@ar rcs $(NAME) $(OBJS)
-	@ar rcs $(NAME) $(OBJS_B)
 	@echo "$(CYAN)$(BOLD)Done.$(RESET)"
 
 #$(SRCS_DIR)/%.o: $(SRCS_DIR)/%.c
@@ -42,7 +41,6 @@ $(NAME): $(OBJS) $(OBJS_B) $(INCLUDES)
 clean:
 	@echo "$(YELLOW)$(BOLD)Cleaning objects from libft...$(RESET)"
 	@rm -f $(OBJS)
-	@rm -f $(OBJS_B)
 	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
 
 

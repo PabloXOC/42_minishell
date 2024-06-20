@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/18 16:56:10 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:35:52 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_data	*data_init(void)
 	data->text_input = NULL;
 	data->next_eof = NULL;
 	data->malloc_error = false;
+	data->fd_in = 0;
 	data->fd_out = 0;
 	data->input_index = 0;
 	data->i = 0;
@@ -43,6 +44,7 @@ t_data	*data_init(void)
 	data->k = 0;
 	data->i_ter = 0;
 	data->ii = 0;
+	data->idx_com = 0;
 	return (data);
 }
 

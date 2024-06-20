@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_com.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:51:57 by farah             #+#    #+#             */
-/*   Updated: 2024/06/07 13:50:04 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/19 14:13:57 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_command
 }					t_command;
 
 int	ft_lstsize_com(t_command *lst);
-t_command	*ft_lstnew_com(char **content);
+t_command	*ft_lstnew_com(char **content, char *full_path);
 t_command	*ft_lstmap_com(t_command *lst, void *(*f)(void *), void (*del)(char **));
 t_command	*ft_lstlast_com(t_command *lst);
 void	ft_lstiter_com(t_command *lst, void (*f)(void *));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap_com.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:25:20 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/07 13:42:32 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:00:00 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	del(void *content)
 	content = NULL;
 } */
 
-t_command	*ft_lstmap_com(t_command *lst, void *(*f)(void *), void (*del)(char **))
+/* t_command	*ft_lstmap_com(t_command *lst, void *(*f)(void *), void (*del)(char **))
 {
 	t_command	*new_node;
 	t_command	*new_list;
@@ -44,7 +44,7 @@ t_command	*ft_lstmap_com(t_command *lst, void *(*f)(void *), void (*del)(char **
 		lst = lst->next;
 	}
 	return (new_list);
-}
+} */
 
 /* int	main(void)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:43:17 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/18 16:33:44 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:06:14 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_open_in(char *file, t_data *data)
 	filesize = ft_filesize(file, data);
 	if (filesize == -1)
 		return (FAILURE);
-	fd = open(file, O_RDONLY);
+	data->fd_in = open(file, O_RDONLY);
 	buffer = (char *) malloc ((filesize + 1) * sizeof(char));
 	if (buffer == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
@@ -68,8 +68,8 @@ static int	ft_open_in(char *file, t_data *data)
 	read(fd, buffer, filesize);
 	buffer[filesize] = 0;
 	data->text_input = buffer;
-	if (close(fd) == -1)
-		return (ft_write_error_i(CLOSE_ERROR, data));
+	/* if (close(fd) == -1)
+		return (ft_write_error_i(CLOSE_ERROR, data)); */
 	return (SUCCESS);
 }
 

@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   access_files.c                                     :+:      :+:    :+:   */
+/*   pipes_access_files.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 17:36:57 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/18 21:08:51 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "libft/ft_printf.h"
-#include "pipex.h"
+#include "minishell.h"
 
 /* int	ft_file_exists(char *file)
 {

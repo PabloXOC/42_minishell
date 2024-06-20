@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/18 16:56:39 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/19 14:51:41 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_data
 	char		*hostname;
 	char		*dir;
 	char		*entry;
+	char		**env;
 
 	int			paired; //to deal with '' ""
 	bool		exit; //if command == exit
@@ -118,8 +119,9 @@ typedef struct s_data
 	//char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		*text_input; //    text of  < or <<
-	//char		*redirect_input; // file name if we have a < I AM NOT USING THIS
+	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	char		*redirect_output; // file name if we have a > or >>
+	int			fd_in;
 	int			fd_out;
 	//char		*terminal_input; // beggining of << terminal input
 	bool		file_input; // boolean for (true == <)
@@ -132,6 +134,7 @@ typedef struct s_data
 	int			j;
 	int			k;
 	int			ii;
+	int			idx_com;
 	//errors
 	bool		malloc_error;
 }			t_data;
@@ -213,6 +216,42 @@ int		init_input_struct(t_data *data);
 
 int	open_input(t_data *data);
 int	ft_open_out(char *file, t_data *data, bool trunc);
+
+/*------CLEANUP------*/
+void data_cleanup(t_data *data);
+
+
+/*------PIPES------*/
+/* Access */
+/* int		ft_file_exists(char *file);
+int		ft_read_permission(char *file);
+int		ft_write_permission(char *file);
+int		ft_infile_permissions(char *file, t_info *commands);
+int		ft_outfile_permissions(char *file, t_info *commands); */
+
+/* Command path */
+char	*ft_find_command_path(char **envp, char *command, int i);
+char	*ft_return_accessible_path(char **available_paths, char *command);
+void	ft_free_commands(t_data *data);
+t_command	*ft_fill_middle_commands(char **argv, char **envp, int argc);
+//t_data	*ft_commands(char **argv, char **envp, int argc);
+
+/* Aid */
+void	ft_free_char_pp(char **stack);
+int		ft_char_pp_len(char **stack);
+void	print_char_pp(char **stack);
+int		ft_open_infile(char *file, t_data *data);
+int		ft_open_outfile(char *file, t_data *data);
+int		ft_file_permissions(char *file1, char *file2, t_data *data);
+char	*ft_create_file_name(void);
+int		**open_pipes(t_data *data);
+void	close_pipes(int	**pipe_fd, t_data *data);
+
+/* Clean up */
+void	ft_cleanup(char *in_file, t_data *data);
+
+/* Bonus */
+int		pipe_exec_coms(t_data *data);
 
 /* 
 int	recieve_complete_input(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_command_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:33:45 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/06/19 14:17:40 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 15:42:33 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ static int	ft_fill_nodes(t_command **node, t_command **head,
 	}
 	if (*head != NULL)
 	{
-		*node = ft_lstnew_com(command, path);
+		*node = ft_lstnew_com(command);
 		ft_lstadd_back_com(head, *node);
 	}
 	if (*head == NULL)
-		*head = ft_lstnew_com(command, path);
+		*head = ft_lstnew_com(command);
 	return (OK);
 }
 

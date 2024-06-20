@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_com.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:35:16 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 14:00:21 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 16:35:43 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lst_com.h"
 
-t_command	*ft_lstnew_com(char **content, char *full_path)
+t_command	*ft_lstnew_com(char **content)
 {
 	t_command	*new_node;
 
@@ -20,7 +20,17 @@ t_command	*ft_lstnew_com(char **content, char *full_path)
 	if (!(new_node))
 		return (NULL);
 	new_node->content = content;
-	new_node->full_path = full_path;
+	new_node->full_path = NULL;
+	new_node->text_input = NULL;
+	new_node->redirect_input = NULL;
+	new_node->redirect_output = NULL;
+	new_node->fd_in = STDIN_FILENO;
+	new_node->fd_out = STDOUT_FILENO;
+	new_node->file_input = true;
+	new_node->append_output = false;
+	new_node->no_permissions = false;
+	new_node->no_infile = false;
+	new_node->temp_file = NULL;
 	new_node->next = NULL;
 	return (new_node);
 }

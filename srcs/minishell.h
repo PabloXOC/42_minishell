@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/20 16:52:28 by pximenez         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/20 17:38:06 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -120,13 +121,13 @@ typedef struct s_data
 	//char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
 	char		**text_input; //    text of  < or <<
-	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
-	char		*redirect_output; // file name if we have a > or >>
-	int			fd_in;
-	int			fd_out;
+	//char		*redirect_input; // file name if we have a < I AM NOT USING THIS
+	//char		*redirect_output; // file name if we have a > or >>
+	//int			fd_in;
+	//int			fd_out;
 	//char		*terminal_input; // beggining of << terminal input
-	bool		file_input; // boolean for (true == <)
-	bool		append_output; // boolean for (true == >>) & (false == >)
+	//bool		file_input; // boolean for (true == <)
+	//bool		append_output; // boolean for (true == >>) & (false == >)
 	char		*next_eof;
 	t_var		*var; //list of all variables
 	t_var		*var_export; //list of all export variables
@@ -180,9 +181,10 @@ bool	ft_compare_eof(char *str, char *eof, t_data *data);
 
 
 /*------COMMANDS------*/
-int			find_command(t_data *data, t_list *com, char **env);
-int			save_commands(t_data *data);
+//int			find_command(t_data *data, t_list *com, char **env);
+int			save_pipelines(t_data *data);
 void		delete_commands(t_data *data);
+void	print_commands(t_data *data);
 
 /*------WRITE------*/
 int			ft_write_error_i(t_cases case_code, t_data *data);
@@ -226,11 +228,11 @@ void data_cleanup(t_data *data);
 
 /*------PIPES------*/
 /* Access */
-/* int		ft_file_exists(char *file);
+int		ft_file_exists(char *file);
 int		ft_read_permission(char *file);
 int		ft_write_permission(char *file);
-int		ft_infile_permissions(char *file, t_info *commands);
-int		ft_outfile_permissions(char *file, t_info *commands); */
+int		ft_infile_permissions(char *file, t_command *commands);
+int		ft_outfile_permissions(char *file, t_command *commands);
 
 /* Command path */
 char	*ft_find_command_path(char **envp, char *command, int i);
@@ -243,9 +245,9 @@ t_command	*ft_fill_middle_commands(char **argv, char **envp, int argc);
 void	ft_free_char_pp(char **stack);
 int		ft_char_pp_len(char **stack);
 void	print_char_pp(char **stack);
-int		ft_open_infile(char *file, t_data *data);
-int		ft_open_outfile(char *file, t_data *data);
-int		ft_file_permissions(char *file1, char *file2, t_data *data);
+int		ft_open_infile(char *file, t_command *command);
+int		ft_open_outfile(char *file, t_command *command);
+int		ft_file_permissions(t_command *command);
 char	*ft_create_file_name(void);
 int		**open_pipes(t_data *data);
 void	close_pipes(int	**pipe_fd, t_data *data);

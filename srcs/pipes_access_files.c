@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_access_files.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 21:08:51 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 16:34:22 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* int	ft_file_exists(char *file)
+int	ft_file_exists(char *file)
 {
 	if (access(file, F_OK) == -1)
 		return (ERROR);
@@ -33,12 +33,12 @@ int	ft_write_permission(char *file)
 	return (OK);
 }
 
-int	ft_infile_permissions(char *file, t_info *commands)
+int	ft_infile_permissions(char *file, t_command *commands)
 {
 	if (ft_file_exists(file) == ERROR)
 	{
 		perror(file);
-		commands->no_infile = 1;
+		commands->no_infile = true;
 		if (ft_open_infile(file, commands) == ERROR)
 			return (ERROR);
 		return (NO_INFILE);
@@ -46,7 +46,7 @@ int	ft_infile_permissions(char *file, t_info *commands)
 	if (ft_read_permission(file) == ERROR)
 	{
 		perror(file);
-		commands->no_permissions = 1;
+		commands->no_permissions = true;
 		commands->temp_file = ft_create_file_name();
 		if (ft_open_infile(commands->temp_file, commands) == ERROR)
 			return (ERROR);
@@ -57,7 +57,7 @@ int	ft_infile_permissions(char *file, t_info *commands)
 	return (OK);
 }
 
-int	ft_outfile_permissions(char *file, t_info *commands)
+int	ft_outfile_permissions(char *file, t_command *commands)
 {
 	if (ft_file_exists(file) == ERROR)
 	{
@@ -73,4 +73,4 @@ int	ft_outfile_permissions(char *file, t_info *commands)
 	if (ft_open_outfile(file, commands) == ERROR)
 		return (ERROR);
 	return (OK);
-} */
+}

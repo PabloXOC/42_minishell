@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:43:17 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/20 12:32:56 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:38:20 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int ft_filesize(char *file, t_data *data)
+/* static int ft_filesize(char *file, t_data *data)
 {
 	int		size;
 	int		fd;
@@ -69,8 +69,8 @@ static int	ft_open_in(char *file, t_data *data)
 	read(fd, buffer, filesize);
 	buffer[filesize] = 0;
 	data->text_input = buffer;
-	/* if (close(fd) == -1)
-		return (ft_write_error_i(CLOSE_ERROR, data)); */
+	if (close(fd) == -1)
+		return (ft_write_error_i(CLOSE_ERROR, data));
 	return (SUCCESS);
 }
 
@@ -111,4 +111,4 @@ int	open_input(t_data *data)
 		i++;
 	}
 	return (SUCCESS);
-}
+} */

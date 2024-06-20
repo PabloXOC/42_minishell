@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/20 17:30:05 by pximenez         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/20 17:37:13 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -78,12 +79,12 @@ void data_cleanup(t_data *data)
 {
 	ft_free_input_info(data);
 	delete_commands(data);
-	if (data->fd_in > 0)
+/* 	if (data->fd_in > 0)
 		close(data->fd_in);
 	if (data->fd_out > 0)
 		close(data->fd_out);
 	data->fd_in = 0;
-	data->fd_out = 0;
+	data->fd_out = 0; */
 	data->next_eof = NULL;
 	if (data->text_input != NULL)
 		free(data->text_input);
@@ -101,10 +102,10 @@ void total_cleanup(t_data *data)
 	//delete all
 	ft_free_input_info(data);
 	delete_commands(data);
-	if (data->fd_in > 0)
+/* 	if (data->fd_in > 0)
 		close(data->fd_in);
 	if (data->fd_out > 0)
-		close(data->fd_out);
+		close(data->fd_out); */
 	data->next_eof = NULL;
 	if (data->text_input != NULL)
 		free(data->text_input);

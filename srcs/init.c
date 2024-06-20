@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/20 15:39:20 by pximenez         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/20 17:37:27 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -27,17 +28,17 @@ t_data	*data_init(void)
 	data->dir = NULL;
 	data->entry = NULL;
 	data->command_list = NULL;
-	data->redirect_input = NULL;
-	data->redirect_output = NULL;
-	data->append_output = false;
-	data->file_input = true;
+	//data->redirect_input = NULL;
+	//data->redirect_output = NULL;
+	//data->append_output = false;
+	//data->file_input = true;
 	data->var = NULL;
 	data->var_export = NULL;
 	data->text_input = NULL;
 	data->next_eof = NULL;
 	data->malloc_error = false;
-	data->fd_in = 0;
-	data->fd_out = 0;
+	//data->fd_in = 0;
+	//data->fd_out = 0;
 	data->input_index = 0;
 	data->i = 0;
 	data->j = -1;

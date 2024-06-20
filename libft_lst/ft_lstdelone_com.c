@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone_com.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:25:20 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 13:59:54 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 16:36:20 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,18 @@ void	ft_lstdelone_com(t_command *lst, void (*del)(char **))
 {
 	if (lst != NULL)
 	{
-		del(lst->content);
-		free(lst->full_path);
+		if (lst->content != NULL)
+			del(lst->content);
+		if (lst->full_path != NULL)
+			free(lst->full_path);
+		if (lst->temp_file != NULL)
+			free(lst->temp_file);
+		/* if (lst->text_input != NULL)
+			free(lst->text_input);
+		if (lst->redirect_input != NULL)
+			free(lst->redirect_input);
+		if (lst->redirect_output != NULL)
+			free(lst->redirect_output); */
 	}
 	free(lst);
 }

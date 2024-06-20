@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_aid2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 21:08:44 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 16:49:42 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* int	ft_file_permissions(char *file1, char *file2, t_data *data)
-{
-	if (ft_infile_permissions(file1, data) == ERROR
-		|| ft_outfile_permissions(file2, data) == ERROR)
-		return (ERROR);
-	return (OK);
-}
 
 char	*ft_create_file_name(void)
 {
@@ -34,7 +26,7 @@ char	*ft_create_file_name(void)
 		n++;
 	}
 	return (NULL);
-} */
+}
 
 int	**open_pipes(t_data *data)
 {

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_output.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:33:59 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/18 16:44:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/20 15:50:27 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_open_out(char *file, t_data *data, bool trunc)
+/* int	ft_open_out(char *file, t_data *data, bool trunc)
 {
 	if (data->fd_out > 0)
 	{
@@ -26,4 +26,4 @@ int	ft_open_out(char *file, t_data *data, bool trunc)
 	if (write(data->fd_out, "", 0) == -1)
 		return (ft_write_error_i(WRITE_ERROR, data));
 	return (SUCCESS);
-}
+} */

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 21:39:47 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 15:51:26 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	father_process(pid_t id, int **pipe_fd, int i)
+/* static int	father_process(pid_t id, int **pipe_fd, int i)
 {
 	if (id == -1)
 	{
@@ -80,12 +80,6 @@ int	pipe_exec_coms(t_data *data)
 	}
 	if (ft_pipe_commands(com, data, pipe_fd, i++) == ERROR)
 		return (ERROR);
-	/* if (execve(com->path, com->command, commands->env) == -1)
-	{
-		ft_putstr_fd(com->path, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit(127);
-	} */
 	close_pipes(pipe_fd, data);
 	return (OK);
-}
+} */

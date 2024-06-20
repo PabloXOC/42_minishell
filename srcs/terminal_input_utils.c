@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_input_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:21:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 20:35:28 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:54:55 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,29 @@ bool	ft_compare_eof(char *str, char *eof, t_data *data)
 	if (str[i] == '\n' || str[i] == '\0')
 	{
 		data->input_info->search_eof = &str[i + 1];
+		return (true);
+	}
+	else
+		return (false);
+}
+
+bool	ft_compare_eof_ind(char *str, char *eof, t_data *data)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = ft_strlen(eof);
+	while (i < size && str[i] != 0 && str[i] != '\n')
+	{
+		if (str[i] != eof[i])
+			return (false);
+		i++;
+	}
+	if (i != size)
+		return (false);
+	if (str[i] == '\n' || str[i] == '\0')
+	{
 		return (true);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:43:17 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/19 13:06:14 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 12:32:56 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	ft_readsize(char	*str, char *eof)
 		}
 		i++;
 	}
+	return (i);
 }
 
 static int	ft_open_in(char *file, t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/18 15:59:28 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 17:09:50 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	ft_eofsize_total(t_data *data, int i, int j)
 				found = true;
 				i += ft_strlen(data->input_info->list_eof[j]);
 			}
-			else
+			else if (data->input_info->terminal_input[i] != '\n')
 			{
 				i++;
 				while (data->input_info->terminal_input[i] != '\n')
@@ -178,7 +178,7 @@ int	ft_len_to_eof(t_data *data, t_input_var *input_info, int i, int k)
 	len = 0;
 	while (input_info->terminal_input[i] != 0)
 	{
-		if ((input_info->terminal_input[i - 1] == '\n' || len == 0) && ft_compare_eof(&input_info->terminal_input[i],
+		if ((input_info->terminal_input[i - 1] == '\n' || len == 0) && ft_compare_eof_ind(&input_info->terminal_input[i],
 			input_info->list_eof[k], data) == true)
 			return (len);
 		i++;
@@ -232,11 +232,48 @@ int	ft_ask_user_for_more_input(t_data *data)
 int	ft_combine_fl_ft(t_data *data)
 {
 	char	*str;
+	char	*str_temp;
 
-	str = ft_strjoin(data->input_info->first_line, data->input_info->final_text);
+	str_temp = ft_strdup(data->input_info->first_line);
+	str_temp = ft_join_input(str_temp, "\n");
+	if (str_temp == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	str = ft_strjoin(str_temp, data->input_info->final_text);
 	if (str == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	data->input_info->first_line_and_final_text = str;
+	free(str_temp);
+	return (SUCCESS);
+}
+
+int	ft_copy_until_eof(t_data *data, int i, int j)
+{
+	int		len;
+	char	*str;
+
+	len = ft_len_to_eof(data, data->input_info, data->kk, i);
+	str = (char *) malloc ((len + 1) * sizeof (char));
+	if (str == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	while (j < len)
+	{
+		str[j] = data->input_info->terminal_input[data->kk];
+		j++;
+		data->kk++;
+	}
+	str[len] = 0;
+	data->input_info->text_input[i] = str;
+	data->kk += ft_strlen(data->input_info->list_eof[i]) + 1;
+	return (SUCCESS);
+}
+int	ft_individual_eof(t_data *data, int i)
+{
+	while (i < data->input_info->n_eof)
+	{
+		if (ft_copy_until_eof(data, i, 0) == MALLOC_ERROR)
+			return (MALLOC_ERROR);
+		i++;
+	}
 	return (SUCCESS);
 }
 
@@ -262,6 +299,8 @@ int	recieve_complete_input(t_data *data)
 	if (ft_terminal_input(data, 0, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	if (ft_save_until_eof(data) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
+	if (ft_individual_eof(data, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	if (ft_save_last_eof(data, data->input_info, 0, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);

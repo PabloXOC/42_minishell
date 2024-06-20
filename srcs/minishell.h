@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:14:43 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 14:51:41 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 16:52:28 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_input_var
 	char		**list_eof; //list of all the eof to look for
 	int			n_eof; //how many eof to look for
 	char		*first_line_and_final_text;//first_line + final_text
+	char		**text_input; //    text of  < or <<
 	bool		invalid_token;
 }				t_input_var;
 
@@ -118,7 +119,7 @@ typedef struct s_data
 	t_input_var	*input_info;
 	//char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
-	char		*text_input; //    text of  < or <<
+	char		**text_input; //    text of  < or <<
 	char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	char		*redirect_output; // file name if we have a > or >>
 	int			fd_in;
@@ -134,6 +135,8 @@ typedef struct s_data
 	int			j;
 	int			k;
 	int			ii;
+	int			kk;
+	int			kkk;
 	int			idx_com;
 	//errors
 	bool		malloc_error;
@@ -252,6 +255,7 @@ void	ft_cleanup(char *in_file, t_data *data);
 
 /* Bonus */
 int		pipe_exec_coms(t_data *data);
+bool	ft_compare_eof_ind(char *str, char *eof, t_data *data);
 
 /* 
 int	recieve_complete_input(t_data *data);

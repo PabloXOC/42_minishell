@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 17:01:00 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 12:47:27 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	minishell(char **env)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
-			if (check_if_we_save_variables(data) == true)
+			if (check_if_we_save_variables(data) == true) //check for "" and '' (special characters allowed in "" '')
 				save_variables(data); // TO DO edit '\\' & cut string
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
@@ -62,7 +62,7 @@ int	minishell(char **env)
 			//execute_commands(data); //TO DO LATER
 			//delete_commands(data);
 		}
-		else if (data->input_info->invalid_token = true)
+		else if (data->input_info->invalid_token == true)
 			add_history(data->input_info->first_line);
 		data_cleanup(data);// TO DO free stuff
 	}
@@ -71,9 +71,7 @@ int	minishell(char **env)
 	return (EXIT_SUCCESS);
 }
 
-
 //what happens when export? do we save_variables or execute_commands
-
 
 int	main(int argc, char **argv, char **env)
 {

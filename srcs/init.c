@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/19 13:35:52 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 15:39:20 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_data	*data_init(void)
 	data->k = 0;
 	data->i_ter = 0;
 	data->ii = 0;
+	data->kk = 0;
 	data->idx_com = 0;
 	return (data);
 }
@@ -66,11 +67,13 @@ int	init_input_struct(t_data *data)
 	data->input_info->first_line_and_final_text = NULL;
 	data->input_info->n_eof = 0;
 	data->input_info->invalid_token = false;
+	data->input_info->text_input = NULL;
 	data->input_index = 0;
 	data->i = 0;
 	data->j = -1;
 	data->k = 0;
 	data->i_ter = 0;
 	data->ii = 0;
+	data->kk = 0;
 	return (SUCCESS);
 }

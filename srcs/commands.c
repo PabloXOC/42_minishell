@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/19 17:57:12 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 12:33:28 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_command(t_data *data, t_command *full_com, char **env)
+/* int	find_command(t_data *data, t_command *full_com, char **env)
 {
 	char	*com;
 
@@ -51,7 +51,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 		return (SUCCESS);
 	}
 	return (INVALID_COMMAND);
-}
+} */
 
 
 static int	length_command(t_data *data, int i)
@@ -168,6 +168,7 @@ int	save_commands(t_data *data)
 		}
 	}
 	print_commands(data);
+	return (SUCCESS);
 	//problem with handling numbered errors, I THINK IT IS FIXED
 }
 

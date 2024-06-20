@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/19 17:03:58 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/20 17:30:05 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,12 @@ void	ft_free_input_info(t_data *data)
 			free(data->input_info->init_input);
 		if (data->input_info->init_input_split != NULL)
 			free(data->input_info->init_input_split);
-		ft_free_char_pp(data->input_info->list_eof);
+		if (data->input_info->list_eof != NULL)
+			ft_free_char_pp(data->input_info->list_eof);
 		if (data->input_info->terminal_input != NULL)
 			free(data->input_info->terminal_input);
+		if (data->input_info->text_input != NULL)
+			ft_free_char_pp(data->input_info->text_input);
 		free(data->input_info);
 	}
 	data->input_info = NULL;

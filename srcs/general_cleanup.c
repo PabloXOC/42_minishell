@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/20 17:37:13 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:14:39 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	ft_free_input_info(t_data *data)
 			ft_free_char_pp(data->input_info->list_eof);
 		if (data->input_info->terminal_input != NULL)
 			free(data->input_info->terminal_input);
-		if (data->input_info->text_input != NULL)
-			ft_free_char_pp(data->input_info->text_input);
+		/* if (data->input_info->text_input != NULL)
+			ft_free_char_pp(data->input_info->text_input); */
 		free(data->input_info);
 	}
 	data->input_info = NULL;
@@ -86,14 +86,14 @@ void data_cleanup(t_data *data)
 	data->fd_in = 0;
 	data->fd_out = 0; */
 	data->next_eof = NULL;
-	if (data->text_input != NULL)
-		free(data->text_input);
-	data->text_input = NULL;
 	data->i = 0;
 	data->j = -1;
 	data->k = 0;
 	data->i_ter = 0;
 	data->ii = 0;
+	data->stdin_cpy = 0;
+	data->stdout_cpy = 0;
+	//refresh env
 }
 
 void total_cleanup(t_data *data)
@@ -107,8 +107,5 @@ void total_cleanup(t_data *data)
 	if (data->fd_out > 0)
 		close(data->fd_out); */
 	data->next_eof = NULL;
-	if (data->text_input != NULL)
-		free(data->text_input);
-	data->text_input = NULL;
 	free(data);
 }

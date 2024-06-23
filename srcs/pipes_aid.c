@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_aid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/20 17:28:28 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:42:56 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,19 @@ int	ft_file_permissions(t_command *command)
 		com = com->next;
 	}
 	return (status);
+}
+
+void	close_all_fds(t_command *command)
+{
+	t_command	*com;
+
+	com = command;
+	while (com != NULL)
+	{
+		if (com->fd_in > 2)
+			close(com->fd_in);
+		if (com->fd_out > 2)
+			close(com->fd_out);
+		com = com->next;
+	}
 }

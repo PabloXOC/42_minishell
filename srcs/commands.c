@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/20 17:36:20 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:18:30 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,33 +142,75 @@ static int	len_com(t_data *data, int i)
 	return (SUCCESS);
 } */
 
-static int	fill_extra_info(t_data *data, int i, t_command *com)
+static int	fill_input_info(t_data *data, int i, t_command *com)
 {
 	if (ft_strncmp(data->input_info->first_line_split[i], "<<", 2) == 0)
 	{
-		com->text_input = data->input_info->first_line_split[++i];
+		ft_infiles_cleanup(com);
+		com->text_input = data->input_info->text_input[0];
+		//data->input_info->text_input = &data->input_info->text_input[1];
 		com->file_input = false;
+		if (com->file_input == false && com->text_input != NULL)
+		{
+			com->temp_file = ft_create_file_name();
+			com->fd_in = open(com->temp_file, O_RDWR | O_CREAT, 0644);
+			write(com->fd_in, com->text_input, ft_strlen(com->text_input));
+		}
 		return (SUCCESS);
 	}
 	else if (ft_strncmp(data->input_info->first_line_split[i], "<", 1) == 0)
 	{
+		ft_infiles_cleanup(com);
 		com->redirect_input = data->input_info->first_line_split[++i];
 		com->file_input = true;
+		if (com->redirect_input != NULL)
+			if (ft_infile_permissions(com->redirect_input, com) == ERROR)
+				return (READ_ERROR);
 		return (SUCCESS);
 	}
-	else if (ft_strncmp(data->input_info->first_line_split[i], ">>", 2) == 0)
+	return (ERROR);
+}
+
+static int	fill_output_info(t_data *data, int i, t_command *com)
+{
+	if (ft_strncmp(data->input_info->first_line_split[i], ">>", 2) == 0)
 	{
 		com->redirect_output = data->input_info->first_line_split[++i];
 		com->append_output = true;
+		if (com->fd_out > 2)
+			close(com->fd_out);
+		if (com->redirect_output != NULL)
+			if (ft_outfile_permissions(com->redirect_output, com) == ERROR)
+				return (WRITE_ERROR);
 		return (SUCCESS);
 	}
 	else if (ft_strncmp(data->input_info->first_line_split[i], ">", 1) == 0)
 	{
 		com->redirect_output = data->input_info->first_line_split[++i];
 		com->append_output = false;
+		if (com->fd_out > 2)
+			close(com->fd_out);
+		if (com->redirect_output != NULL)
+			if (ft_outfile_permissions(com->redirect_output, com) == ERROR)
+				return (WRITE_ERROR);
 		return (SUCCESS);
 	}
-	return (FAILURE);
+	return (ERROR);
+}
+
+static int	fill_extra_info(t_data *data, int i, t_command *com)
+{
+	if (fill_input_info(data, i, com) != ERROR)
+	{
+		i++;
+		return (SUCCESS);
+	}
+	else if (fill_output_info(data, i, com) != ERROR)
+	{
+		i++;
+		return (SUCCESS);
+	}
+	return (ERROR);
 }
 
 static int	write_in_command(t_data *data)
@@ -222,12 +264,15 @@ void	print_commands(t_data *data)
 		ft_printf("red output: %s\n", com->redirect_output);
 		ft_printf("fd in: %i\n", com->fd_in);
 		ft_printf("fd out: %i\n", com->fd_out);
+		ft_printf("temp file: %s\n", com->temp_file);
 		com = com->next;
 	}
 }
 
 int	save_pipelines(t_data *data)
 {
+	t_command	*com;
+
 	if (data->input_info->first_line_split == NULL)
 		return (0);
 	while (data->input_info->first_line_split[data->idx_com] != NULL)
@@ -243,6 +288,12 @@ int	save_pipelines(t_data *data)
 				data->idx_com++;
 		}
 	}
+	com = data->command_list;
+	while (com != NULL)
+	{
+		com->full_path = ft_find_command_path(data->env, com->content[0], 0);
+		com = com->next;
+	}
 	print_commands(data);
 	return (SUCCESS);
 }
@@ -254,6 +305,7 @@ void	delete_commands(t_data *data)
 	data->redirect_output = NULL;
 	data->file_input = true;
 	data->append_output = false; */
+	close_all_fds(data->command_list);
 	ft_lstclear_com(&data->command_list, &ft_free_char_pp);
 	data->command_list = NULL;
 	data->idx_com = 0;

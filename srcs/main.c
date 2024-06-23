@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/20 17:36:48 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:19:20 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	minishell(char **env)
 {
 	t_data	*data;
 
-	data = data_init();
+	data = data_init(env);
 	if (data == NULL)
 		return (MALLOC_ERROR);
 	terminal_entry(data, env);
@@ -56,10 +56,7 @@ int	minishell(char **env)
 				return (MALLOC_ERROR);
 			if (save_pipelines(data) == MALLOC_ERROR)
 				return (MALLOC_ERROR);
-			if (ft_file_permissions(data->command_list) == ERROR)
-				return (ERROR);
-			print_commands(data);
-			//pipe_exec_coms(data);
+			pipe_exec_coms(data);
 			//find_command(command, env);
 			//execute_commands(data); //TO DO LATER
 			//delete_commands(data);

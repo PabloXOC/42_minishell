@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/20 17:38:06 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:14:10 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ typedef struct s_data
 	t_input_var	*input_info;
 	//char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
-	char		**text_input; //    text of  < or <<
+	//char		**text_input; //    text of  < or <<
+	//char		**changing_text_input;
 	//char		*redirect_input; // file name if we have a < I AM NOT USING THIS
 	//char		*redirect_output; // file name if we have a > or >>
 	//int			fd_in;
@@ -128,6 +129,8 @@ typedef struct s_data
 	//char		*terminal_input; // beggining of << terminal input
 	//bool		file_input; // boolean for (true == <)
 	//bool		append_output; // boolean for (true == >>) & (false == >)
+	int			stdin_cpy;
+	int			stdout_cpy;
 	char		*next_eof;
 	t_var		*var; //list of all variables
 	t_var		*var_export; //list of all export variables
@@ -216,8 +219,8 @@ char	**ft_minishell_split(char const *s, char c);
 int	ft_check_token(t_data *data);
 
 /*------INIT------*/
-t_data	*data_init(void);
-int		init_input_struct(t_data *data);
+t_data	*data_init(char **env);
+int	init_input_struct(t_data *data);
 
 int	open_input(t_data *data);
 int	ft_open_out(char *file, t_data *data, bool trunc);
@@ -248,12 +251,14 @@ void	print_char_pp(char **stack);
 int		ft_open_infile(char *file, t_command *command);
 int		ft_open_outfile(char *file, t_command *command);
 int		ft_file_permissions(t_command *command);
+void	close_all_fds(t_command *command);
 char	*ft_create_file_name(void);
 int		**open_pipes(t_data *data);
 void	close_pipes(int	**pipe_fd, t_data *data);
 
 /* Clean up */
 void	ft_cleanup(char *in_file, t_data *data);
+void	ft_infiles_cleanup(t_command *commands);
 
 /* Bonus */
 int		pipe_exec_coms(t_data *data);

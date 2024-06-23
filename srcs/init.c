@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/20 17:37:27 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:13:56 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minishell.h"
 
 //initialize the data struct and variables within
-t_data	*data_init(void)
+t_data	*data_init(char **env)
 {
 	t_data	*data;
 
@@ -34,7 +34,7 @@ t_data	*data_init(void)
 	//data->file_input = true;
 	data->var = NULL;
 	data->var_export = NULL;
-	data->text_input = NULL;
+	//data->text_input = NULL;
 	data->next_eof = NULL;
 	data->malloc_error = false;
 	//data->fd_in = 0;
@@ -47,6 +47,9 @@ t_data	*data_init(void)
 	data->ii = 0;
 	data->kk = 0;
 	data->idx_com = 0;
+	data->stdin_cpy = 0;
+	data->stdout_cpy = 0;
+	data->env = env;
 	return (data);
 }
 
@@ -69,12 +72,5 @@ int	init_input_struct(t_data *data)
 	data->input_info->n_eof = 0;
 	data->input_info->invalid_token = false;
 	data->input_info->text_input = NULL;
-	data->input_index = 0;
-	data->i = 0;
-	data->j = -1;
-	data->k = 0;
-	data->i_ter = 0;
-	data->ii = 0;
-	data->kk = 0;
 	return (SUCCESS);
 }

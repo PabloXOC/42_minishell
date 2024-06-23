@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 20:37:12 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/21 09:24:39 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	ft_empty(char *input)
 	int	i;
 
 	i = 0;
+	if (input == NULL)
+		return (true);
 	while (input[i] != 0)
 	{
 		if (input[i] != 32)

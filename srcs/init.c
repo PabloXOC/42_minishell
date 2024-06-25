@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 10:13:56 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/25 12:17:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_data	*data_init(char **env)
 	data->k = 0;
 	data->i_ter = 0;
 	data->ii = 0;
-	data->kk = 0;
+	data->kk = 1;
 	data->idx_com = 0;
 	data->stdin_cpy = 0;
 	data->stdout_cpy = 0;

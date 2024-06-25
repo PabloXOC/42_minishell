@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 10:14:39 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/25 12:17:48 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void data_cleanup(t_data *data)
 	data->ii = 0;
 	data->stdin_cpy = 0;
 	data->stdout_cpy = 0;
+	data->kk = 1;
 	//refresh env
 }
 

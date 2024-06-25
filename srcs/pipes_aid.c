@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/20 19:42:56 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/25 10:44:00 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_open_outfile(char *file, t_command *commands)
 	if (commands->append_output == false)
 		fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	else
-		fd = open(file, O_RDWR | O_CREAT, 0644);
+		fd = open(file, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		perror("Open failure");
@@ -84,6 +84,12 @@ void	close_all_fds(t_command *command)
 			close(com->fd_in);
 		if (com->fd_out > 2)
 			close(com->fd_out);
+		if (com->temp_file != NULL)
+		{
+			unlink(com->temp_file);
+			free(com->temp_file);
+			com->temp_file = NULL;
+		}
 		com = com->next;
 	}
 }

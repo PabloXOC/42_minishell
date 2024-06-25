@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/21 10:18:30 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/25 10:27:02 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,16 @@ static int	len_com(t_data *data, int i)
 	return (SUCCESS);
 } */
 
+void	create_temp_file(t_command *com)
+{
+	int	fd;
+
+	com->temp_file = ft_create_file_name();
+	fd = open(com->temp_file, O_RDWR | O_CREAT, 0644);
+	write(fd, com->text_input, ft_strlen(com->text_input));
+	close(fd);
+}
+
 static int	fill_input_info(t_data *data, int i, t_command *com)
 {
 	if (ft_strncmp(data->input_info->first_line_split[i], "<<", 2) == 0)
@@ -152,9 +162,9 @@ static int	fill_input_info(t_data *data, int i, t_command *com)
 		com->file_input = false;
 		if (com->file_input == false && com->text_input != NULL)
 		{
-			com->temp_file = ft_create_file_name();
-			com->fd_in = open(com->temp_file, O_RDWR | O_CREAT, 0644);
-			write(com->fd_in, com->text_input, ft_strlen(com->text_input));
+			create_temp_file(com);
+			if (ft_infile_permissions(com->temp_file, com) == ERROR)
+				return (READ_ERROR);
 		}
 		return (SUCCESS);
 	}

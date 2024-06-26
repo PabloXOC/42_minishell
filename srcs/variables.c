@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/25 13:00:59 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 18:18:28 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void	ft_vardelone(t_var *var)
 	return (SUCCESS);
 } */
 
-void	print_vars(t_data *data)
+void	print_vars(t_var *list)
 {
 	t_var	*var;
 
-	var = data->var;
+	var = list;
 	while (var != NULL)
 	{
 		ft_printf("%s = %s\n", var->var, var->content);
@@ -103,11 +103,11 @@ void	print_vars(t_data *data)
 	}
 }
 
-int	safe_existing_var(t_data *data, char **equality)
+int	safe_existing_var(t_var **list, char **equality)
 {
 	t_var	*temp_var;
 
-	temp_var = data->var;
+	temp_var = *list;
 	while (temp_var != NULL)
 	{
 		if (strncmp(temp_var->var, equality[0], ft_strlen(equality[0])) == 0)
@@ -140,7 +140,7 @@ int	save_variables(t_data *data)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			if (data->var != NULL)
 			{
-				if (safe_existing_var(data, equality) == FAILURE)
+				if (safe_existing_var(&data->var, equality) == FAILURE)
 				{
 					temp_var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
 					if (temp_var == NULL)
@@ -158,7 +158,7 @@ int	save_variables(t_data *data)
 		}
 		i++;
 	}
-	print_vars(data);
+	print_vars(data->var);
 	return (SUCCESS);
 }
 

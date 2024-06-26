@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 16:34:56 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 18:20:27 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,9 +211,10 @@ int	ft_varsize(t_var *var);
 t_var	*ft_varlast(t_var *var);
 void	ft_varadd_back(t_var **var, t_var *new);
 void	ft_vardelone(t_var *var);
+int	safe_existing_var(t_var **list, char **equality);
 int	save_variables(t_data *data);
 int			delete_var(t_data *data, char *var_to_del);
-void	print_vars(t_data *data);
+void	print_vars(t_var *list);
 
 /*------ENV------*/
 t_var	*safe_env(char **env);
@@ -226,14 +227,18 @@ void	modify_env(t_data *data, char *var, char *new_cont);
 /*------CD------*/
 void	change_dir(t_data* data, t_command *full_com);
 
-/*------unset------*/
+/*------UNSET------*/
 void	unset_var(t_data* data, t_command *full_com);
+
+/*------EXPORT------*/
+int	export_var(t_data *data, t_command *full_com, t_var **list);
 
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);
 
 
 /*------CHECK IF VAR------*/
+bool	ft_isspecial(const char *str);
 bool		check_if_we_save_variables(t_data *data);
 
 

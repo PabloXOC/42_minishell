@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/26 16:35:47 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 18:21:26 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	} */
 	if (ft_strncmp(com, "export", ft_strlen(com)) == 0)
 	{
+		export_var(data, full_com, &data->var);
+		export_var(data, full_com, &data->var_export);
 		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
@@ -287,15 +289,19 @@ int	save_pipelines(t_data *data)
 		return (0);
 	while (data->input_info->first_line_split[data->idx_com] != NULL)
 	{
-		if (ft_strrchr(data->input_info->first_line_split[data->idx_com],
-				'=') != NULL)
+		/* if (ft_strrchr(data->input_info->first_line_split[data->idx_com],
+		'=') != NULL) */
+		if (ft_there_is_equal(data->input_info->first_line_split[data->idx_com]) == true && ft_isspecial(data->input_info->first_line_split[data->idx_com]) == false)
 			data->idx_com++;
 		else
 		{
-			if (write_in_command(data) != SUCCESS)
-				return (FAILURE);
-			if (data->input_info->first_line_split[data->idx_com] != NULL)
+			while (data->input_info->first_line_split[data->idx_com] != NULL)
+			{
+				if (write_in_command(data) != SUCCESS)
+					return (FAILURE);
+				if (data->input_info->first_line_split[data->idx_com] != NULL)
 				data->idx_com++;
+			}
 		}
 	}
 	com = data->command_list;

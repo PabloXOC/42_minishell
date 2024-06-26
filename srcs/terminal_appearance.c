@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_appearance.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/06/15 20:34:51 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/26 09:34:26 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,18 @@ int	ft_get_dir(t_data *data, char **env)
 	return (SUCCESS);
 }
 
-int	terminal_entry(t_data *data, char **env)
+int	refresh_terminal_entry(t_data *data)
 {
 	int		len_user;
 	int		len_dir;
 	int		len_hostname;
 	char	*entry;
 
-	if (get_user(data, env) == MALLOC_ERROR || ft_get_dir(data, env) == MALLOC_ERROR)
-		return (MALLOC_ERROR);
+	if (data->entry != NULL)
+	{	
+		free(data->entry);
+		data->entry = NULL;
+	}
 	len_user = ft_strlen(data->user);
 	len_dir = ft_strlen(data->dir);
 	len_hostname = ft_strlen("faraway");
@@ -73,5 +76,12 @@ int	terminal_entry(t_data *data, char **env)
 	ft_memcpy(&entry[len_user + 2 + len_hostname + len_dir], "$ ", 2);
 	entry[len_user + 4 + len_hostname + len_dir] = 0;
 	data->entry = entry;
+	return (SUCCESS);
+}
+
+int	terminal_entry(t_data *data, char **env)
+{
+	if (get_user(data, env) == MALLOC_ERROR || ft_get_dir(data, env) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
 	return (SUCCESS);
 }

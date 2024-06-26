@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/25 11:20:15 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 11:09:25 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,17 @@ static int	ft_pipe_commands(t_command *command, t_data *data,
 			if (dup2(command->fd_out, STDOUT_FILENO) == -1)
 				exit(ERROR);
 		}
+		if (i == ft_lstsize_com(data->command_list) - 1  && command->fd_out < 2)
+		{
+			if (dup2(data->stdout_cpy, STDOUT_FILENO) == -1)
+				exit(ERROR);
+		}
+		if (find_command(data, command, data->env) == SUCCESS)
+			exit(0);
 		if (execve(command->full_path, command->content, data->env) == -1)
 		{
+			if (ft_strncmp(command->full_path, "cd", ft_strlen(command->full_path)) == 0 || ft_strncmp(command->full_path, "export", ft_strlen(command->full_path)) == 0 || ft_strncmp(command->full_path, "unset", ft_strlen(command->full_path)) == 0 || ft_strncmp(command->full_path, "exit", ft_strlen(command->full_path)) == 0)
+				exit(127);
 			ft_putstr_fd(command->full_path, 2);
 			ft_putstr_fd(": command not found\n", 2);
 			exit(127);
@@ -94,5 +103,20 @@ int	pipe_exec_coms(t_data *data)
 	dup2(data->stdout_cpy, STDOUT_FILENO);
 	close(data->stdin_cpy);
 	close(data->stdout_cpy);
-	return (OK);
+	return (SUCCESS);
+}
+
+int	exec_commands(t_data *data)
+{
+	int	list_len;
+
+	list_len = ft_lstsize_com(data->command_list);
+	if (list_len == 1)
+	{
+		if (find_command(data, data->command_list, data->env) == INVALID_COMMAND)
+			return (pipe_exec_coms(data));
+	}
+	if (list_len > 1)
+		return (pipe_exec_coms(data));
+	return (SUCCESS);
 }

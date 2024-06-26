@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/18 13:44:54 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/25 13:00:59 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,21 @@ int	delete_var(t_data *data, char *var_to_del)
 	t_var	*temp_var;
 
 	vars = data->var;
+	if (vars != NULL)
+	{
+		if (vars->content != NULL && vars->var != NULL)
+		{
+			if (ft_strncmp(vars->var, var_to_del, ft_strlen(var_to_del)) == 0)
+			{
+				temp_var = vars->next;
+				free(vars->content);
+				free(vars->var);
+				free(vars);
+				data->var = temp_var;
+				return (SUCCESS);
+			}
+		}
+	}
 	while (vars->next != NULL)
 	{
 		if (vars->next->content != NULL && vars->next->var != NULL)

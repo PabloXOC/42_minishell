@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/21 10:19:20 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 09:46:15 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ int	minishell(char **env)
 				return (MALLOC_ERROR);
 			if (save_pipelines(data) == MALLOC_ERROR)
 				return (MALLOC_ERROR);
-			pipe_exec_coms(data);
-			//find_command(command, env);
-			//execute_commands(data); //TO DO LATER
+			if (exec_commands(data) != SUCCESS)
+				return (FAILURE);
 			//delete_commands(data);
 		}
 		else if (data->input_info->invalid_token == true)

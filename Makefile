@@ -34,7 +34,7 @@ SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/input.c $(SRC_DIR)/comman
 	$(SRC_DIR)/reformat.c $(SRC_DIR)/token_detection.c $(SRC_DIR)/init.c \
 	$(SRC_DIR)/terminal_input.c $(SRC_DIR)/terminal_input_utils.c $(SRC_DIR)/open_output.c \
 	$(SRC_DIR)/pipes_access_files.c $(SRC_DIR)/pipes_aid.c $(SRC_DIR)/pipes_aid2.c $(SRC_DIR)/pipes_cleanup.c \
-	$(SRC_DIR)/pipes_command_path.c $(SRC_DIR)/pipes_exec_coms.c $(SRC_DIR)/general_cleanup.c
+	$(SRC_DIR)/pipes_command_path.c $(SRC_DIR)/pipes_exec_coms.c $(SRC_DIR)/general_cleanup.c $(SRC_DIR)/env.c
 OBJS = $(SRCS:.c=.o)
 
 # Executable name

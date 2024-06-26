@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/25 12:17:22 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/26 15:16:07 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_data	*data_init(char **env)
 	data->stdin_cpy = 0;
 	data->stdout_cpy = 0;
 	data->env = env;
+	data->env_lst = safe_env(env);
 	return (data);
 }
 

@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 10:14:10 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 12:50:06 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # include <errno.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <sys/types.h>
+# include <dirent.h>
+
 
 // Regular Colors
 # define BLK   "\033[0;30m"     /* Black */
@@ -62,6 +65,7 @@ typedef enum e_cases
 	MALLOC_ERROR,
 	EMPTY,
 	INVALID_COMMAND,
+	INVALID_DIR,
 	INVALID_TOKEN,
 	OPEN_ERROR,
 	CLOSE_ERROR,
@@ -105,6 +109,7 @@ typedef struct s_data
 	char		*dir;
 	char		*entry;
 	char		**env;
+	t_var		*env_lst;
 
 	int			paired; //to deal with '' ""
 	bool		exit; //if command == exit
@@ -184,7 +189,7 @@ bool	ft_compare_eof(char *str, char *eof, t_data *data);
 
 
 /*------COMMANDS------*/
-//int			find_command(t_data *data, t_list *com, char **env);
+int			find_command(t_data *data, t_command *com, char **env);
 int			save_pipelines(t_data *data);
 void		delete_commands(t_data *data);
 void	print_commands(t_data *data);
@@ -197,12 +202,22 @@ char		*ft_write_error_c(t_cases case_code, t_data *data);
 int			get_user(t_data *data, char **env);
 //int	get_hostname();
 int			ft_get_dir(t_data *data, char **env);
+int	refresh_terminal_entry(t_data *data);
 int			terminal_entry(t_data *data, char **env);
 
 /*------VARIABLES------*/
+t_var	*ft_varnew(char *var, char *content);
 int	ft_varsize(t_var *var);
+t_var	*ft_varlast(t_var *var);
+void	ft_varadd_back(t_var **var, t_var *new);
+void	ft_vardelone(t_var *var);
 int	save_variables(t_data *data);
 int			delete_var(t_data *data, char *var_to_del);
+void	print_vars(t_data *data);
+
+/*------ENV------*/
+t_var	*safe_env(char **env);
+void	print_env(t_data *data);
 
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);
@@ -262,6 +277,8 @@ void	ft_infiles_cleanup(t_command *commands);
 
 /* Bonus */
 int		pipe_exec_coms(t_data *data);
+int		exec_commands(t_data *data);
+
 bool	ft_compare_eof_ind(char *str, char *eof, t_data *data);
 
 /* 

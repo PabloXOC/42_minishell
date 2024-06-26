@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/26 09:46:15 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 18:01:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_mysignal = 0;
-
-char	*ft_user_text(char *eof, t_data *data)
+/* char	*ft_user_text(char *eof, t_data *data)
 {
 	char	*input;
 	char	*user_text;
@@ -23,11 +21,13 @@ char	*ft_user_text(char *eof, t_data *data)
 	while (42)
 	{
 		input = readline("> ");
+		if (input == NULL)
+			printf("AA%sAA\n", input);
 		if (ft_samestr(input, eof) == true)
 			return (user_text);
 		user_text = ft_strjoin(user_text, input);
 	}
-}
+} */
 
 int	minishell(char **env)
 {
@@ -36,12 +36,13 @@ int	minishell(char **env)
 	data = data_init(env);
 	if (data == NULL)
 		return (MALLOC_ERROR);
+	signal_handle();
 	terminal_entry(data, env);
 	while (g_mysignal == 0 && data->malloc_error == false
 		&& data->exit == false) //find more reasons to break
 	{
 		//data->input = readline(data->entry);
-		if (recieve_complete_input(data) == SUCCESS)
+		if (g_mysignal == 0 && recieve_complete_input(data) == SUCCESS )
 		{
 			add_history(data->input_info->first_line_and_final_text);
 			//data->input = ft_reformat_input(data->input, data); // reformat and split input (not \\)

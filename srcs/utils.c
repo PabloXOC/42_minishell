@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/21 09:24:39 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 18:04:30 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,10 @@ bool	ft_quote_switch(char *str, int i, bool single_q, bool double_q)
 	else if (str[i] == '\"' && double_q == true)
 		return (false);
 	return (false);
+}
+
+int	ft_control_d(void)
+{
+	g_mysignal = 1;
+	return (CONTROL_D);
 }

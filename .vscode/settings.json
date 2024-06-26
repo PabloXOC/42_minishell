@@ -4,6 +4,9 @@
 		"readline.h": "c",
 		"curses.h": "c",
 		"string.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"stdbool.h": "c",
+		"signal.h": "c",
+		"sigaction.h": "c"
 	}
 }

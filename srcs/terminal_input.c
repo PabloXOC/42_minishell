@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/20 15:22:45 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:05:39 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_add_text(t_data *data)
 	if (data->input_info->terminal_input == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
+	if (more_input == NULL)
+		return (ft_control_d());
 	data->input_info->terminal_input = ft_strjoin(data->input_info->terminal_input, more_input);
 	free(more_input);
 	return (SUCCESS);

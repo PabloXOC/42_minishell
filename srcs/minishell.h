@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 18:20:27 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 18:42:48 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # include <stdbool.h>
 # include <sys/types.h>
 # include <dirent.h>
-
 
 // Regular Colors
 # define BLK   "\033[0;30m"     /* Black */
@@ -71,6 +70,7 @@ typedef enum e_cases
 	CLOSE_ERROR,
 	READ_ERROR,
 	WRITE_ERROR,
+	CONTROL_D,
 }		t_cases;
 
 typedef struct s_var
@@ -161,6 +161,10 @@ typedef enum e_command_code
 	ENV,
 	EXIT
 }			t_command_code;
+
+
+extern int g_mysignal;
+
 
 /*------PROTOYPES-------*/
 int			main(int argc, char **argv, char **env);
@@ -304,6 +308,8 @@ int	ft_get_ter_input(t_data *data, char *eof);
 int	ft_save_until_eof(t_data *data);
 char	*ft_reformat_input(char *input, t_data *data); */
 
+int	signal_handle(void);
+int	ft_control_d(void);
 
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/26 15:16:37 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 18:06:08 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,8 @@ int	ft_ask_user_for_more_input(t_data *data)
 	if (data->input_info->init_input == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
+	if (more_input == NULL)
+		return (ft_control_d());
 	data->input_info->init_input = ft_strjoin(data->input_info->init_input, more_input);
 	free(more_input);
 	return (SUCCESS);
@@ -284,6 +286,8 @@ int	recieve_complete_input(t_data *data)
 	if (refresh_terminal_entry(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	data->input_info->init_input = readline(data->entry);
+	if (data->input_info->init_input == NULL)
+		return (ft_control_d());
 	if (ft_empty(data->input_info->init_input) == true)//could be more precise (TO DO)
 		return (EMPTY);
 	while (first_line_complete(data->input_info->init_input, data, 0, 0) == FAILURE)

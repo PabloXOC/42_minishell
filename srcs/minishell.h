@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 12:50:06 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 16:34:56 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,16 @@ void	print_vars(t_data *data);
 /*------ENV------*/
 t_var	*safe_env(char **env);
 void	print_env(t_data *data);
+void	modify_env(t_data *data, char *var, char *new_cont);
+//t_var	**find_env_el(t_data *data, char *name);
+//void	change_env_el_content(t_data *data, char *var, char *new_cont);
+//void	add_new_env_el(t_data *data, char *var, char *content);
+
+/*------CD------*/
+void	change_dir(t_data* data, t_command *full_com);
+
+/*------unset------*/
+void	unset_var(t_data* data, t_command *full_com);
 
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);

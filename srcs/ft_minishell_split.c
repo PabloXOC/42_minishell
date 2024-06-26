@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_split.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:16:55 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/06/15 20:33:24 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:09:57 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,19 @@ static int	ft_len_words(int i, char const *s, char c)
 	char	quote;
 
 	len_word = 0;
-	if (s[i] == '"' || s[i] == '\'')
+	len_word = 0;
+	while(s[i] != c && s[i] != '\0')
 	{
-		quote = s[i++];
-		while (s[i] != quote && s[i] != '\0')
+		if (s[i] == '"' || s[i] == '\'')
 		{
+			quote = s[i++];
 			len_word++;
-			i++;
+			while (s[i] != quote && s[i] != '\0')
+			{
+				len_word++;
+				i++;
+			}
 		}
-		return (len_word);
-	}
-	while (s[i] != c && s[i] != '\0')
-	{
 		len_word++;
 		i++;
 	}
@@ -94,8 +95,6 @@ static char	**ft_fill_array(char const *s, char c, char **array)
 	while (s[i] != '\0')
 	{
 		len_word = ft_len_words(i, s, c);
-		if (s[i] == '"' || s[i] == '\'')
-			i++;
 		array[row] = ft_substr(s, i, len_word);
 		if (array[row] == NULL)
 		{
@@ -103,8 +102,6 @@ static char	**ft_fill_array(char const *s, char c, char **array)
 			return (NULL);
 		}
 		i = len_word + i;
-		if (s[i] == '"' || s[i] == '\'')
-			i++;
 		while (s[i] == c && s[i] != '\0')
 			i++;
 		row++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_save_input.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:02:00 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/20 12:44:58 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:41:11 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	ft_isspecial(const char *str)
 	i = 0;
 	while (str[i] != '=')
 	{
-		if (ft_isalnum_bool(str[i]) == false)
+		if (ft_isalnum_bool(str[i]) == false && str[i] != '_')
 			return (true);
 		i++;
 	}

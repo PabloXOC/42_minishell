@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/26 12:51:22 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 16:35:47 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 {
 	char	*com;
 	char	*str;
+	t_var	*node;
 
 	com = full_com->content[0];
 	/* if (ft_strncmp(com, "echo", ft_strlen(com)) == 0)
@@ -25,27 +26,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	} */
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
 	{
-		if (chdir(full_com->content[1]) == -1)
-		{
-			ft_putstr_fd(full_com->content[0], 2);
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(full_com->content[1], 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-		}
-		else
-		{
-			if (data->dir != NULL)
-			{
-				/* free(data->env[66]);
-				data->env;
-				free(data->dir); */
-			}
-			data->dir = getcwd(NULL, 500);
-			/* free(data->env[16]);
-			free(data->env[66]);
-			ft_printf("PWD: %s\n", data->env[16]);
-			ft_printf("OLDPWD: %s\n", data->env[66]); */
-		}
+		change_dir(data, full_com);
 		return (SUCCESS);
 	}
 	/* if (ft_strncmp(com, "pwd", ft_strlen(com)) == 0)
@@ -59,7 +40,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	}
 	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
 	{
-		delete_var(data, full_com->content[1]);
+		unset_var(data, full_com);
 		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "env", ft_strlen(com)) == 0)

@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 12:03:17 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 14:10:06 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ int	save_variables(t_data *data)
 			equality = ft_split(data->input_info->first_line_split[i], '=');
 			if (equality == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
+			//modify $
 			save_var_info(data, equality, &data->var);
 		}
 		i++;
@@ -192,6 +193,8 @@ int	delete_var(t_data *data, char *var_to_del, t_var **list)
 	t_var	*temp_var;
 
 	vars = *list;
+	if (vars == NULL)
+		return (SUCCESS);
 	if (vars != NULL)
 	{
 		if (vars->content != NULL && vars->var != NULL)

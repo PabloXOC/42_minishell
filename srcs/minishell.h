@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 13:48:45 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:59:56 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,9 @@ int	export_var(t_data *data, t_command *full_com, t_var **list);
 void	export_list(t_data *data);
 void	print_export(t_data *data);
 
+/*------ECHO------*/
+char	*expand_var(char *text);
+
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);
 
@@ -315,6 +318,7 @@ int	ft_get_ter_input(t_data *data, char *eof);
 int	ft_save_until_eof(t_data *data);
 char	*ft_reformat_input(char *input, t_data *data); */
 
+/*------SIGNALS------*/
 int	signal_handle(void);
 int	ft_control_d(void);
 int	minishell(t_data *data);

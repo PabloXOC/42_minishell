@@ -6,24 +6,24 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 12:18:23 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 16:34:08 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_command(t_data *data, t_command *full_com, char **env)
+int	find_command(t_data *data, t_command *full_com, char **env) //look at restrictions of flags and args
 {
 	char	*com;
 	char	*str;
 	t_var	*node;
 
 	com = full_com->content[0];
-	/* if (ft_strncmp(com, "echo", ft_strlen(com)) == 0)
+	if (ft_strncmp(com, "echo", ft_strlen(com)) == 0)
 	{
-		//path
+		expand_var(full_com->content[1]);
 		return (SUCCESS);
-	} */
+	}
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
 	{
 		change_dir(data, full_com);

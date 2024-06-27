@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/26 11:09:25 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 16:57:49 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,47 @@ static int	father_process(pid_t id, int **pipe_fd, int i, t_command *command)
 	return (OK);
 }
 
+bool	ft_handle_arg_n(char **command, int n_arg)
+{
+	int	i;
+
+	i = 0;
+	while (command[i] != 0)
+		i++;
+	if (i == n_arg)
+		return (false);
+	else
+		return (true);
+}
+
+bool	ft_check_for_flags(char **command)
+{
+	if (command[1] == 0)
+		return (false);
+	else if (command[1][0] == '-')
+		return (true);
+	else
+		return (false);
+}
+
+bool	ft_command_args_errors(char **command)
+{
+	if (ft_strncmp(command[0], "echo", ft_strlen(command[0])) == 0)
+		return (false);
+	if (ft_strncmp(command[0], "pwd", ft_strlen(command[0])) == 0)
+		return (ft_check_for_flags(command));
+	if (ft_strncmp(command[0], "cd", ft_strlen(command[0])) == 0)
+		return (ft_handle_arg_n(command, 2));
+	if (ft_strncmp(command[0], "export", ft_strlen(command[0])) == 0)
+		return (ft_check_for_flags(command));
+	if (ft_strncmp(command[0], "unset", ft_strlen(command[0])) == 0)
+		return (ft_check_for_flags(command));
+	if (ft_strncmp(command[0], "env", ft_strlen(command[0])) == 0)
+		return (ft_handle_arg_n(command, 1));
+	if (ft_strncmp(command[0], "exit", ft_strlen(command[0])) == 0)
+		return (ft_handle_arg_n(command, 1));
+}
+
 static int	ft_pipe_commands(t_command *command, t_data *data,
 	int **pipe_fd, int i)
 {
@@ -61,6 +102,8 @@ static int	ft_pipe_commands(t_command *command, t_data *data,
 			if (dup2(data->stdout_cpy, STDOUT_FILENO) == -1)
 				exit(ERROR);
 		}
+		if(ft_command_args_errors(command->content) == true)
+			exit(0);
 		if (find_command(data, command, data->env) == SUCCESS)
 			exit(0);
 		if (execve(command->full_path, command->content, data->env) == -1)
@@ -113,6 +156,8 @@ int	exec_commands(t_data *data)
 	list_len = ft_lstsize_com(data->command_list);
 	if (list_len == 1)
 	{
+		if(ft_command_args_errors(data->command_list->content) == true)
+			
 		if (find_command(data, data->command_list, data->env) == INVALID_COMMAND)
 			return (pipe_exec_coms(data));
 	}

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/26 18:01:22 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/27 13:51:21 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,15 @@
 	}
 } */
 
-int	minishell(char **env)
-{
-	t_data	*data;
 
-	data = data_init(env);
-	if (data == NULL)
-		return (MALLOC_ERROR);
-	signal_handle();
-	terminal_entry(data, env);
-	while (g_mysignal == 0 && data->malloc_error == false
+
+int	minishell(t_data *data)
+{
+	while (g_exit_status == 0 && data->malloc_error == false
 		&& data->exit == false) //find more reasons to break
 	{
 		//data->input = readline(data->entry);
-		if (g_mysignal == 0 && recieve_complete_input(data) == SUCCESS )
+		if (g_exit_status == 0 && recieve_complete_input(data) == SUCCESS )
 		{
 			add_history(data->input_info->first_line_and_final_text);
 			//data->input = ft_reformat_input(data->input, data); // reformat and split input (not \\)
@@ -67,7 +62,7 @@ int	minishell(char **env)
 	}
 	// TO DO free even more stuff
 	rl_clear_history();
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
 //what happens when export? do we save_variables or execute_commands
@@ -78,6 +73,11 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
-	if (minishell(env) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	data = data_init(env);
+	if (data == NULL)
+		return (MALLOC_ERROR);
+	signal_handle();
+	terminal_entry(data, env);
+	if (minishell(data) != SUCCESS)
+		return (FAILURE);
 }

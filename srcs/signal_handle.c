@@ -12,22 +12,18 @@
 
 #include "minishell.h"
 
-int g_mysignal = 0;
+int g_exit_status = 0;
 
 void	handle_sigint(int sig)
 {
-    printf("\nNueva entrada: ");
-    fflush(stdout);
-}
-
-void	handle_sigtstp(int sig)
-{
+    ft_putchar_fd('\n', STDOUT_FILENO);
     rl_on_new_line();
-    rl_replace_line("   ", 0);
+    rl_replace_line("", 0);
     rl_redisplay();
+    g_exit_status = 130;
 }
 
-int	signal_handle(void)
+int	signal_handle()
 {
 	struct sigaction sa;
 	
@@ -40,12 +36,6 @@ int	signal_handle(void)
         return (FAILURE);
     }
     // Configurar el manejador para SIGQUIT (Ctrl-\)
-    sa.sa_handler = handle_sigtstp;
-    sa.sa_flags = 0;
-    if (sigaction(SIGQUIT, &sa, NULL) == -1)
-	{
-        perror("sigaction");
-        return (FAILURE);
-    }
+    signal(SIGQUIT, SIG_IGN);
 	return (SUCCESS);
 }

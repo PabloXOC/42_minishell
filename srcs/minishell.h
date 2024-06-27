@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 12:13:11 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 13:48:45 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ typedef enum e_command_code
 }			t_command_code;
 
 
-extern int g_mysignal;
+extern int g_exit_status;
 
 
 /*------PROTOYPES-------*/
@@ -317,6 +317,7 @@ char	*ft_reformat_input(char *input, t_data *data); */
 
 int	signal_handle(void);
 int	ft_control_d(void);
+int	minishell(t_data *data);
 
 
 #endif

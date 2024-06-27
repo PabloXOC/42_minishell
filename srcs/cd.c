@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/26 16:30:20 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 12:14:13 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ void	change_dir(t_data* data, t_command *full_com)
 		if (data->dir != NULL)
 		{
 			modify_env(data, "OLDPWD", data->dir);
+			modify_export(data, "OLDPWD", data->dir);
 			free(data->dir);
 		}
 		data->dir = getcwd(NULL, 500);
 		modify_env(data, "PWD", data->dir);
+		modify_export(data, "PWD", data->dir);
 	}
 }

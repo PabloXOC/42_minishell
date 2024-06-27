@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 15:16:07 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/26 20:55:24 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_data	*data_init(char **env)
 	data->stdout_cpy = 0;
 	data->env = env;
 	data->env_lst = safe_env(env);
+	export_list(data);
+	//print_vars(data->var_export);
 	return (data);
 }
 

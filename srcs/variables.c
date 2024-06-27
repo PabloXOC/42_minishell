@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/26 18:18:28 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 12:03:17 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,29 @@ t_var	*ft_varlast(t_var *var)
 	return (var);
 }
 
+void	ft_varadd_front(t_var **lst, t_var *new)
+{
+	if (lst != NULL && new != NULL)
+	{
+		new->next = *lst;
+		*lst = new;
+	}
+	return ;
+}
+
+void	ft_varadd_middle(t_var **lst, t_var *new)
+{
+	t_var	*next;
+
+	if (lst != NULL && new != NULL)
+	{
+		next = (*lst)->next;
+		(*lst)->next = new;
+		new->next = next;
+	}
+	return ;
+}
+
 void	ft_varadd_back(t_var **var, t_var *new)
 {
 	t_var	*last_item;
@@ -79,17 +102,16 @@ void	ft_vardelone(t_var *var)
 	free(var);
 }
 
-/* int	safe_new_var(t_command *command, char **equality)
+int	safe_new_var(t_var **list, char **equality)
 {
-	t_var	*var;
+	t_var	*temp_var;
 
-	var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
-	ft_free_char_pp(equality);
-	if (var == NULL)
+	temp_var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
+	if (temp_var == NULL)
 		return (MALLOC_ERROR);
-	ft_varadd_back(&command->var, var);
+	ft_varadd_back(list, temp_var);
 	return (SUCCESS);
-} */
+}
 
 void	print_vars(t_var *list)
 {
@@ -124,11 +146,29 @@ int	safe_existing_var(t_var **list, char **equality)
 	return (FAILURE);
 }
 
+int	save_var_info(t_data *data, char **equality, t_var **list)
+{
+	t_var	*temp_var;
+
+	if (*list != NULL)
+	{
+		if (safe_existing_var(list, equality) == FAILURE)
+			return (safe_new_var(list, equality));
+	}
+	if (*list == NULL)
+	{
+		*list = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
+		ft_free_char_pp(equality);
+		if (*list == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+	}
+	return (SUCCESS);
+}
+
 int	save_variables(t_data *data)
 {
 	char	**equality;
 	int		i;
-	t_var	*temp_var;
 
 	i = 0;
 	while (data->input_info->first_line_split[i] != NULL)
@@ -138,23 +178,7 @@ int	save_variables(t_data *data)
 			equality = ft_split(data->input_info->first_line_split[i], '=');
 			if (equality == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
-			if (data->var != NULL)
-			{
-				if (safe_existing_var(&data->var, equality) == FAILURE)
-				{
-					temp_var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
-					if (temp_var == NULL)
-						return (MALLOC_ERROR);
-					ft_varadd_back(&data->var, temp_var);
-				}
-			}
-			if (data->var == NULL)
-			{
-				data->var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
-				ft_free_char_pp(equality);
-				if (data->var == NULL)
-					return (ft_write_error_i(MALLOC_ERROR, data));
-			}
+			save_var_info(data, equality, &data->var);
 		}
 		i++;
 	}
@@ -162,12 +186,12 @@ int	save_variables(t_data *data)
 	return (SUCCESS);
 }
 
-int	delete_var(t_data *data, char *var_to_del)
+int	delete_var(t_data *data, char *var_to_del, t_var **list)
 {
 	t_var	*vars;
 	t_var	*temp_var;
 
-	vars = data->var;
+	vars = *list;
 	if (vars != NULL)
 	{
 		if (vars->content != NULL && vars->var != NULL)
@@ -178,7 +202,7 @@ int	delete_var(t_data *data, char *var_to_del)
 				free(vars->content);
 				free(vars->var);
 				free(vars);
-				data->var = temp_var;
+				*list = temp_var;
 				return (SUCCESS);
 			}
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 18:42:48 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/27 12:13:11 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,16 @@ int			terminal_entry(t_data *data, char **env);
 t_var	*ft_varnew(char *var, char *content);
 int	ft_varsize(t_var *var);
 t_var	*ft_varlast(t_var *var);
+void	ft_varadd_front(t_var **lst, t_var *new);
+void	ft_varadd_middle(t_var **lst, t_var *new);
 void	ft_varadd_back(t_var **var, t_var *new);
 void	ft_vardelone(t_var *var);
+int	safe_new_var(t_var **list, char **equality);
 int	safe_existing_var(t_var **list, char **equality);
+int	save_var_info(t_data *data, char **equality, t_var **list);
 int	save_variables(t_data *data);
-int			delete_var(t_data *data, char *var_to_del);
 void	print_vars(t_var *list);
+int	delete_var(t_data *data, char *var_to_del, t_var **list);
 
 /*------ENV------*/
 t_var	*safe_env(char **env);
@@ -235,7 +239,10 @@ void	change_dir(t_data* data, t_command *full_com);
 void	unset_var(t_data* data, t_command *full_com);
 
 /*------EXPORT------*/
+void	modify_export(t_data *data, char *var, char *new_cont);
 int	export_var(t_data *data, t_command *full_com, t_var **list);
+void	export_list(t_data *data);
+void	print_export(t_data *data);
 
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);

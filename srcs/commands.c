@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/26 18:21:26 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 12:18:23 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	} */
 	if (ft_strncmp(com, "export", ft_strlen(com)) == 0)
 	{
-		export_var(data, full_com, &data->var);
-		export_var(data, full_com, &data->var_export);
+		if (full_com->content[1] == NULL)
+			print_export(data);
+		else
+			export_var(data, full_com, &data->var);
 		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)

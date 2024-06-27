@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 17:10:03 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 18:44:52 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ int	save_var_info(t_data *data, char **equality, t_var **list);
 int	save_variables(t_data *data);
 void	print_vars(t_var *list);
 int	delete_var(t_data *data, char *var_to_del, t_var **list);
+void	refresh_mysignal_var(t_data *data);
 
 /*------ENV------*/
 t_var	*safe_env(char **env);
@@ -253,6 +254,7 @@ char		*ft_reformat_input(char *input, t_data *data);
 
 /*------CHECK IF VAR------*/
 bool	ft_isspecial(const char *str);
+bool	ft_starts_with_number(const char *str);
 bool		check_if_we_save_variables(t_data *data);
 
 

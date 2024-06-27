@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_save_input.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:02:00 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/27 16:33:51 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/27 18:44:04 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ bool	ft_isspecial(const char *str)
 bool	ft_starts_with_number(const char *str)
 {
 	if (str[0] >= '0' && str[0] <= '9')
-		return (false);
-	return (true);
+		return (true);
+	return (false);
 }
 
 bool	check_if_we_save_variables(t_data *data)

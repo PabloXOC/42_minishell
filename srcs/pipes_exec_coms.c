@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 17:14:01 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 18:48:43 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ bool	ft_command_args_errors(char **command)
 		return (ft_handle_arg_n(command, 1));
 	if (ft_strncmp(command[0], "exit", ft_strlen(command[0])) == 0)
 		return (ft_handle_arg_n(command, 1));
+	return (false);
 }
 
 static int	ft_pipe_commands(t_command *command, t_data *data,

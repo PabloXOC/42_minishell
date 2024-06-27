@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 17:09:37 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 18:46:43 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	find_command(t_data *data, t_command *full_com, char **env) //look at restri
 	{
 		if (full_com->content[1] == NULL)
 			print_export(data);
-		else
+		else	
 			export_var(data, full_com, &data->var);
 		return (SUCCESS);
 	}
@@ -293,7 +293,7 @@ int	save_pipelines(t_data *data)
 	{
 		/* if (ft_strrchr(data->input_info->first_line_split[data->idx_com],
 		'=') != NULL) */
-		if (ft_there_is_equal(data->input_info->first_line_split[data->idx_com]) == true && ft_isspecial(data->input_info->first_line_split[data->idx_com]) == false)
+		if (ft_there_is_equal(data->input_info->first_line_split[data->idx_com]) == true && ft_isspecial(data->input_info->first_line_split[data->idx_com]) == false && ft_starts_with_number(data->input_info->first_line_split[data->idx_com]) == false)
 			data->idx_com++;
 		else
 		{

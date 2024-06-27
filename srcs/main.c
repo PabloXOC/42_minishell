@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/27 13:51:21 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/27 18:49:48 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char **argv, char **env)
 		return (MALLOC_ERROR);
 	signal_handle();
 	terminal_entry(data, env);
+	refresh_mysignal_var(data);
 	if (minishell(data) != SUCCESS)
 		return (FAILURE);
 }

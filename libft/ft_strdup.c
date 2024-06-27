@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:46:58 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/26 10:45:29 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 17:37:02 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s)
 	int		i;
 	char	*output;
 
+	if (s == NULL)
+		return (NULL);
 	len = ft_strlen(s);
 	output = (char *)malloc((len + 1) * sizeof(char));
 	if (!output)

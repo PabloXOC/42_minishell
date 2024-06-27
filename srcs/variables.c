@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 14:10:06 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 18:50:53 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,4 +227,15 @@ int	delete_var(t_data *data, char *var_to_del, t_var **list)
 		vars = vars->next;
 	}
 	return (SUCCESS);
+}
+
+void	refresh_mysignal_var(t_data *data)
+{
+	char	**equality;
+	
+	equality = (char **)malloc(3 * sizeof(char *));
+	equality[2] = NULL;
+	equality[0] = ft_strdup("?");
+	equality[1] = ft_itoa(g_exit_status);
+	save_var_info(data, equality, &data->var);
 }

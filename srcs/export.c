@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 12:12:53 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 17:57:55 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,19 @@ int	export_var(t_data *data, t_command *full_com, t_var **list)
 	i = 1;
 	while (full_com->content[i] != NULL)
 	{
-		equality = ft_split(full_com->content[i], '=');
-		if (equality == NULL)
-			return (ft_write_error_i(MALLOC_ERROR, data));
-		save_var_info(data, equality, list);
-		equality = ft_split(full_com->content[i], '=');
-		if (equality == NULL)
-			return (ft_write_error_i(MALLOC_ERROR, data));
-		save_export_el(data, equality[0], equality[1]);
+		if (ft_strrchr(full_com->content[i],'=') != NULL)
+		{
+			equality = ft_split(full_com->content[i], '=');
+			if (equality == NULL)
+				return (ft_write_error_i(MALLOC_ERROR, data));
+			save_var_info(data, equality, list);
+			equality = ft_split(full_com->content[i], '=');
+			if (equality == NULL)
+				return (ft_write_error_i(MALLOC_ERROR, data));
+			modify_export(data, equality[0], equality[1]);
+		}
+		else
+			modify_export(data, full_com->content[i], NULL);
 		i++;
 	}
 	print_vars(*list);
@@ -107,7 +112,10 @@ void	print_export(t_data *data)
 	node = data->var_export;
 	while (node != NULL)
 	{
-		ft_printf("declare -x %s=\"%s\"\n", node->var, node->content);
+		if ( node->content != NULL)
+			ft_printf("declare -x %s=\"%s\"\n", node->var, node->content);
+		else
+			ft_printf("declare -x %s\n", node->var, node->content);
 		node = node->next;
 	}
 }

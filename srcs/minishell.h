@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 18:44:52 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 19:23:24 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct s_data
 	int			kk;
 	int			kkk;
 	int			idx_com;
+	int			size;
 	//errors
 	bool		malloc_error;
 }			t_data;
@@ -325,5 +326,6 @@ int	signal_handle(void);
 int	ft_control_d(void);
 int	minishell(t_data *data);
 
+char	*expand_var(t_data *data, char *text);
 
 #endif

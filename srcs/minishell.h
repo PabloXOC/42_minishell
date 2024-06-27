@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 16:59:56 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 17:10:03 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ void	export_list(t_data *data);
 void	print_export(t_data *data);
 
 /*------ECHO------*/
-char	*expand_var(char *text);
+//char	*expand_var(char *text);
 
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/26 18:04:30 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/27 17:10:58 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ bool	ft_quote_switch(char *str, int i, bool single_q, bool double_q)
 
 int	ft_control_d(void)
 {
-	g_mysignal = 1;
+	g_exit_status = 1;
 	return (CONTROL_D);
 }

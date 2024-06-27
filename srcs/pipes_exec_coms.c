@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 16:57:49 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/27 17:14:01 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int	exec_commands(t_data *data)
 	if (list_len == 1)
 	{
 		if(ft_command_args_errors(data->command_list->content) == true)
-			
+			return (SUCCESS);
 		if (find_command(data, data->command_list, data->env) == INVALID_COMMAND)
 			return (pipe_exec_coms(data));
 	}

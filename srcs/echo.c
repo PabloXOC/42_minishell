@@ -6,13 +6,13 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 16:47:08 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/27 17:10:33 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	trim_vars(t_data *data)
+/* void	trim_vars(t_data *data)
 {
 	
 }
@@ -67,18 +67,4 @@ char	*expand_var(t_data *data, char *text)
 		i++;
 	}
 	return (text);
-	/* node = data->env_lst;
-	while (node != NULL)
-	{
-		if (ft_strncmp(var, node->var, ft_strlen(var) + 1) == 0)
-		{
-			free(node->content);
-			node->content = ft_strdup(new_cont);
-			return ;
-		}
-		node = node->next;
-	}
-	node = ft_varnew(ft_strdup(var), ft_strdup(new_cont));
-	ft_varadd_back(&data->env_lst, node);
-	return ; */
-}
+} */

@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/28 16:18:42 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:43:09 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,13 +240,17 @@ int	ft_combine_fl_ft(t_data *data)
 	char	*str_temp;
 
 	str_temp = ft_strdup(data->input_info->first_line);
-	str_temp = ft_join_input(str_temp, "\n");
+	if (data->input_info->terminal_input != NULL
+		&& data->input_info->terminal_input[0] != 0)
+		str_temp = ft_join_input(str_temp, "\n");
 	if (str_temp == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	str = ft_strjoin(str_temp, data->input_info->final_text);
+	str = ft_strjoin(str_temp, data->input_info->terminal_input);
 	if (str == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	str[ft_strlen(str) - 1] = 0;
+	if (data->input_info->terminal_input != NULL
+		&& data->input_info->terminal_input[0] != 0)
+		str = ft_join_input(str, "\n");
 	data->input_info->first_line_and_final_text = str;
 	free(str_temp);
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/28 15:38:35 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:55:43 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,7 @@ int	ft_combine_fl_ft(t_data *data)
 	str = ft_strjoin(str_temp, data->input_info->final_text);
 	if (str == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
+	str[ft_strlen(str) - 1] = 0;
 	data->input_info->first_line_and_final_text = str;
 	free(str_temp);
 	return (SUCCESS);

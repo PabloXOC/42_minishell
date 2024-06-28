@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 14:31:02 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:35:45 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "minishell.h"
@@ -59,7 +60,7 @@ void	ft_free_input_info(t_data *data)
 		if (data->input_info->first_line_ref != NULL)
 			free(data->input_info->first_line_ref);
 		if (data->input_info->first_line_split != NULL)
-			free(data->input_info->first_line_split);
+			ft_free_char_pp(data->input_info->first_line_split);
 		if (data->input_info->init_input != NULL)
 			free(data->input_info->init_input);
 		if (data->input_info->init_input_split != NULL)

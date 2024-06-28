@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/28 14:49:17 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:42:04 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	safe_new_var(t_var **list, char **equality)
 	if (temp_var == NULL)
 		return (MALLOC_ERROR);
 	ft_varadd_back(list, temp_var);
+	ft_free_char_pp(equality);
 	return (SUCCESS);
 }
 

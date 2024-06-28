@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 15:55:04 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:54:22 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,7 @@ int	ft_open_out(char *file, t_data *data, bool trunc);
 
 /*------CLEANUP------*/
 void data_cleanup(t_data *data);
+void	total_cleanup(t_data *data);
 
 
 /*------PIPES------*/

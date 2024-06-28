@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 14:31:16 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:38:44 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_data	*data_init(char **env)
 	data->dir = NULL;
 	data->entry = NULL;
 	data->env = env;
-	//data->env_lst = safe_env(env);
+	data->env_lst = safe_env(env);
 	//data->paired = 0;
 	data->exit = false;
 	data->input_index = 0;
@@ -47,7 +47,7 @@ t_data	*data_init(char **env)
 	data->idx_com = 0;
 	data->size = 0;
 	data->malloc_error = false;
-	//export_list(data);
+	export_list(data);
 	return (data);
 }
 

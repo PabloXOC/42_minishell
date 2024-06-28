@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/28 15:43:22 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:01:55 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_add_text(t_data *data)
 {
 	char	*more_input;
+	char	*temp;
 
 	more_input = NULL;
 	data->input_info->terminal_input = ft_join_input(data->input_info->terminal_input, "\n");
@@ -23,7 +24,10 @@ int	ft_add_text(t_data *data)
 	more_input = readline("> ");
 	if (more_input == NULL)
 		return (ft_control_d());
-	data->input_info->terminal_input = ft_strjoin(data->input_info->terminal_input, more_input);
+	temp = ft_strjoin(data->input_info->terminal_input, more_input);
+	if (data->input_info->terminal_input != NULL)
+		free(data->input_info->terminal_input);
+	data->input_info->terminal_input = temp;
 	free(more_input);
 	return (SUCCESS);
 }

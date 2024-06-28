@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 16:18:23 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:52:40 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_free_input_info(t_data *data)
 void	data_cleanup(t_data *data)
 {
 	ft_free_input_info(data);
-	//delete_commands(data);
+	delete_commands(data);
 	data->command_list = NULL;
 	if (data->next_eof != NULL)
 		free(data->next_eof);
@@ -104,7 +104,7 @@ void	data_cleanup(t_data *data)
 void	total_cleanup(t_data *data)
 {
 	ft_free_input_info(data);
-	//delete_commands(data);
+	delete_commands(data);
 	ft_varsclear(&data->var);
 	ft_varsclear(&data->var_export);
 	ft_varsclear(&data->env_lst);

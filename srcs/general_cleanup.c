@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 16:03:15 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:18:23 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	ft_free_input_info(t_data *data)
 			free(data->input_info->terminal_input);
 		if (data->input_info->text_input != NULL)
 			ft_free_char_pp(data->input_info->text_input);
-		if (data->input_info->final_text_last != NULL)
-			free(data->input_info->final_text_last);
 		free(data->input_info);
 	}
 	data->input_info = NULL;

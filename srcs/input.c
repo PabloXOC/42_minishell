@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/26 18:06:08 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/28 15:38:35 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int	found_end_first_line(t_data *data, int i, char *input)
 }
 
 //we determine if the "first line" is complete or we need more input from the user
-int	first_line_complete(char *input, t_data *data, int n_double_q, int n_single_q)
+/* int	first_line_complete(char *input, t_data *data, int n_double_q, int n_single_q)
 {
 	int	i;
 
 	i = 0;
 	while (input[i] != 0)
 	{
-		while (input[i] != '\n' || input[i] != '\0')
+		while (input[i] != '\n' && input[i] != '\0')
 		{
 			if (input[i] == '\\' && (input[i + 1] == '\'' || input[i + 1] == '\"'))
 				i += 2;
@@ -74,6 +74,37 @@ int	first_line_complete(char *input, t_data *data, int n_double_q, int n_single_
 		}
 		if (input[i] == '\n')
 			i++;
+	}
+	return (FAILURE);
+} */
+
+int	first_line_complete(char *input, t_data *data, int n_double_q, int n_single_q)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] != 0)
+	{
+		if (input[i] == '\\' && (input[i + 1] == '\'' || input[i + 1] == '\"'))
+			i += 2;
+		else if (input[i] == '\'' && n_double_q % 2 == 0)
+			n_single_q++;
+		else if (input[i] == '\"' && n_single_q % 2 == 0)
+			n_double_q++;
+		if (n_double_q % 2 == 0 && n_single_q % 2 == 0 //&& input[i] != '\\'
+			&& input[i] == '\n')
+		{
+			if (found_end_first_line(data, i, input) == MALLOC_ERROR)
+				return (MALLOC_ERROR);
+			return (SUCCESS);
+		}
+		i++;
+	}
+	if (n_double_q % 2 == 0 && n_single_q % 2 == 0)
+	{
+		if (found_end_first_line(data, i, input) == MALLOC_ERROR)
+			return (MALLOC_ERROR);
+		return (SUCCESS);
 	}
 	return (FAILURE);
 }

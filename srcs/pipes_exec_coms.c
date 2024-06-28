@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 18:48:43 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/28 15:44:24 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ bool	ft_check_for_flags(char **command)
 
 bool	ft_command_args_errors(char **command)
 {
+	if (command[0] == NULL)
+		return (false);
 	if (ft_strncmp(command[0], "echo", ft_strlen(command[0])) == 0)
 		return (false);
 	if (ft_strncmp(command[0], "pwd", ft_strlen(command[0])) == 0)

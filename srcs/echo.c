@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 20:19:49 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:19:43 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,77 +50,118 @@ int	len_old_var(char *str, int i)
 	return (size);
 }
 
-int	len_new_var(t_data* data, char *str, int i)
+void	len_new_var(t_data* data, char *str, int i)
 {
 	int		len_old;
 	t_var	*var;
 
 	len_old = len_old_var(str, i);
 	if (len_old == 0)
-		return (0);
+		return ;
 	var = data->var;
 	while (var != NULL)
 	{
 		if (ft_strncmp(&str[i], var->var, len_old) == 0)
-			return (ft_strlen(var->content));
+		{
+			data->iii += len_old;
+			data->size_var += ft_strlen(var->content);
+			return ;
+		}
 		var = var->next;
 	}
-	return (0);
+	data->iii += len_old;
 }
 
-int	tot_size(t_data* data, char *str, int single_q)
+void	fill_new_var(t_data* d, char *str, int i, char *dst)
 {
-	int	i;
-	int	size;
-	int	ret;
+	int		len_old;
+	t_var	*var;
 
-	i = 0;
-	size = 0;
-	while (str[i] != 0)
+	len_old = len_old_var(str, i);
+	if (len_old == 0)
+		return ;
+	var = d->var;
+	while (var != NULL)
 	{
-		if (str[i] == '\'')
-			single_q++;
-		else if (str[i] == '\"')
-			;
-		else if (str[i] == '$' && single_q % 2 == 0 && str[i + 1] != ' '
-			&& str[i + 1] != 0)
+		if (ft_strncmp(&str[i], var->var, len_old) == 0)
 		{
-			if (str[i + 1] >= '0' && str[i + 1] <= '9')
-				i++;
+			d->iii += len_old;
+			d->jjj += ft_strlen(var->content);
+			ft_memcpy(dst, var->content, ft_strlen(var->content));
+			return ;
+		}
+		var = var->next;
+	}
+	d->iii += len_old;
+}
+
+int	tot_size(t_data* d, char *str, int single_q)
+{
+	while (str[d->iii] != 0)
+	{
+		if (str[d->iii] == '\'')
+			single_q++;
+		else if (str[d->iii] == '\"' && single_q % 2 == 0)
+			;
+		else if (str[d->iii] == '$' && single_q % 2 == 0 && str[d->iii + 1] != ' '
+			&& str[d->iii + 1] != 0)
+		{
+			if (str[d->iii + 1] >= '0' && str[d->iii + 1] <= '9')
+				d->iii++;
 			else
-			{
-				ret = len_new_var(data, str, i + 1);
-				size += ret;
-				i += ret;
-			}
+				len_new_var(d, str, d->iii + 1);
 		}
 		else
-			size++;
-		i++;
+			d->size_var++;
+		d->iii++;
 	}
-	return (size);
+	return (d->size_var);
 }
 
-char	*ft_fillout_var(t_data *data, int size, char *str)
+char	*ft_fillout_var(t_data *d, int size, char *str, int single_q)
 {
 	char	*output;
-	int		i;
 
-	i = 0;
 	output = (char *) malloc ((size + 1) * sizeof(char));
 	if (!output)
-		return (ft_write_error_c(MALLOC_ERROR, data));
-	while (str[i] != 0)
+		return (ft_write_error_c(MALLOC_ERROR, d));
+	single_q = 0;
+	while (str[d->iii] != 0)
 	{
-		
+		if (str[d->iii] == '\'')
+			single_q++;
+		else if (str[d->iii] == '\"')
+			;
+		else if (str[d->iii] == '$' && single_q % 2 == 0 && str[d->iii + 1] != ' '
+			&& str[d->iii + 1] != 0)
+		{
+			if (str[d->iii + 1] >= '0' && str[d->iii + 1] <= '9')
+				d->iii++;
+			else
+				fill_new_var(d, str, d->iii + 1, &output[d->jjj]);
+		}
+		else
+			output[d->jjj++] = str[d->iii];
+		d->iii++;
 	}
-	
+	output[d->jjj] = 0;
+	return (output);
+	 
 }
 
 char	*expand_var(t_data *data, char *text)
 {
 	int		size;
-	
+	char	*str;
+
+	data->iii = 0;
+	data->size = 0;
 	size = tot_size(data, text, 0);
-	return (ft_fillout_var(data, size, text));
+	//ft_printf("SIZE: %d\n", size);
+	data->iii = 0;
+	data->jjj = 0;
+	str = ft_fillout_var(data, size, text, 0);
+	//ft_printf("STR: %s\n", str);
+	return (str);
+	//return (ft_fillout_var(data, size, text));
 }

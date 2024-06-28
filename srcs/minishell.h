@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 19:23:24 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/28 13:46:55 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,11 @@ typedef struct s_data
 	int			k;
 	int			ii;
 	int			kk;
+
+	int			iii;
+	int			jjj;
+	int			size_var;
+	
 	int			kkk;
 	int			idx_com;
 	int			size;

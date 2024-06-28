@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/28 14:31:51 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:57:12 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,9 @@ int	minishell(t_data *data)
 				save_variables(data); // TO DO edit '\\' & cut string
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
-			if (save_pipelines(data) == MALLOC_ERROR)
-				return (MALLOC_ERROR);
-			if (exec_commands(data) != SUCCESS)
-				return (FAILURE);
-			//delete_commands(data);
+			if (save_pipelines(data) != NO_COMMANDS)
+				if (exec_commands(data) != SUCCESS)
+					return (FAILURE);
 		}
 		else if (data->input_info->invalid_token == true)
 			add_history(data->input_info->first_line);

@@ -6,16 +6,16 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/28 14:49:07 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:40:44 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	trim_vars(t_data *data)
+/* void	trim_vars(t_data *data)
 {
 	
-}
+} */
 
 char	*return_content_var(t_data *data, char *text, int len_v)
 {
@@ -146,7 +146,6 @@ char	*ft_fillout_var(t_data *d, int size, char *str, int single_q)
 	}
 	output[d->jjj] = 0;
 	return (output);
-	 
 }
 
 char	*expand_var(t_data *data, char *text)

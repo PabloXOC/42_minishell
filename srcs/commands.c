@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 18:46:43 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/28 15:56:23 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	find_command(t_data *data, t_command *full_com, char **env) //look at restri
 	{
 		if (full_com->content[1] == NULL)
 			print_export(data);
-		else	
+		else
 			export_var(data, full_com, &data->var);
 		return (SUCCESS);
 	}
@@ -235,6 +235,8 @@ static int	write_in_command(t_data *data)
 	int			i;
 
 	i = data->idx_com;
+	if (len_com(data, i) == 0)
+		return (NO_COMMANDS);
 	full_command = (char **)malloc((len_com(data, i) + 1) * sizeof(char *));
 	if (full_command == NULL)
 		return (MALLOC_ERROR);
@@ -299,8 +301,8 @@ int	save_pipelines(t_data *data)
 		{
 			while (data->input_info->first_line_split[data->idx_com] != NULL)
 			{
-				if (write_in_command(data) != SUCCESS)
-					return (FAILURE);
+				if (write_in_command(data) == NO_COMMANDS)
+					return (NO_COMMANDS);
 				if (data->input_info->first_line_split[data->idx_com] != NULL)
 				data->idx_com++;
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 17:57:55 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/28 15:19:58 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	modify_export(t_data *data, char *var, char *new_cont)
 int	export_var(t_data *data, t_command *full_com, t_var **list)
 {
 	char	**equality;
-	t_var 	*temp_var;
+	t_var	*temp_var;
 	int		i;
 
 	i = 1;
@@ -83,6 +83,7 @@ int	export_var(t_data *data, t_command *full_com, t_var **list)
 			if (equality == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			modify_export(data, equality[0], equality[1]);
+			modify_env(data, equality[0], equality[1]);
 		}
 		else
 			modify_export(data, full_com->content[i], NULL);
@@ -98,7 +99,7 @@ void	export_list(t_data *data)
 	t_var	*env_list;
 
 	env_list = data->env_lst;
-	while(env_list != NULL)
+	while (env_list != NULL)
 	{
 		save_export_el(data, env_list->var, env_list->content);
 		env_list = env_list->next;
@@ -112,7 +113,7 @@ void	print_export(t_data *data)
 	node = data->var_export;
 	while (node != NULL)
 	{
-		if ( node->content != NULL)
+		if (node->content != NULL)
 			ft_printf("declare -x %s=\"%s\"\n", node->var, node->content);
 		else
 			ft_printf("declare -x %s\n", node->var, node->content);

@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 14:33:51 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:55:04 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef enum e_cases
 	READ_ERROR,
 	WRITE_ERROR,
 	CONTROL_D,
+	NO_COMMANDS,
 }		t_cases;
 
 typedef struct s_var
@@ -149,7 +150,7 @@ typedef struct s_data
 	int			iii;
 	int			jjj;
 	int			size_var;
-	
+
 	int			kkk;
 	int			idx_com;
 	int			size;

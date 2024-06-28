@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 18:51:35 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/28 14:31:02 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,46 +68,58 @@ void	ft_free_input_info(t_data *data)
 			ft_free_char_pp(data->input_info->list_eof);
 		if (data->input_info->terminal_input != NULL)
 			free(data->input_info->terminal_input);
-		/* if (data->input_info->text_input != NULL)
-			ft_free_char_pp(data->input_info->text_input); */
+		if (data->input_info->text_input != NULL)
+			ft_free_char_pp(data->input_info->text_input);
+		if (data->input_info->search_eof != NULL)
+			free(data->input_info->search_eof);
+		if (data->input_info->final_text_last != NULL)
+			free(data->input_info->final_text_last);
 		free(data->input_info);
 	}
 	data->input_info = NULL;
 }
 
-void data_cleanup(t_data *data)
+void	data_cleanup(t_data *data)
 {
 	ft_free_input_info(data);
-	delete_commands(data);
-/* 	if (data->fd_in > 0)
-		close(data->fd_in);
-	if (data->fd_out > 0)
-		close(data->fd_out);
-	data->fd_in = 0;
-	data->fd_out = 0; */
+	//delete_commands(data);
+	data->command_list = NULL;
+	if (data->next_eof != NULL)
+		free(data->next_eof);
 	data->next_eof = NULL;
-	data->i = 0;
-	data->j = -1;
-	data->k = 0;
-	data->i_ter = 0;
-	data->ii = 0;
+	//data->paired = 0;
+	data->input_index = 0;
 	data->stdin_cpy = 0;
 	data->stdout_cpy = 0;
+	data->i = 0;
+	data->i_ter = 0;
+	data->j = -1;
+	data->k = 0;
+	data->ii = 0;
 	data->kk = 1;
+	//data->kkk = 0;
+	data->idx_com = 0;
+	data->size = 0;
 	refresh_mysignal_var(data);
 	//refresh env
 }
 
-void total_cleanup(t_data *data)
+void	total_cleanup(t_data *data)
 {
-	//delete all vars
-	//delete all
 	ft_free_input_info(data);
-	delete_commands(data);
-/* 	if (data->fd_in > 0)
-		close(data->fd_in);
-	if (data->fd_out > 0)
-		close(data->fd_out); */
-	data->next_eof = NULL;
+	//delete_commands(data);
+	ft_varsclear(&data->var);
+	ft_varsclear(&data->var_export);
+	ft_varsclear(&data->env_lst);
+	if (data->user != NULL)
+		free(data->user);
+	if (data->hostname != NULL)
+		free(data->hostname);
+	if (data->dir != NULL)
+		free(data->dir);
+	if (data->entry != NULL)
+		free(data->entry);
+	if (data->next_eof != NULL)
+		free(data->next_eof);
 	free(data);
 }

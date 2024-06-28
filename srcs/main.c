@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/27 18:49:48 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/28 14:31:51 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	*data;
 
-	(void) argc;
-	(void) argv;
+	(void)argc;
+	(void)argv;
+	if (argc != 1)
+		return (ERROR);
 	data = data_init(env);
 	if (data == NULL)
 		return (MALLOC_ERROR);
@@ -81,4 +83,5 @@ int	main(int argc, char **argv, char **env)
 	refresh_mysignal_var(data);
 	if (minishell(data) != SUCCESS)
 		return (FAILURE);
+	return (SUCCESS);
 }

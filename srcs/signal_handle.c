@@ -23,7 +23,7 @@ void	handle_sigint(int sig)
     g_exit_status = 130;
 }
 
-int	signal_handle()
+int	signal_handle(void)
 {
 	struct sigaction sa;
 	

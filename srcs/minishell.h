@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 13:46:55 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:33:51 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ void	ft_varadd_front(t_var **lst, t_var *new);
 void	ft_varadd_middle(t_var **lst, t_var *new);
 void	ft_varadd_back(t_var **var, t_var *new);
 void	ft_vardelone(t_var *var);
+void	ft_varsclear(t_var **var);
 int	safe_new_var(t_var **list, char **equality);
 int	safe_existing_var(t_var **list, char **equality);
 int	save_var_info(t_data *data, char **equality, t_var **list);

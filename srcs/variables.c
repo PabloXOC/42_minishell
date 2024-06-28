@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 19:07:57 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:32:41 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,18 @@ void	ft_vardelone(t_var *var)
 			free(var->var);
 	}
 	free(var);
+}
+
+void	ft_varsclear(t_var **var)
+{
+	t_var	*temp;
+
+	while (*var != NULL)
+	{
+		temp = (*var)->next;
+		ft_vardelone(*var);
+		*var = temp;
+	}
 }
 
 int	safe_new_var(t_var **list, char **equality)
@@ -232,7 +244,7 @@ int	delete_var(t_data *data, char *var_to_del, t_var **list)
 void	refresh_mysignal_var(t_data *data)
 {
 	char	**equality;
-	
+
 	equality = (char **)malloc(3 * sizeof(char *));
 	equality[2] = NULL;
 	equality[0] = ft_strdup("?");

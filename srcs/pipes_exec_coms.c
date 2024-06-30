@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/28 15:44:24 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:39:43 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,13 @@ bool	ft_command_args_errors(char **command)
 	if (ft_strncmp(command[0], "pwd", ft_strlen(command[0])) == 0)
 		return (ft_check_for_flags(command));
 	if (ft_strncmp(command[0], "cd", ft_strlen(command[0])) == 0)
-		return (ft_handle_arg_n(command, 2));
+	{
+		if (ft_handle_arg_n(command, 2) == false
+			|| ft_handle_arg_n(command, 1) == false)
+			return (false);
+		else
+			return (true);
+	}
 	if (ft_strncmp(command[0], "export", ft_strlen(command[0])) == 0)
 		return (ft_check_for_flags(command));
 	if (ft_strncmp(command[0], "unset", ft_strlen(command[0])) == 0)

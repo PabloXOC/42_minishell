@@ -7,6 +7,7 @@
 		"libft.h": "c",
 		"stdbool.h": "c",
 		"signal.h": "c",
-		"sigaction.h": "c"
+		"sigaction.h": "c",
+		"errno.h": "c"
 	}
 }

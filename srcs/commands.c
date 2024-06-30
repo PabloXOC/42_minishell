@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/28 15:56:23 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:50:46 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,67 +84,6 @@ static int	len_com(t_data *data, int i)
 	}
 	return (len);
 }
-
-/* static int	write_in_command(t_data *data)
-{
-	t_command	*com;
-	char		**full_command;
-	int			pos_command;
-	int			i;
-
-	i = data->idx_com;
-	full_command = (char **)malloc((length_command(data, i) + 1)
-			* sizeof(char *));
-	if (full_command == NULL)
-		return (MALLOC_ERROR);
-	full_command[length_command(data, i)] = NULL;
-	pos_command = 0;
-	while (data->input_info->first_line_split[i] != NULL
-		&& ft_strncmp(data->input_info->first_line_split[i], "|", 1) != 0)
-	{
-		if (ft_strncmp(data->input_info->first_line_split[i], "<", 1) == 0)
-		{
-			data->redirect_input = data->input_info->first_line_split[++i];
-			data->file_input = true;
-		}
-		else if (ft_strncmp(data->input_info->first_line_split[i], "<<",
-				2) == 0)
-		{
-			data->file_input = false;
-		}
-		else if (ft_strncmp(data->input_info->first_line_split[i], ">", 1) == 0)
-		{
-			data->redirect_output = data->input_info->first_line_split[++i];
-			data->append_output = false;
-		}
-		else if (ft_strncmp(data->input_info->first_line_split[i], ">>",
-				2) == 0)
-		{
-			data->redirect_output = data->input_info->first_line_split[++i];
-			data->append_output = true;
-		}
-		else
-			full_command[pos_command++] = ft_strdup(data->input_info->first_line_split[i]);
-		if (full_command[pos_command - 1] == NULL)
-			return (MALLOC_ERROR);
-		i++;
-	}
-	if (data->command_list == NULL)
-	{
-		data->command_list = ft_lstnew_com(full_command, NULL);
-		if (data->command_list == NULL)
-			return (MALLOC_ERROR);
-	}
-	else
-	{
-		com = ft_lstnew_com(full_command, NULL);
-		if (com == NULL)
-			return (MALLOC_ERROR);
-		ft_lstadd_back_com(&data->command_list, com);
-	}
-	data->idx_com = i;
-	return (SUCCESS);
-} */
 
 void	create_temp_file(t_command *com)
 {
@@ -288,6 +227,7 @@ void	print_commands(t_data *data)
 int	save_pipelines(t_data *data)
 {
 	t_command	*com;
+	int			i;
 
 	if (data->input_info->first_line_split == NULL)
 		return (0);
@@ -311,7 +251,13 @@ int	save_pipelines(t_data *data)
 	com = data->command_list;
 	while (com != NULL)
 	{
-		com->full_path = ft_find_command_path(data->env, com->content[0], 0);
+		i = 0;
+		com->full_path = ft_find_command_path(data->env, com->content[i++], 0);
+		while (com->content[i] != NULL)
+		{
+			com->content[i] = expand_var(data, com->content[i]);
+			i++;
+		}
 		com = com->next;
 	}
 	print_commands(data);
@@ -320,11 +266,6 @@ int	save_pipelines(t_data *data)
 
 void	delete_commands(t_data *data)
 {
-	/* data->text_input = NULL;
-	data->redirect_input = NULL;
-	data->redirect_output = NULL;
-	data->file_input = true;
-	data->append_output = false; */
 	close_all_fds(data->command_list);
 	ft_lstclear_com(&data->command_list, &ft_free_char_pp);
 	data->command_list = NULL;

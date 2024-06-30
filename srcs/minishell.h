@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 16:54:22 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:57:32 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ void	refresh_mysignal_var(t_data *data);
 t_var	*safe_env(char **env);
 void	print_env(t_data *data);
 void	modify_env(t_data *data, char *var, char *new_cont);
+char	*return_content_var(t_var *var_list, char *text);
 //t_var	**find_env_el(t_data *data, char *name);
 //void	change_env_el_content(t_data *data, char *var, char *new_cont);
 //void	add_new_env_el(t_data *data, char *var, char *content);
@@ -254,7 +255,7 @@ void	export_list(t_data *data);
 void	print_export(t_data *data);
 
 /*------ECHO------*/
-//char	*expand_var(char *text);
+char	*expand_var(t_data *data, char *text);
 
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);
@@ -333,7 +334,5 @@ char	*ft_reformat_input(char *input, t_data *data); */
 int	signal_handle(void);
 int	ft_control_d(void);
 int	minishell(t_data *data);
-
-char	*expand_var(t_data *data, char *text);
 
 #endif

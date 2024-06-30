@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/28 15:15:03 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:55:35 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ void	add_new_env_el(t_data *data, char *var, char *content)
 	node = ft_varnew(ft_strdup(var), ft_strdup(content));
 	ft_varadd_back(&data->env_lst, node);
 } */
+
+char	*return_content_var(t_var *var_list, char *text)
+{
+	t_var	*node;
+
+	node = var_list;
+	while (node != NULL)
+	{
+		if (ft_strncmp(text, node->var, ft_strlen(text) + 1) == 0)
+			return (node->content);
+		node = node->next;
+	}
+	return (NULL);
+}
 
 void	modify_env(t_data *data, char *var, char *new_cont)
 {

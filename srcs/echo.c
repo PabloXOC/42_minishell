@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/28 17:16:45 by ffauth-p         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/30 18:22:28 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* void	trim_vars(t_data *data)
-{
-	
-} */
-
-char	*return_content_var(t_data *data, char *text, int len_v)
-{
-	t_var	*node;
-
-	node = data->var;
-	while (node != NULL)
-	{
-		if (ft_strncmp(text, node->var, len_v) == 0)
-			return (node->content);
-		node = node->next;
-	}
-	return (NULL);
-}
 
 int	len_old_var(char *str, int i)
 {
@@ -130,7 +111,7 @@ char	*ft_fillout_var(t_data *d, int size, char *str, int single_q)
 	{
 		if (str[d->iii] == '\'')
 			single_q++;
-		else if (str[d->iii] == '\"')
+		else if (str[d->iii] == '\"' && single_q % 2 == 0)
 			;
 		else if (str[d->iii] == '$' && single_q % 2 == 0 && str[d->iii + 1] != ' '
 			&& str[d->iii + 1] != 0)

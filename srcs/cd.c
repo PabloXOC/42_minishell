@@ -6,31 +6,63 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/27 12:14:13 by farah            ###   ########.fr       */
+/*   Updated: 2024/06/30 18:17:40 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_dir(t_data* data, t_command *full_com)
+void	modify_dir_env(t_data *data)
 {
-	if (chdir(full_com->content[1]) == -1)
+	if (data->dir != NULL)
 	{
-		ft_putstr_fd(full_com->content[0], 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(full_com->content[1], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		modify_env(data, "OLDPWD", data->dir);
+		modify_export(data, "OLDPWD", data->dir);
+		free(data->dir);
 	}
+	data->dir = getcwd(NULL, 500);
+	modify_env(data, "PWD", data->dir);
+	modify_export(data, "PWD", data->dir);
+	return ;
+}
+
+void	home_dir(t_data* data, t_command *full_com)
+{
+	char	*home_dir;
+
+	home_dir = return_content_var(data->env_lst, "HOME");
+	if (home_dir == NULL)
+		ft_putstr_fd("cd: HOME not set\n", 2);
 	else
 	{
-		if (data->dir != NULL)
+		if (chdir(home_dir) == -1)
 		{
-			modify_env(data, "OLDPWD", data->dir);
-			modify_export(data, "OLDPWD", data->dir);
-			free(data->dir);
+			ft_putstr_fd(full_com->content[0], 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(home_dir, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
 		}
-		data->dir = getcwd(NULL, 500);
-		modify_env(data, "PWD", data->dir);
-		modify_export(data, "PWD", data->dir);
+		else
+			modify_dir_env(data);
 	}
+	return ;
+}
+
+void	change_dir(t_data* data, t_command *full_com)
+{
+	if (full_com->content[1] == NULL)
+		home_dir(data, full_com);
+	else
+	{
+		if (chdir(full_com->content[1]) == -1)
+		{
+			ft_putstr_fd(full_com->content[0], 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(full_com->content[1], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+		}
+		else
+			modify_dir_env(data);
+	}
+	return ;
 }

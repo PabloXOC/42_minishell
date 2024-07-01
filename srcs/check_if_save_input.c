@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_save_input.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:02:00 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/27 18:44:04 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 11:51:28 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	ft_starts_with_number(const char *str)
 	return (false);
 }
 
-bool	check_if_we_save_variables(t_data *data)
+bool	check_if_we_save_variables(t_data *data, t_input_var *info)
 {
 	int	i;
 
@@ -69,13 +69,13 @@ bool	check_if_we_save_variables(t_data *data)
 			|| ft_charcomp(data->input_info->first_line_split[i], ">>") == true
 			|| ft_charcomp(data->input_info->first_line_split[i], "<<") == true)
 			i++;
-		else if (ft_charcomp(data->input_info->first_line_split[i], "|") == true) //we have pipes
+		else if (ft_charcomp(info->first_line_split[i], "|") == true)
 			return (false);
-		else if (ft_there_is_equal(data->input_info->first_line_split[i]) == false) //we dont have an equal sign
+		else if (ft_there_is_equal(info->first_line_split[i]) == false)
 			return (false);
-		else if (ft_isspecial(data->input_info->first_line_split[i]) == true) //we have a special character
+		else if (ft_isspecial(data->input_info->first_line_split[i]) == true)
 			return (false);
-		else if (ft_starts_with_number(data->input_info->first_line_split[i]) == true) //starts with a number
+		else if (ft_starts_with_number(info->first_line_split[i]) == true)
 			return (false);
 		if (data->input_info->first_line_split[i] != 0)
 			i++;

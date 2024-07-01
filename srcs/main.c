@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 11:19:08 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:12:16 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,19 @@
 	}
 } */
 
-
-
 int	minishell(t_data *data)
 {
-	while (g_exit_status == 0 && data->malloc_error == false
-		&& data->exit == false) //find more reasons to break
+	while (data->malloc_error == false && data->exit == false)
 	{
-		//data->input = readline(data->entry);
-		if (g_exit_status == 0 && recieve_complete_input(data) == SUCCESS )
+		if (recieve_complete_input(data, data->input_info) == SUCCESS)
 		{
 			add_history(data->input_info->first_line_and_final_text);
-			//data->input = ft_reformat_input(data->input, data); // reformat and split input (not \\)
 			data->input_info->first_line_split = ft_minishell_split(data->input_info->first_line_ref, ' ');
 			if (data->input_info->first_line_split == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
-			if (check_if_we_save_variables(data) == true) //check for "" and '' (special characters allowed in "" '')
+			if (check_if_we_save_variables(data, data->input_info) == true)
 				save_variables(data); // TO DO edit '\\' & cut string
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);

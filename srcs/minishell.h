@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 18:26:30 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 19:12:22 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,16 @@ typedef enum e_command_code
 	ENV,
 	EXIT
 }			t_command_code;
+
+typedef enum e_exit_code
+{
+	EXIT_1 = 1,
+	EXIT_2 = 2,
+	EXIT_126 = 126,
+	EXIT_127 = 127,
+	EXIT_128 = 128,
+	EXIT_130 = 130,
+}			t_exit_code;
 
 extern int g_exit_status;
 

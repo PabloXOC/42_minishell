@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/27 17:10:58 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 14:14:25 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ bool	ft_quote_switch(char *str, int i, bool single_q, bool double_q)
 	return (false);
 }
 
-int	ft_control_d(void)
+int	ft_control_d(t_data *data)
 {
-	g_exit_status = 1;
+	data->exit = true;
 	return (CONTROL_D);
 }

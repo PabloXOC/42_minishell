@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 12:46:48 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:41:45 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,16 @@ bool	ft_command_args_errors(char **command)
 	return (false);
 }
 
+static void	exec(t_command *command, t_data *data)
+{
+	if (execve(command->full_path, command->content, data->env) == -1)
+	{
+		ft_putstr_fd(command->full_path, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
+	}
+}
+
 static int	ft_pipe_commands(t_command *command, t_data *data,
 	int **pipe_fd, int i)
 {
@@ -98,33 +108,33 @@ static int	ft_pipe_commands(t_command *command, t_data *data,
 	if (id == 0)
 	{
 		close(pipe_fd[i][0]);
-		//printf("i: %i, lst_size: %i\n", i, ft_lstsize_com(data->command_list));
 		if (dup2(pipe_fd[i][1], STDOUT_FILENO) == -1)
 			exit(ERROR);
 		if (command->fd_out > 2)
-		{
 			if (dup2(command->fd_out, STDOUT_FILENO) == -1)
 				exit(ERROR);
-		}
-		if (i == ft_lstsize_com(data->command_list) - 1  && command->fd_out < 2)
-		{
+		if (i == ft_lstsize_com(data->command_list) - 1
+			&& command->fd_out < 2)
 			if (dup2(data->stdout_cpy, STDOUT_FILENO) == -1)
 				exit(ERROR);
-		}
-		if(ft_command_args_errors(command->content) == true)
+		if (ft_command_args_errors(command->content) == true)
 			exit(0);
 		if (find_command(data, command, data->env) == SUCCESS)
 			exit(0);
-		if (execve(command->full_path, command->content, data->env) == -1)
-		{
-			if (ft_strncmp(command->full_path, "cd", ft_strlen(command->full_path)) == 0 || ft_strncmp(command->full_path, "export", ft_strlen(command->full_path)) == 0 || ft_strncmp(command->full_path, "unset", ft_strlen(command->full_path)) == 0 || ft_strncmp(command->full_path, "exit", ft_strlen(command->full_path)) == 0)
-				exit(127);
-			ft_putstr_fd(command->full_path, 2);
-			ft_putstr_fd(": command not found\n", 2);
-			exit(127);
-		}
+		exec(command, data);
 	}
 	return (OK);
+}
+
+static int	restore_original_in_out(t_data *data)
+{
+	if (dup2(data->stdin_cpy, STDIN_FILENO) == -1)
+		return (ERROR);
+	if (dup2(data->stdout_cpy, STDOUT_FILENO) == -1)
+		return (ERROR);
+	close(data->stdin_cpy);
+	close(data->stdout_cpy);
+	return (SUCCESS);
 }
 
 int	pipe_exec_coms(t_data *data)
@@ -151,11 +161,7 @@ int	pipe_exec_coms(t_data *data)
 		com = com->next;
 	}
 	close_pipes(pipe_fd, data);
-	dup2(data->stdin_cpy, STDIN_FILENO);
-	dup2(data->stdout_cpy, STDOUT_FILENO);
-	close(data->stdin_cpy);
-	close(data->stdout_cpy);
-	return (SUCCESS);
+	return (restore_original_in_out(data));
 }
 
 int	exec_commands(t_data *data)
@@ -167,7 +173,8 @@ int	exec_commands(t_data *data)
 	{
 		if (ft_command_args_errors(data->command_list->content) == true)
 			return (SUCCESS);
-		if (find_command(data, data->command_list, data->env) == INVALID_COMMAND)
+		if (find_command(data, data->command_list, data->env)
+			== INVALID_COMMAND)
 			return (pipe_exec_coms(data));
 	}
 	if (list_len > 1)

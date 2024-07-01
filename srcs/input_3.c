@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 12:06:59 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:14:36 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_ask_user_for_more_input(t_data *data)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
 	if (more_input == NULL)
-		return (ft_control_d());
+		return (ft_control_d(data));
 	info->init_input = ft_strjoin(info->init_input, more_input);
 	free(more_input);
 	return (SUCCESS);

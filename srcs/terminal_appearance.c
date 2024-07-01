@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_appearance.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/06/26 09:34:26 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 13:42:35 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	get_user(t_data *data, char **env)
 	return (SUCCESS);
 }
 
-/* int	get_hostname(); */
+/* int	get_hostname(void); */
 
 int	ft_get_dir(t_data *data, char **env)
 {
@@ -58,7 +58,7 @@ int	refresh_terminal_entry(t_data *data)
 	char	*entry;
 
 	if (data->entry != NULL)
-	{	
+	{
 		free(data->entry);
 		data->entry = NULL;
 	}
@@ -81,7 +81,8 @@ int	refresh_terminal_entry(t_data *data)
 
 int	terminal_entry(t_data *data, char **env)
 {
-	if (get_user(data, env) == MALLOC_ERROR || ft_get_dir(data, env) == MALLOC_ERROR)
+	if (get_user(data, env) == MALLOC_ERROR
+		|| ft_get_dir(data, env) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }

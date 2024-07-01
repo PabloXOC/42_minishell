@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_command_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:33:45 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/01 12:44:45 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:31:06 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,26 +105,3 @@ t_command	*ft_fill_commands(char **argv, char **envp, int argc)
 	}
 	return (head);
 }
-
-/* t_info	*ft_commands(char **argv, char **envp, int argc)
-{
-	t_info	*commands;
-
-	commands = (t_info *)malloc(sizeof(t_info));
-	if (commands == NULL)
-		return (NULL);
-	commands->env = envp;
-	commands->no_infile = 0;
-	commands->no_permissions = 0;
-	commands->num_commands = argc - 2;
-	commands->temp_file = NULL;
-	commands->commands = NULL;
-	commands->commands = ft_fill_commands(argv, envp, argc);
-	if (commands->commands == NULL)
-	{
-		perror("Malloc fail");
-		ft_free_commands(commands);
-		return (NULL);
-	}
-	return (commands);
-} */

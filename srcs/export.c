@@ -6,11 +6,19 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 10:59:37 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:22:14 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	fill_export_list(t_data *data, char *var, char *cont)
+{
+	data->var_export = ft_varnew(ft_strdup(var), ft_strdup(cont));
+	if (data->var_export == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	return (SUCCESS);
+}
 
 int	save_export_el(t_data *data, char *var, char *cont)
 {
@@ -19,12 +27,7 @@ int	save_export_el(t_data *data, char *var, char *cont)
 	int		i;
 
 	if (data->var_export == NULL)
-	{
-		data->var_export = ft_varnew(ft_strdup(var), ft_strdup(cont));
-		if (data->var_export == NULL)
-			return (ft_write_error_i(MALLOC_ERROR, data));
-		return (SUCCESS);
-	}
+		return (fill_export_list(data, var, cont));
 	exp_lst = data->var_export;
 	temp_el = ft_varnew(ft_strdup(var), ft_strdup(cont));
 	if (ft_strncmp(var, exp_lst->var, ft_strlen(var) + 1) < 0)
@@ -86,21 +89,9 @@ int	export_var(t_data *data, t_command *full_com, t_var **list)
 			modify_export(data, full_com->content[i], NULL);
 		i++;
 	}
-	print_vars(*list);
-	print_vars(data->var_export);
+	//print_vars(*list);
+	//print_vars(data->var_export);
 	return (SUCCESS);
-}
-
-void	export_list(t_data *data)
-{
-	t_var	*env_list;
-
-	env_list = data->env_lst;
-	while (env_list != NULL)
-	{
-		save_export_el(data, env_list->var, env_list->content);
-		env_list = env_list->next;
-	}
 }
 
 void	print_export(t_data *data)

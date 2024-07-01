@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_aid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/25 10:44:00 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 13:30:31 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_file_permissions(t_command *command)
 	status = SUCCESS;
 	while (com != NULL)
 	{
-		if (com->redirect_input != NULL) //also put input file for terminal input
+		if (com->redirect_input != NULL)
 			if (ft_infile_permissions(com->redirect_input, com) == ERROR)
 				status = ERROR;
 		if (com->redirect_output != NULL)

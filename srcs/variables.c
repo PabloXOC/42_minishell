@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/06/28 16:42:04 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:53:18 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,30 @@ int	save_variables(t_data *data)
 	return (SUCCESS);
 }
 
+static int	delete_head_var(t_var *vars, t_var *temp_var, t_var **list)
+{
+	temp_var = vars->next;
+	if (temp_var->content != NULL)
+		free(temp_var->content);
+	if (temp_var->var != NULL)
+		free(temp_var->var);
+	free(vars);
+	*list = temp_var;
+	return (SUCCESS);
+}
+
+static int	delete_middle_var(t_var *vars, t_var *temp_var)
+{
+	temp_var = vars->next;
+	vars->next = vars->next->next;
+	if (temp_var->content != NULL)
+		free(temp_var->content);
+	if (temp_var->var != NULL)
+		free(temp_var->var);
+	free(temp_var);
+	return (SUCCESS);
+}
+
 int	delete_var(t_data *data, char *var_to_del, t_var **list)
 {
 	t_var	*vars;
@@ -210,33 +234,13 @@ int	delete_var(t_data *data, char *var_to_del, t_var **list)
 		return (SUCCESS);
 	if (vars != NULL)
 	{
-		if (vars->content != NULL && vars->var != NULL)
-		{
-			if (ft_strncmp(vars->var, var_to_del, ft_strlen(var_to_del)) == 0)
-			{
-				temp_var = vars->next;
-				free(vars->content);
-				free(vars->var);
-				free(vars);
-				*list = temp_var;
-				return (SUCCESS);
-			}
-		}
+		if (ft_strncmp(vars->var, var_to_del, ft_strlen(var_to_del)) == 0)
+			return (delete_head_var(vars, temp_var, list));
 	}
 	while (vars->next != NULL)
 	{
-		if (vars->next->content != NULL && vars->next->var != NULL)
-		{
-			if (ft_strncmp(vars->next->var, var_to_del, ft_strlen(var_to_del)) == 0)
-			{
-				temp_var = vars->next;
-				vars->next = vars->next->next;
-				free(temp_var->content);
-				free(temp_var->var);
-				free(temp_var);
-				return (SUCCESS);
-			}
-		}
+		if (ft_strncmp(vars->next->var, var_to_del, ft_strlen(var_to_del)) == 0)
+			return (delete_middle_var(vars, temp_var));
 		vars = vars->next;
 	}
 	return (SUCCESS);

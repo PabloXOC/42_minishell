@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 12:41:30 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:24:55 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,6 @@ t_var	*find_env_el(t_data *data, char *name)
 	}
 	return (NULL);
 }
-
-/* void	change_env_el_content(t_data *data, char *var, char *new_cont)
-{
-	t_var	*node;
-
-	node = *find_env_el(data, var);
-	free(node->content);
-	node->content = ft_strdup(new_cont);
-}
-
-void	add_new_env_el(t_data *data, char *var, char *content)
-{
-	t_var	*node;
-
-	node = ft_varnew(ft_strdup(var), ft_strdup(content));
-	ft_varadd_back(&data->env_lst, node);
-} */
 
 char	*return_content_var(t_var *var_list, char *text)
 {
@@ -77,7 +60,7 @@ void	modify_env(t_data *data, char *var, char *new_cont)
 	return ;
 }
 
-void	print_env(t_data *data)
+int	print_env(t_data *data)
 {
 	t_var	*node;
 
@@ -87,6 +70,7 @@ void	print_env(t_data *data)
 		ft_printf("%s=%s\n", node->var, node->content);
 		node = node->next;
 	}
+	return (SUCCESS);
 }
 
 t_var	*safe_env(char **env)

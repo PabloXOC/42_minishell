@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 12:53:56 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:15:58 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	minishell(t_data *data)
 				save_variables(data); // TO DO edit '\\' & cut string
 			if (data->malloc_error == true)
 				return (MALLOC_ERROR);
-			if (save_pipelines(data) != NO_COMMANDS)
+			if (save_pipelines(data, data->input_info) != NO_COMMANDS)
 				if (exec_commands(data) != SUCCESS)
 					return (FAILURE);
 		}

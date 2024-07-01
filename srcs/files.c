@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:27:40 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/01 11:37:09 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:07:54 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static int	fill_input_info(t_data *data, int i, t_command *com)
 	if (ft_strncmp(data->input_info->first_line_split[i], "<<", 2) == 0)
 	{
 		ft_infiles_cleanup(com);
-		com->text_input = data->input_info->text_input[0];
-		//data->input_info->text_input = &data->input_info->text_input[1];
+		com->text_input = data->input_info->text_input[data->pointer++];
 		com->file_input = false;
 		if (com->file_input == false && com->text_input != NULL)
 		{

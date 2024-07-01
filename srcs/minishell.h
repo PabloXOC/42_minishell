@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 13:51:34 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:18:56 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,6 @@ typedef struct s_input_var
 
 typedef struct s_data
 {
-	//char		**input_split;
-	//char		*input;
-	//for terminal entry information
 	char		*user;
 	char		*hostname;
 	char		*dir;
@@ -113,25 +110,8 @@ typedef struct s_data
 	int			paired; //to deal with '' ""
 	bool		exit; //if command == exit
 	int			input_index; //until where have we read the input
-	//char		*first_line;
-	//char		*first_line_ref;
-	//char		**first_line_split;
-	//int			n_eof;
-	//char		**list_eof;  //all the eof in order;
-	//char		*search_eof; //to search for eof
-	//char		*final_text; //what we will actually use for << input text
 	t_input_var	*input_info;
-	//char		*limiter;
 	t_command	*command_list; //list of the commands in the input + command info
-	//char		**text_input; //    text of  < or <<
-	//char		**changing_text_input;
-	//char		*redirect_input; // file name if we have a < I AM NOT USING THIS
-	//char		*redirect_output; // file name if we have a > or >>
-	//int			fd_in;
-	//int			fd_out;
-	//char		*terminal_input; // beggining of << terminal input
-	//bool		file_input; // boolean for (true == <)
-	//bool		append_output; // boolean for (true == >>) & (false == >)
 	int			stdin_cpy;
 	int			stdout_cpy;
 	char		*next_eof;
@@ -151,6 +131,7 @@ typedef struct s_data
 	int			kkk;
 	int			idx_com;
 	int			size;
+	int			pointer;
 	//errors
 	bool		malloc_error;
 }			t_data;
@@ -205,7 +186,7 @@ bool		ft_compare_eof(char *str, char *eof, t_data *data);
 
 /*------COMMANDS------*/
 int			find_command(t_data *data, t_command *com, char **env);
-int			save_pipelines(t_data *data);
+int			save_pipelines(t_data *data, t_input_var *info);
 void		delete_commands(t_data *data);
 void		print_commands(t_data *data);
 
@@ -239,7 +220,7 @@ void		refresh_mysignal_var(t_data *data);
 
 /*------ENV------*/
 t_var		*safe_env(char **env);
-void		print_env(t_data *data);
+int			print_env(t_data *data);
 void		modify_env(t_data *data, char *var, char *new_cont);
 char		*return_content_var(t_var *var_list, char *text);
 t_var		*find_env_el(t_data *data, char *name);
@@ -247,12 +228,13 @@ t_var		*find_env_el(t_data *data, char *name);
 //void	add_new_env_el(t_data *data, char *var, char *content);
 
 /*------CD------*/
-void		change_dir(t_data *data, t_command *full_com);
+int			change_dir(t_data *data, t_command *full_com);
 
 /*------UNSET------*/
-void		unset_var(t_data *data, t_command *full_com);
+int			unset_var(t_data *data, t_command *full_com);
 
 /*------EXPORT------*/
+int			save_export_el(t_data *data, char *var, char *cont);
 void		modify_export(t_data *data, char *var, char *new_cont);
 int			export_var(t_data *data, t_command *full_com, t_var **list);
 void		export_list(t_data *data);
@@ -331,7 +313,7 @@ char	*ft_reformat_input(char *input, t_data *data); */
 
 /*------SIGNALS------*/
 int			signal_handle(void);
-int			ft_control_d(void);
+int			ft_control_d(t_data *data);
 int			minishell(t_data *data);
 
 /*------FILES------*/

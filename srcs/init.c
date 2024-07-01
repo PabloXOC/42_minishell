@@ -6,14 +6,39 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 16:38:44 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:06:49 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-//initialize the data struct and variables within
+void	export_list(t_data *data)
+{
+	t_var	*env_list;
+
+	env_list = data->env_lst;
+	while (env_list != NULL)
+	{
+		save_export_el(data, env_list->var, env_list->content);
+		env_list = env_list->next;
+	}
+}
+
+static void	init_idx(t_data *data)
+{
+	data->input_index = 0;
+	data->i = 0;
+	data->i_ter = 0;
+	data->j = -1;
+	data->k = 0;
+	data->ii = 0;
+	data->kk = 1;
+	data->idx_com = 0;
+	data->size = 0;
+	data->pointer = 0;
+}
+
 t_data	*data_init(char **env)
 {
 	t_data	*data;
@@ -27,9 +52,7 @@ t_data	*data_init(char **env)
 	data->entry = NULL;
 	data->env = env;
 	data->env_lst = safe_env(env);
-	//data->paired = 0;
 	data->exit = false;
-	data->input_index = 0;
 	data->input_info = NULL;
 	data->command_list = NULL;
 	data->stdin_cpy = 0;
@@ -37,21 +60,12 @@ t_data	*data_init(char **env)
 	data->var = NULL;
 	data->var_export = NULL;
 	data->next_eof = NULL;
-	data->i = 0;
-	data->i_ter = 0;
-	data->j = -1;
-	data->k = 0;
-	data->ii = 0;
-	data->kk = 1;
-	//data->kkk = 0;
-	data->idx_com = 0;
-	data->size = 0;
 	data->malloc_error = false;
+	init_idx(data);
 	export_list(data);
 	return (data);
 }
 
-//initialize the input struct and related variables
 int	init_input_struct(t_data *data)
 {
 	data->input_info = (t_input_var *)malloc(sizeof(t_input_var));

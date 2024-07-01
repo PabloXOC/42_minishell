@@ -6,13 +6,13 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/28 15:24:52 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:56:21 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	unset_var(t_data *data, t_command *full_com)
+int	unset_var(t_data *data, t_command *full_com)
 {
 	int	i;
 
@@ -27,4 +27,5 @@ void	unset_var(t_data *data, t_command *full_com)
 		}
 		i++;
 	}
+	return (SUCCESS);
 }

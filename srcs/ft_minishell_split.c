@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_split.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 17:16:55 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/01 12:43:12 by pximenez         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/07/01 13:27:11 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -25,14 +26,10 @@ static void	ft_free_malloc(char **array, int row)
 	free(array);
 }
 
-static int	count_words(char const *s, char c)
+static int	count_words(char const *s, char c, int count, int i)
 {
-	int		count;
-	int		i;
 	char	quote;
 
-	count = 0;
-	i = 0;
 	if (s[0] != c && s[0] != '\0')
 		count = 1;
 	while (s[i] != '\0')
@@ -114,7 +111,7 @@ char	**ft_minishell_split(char const *s, char c)
 	int		nwords;
 	char	**array;
 
-	nwords = count_words(s, c);
+	nwords = count_words(s, c, 0, 0);
 	printf("nwords: %i\n", nwords);
 	array = (char **)malloc((nwords + 1) * sizeof(char *));
 	if (!(array))

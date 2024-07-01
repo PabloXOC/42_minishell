@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 12:00:40 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:07:22 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,13 @@
 
 #include "minishell.h"
 
-/* void	ft_t_clist_clear(t_clist **lst)
+void	delete_commands(t_data *data)
 {
-	t_clist	*next_node;
-
-	while (*lst != NULL)
-	{
-		next_node = (*lst)->next;
-		ft_t_clist_delone(*lst);
-		(*lst) = next_node;
-	}
+	close_all_fds(data->command_list);
+	ft_lstclear_com(&data->command_list, &ft_free_char_pp);
+	data->command_list = NULL;
+	data->idx_com = 0;
 }
-
-void	ft_free_commands(t_data *data)
-{
-	if (data->temp_file != NULL)
-		free(data->temp_file);
-	if (data->commands != NULL)
-		ft_t_clist_clear(&(commands->commands));
-	if (commands != NULL)
-		free(commands);
-}
-
-void	ft_cleanup(char *in_file, t_info *commands)
-{
-	close(commands->fd_in);
-	close(commands->fd_out);
-	if (commands->no_infile == 1)
-		unlink(in_file);
-	if (commands->no_permissions == 1)
-		unlink(commands->temp_file);
-	ft_free_commands(commands);
-} */
 
 void	ft_free_input_info(t_data *data)
 {
@@ -84,7 +59,6 @@ void	data_cleanup(t_data *data)
 	if (data->next_eof != NULL)
 		free(data->next_eof);
 	data->next_eof = NULL;
-	//data->paired = 0;
 	data->input_index = 0;
 	data->stdin_cpy = 0;
 	data->stdout_cpy = 0;
@@ -94,11 +68,10 @@ void	data_cleanup(t_data *data)
 	data->k = 0;
 	data->ii = 0;
 	data->kk = 1;
-	//data->kkk = 0;
 	data->idx_com = 0;
 	data->size = 0;
+	data->pointer = 0;
 	refresh_mysignal_var(data);
-	//refresh env
 }
 
 void	total_cleanup(t_data *data)

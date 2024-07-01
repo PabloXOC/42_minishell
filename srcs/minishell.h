@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 12:15:00 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:54:10 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ bool		ft_quote_switch(char *str, int i, bool single_q, bool double_q);
 
 /*------INPUT------*/
 char		*ft_join_input(char *s1, char *s2);
-int			recieve_complete_input(t_data *data, t_input_var *info);
+int			recieve_complete_input(t_data *data);
 char		*init_terminal_input(t_data *data, char *input, int i);
 int			found_end_first_line(t_data *data, int i, char *input);
 int			first_line_complete(char *input, t_data *data, int d_q, int s_q);

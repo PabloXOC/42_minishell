@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 12:43:48 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:53:56 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	minishell(t_data *data)
 {
 	while (data->malloc_error == false && data->exit == false)
 	{
-		if (recieve_complete_input(data, data->input_info) == SUCCESS)
+		if (recieve_complete_input(data) == SUCCESS)
 		{
 			add_history(data->input_info->first_line_and_final_text);
 			data->input_info->first_line_split = ft_minishell_split(data->input_info->first_line_ref, ' ');

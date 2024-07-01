@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 12:02:38 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:05:08 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,13 @@ int	recieve_complete_input_2(t_data *data)
 	return (SUCCESS);
 }
 
-int	recieve_complete_input(t_data *data, t_input_var *info)
+int	recieve_complete_input(t_data *data)
 {
+	t_input_var	*info;
+
 	if (init_input_struct(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
+	info = data->input_info;
 	if (refresh_terminal_entry(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	info->init_input = readline(data->entry);
@@ -78,7 +81,7 @@ int	recieve_complete_input(t_data *data, t_input_var *info)
 	if (data->input_info->first_line == NULL)
 		return (MALLOC_ERROR);
 	info->first_line_ref = ft_reformat_input(info->first_line, data);
-	if (data->input_info->first_line_ref == NULL)
+	if (info->first_line_ref == NULL)
 		return (MALLOC_ERROR);
 	return (recieve_complete_input_2(data));
 }

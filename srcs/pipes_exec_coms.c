@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 11:22:06 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:46:48 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	exec_commands(t_data *data)
 	list_len = ft_lstsize_com(data->command_list);
 	if (list_len == 1)
 	{
-		if(ft_command_args_errors(data->command_list->content) == true)
+		if (ft_command_args_errors(data->command_list->content) == true)
 			return (SUCCESS);
 		if (find_command(data, data->command_list, data->env) == INVALID_COMMAND)
 			return (pipe_exec_coms(data));

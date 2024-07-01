@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/30 18:17:40 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 12:39:57 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	modify_dir_env(t_data *data)
 	return ;
 }
 
-void	home_dir(t_data* data, t_command *full_com)
+void	home_dir(t_data *data, t_command *full_com)
 {
 	char	*home_dir;
 
@@ -48,7 +48,7 @@ void	home_dir(t_data* data, t_command *full_com)
 	return ;
 }
 
-void	change_dir(t_data* data, t_command *full_com)
+void	change_dir(t_data *data, t_command *full_com)
 {
 	if (full_com->content[1] == NULL)
 		home_dir(data, full_com);

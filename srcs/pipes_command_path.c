@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_command_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:33:45 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/06/20 15:42:33 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:44:45 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ t_command	*ft_fill_commands(char **argv, char **envp, int argc)
 {
 	t_command	*node;
 	t_command	*head;
-	int		pos;
-	char	**command;
-	char	*path;
+	int			pos;
+	char		**command;
+	char		*path;
 
 	pos = 1;
 	head = NULL;

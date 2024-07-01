@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reformat.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/06/15 20:34:45 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:47:03 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	ft_count_sep_char(char *input)
 	while (input[i] != 0)
 	{
 		i = ft_count_sep_char_util(input, i);
-		if ((input[i] == '<' && input[i + 1] == '<') || (input[i] == '>' && input[i + 1] == '>'))
+		if ((input[i] == '<' && input[i + 1] == '<')
+			|| (input[i] == '>' && input[i + 1] == '>'))
 		{
 			count += 2;
 			i += 2;

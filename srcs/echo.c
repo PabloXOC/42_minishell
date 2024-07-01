@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/30 18:22:28 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 12:41:01 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	len_old_var(char *str, int i)
 	return (size);
 }
 
-void	len_new_var(t_data* data, char *str, int i)
+void	len_new_var(t_data *data, char *str, int i)
 {
 	int		len_old;
 	t_var	*var;
@@ -53,7 +53,7 @@ void	len_new_var(t_data* data, char *str, int i)
 	data->iii += len_old;
 }
 
-void	fill_new_var(t_data* d, char *str, int i, char *dst)
+void	fill_new_var(t_data *d, char *str, int i, char *dst)
 {
 	int		len_old;
 	t_var	*var;
@@ -76,7 +76,7 @@ void	fill_new_var(t_data* d, char *str, int i, char *dst)
 	d->iii += len_old;
 }
 
-int	tot_size(t_data* d, char *str, int single_q)
+int	tot_size(t_data *d, char *str, int single_q)
 {
 	while (str[d->iii] != 0)
 	{
@@ -84,8 +84,8 @@ int	tot_size(t_data* d, char *str, int single_q)
 			single_q++;
 		else if (str[d->iii] == '\"' && single_q % 2 == 0)
 			;
-		else if (str[d->iii] == '$' && single_q % 2 == 0 && str[d->iii + 1] != ' '
-			&& str[d->iii + 1] != 0)
+		else if (str[d->iii] == '$' && single_q % 2 == 0
+			&& str[d->iii + 1] != ' ' && str[d->iii + 1] != 0)
 		{
 			if (str[d->iii + 1] >= '0' && str[d->iii + 1] <= '9')
 				d->iii++;
@@ -113,8 +113,8 @@ char	*ft_fillout_var(t_data *d, int size, char *str, int single_q)
 			single_q++;
 		else if (str[d->iii] == '\"' && single_q % 2 == 0)
 			;
-		else if (str[d->iii] == '$' && single_q % 2 == 0 && str[d->iii + 1] != ' '
-			&& str[d->iii + 1] != 0)
+		else if (str[d->iii] == '$' && single_q % 2 == 0
+			&& str[d->iii + 1] != ' ' && str[d->iii + 1] != 0)
 		{
 			if (str[d->iii + 1] >= '0' && str[d->iii + 1] <= '9')
 				d->iii++;

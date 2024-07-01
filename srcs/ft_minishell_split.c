@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_split.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:16:55 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/06/26 17:09:57 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 12:43:12 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_len_words(int i, char const *s, char c)
 
 	len_word = 0;
 	len_word = 0;
-	while(s[i] != c && s[i] != '\0')
+	while (s[i] != c && s[i] != '\0')
 	{
 		if (s[i] == '"' || s[i] == '\'')
 		{

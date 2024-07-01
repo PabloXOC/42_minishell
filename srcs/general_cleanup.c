@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 16:52:40 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:00:40 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	ft_free_input_info(t_data *data)
 
 void	data_cleanup(t_data *data)
 {
-	ft_free_input_info(data);
 	delete_commands(data);
+	ft_free_input_info(data);
 	data->command_list = NULL;
 	if (data->next_eof != NULL)
 		free(data->next_eof);
@@ -103,11 +103,11 @@ void	data_cleanup(t_data *data)
 
 void	total_cleanup(t_data *data)
 {
-	ft_free_input_info(data);
 	delete_commands(data);
 	ft_varsclear(&data->var);
 	ft_varsclear(&data->var_export);
 	ft_varsclear(&data->env_lst);
+	ft_free_input_info(data);
 	if (data->user != NULL)
 		free(data->user);
 	if (data->hostname != NULL)

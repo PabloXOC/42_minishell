@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/06/20 16:34:22 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:05:39 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_infile_permissions(char *file, t_command *commands)
 	{
 		perror(file);
 		commands->no_infile = true;
+		commands->temp_file = ft_strdup(file);
 		if (ft_open_infile(file, commands) == ERROR)
 			return (ERROR);
 		return (NO_INFILE);

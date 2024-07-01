@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 10:49:44 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:37:41 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,5 +334,9 @@ char	*ft_reformat_input(char *input, t_data *data); */
 int	signal_handle(void);
 int	ft_control_d(void);
 int	minishell(t_data *data);
+
+/*------FILES------*/
+void	create_temp_file(t_command *com);
+int	fill_extra_info(t_data *data, int i, t_command *com);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/06/30 17:39:43 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/07/01 11:22:06 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	ft_pipe_commands(t_command *command, t_data *data,
 		close(pipe_fd[i][0]);
 		//printf("i: %i, lst_size: %i\n", i, ft_lstsize_com(data->command_list));
 		if (dup2(pipe_fd[i][1], STDOUT_FILENO) == -1)
-				exit(ERROR);
+			exit(ERROR);
 		if (command->fd_out > 2)
 		{
 			if (dup2(command->fd_out, STDOUT_FILENO) == -1)

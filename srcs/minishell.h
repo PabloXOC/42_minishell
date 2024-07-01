@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/30 17:57:32 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 10:49:44 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ t_var	*safe_env(char **env);
 void	print_env(t_data *data);
 void	modify_env(t_data *data, char *var, char *new_cont);
 char	*return_content_var(t_var *var_list, char *text);
-//t_var	**find_env_el(t_data *data, char *name);
+t_var	*find_env_el(t_data *data, char *name);
 //void	change_env_el_content(t_data *data, char *var, char *new_cont);
 //void	add_new_env_el(t_data *data, char *var, char *content);
 

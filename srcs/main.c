@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/29 00:16:07 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/07/01 10:57:25 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	minishell(t_data *data)
 		else if (data->input_info->invalid_token == true)
 			add_history(data->input_info->first_line);
 		data_cleanup(data);
+		g_exit_status = 1;
 	}
 	rl_clear_history();
 	total_cleanup(data);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/06/30 17:55:35 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/01 10:55:44 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* t_var	**find_env_el(t_data *data, char *name)
+t_var	*find_env_el(t_data *data, char *name)
 {
 	t_var	*node;
 
@@ -20,12 +20,13 @@
 	while (node != NULL)
 	{
 		if (ft_strncmp(name, node->var, ft_strlen(name) + 1) == 0)
-			return (&node);
+			return (node);
+		node = node->next;
 	}
 	return (NULL);
 }
 
-void	change_env_el_content(t_data *data, char *var, char *new_cont)
+/* void	change_env_el_content(t_data *data, char *var, char *new_cont)
 {
 	t_var	*node;
 

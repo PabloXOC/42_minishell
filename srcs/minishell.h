@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 12:54:10 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:51:34 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,7 +271,7 @@ bool		check_if_we_save_variables(t_data *data, t_input_var *info);
 char		**ft_minishell_split(char const *s, char c);
 
 /*------TOKEN DETECTION------*/
-int			ft_check_token(t_data *data);
+int			ft_check_token(t_data *data, t_input_var *info);
 
 /*------INIT------*/
 t_data		*data_init(char **env);

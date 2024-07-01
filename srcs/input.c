@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 13:05:08 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:53:04 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_individual_eof(t_data *data, int i)
 
 int	recieve_complete_input_2(t_data *data)
 {
-	if (ft_check_token(data) == INVALID_TOKEN)
+	if (ft_check_token(data, data->input_info) == INVALID_TOKEN)
 		return (INVALID_TOKEN);
 	if (ft_terminal_input(data, 0, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);

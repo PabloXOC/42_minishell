@@ -3,16 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/01 14:19:22 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 17:15:38 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_add_text(t_data *data, t_input_var *info)
+int	ft_control_d_heredoc(t_data *data, t_input_var *info, int i)
+{
+	char	*temp;
+
+	temp = ft_strjoin(info->terminal_input, info->list_eof[i]);
+	if (info->terminal_input != NULL)
+		free(data->input_info->terminal_input);
+	data->input_info->terminal_input = temp;
+	info->real_eof[i] = false;
+	//error message
+	return (SUCCESS);
+}
+
+int	ft_malloc_eof(t_data *data, t_input_var *info, int i)
+{
+	info->list_eof = (char **) malloc ((info->n_eof + 1) * (sizeof (char *)));
+	if (info->list_eof == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	info->text_input = (char **) malloc ((info->n_eof + 1) * (sizeof (char *)));
+	if (info->text_input == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	info->real_eof = (bool *) malloc ((info->n_eof) * (sizeof (bool)));
+	if (info->real_eof == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	while (i < info->n_eof)
+	{
+		info->real_eof[i] = true;
+		i++;
+	}
+	info->list_eof[info->n_eof] = 0;
+	info->text_input[info->n_eof] = 0;
+	return (SUCCESS);
+}
+
+int	ft_add_text(t_data *data, t_input_var *info, int i)
 {
 	char	*more_input;
 	char	*temp;
@@ -23,11 +57,14 @@ int	ft_add_text(t_data *data, t_input_var *info)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
 	if (more_input == NULL)
-		return (ft_control_d());
-	temp = ft_strjoin(info->terminal_input, more_input);
-	if (info->terminal_input != NULL)
-		free(data->input_info->terminal_input);
-	data->input_info->terminal_input = temp;
+		return (ft_control_d_heredoc(data, info, i));
+	else
+	{
+		temp = ft_strjoin(info->terminal_input, more_input);
+		if (info->terminal_input != NULL)
+			free(data->input_info->terminal_input);
+		data->input_info->terminal_input = temp;
+	}
 	free(more_input);
 	return (SUCCESS);
 }
@@ -38,7 +75,7 @@ int	ft_get_ter_input(t_data *data, t_input_var *info, int i, char *f_line)
 	info->list_eof[data->k] = ft_find_eof(f_line, i + 2, data);
 	if (info->list_eof[data->k] == NULL)
 		return (MALLOC_ERROR);
-	while (42)
+	while (data->exit == false)
 	{
 		while (info->terminal_input != 0 && info->terminal_input[data->ii] != 0)
 		{
@@ -48,10 +85,10 @@ int	ft_get_ter_input(t_data *data, t_input_var *info, int i, char *f_line)
 				return (SUCCESS);
 			data->ii++;
 		}
-		if (ft_add_text(data, info) == MALLOC_ERROR)
+		if (ft_add_text(data, info, data->k) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
 	}
-	return (FAILURE);
+	return (SUCCESS);
 }
 
 //to make ft_terminal_input fit in 25 lines
@@ -71,26 +108,13 @@ int	ft_terminal_input_util(t_data *data, int s_q, int d_q, char *f_line)
 	return (SUCCESS);
 }
 
-int	ft_malloc_eof(t_data *data, t_input_var *info)
-{
-	info->list_eof = (char **) malloc ((info->n_eof + 1) * (sizeof (char *)));
-	if (info->list_eof == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
-	info->text_input = (char **) malloc ((info->n_eof + 1) * (sizeof (char *)));
-	if (info->text_input == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
-	info->list_eof[info->n_eof] = 0;
-	info->text_input[info->n_eof] = 0;
-	return (SUCCESS);
-}
-
 //to make the terminal input from <<
 int	ft_terminal_input(t_data *data, int s_q, int d_q)
 {
 	char	*f_line;
 
 	f_line = data->input_info->first_line_ref;
-	if (ft_malloc_eof(data, data->input_info) == MALLOC_ERROR)
+	if (ft_malloc_eof(data, data->input_info, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	while (f_line[data->i_ter] != 0)
 	{

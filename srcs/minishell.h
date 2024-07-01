@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 14:18:56 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 18:26:30 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_input_var
 	int			n_eof; //how many eof to look for
 	char		*first_line_and_final_text;//first_line + final_text
 	char		**text_input; //    text of  < or <<
+	bool		*real_eof;
 	bool		invalid_token;
 }				t_input_var;
 
@@ -109,6 +110,7 @@ typedef struct s_data
 
 	int			paired; //to deal with '' ""
 	bool		exit; //if command == exit
+	bool		control_d;
 	int			input_index; //until where have we read the input
 	t_input_var	*input_info;
 	t_command	*command_list; //list of the commands in the input + command info
@@ -173,7 +175,7 @@ void		ft_save_until_eof_2(t_data *data, int k, int len, int i);
 int			ft_save_until_eof(t_data *data);
 int			ft_len_to_eof(t_data *data, t_input_var *input_info, int i, int k);
 int			ft_ask_user_for_more_input(t_data *data);
-int			ft_combine_fl_ft(t_data *data);
+int			ft_combine_fl_ft(t_data *data, t_input_var *info, int i);
 
 /*------TERMINAL_INPUT------*/
 int			ft_terminal_input(t_data *data, int n_single_q, int n_double_q);

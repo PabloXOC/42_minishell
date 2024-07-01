@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 14:19:34 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 18:26:16 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	recieve_complete_input_2(t_data *data)
 		return (MALLOC_ERROR);
 	if (ft_individual_eof(data, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
-	if (ft_combine_fl_ft(data) == MALLOC_ERROR)
+	if (ft_combine_fl_ft(data, data->input_info, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }
@@ -73,7 +73,9 @@ int	recieve_complete_input(t_data *data)
 		return (ft_control_d(data));
 	if (ft_empty(info->init_input) == true)
 		return (EMPTY);
-	while (first_line_complete(info->init_input, data, 0, 0) == FAILURE)
+	data->control_d = false;
+	while (first_line_complete(info->init_input, data, 0, 0) == FAILURE
+		&& data->control_d == false)
 	{
 		if (ft_ask_user_for_more_input(data) == MALLOC_ERROR)
 			return (MALLOC_ERROR);

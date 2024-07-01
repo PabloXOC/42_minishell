@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 14:14:36 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/01 18:28:11 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,15 @@ int	ft_len_to_eof(t_data *data, t_input_var *input_info, int i, int k)
 	return (len);
 }
 
+int	ft_control_d_quote(t_data *data, t_input_var *info)
+{
+	data->control_d = true;
+	//error message
+	//bash: unexpected EOF while looking for matching `"'
+	//bash: syntax error: unexpected end of file
+	return (SUCCESS);
+}
+
 int	ft_ask_user_for_more_input(t_data *data)
 {
 	char		*more_input;
@@ -83,30 +92,37 @@ int	ft_ask_user_for_more_input(t_data *data)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
 	if (more_input == NULL)
-		return (ft_control_d(data));
+		return (ft_control_d_quote(data, data->input_info));
 	info->init_input = ft_strjoin(info->init_input, more_input);
 	free(more_input);
 	return (SUCCESS);
 }
 
-int	ft_combine_fl_ft(t_data *data)
+int	ft_combine_fl_ft(t_data *data, t_input_var *info, int i)
 {
 	char	*str;
-	char	*str_temp;
 
-	str_temp = ft_strdup(data->input_info->first_line);
-	if (data->input_info->terminal_input != NULL
-		&& data->input_info->terminal_input[0] != 0)
-		str_temp = ft_join_input(str_temp, "\n");
-	if (str_temp == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
-	str = ft_strjoin(str_temp, data->input_info->terminal_input);
+	str = ft_strdup(data->input_info->first_line);
 	if (str == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	if (data->input_info->terminal_input != NULL
-		&& data->input_info->terminal_input[0] != 0)
+	while (i < info->n_eof)
+	{
+		if (i == 0 || info->real_eof[i - 1] == true)
+			str = ft_join_input(str, "\n");
+		if (str == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		str = ft_join_input(str, info->text_input[i]);
+		if (str == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		if (info->real_eof[i] == true)
+			str = ft_join_input(str, info->list_eof[i]);
+		if (str == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		i++;
+	}
+	if (info->terminal_input != NULL && info->terminal_input[0] != 0
+		&& (i == 0 || info->real_eof[i - 1] == true))
 		str = ft_join_input(str, "\n");
 	data->input_info->first_line_and_final_text = str;
-	free(str_temp);
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 13:24:46 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:39:12 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	home_dir(t_data *data, t_command *full_com)
 
 	home_dir = return_content_var(data->env_lst, "HOME");
 	if (home_dir == NULL)
+	{	
 		ft_putstr_fd("cd: HOME not set\n", 2);
+		exit_codes(EXIT_2, data);
+	}
 	else
 	{
 		if (chdir(home_dir) == -1)
@@ -41,6 +44,7 @@ void	home_dir(t_data *data, t_command *full_com)
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(home_dir, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
+			exit_codes(EXIT_2, data);
 		}
 		else
 			modify_dir_env(data);
@@ -60,6 +64,7 @@ int	change_dir(t_data *data, t_command *full_com)
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(full_com->content[1], 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
+			exit_codes(EXIT_2, data);
 		}
 		else
 			modify_dir_env(data);

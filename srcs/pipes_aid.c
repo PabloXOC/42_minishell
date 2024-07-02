@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_aid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 13:30:31 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:06:56 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	ft_open_infile(char *file, t_command *commands)
 
 	fd = open(file, O_RDONLY | O_CREAT, 0644);
 	if (fd == -1)
-	{
-		perror("Open failure");
 		return (ERROR);
-	}
 	commands->fd_in = fd;
 	return (OK);
 }
@@ -45,32 +42,9 @@ int	ft_open_outfile(char *file, t_command *commands)
 	else
 		fd = open(file, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-	{
-		perror("Open failure");
 		return (ERROR);
-	}
 	commands->fd_out = fd;
 	return (OK);
-}
-
-int	ft_file_permissions(t_command *command)
-{
-	t_command	*com;
-	int			status;
-
-	com = command;
-	status = SUCCESS;
-	while (com != NULL)
-	{
-		if (com->redirect_input != NULL)
-			if (ft_infile_permissions(com->redirect_input, com) == ERROR)
-				status = ERROR;
-		if (com->redirect_output != NULL)
-			if (ft_outfile_permissions(com->redirect_output, com) == ERROR)
-				status = ERROR;
-		com = com->next;
-	}
-	return (status);
 }
 
 void	close_all_fds(t_command *command)

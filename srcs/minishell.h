@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/02 16:21:06 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/02 19:28:39 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,8 +222,8 @@ void		ft_varadd_middle(t_var **lst, t_var *new);
 void		ft_varadd_back(t_var **var, t_var *new);
 void		ft_vardelone(t_var *var);
 void		ft_varsclear(t_var **var);
-int			safe_new_var(t_var **list, char **equality);
-int			safe_existing_var(t_var **list, char **equality);
+int			safe_new_var(t_var **list, char **equality, t_data *data);
+int			safe_existing_var(t_var **list, char **equality, t_data *data);
 int			save_var_info(t_data *data, char **equality, t_var **list);
 int			save_variables(t_data *data);
 void		print_vars(t_var *list);
@@ -283,8 +283,8 @@ void		total_cleanup(t_data *data);
 int			ft_file_exists(char *file);
 int			ft_read_permission(char *file);
 int			ft_write_permission(char *file);
-int			ft_infile_permissions(char *file, t_command *commands);
-int			ft_outfile_permissions(char *file, t_command *commands);
+int			ft_infile_permissions(char *file, t_command *commands, t_data *data);
+int			ft_outfile_permissions(char *file, t_command *commands, t_data *data);
 
 /* Command path */
 char		*ft_find_command_path(char **envp, char *command, int i);
@@ -301,7 +301,7 @@ int			ft_open_infile(char *file, t_command *command);
 int			ft_open_outfile(char *file, t_command *command);
 int			ft_file_permissions(t_command *command);
 void		close_all_fds(t_command *command);
-char		*ft_create_file_name(void);
+char		*ft_create_file_name(t_data *data);
 int			**open_pipes(t_data *data);
 void		close_pipes(int	**pipe_fd, t_data *data);
 
@@ -329,7 +329,7 @@ int			ft_control_d(t_data *data);
 int			minishell(t_data *data);
 
 /*------FILES------*/
-void		create_temp_file(t_command *com);
+int			create_temp_file(t_command *com, t_data *data);
 int			fill_extra_info(t_data *data, int i, t_command *com);
 
 /*------EXIT CODES------*/

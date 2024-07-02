@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/02 16:10:11 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/02 19:46:44 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,15 +114,15 @@ void	ft_varsclear(t_var **var)
 	}
 }
 
-int	safe_new_var(t_var **list, char **equality)
+int	safe_new_var(t_var **list, char **equality, t_data *data)
 {
 	t_var	*temp_var;
 
 	temp_var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
-	if (temp_var == NULL)
-		return (MALLOC_ERROR);
-	ft_varadd_back(list, temp_var);
 	ft_free_char_pp(equality);
+	if (temp_var == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	ft_varadd_back(list, temp_var);
 	return (SUCCESS);
 }
 
@@ -138,7 +138,7 @@ void	print_vars(t_var *list)
 	}
 }
 
-int	safe_existing_var(t_var **list, char **equality)
+int	safe_existing_var(t_var **list, char **equality, t_data *data)
 {
 	t_var	*temp_var;
 
@@ -149,9 +149,9 @@ int	safe_existing_var(t_var **list, char **equality)
 		{
 			free(temp_var->content);
 			temp_var->content = ft_strdup(equality[1]);
-			if (temp_var->content == NULL)
-				return (MALLOC_ERROR);
 			ft_free_char_pp(equality);
+			if (temp_var->content == NULL)
+				return (ft_write_error_i(MALLOC_ERROR, data));
 			return (SUCCESS);
 		}
 		temp_var = temp_var->next;
@@ -162,11 +162,11 @@ int	safe_existing_var(t_var **list, char **equality)
 int	save_var_info(t_data *data, char **equality, t_var **list)
 {
 	t_var	*temp_var;
-
+	
 	if (*list != NULL)
 	{
-		if (safe_existing_var(list, equality) == FAILURE)
-			return (safe_new_var(list, equality));
+		if (safe_existing_var(list, equality, data) == FAILURE)
+			return (safe_new_var(list, equality, data));
 	}
 	if (*list == NULL)
 	{
@@ -192,11 +192,17 @@ int	save_variables(t_data *data)
 			if (equality == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			equality[1] = expand_var(data, equality[1]);
+			if (equality[1] == NULL)
+			{
+				ft_free_char_pp(equality);
+				return (MALLOC_ERROR);
+			}
 			save_var_info(data, equality, &data->var);
+			if (data->fatal_error == true)
+				return (MALLOC_ERROR);
 		}
 		i++;
 	}
-	print_vars(data->var);
 	return (SUCCESS);
 }
 

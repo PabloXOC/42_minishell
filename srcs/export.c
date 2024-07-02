@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 13:22:14 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:40:24 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ int	export_var(t_data *data, t_command *full_com, t_var **list)
 			equality = ft_split(full_com->content[i], '=');
 			if (equality == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
+			if (equality[1] == NULL)
+				equality[1] = ft_strdup("");
+			if (equality[1] == NULL)
+				return (ft_write_error_i(MALLOC_ERROR, data));
 			modify_export(data, equality[0], equality[1]);
 			modify_env(data, equality[0], equality[1]);
 			save_var_info(data, equality, list);
@@ -89,8 +93,6 @@ int	export_var(t_data *data, t_command *full_com, t_var **list)
 			modify_export(data, full_com->content[i], NULL);
 		i++;
 	}
-	//print_vars(*list);
-	//print_vars(data->var_export);
 	return (SUCCESS);
 }
 

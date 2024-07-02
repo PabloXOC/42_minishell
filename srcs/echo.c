@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 12:41:01 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:40:36 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,15 +134,14 @@ char	*expand_var(t_data *data, char *text)
 	int		size;
 	char	*str;
 
+	if (text == NULL)
+		return (ft_strdup(""));
 	data->iii = 0;
 	data->size = 0;
 	size = tot_size(data, text, 0);
-	//ft_printf("SIZE: %d\n", size);
 	data->iii = 0;
 	data->jjj = 0;
 	str = ft_fillout_var(data, size, text, 0);
 	free(text);
-	//ft_printf("STR: %s\n", str);
 	return (str);
-	//return (ft_fillout_var(data, size, text));
 }

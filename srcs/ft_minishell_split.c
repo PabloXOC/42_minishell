@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_split.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 13:27:11 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:10:22 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ char	**ft_minishell_split(char const *s, char c)
 	char	**array;
 
 	nwords = count_words(s, c, 0, 0);
-	printf("nwords: %i\n", nwords);
 	array = (char **)malloc((nwords + 1) * sizeof(char *));
 	if (!(array))
 		return (NULL);
@@ -120,22 +119,3 @@ char	**ft_minishell_split(char const *s, char c)
 	array = ft_fill_array(s, c, array);
 	return (array);
 }
-
-/* int	main(int argc, char **argv)
-{
-	int	i;
-
-	char c = 32;
-	char	**result;
-	char	str[] = "hola como \"como estas\" yo bien";
-	printf("str: %s\n", str);
-	result = ft_minishell_split(str, c);
-	i = 0;
-	while (i < ft_count_words(str, c))
-	{
-		printf("%s, %d\n", result[i], i);
-		i++;
-	}
-	//printf("%s\n", result);
-	//while (42);
-} */

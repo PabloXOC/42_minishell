@@ -3,51 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   exit_codes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:55:06 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/01 17:02:16 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:20:46 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exit_and_control_c(int exit_code)
+int	exit_codes(int exit_code, t_data *data)
 {
-	if (exit_code == EXIT_128)
+	g_exit_status = exit_code;
+	if (data != NULL)
 	{
-		g_exit_status = EXIT_128;
-		return (EXIT_128);
+		if (refresh_mysignal_var(data) == MALLOC_ERROR)
+		{
+			exit_code = EXIT_1;
+			g_exit_status = exit_code;
+		}
 	}
-	if (exit_code == EXIT_130)
-	{
-		g_exit_status = EXIT_130;
-		return (EXIT_130);
-	}
-	return (SUCCESS);
+	return (exit_code);
 }
 
-int	exit_codes(int exit_code)
+int	exit_codes_main(int exit_code, t_data *data)
 {
-	if (exit_code == EXIT_1)
+	g_exit_status = exit_code;
+	if (data != NULL)
 	{
-		g_exit_status = EXIT_1;
-		return (EXIT_1);
+		if (refresh_mysignal_var(data) == MALLOC_ERROR)
+		{
+			exit_code = EXIT_1;
+			g_exit_status = exit_code;
+		}
 	}
-	if (exit_code == EXIT_2)
-	{
-		g_exit_status = EXIT_2;
-		return (EXIT_2);
-	}
-	if (exit_code == EXIT_126)
-	{
-		g_exit_status = EXIT_126;
-		return (EXIT_126);
-	}
-	if (exit_code == EXIT_127)
-	{
-		g_exit_status = EXIT_127;
-		return (EXIT_127);
-	}
-	return (exit_and_control_c(exit_code));
+	total_cleanup(data);
+	return (exit_code);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 19:12:22 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:21:06 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ typedef struct s_data
 	int			size;
 	int			pointer;
 	//errors
-	bool		malloc_error;
+	bool		fatal_error;
 }			t_data;
 
 typedef enum e_command_code
@@ -228,7 +228,7 @@ int			save_var_info(t_data *data, char **equality, t_var **list);
 int			save_variables(t_data *data);
 void		print_vars(t_var *list);
 int			delete_var(t_data *data, char *var_to_del, t_var **list);
-void		refresh_mysignal_var(t_data *data);
+int			refresh_mysignal_var(t_data *data);
 
 /*------ENV------*/
 t_var		*safe_env(char **env);
@@ -331,5 +331,9 @@ int			minishell(t_data *data);
 /*------FILES------*/
 void		create_temp_file(t_command *com);
 int			fill_extra_info(t_data *data, int i, t_command *com);
+
+/*------EXIT CODES------*/
+int			exit_codes(int exit_code, t_data *data);
+int			exit_codes_main(int exit_code, t_data *data);
 
 #endif

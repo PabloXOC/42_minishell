@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 14:07:22 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:23:51 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,27 @@ void	data_cleanup(t_data *data)
 	data->idx_com = 0;
 	data->size = 0;
 	data->pointer = 0;
-	refresh_mysignal_var(data);
 }
 
 void	total_cleanup(t_data *data)
 {
-	delete_commands(data);
-	ft_varsclear(&data->var);
-	ft_varsclear(&data->var_export);
-	ft_varsclear(&data->env_lst);
-	ft_free_input_info(data);
-	if (data->user != NULL)
-		free(data->user);
-	if (data->hostname != NULL)
-		free(data->hostname);
-	if (data->dir != NULL)
-		free(data->dir);
-	if (data->entry != NULL)
-		free(data->entry);
-	if (data->next_eof != NULL)
-		free(data->next_eof);
-	free(data);
+	if (data != NULL)
+	{
+		delete_commands(data);
+		ft_varsclear(&data->var);
+		ft_varsclear(&data->var_export);
+		ft_varsclear(&data->env_lst);
+		ft_free_input_info(data);
+		if (data->user != NULL)
+			free(data->user);
+		if (data->hostname != NULL)
+			free(data->hostname);
+		if (data->dir != NULL)
+			free(data->dir);
+		if (data->entry != NULL)
+			free(data->entry);
+		if (data->next_eof != NULL)
+			free(data->next_eof);
+		free(data);
+	}
 }

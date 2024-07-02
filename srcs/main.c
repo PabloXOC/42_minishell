@@ -3,35 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 15:47:03 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:10:04 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* char	*ft_user_text(char *eof, t_data *data)
-{
-	char	*input;
-	char	*user_text;
-
-	user_text = NULL;
-	while (42)
-	{
-		input = readline("> ");
-		if (input == NULL)
-			printf("AA%sAA\n", input);
-		if (ft_samestr(input, eof) == true)
-			return (user_text);
-		user_text = ft_strjoin(user_text, input);
-	}
-} */
-
 int	minishell(t_data *data)
 {
-	while (data->malloc_error == false && data->exit == false)
+	while (data->fatal_error == false && data->exit == false)
 	{
 		if (recieve_complete_input(data) == SUCCESS && data->exit == false)
 		{
@@ -39,11 +22,11 @@ int	minishell(t_data *data)
 			data->input_info->first_line_split = ft_minishell_split(data->input_info->first_line_ref, ' ');
 			if (data->input_info->first_line_split == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
-			if (data->malloc_error == true)
+			if (data->fatal_error == true)
 				return (MALLOC_ERROR);
 			if (check_if_we_save_variables(data, data->input_info) == true)
 				save_variables(data); // TO DO edit '\\' & cut string
-			if (data->malloc_error == true)
+			if (data->fatal_error == true)
 				return (MALLOC_ERROR);
 			if (save_pipelines(data, data->input_info) != NO_COMMANDS)
 				if (exec_commands(data) != SUCCESS)
@@ -64,17 +47,19 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	*data;
 
-	(void)argc;
-	(void)argv;
+	(void) argv;
 	if (argc != 1)
-		return (ERROR);
+		return (EXIT_1);
 	data = data_init(env);
 	if (data == NULL)
-		return (MALLOC_ERROR);
-	signal_handle();
-	terminal_entry(data, env);
-	refresh_mysignal_var(data);
+		return (EXIT_1);
+	if (signal_handle() == FAILURE)
+		return (exit_codes_main(EXIT_1, data));
+	if (terminal_entry(data, env) == MALLOC_ERROR)
+		return (exit_codes_main(EXIT_1, data));
+	if (refresh_mysignal_var(data) == MALLOC_ERROR)
+		return (exit_codes_main(EXIT_1, data));
 	if (minishell(data) != SUCCESS)
-		return (FAILURE);
+		return (exit_codes_main(EXIT_1, data));
 	return (SUCCESS);
 }

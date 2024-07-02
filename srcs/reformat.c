@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reformat.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/01 12:47:03 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:34:08 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,9 @@ char	*ft_reformat_input(char *input, t_data *data)
 	n_sep = ft_count_sep_char(input);
 	output = (char *) malloc ((ft_strlen(input) + n_sep + 1) * sizeof(char));
 	if (!output)
-		return ((ft_write_error_c(MALLOC_ERROR, data)));
+		return (ft_write_error_c(MALLOC_ERROR, data));
 	output = ft_memset(output, 100, ft_strlen(input) + n_sep);
 	output = ft_make_new_string(input, output, data);
 	output[ft_strlen(input) + n_sep] = 0;
-	//free(input);
 	return (output);
 }

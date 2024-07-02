@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 18:28:11 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:47:36 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ void	ft_save_until_eof_2(t_data *data, int k, int len, int i)
 int	ft_save_until_eof(t_data *data)
 {
 	int	len;
-	int	j;
+	int	idx;
 
 	len = ft_eofsize_total(data, 0, 0);
-	while ((data->input_info->list_eof[j]) != 0)
+	idx = 0;
+	while ((data->input_info->list_eof[idx]) != 0)
 	{
-		len -= (ft_strlen(data->input_info->list_eof[j]) + 1);
-		j++;
+		len -= (ft_strlen(data->input_info->list_eof[idx]) + 1);
+		idx++;
 	}
 	data->input_info->final_text = (char *) malloc ((len) * sizeof (char));
 	if (data->input_info->final_text == NULL)
@@ -94,6 +95,8 @@ int	ft_ask_user_for_more_input(t_data *data)
 	if (more_input == NULL)
 		return (ft_control_d_quote(data, data->input_info));
 	info->init_input = ft_strjoin(info->init_input, more_input);
+	if (info->init_input == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
 	free(more_input);
 	return (SUCCESS);
 }
@@ -122,7 +125,11 @@ int	ft_combine_fl_ft(t_data *data, t_input_var *info, int i)
 	}
 	if (info->terminal_input != NULL && info->terminal_input[0] != 0
 		&& (i == 0 || info->real_eof[i - 1] == true))
+	{
 		str = ft_join_input(str, "\n");
+		if (str == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+	}
 	data->input_info->first_line_and_final_text = str;
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:28:55 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/01 11:23:11 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:53:23 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	ft_write_error_i(t_cases case_code, t_data *data)
 {
 	if (case_code == MALLOC_ERROR)
 	{
-		printf("Memory allocation failed: %s\n", strerror(errno));
-		data->malloc_error = true;
+		ft_printf("Memory allocation failed: %s\n", strerror(errno));
+		data->fatal_error = true;
 		return (MALLOC_ERROR);
 	}
 	if (case_code == INVALID_COMMAND)
@@ -32,7 +32,7 @@ char	*ft_write_error_c(t_cases case_code, t_data *data)
 {
 	if (case_code == MALLOC_ERROR)
 	{
-		printf("Memory allocation failed: %s\n", strerror(errno));
+		ft_printf("Memory allocation failed: %s\n", strerror(errno));
 		return (NULL);
 	}
 	if (case_code == INVALID_COMMAND)

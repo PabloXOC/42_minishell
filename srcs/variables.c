@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 13:53:18 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:10:11 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,13 +246,18 @@ int	delete_var(t_data *data, char *var_to_del, t_var **list)
 	return (SUCCESS);
 }
 
-void	refresh_mysignal_var(t_data *data)
+int	refresh_mysignal_var(t_data *data)
 {
 	char	**equality;
 
 	equality = (char **)malloc(3 * sizeof(char *));
+	if (equality == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
 	equality[2] = NULL;
 	equality[0] = ft_strdup("?");
 	equality[1] = ft_itoa(g_exit_status);
+	if (equality[0] == NULL || equality[1] == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
 	save_var_info(data, equality, &data->var);
+	return (SUCCESS);
 }

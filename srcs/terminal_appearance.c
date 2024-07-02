@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_appearance.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 13:42:35 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:25:45 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	refresh_terminal_entry(t_data *data)
 	len_hostname = ft_strlen("faraway");
 	entry = (char *)malloc((len_user + len_dir + len_hostname + 5));
 	if (entry == NULL)
-		return (MALLOC_ERROR);
+		return (ft_write_error_i(MALLOC_ERROR, data));
 	ft_memcpy(&entry[0], data->user, len_user);
 	ft_memcpy(&entry[len_user], "@", 1);
 	ft_memcpy(&entry[len_user + 1], "faraway", len_hostname);

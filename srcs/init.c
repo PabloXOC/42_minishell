@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 14:06:49 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:54:31 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_data	*data_init(char **env)
 	data->var = NULL;
 	data->var_export = NULL;
 	data->next_eof = NULL;
-	data->malloc_error = false;
+	data->fatal_error = false;
 	init_idx(data);
 	export_list(data);
 	return (data);

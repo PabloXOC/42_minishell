@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 14:02:27 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:12:12 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	size_removing_slash(char *old_str)
 	i = 0;
 	while (old_str[i] != 0)
 	{
-		if (old_str[i] == '/' && old_str[i + 1] == '/')
+		if (old_str[i] == '\\' && old_str[i + 1] == '\\')
 		{
 			len++;
 			i += 2;
 		}
-		else if (old_str[i] == '/')
+		else if (old_str[i] == '\\')
 			i++;
 		else
 		{
@@ -47,12 +47,12 @@ char	*ft_new_string(t_data *data, int len, char *old_str, int i)
 	j = 0;
 	while (j < len)
 	{
-		if (old_str[i] == '/' && old_str[i + 1] == '/')
+		if (old_str[i] == '\\' && old_str[i + 1] == '\\')
 		{
-			str[j++] = '/';
+			str[j++] = '\\';
 			i += 2;
 		}
-		else if (old_str[i] == '/')
+		else if (old_str[i] == '\\')
 			i++;
 		else
 			str[j++] = old_str[i++];

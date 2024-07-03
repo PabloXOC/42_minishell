@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/03 13:56:47 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:09:37 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_input_var
 	char		*first_line;  // the final first line
 	char		*first_line_ref; //the final first line reformated (spaces and /)
 	char		**first_line_split; //the final first line split with spaces
+	char		**first_line_split_ref; //the final first line split with spaces removed slash
 	char		*search_eof; //to search through terminal input to find eof
 	char		*terminal_input; // beginning of << terminal input
 	char		*final_text; //what we will actually use for << input text BAD

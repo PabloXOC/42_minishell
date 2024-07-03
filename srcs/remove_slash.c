@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 15:59:25 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:09:51 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_reformat_slash(t_data *data, t_input_var *info)
 		i++;
 	}
 	new_split[i] = 0;
-	ft_free_char_pp(data->input_info->first_line_split);
-	data->input_info->first_line_split = new_split;
+	//ft_free_char_pp(data->input_info->first_line_split);
+	data->input_info->first_line_split_ref = new_split;
 	return (SUCCESS);
 }

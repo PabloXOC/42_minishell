@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_command_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:33:45 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/03 10:36:24 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 12:57:48 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_return_accessible_path(char **available_paths, char *command)
 	return (NULL);
 }
 
-char	*ft_find_command_path(char **envp, char *command, int i, t_data *data)
+char	*find_command_path(char **envp, char *command, int i, t_data *data)
 {
 	char	*temp_path;
 	char	**available_paths;

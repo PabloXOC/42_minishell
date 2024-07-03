@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:27:40 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/02 18:16:28 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 12:44:08 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	fill_input_info(t_data *data, int i, t_command *com)
 		{
 			if (create_temp_file(com, data) != SUCCESS)
 				return (MALLOC_ERROR);
-			if (ft_infile_permissions(com->temp_file, com, data) != SUCCESS)
+			if (ft_infile_perm(com->temp_file, com, data) != SUCCESS)
 				return (READ_ERROR);
 		}
 		return (SUCCESS);
@@ -49,7 +49,7 @@ static int	fill_input_info(t_data *data, int i, t_command *com)
 		com->redirect_input = data->input_info->first_line_split[++i];
 		com->file_input = true;
 		if (com->redirect_input != NULL)
-			if (ft_infile_permissions(com->redirect_input, com, data) != SUCCESS)
+			if (ft_infile_perm(com->redirect_input, com, data) != SUCCESS)
 				return (READ_ERROR);
 		return (SUCCESS);
 	}
@@ -65,7 +65,7 @@ static int	fill_output_info(t_data *data, int i, t_command *com)
 		if (com->fd_out > 2)
 			close(com->fd_out);
 		if (com->redirect_output != NULL)
-			if (ft_outfile_permissions(com->redirect_output, com, data) != SUCCESS)
+			if (ft_outfile_perm(com->redirect_output, com, data) != SUCCESS)
 				return (WRITE_ERROR);
 		return (SUCCESS);
 	}
@@ -76,7 +76,7 @@ static int	fill_output_info(t_data *data, int i, t_command *com)
 		if (com->fd_out > 2)
 			close(com->fd_out);
 		if (com->redirect_output != NULL)
-			if (ft_outfile_permissions(com->redirect_output, com, data) == ERROR)
+			if (ft_outfile_perm(com->redirect_output, com, data) == ERROR)
 				return (WRITE_ERROR);
 		return (SUCCESS);
 	}

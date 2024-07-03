@@ -48,5 +48,8 @@
             ]
         }
 
-    ]
+    ],
+    "files.associations": {
+        "minishell.h": "c"
+    }
 }

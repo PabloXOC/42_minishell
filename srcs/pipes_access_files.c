@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_access_files.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/07/02 18:21:52 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 13:00:43 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,36 @@ int	ft_write_permission(char *file)
 	return (SUCCESS);
 }
 
-int	ft_infile_permissions(char *file, t_command *commands, t_data *data)
+int	ft_infile_perm(char *file, t_command *commands, t_data *data)
 {
 	if (ft_file_exists(file) == ERROR)
 	{
 		perror(file);
+		exit_codes(EXIT_1, data);
 		commands->no_infile = true;
 		commands->temp_file = ft_strdup(file);
 		if (commands->temp_file == NULL)
 			return (ft_write_error_i(MALLOC_ERROR, data));
 		if (ft_open_infile(file, commands) == ERROR)
 			return (ft_write_error_i(OPEN_ERROR, data));
-		return (SUCCESS);
 	}
-	if (ft_read_permission(file) == ERROR)
+	else if (ft_read_permission(file) == ERROR)
 	{
 		perror(file);
+		exit_codes(EXIT_1, data);
 		commands->no_permissions = true;
 		commands->temp_file = ft_create_file_name(data);
 		if (commands->temp_file == NULL)
 			return (ft_write_error_i(MALLOC_ERROR, data));
 		if (ft_open_infile(commands->temp_file, commands) == ERROR)
 			return (ft_write_error_i(OPEN_ERROR, data));
-		return (SUCCESS);
 	}
-	if (ft_open_infile(file, commands) == ERROR)
+	else if (ft_open_infile(file, commands) == ERROR)
 		return (ft_write_error_i(OPEN_ERROR, data));
 	return (SUCCESS);
 }
 
-int	ft_outfile_permissions(char *file, t_command *commands, t_data *data)
+int	ft_outfile_perm(char *file, t_command *commands, t_data *data)
 {
 	if (ft_file_exists(file) == ERROR)
 	{

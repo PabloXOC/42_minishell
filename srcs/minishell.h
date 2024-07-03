@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/03 10:34:00 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 13:53:46 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct s_data
 	int			idx_com;
 	int			size;
 	int			pointer;
+	pid_t		fork_id;
 	//errors
 	bool		fatal_error;
 }			t_data;
@@ -172,6 +173,7 @@ int			ft_count_words(char **argv);
 void		print_char_pp(char **stack);
 void		ft_free_char_pp(char **stack);
 bool		ft_quote_switch(char *str, int i, bool single_q, bool double_q);
+int			ft_control_d(t_data *data);
 
 /*------INPUT------*/
 char		*ft_join_input(char *s1, char *s2);
@@ -198,8 +200,8 @@ bool		ft_compare_eof(char *str, char *eof, t_data *data);
 
 /*------COMMANDS------*/
 int			find_command(t_data *data, t_command *com, char **env);
+int			write_in_command(t_data *data, t_input_var *info);
 int			save_pipelines(t_data *data, t_input_var *info);
-void		delete_commands(t_data *data);
 void		print_commands(t_data *data);
 
 /*------WRITE------*/
@@ -214,6 +216,15 @@ int			refresh_terminal_entry(t_data *data);
 int			terminal_entry(t_data *data, char **env);
 
 /*------VARIABLES------*/
+int			safe_existing_var(t_var **list, char **equality, t_data *data);
+int			save_var_info(t_data *data, char **equality, t_var **list);
+int			save_variables(t_data *data);
+int			delete_head_var(t_var *vars, t_var *temp_var, t_var **list);
+int			delete_middle_var(t_var *vars, t_var *temp_var);
+int			delete_var(t_data *data, char *var_to_del, t_var **list);
+int			refresh_mysignal_var(t_data *data);
+
+/*------VARIABLES UTILS------*/
 t_var		*ft_varnew(char *var, char *content);
 int			ft_varsize(t_var *var);
 t_var		*ft_varlast(t_var *var);
@@ -222,13 +233,8 @@ void		ft_varadd_middle(t_var **lst, t_var *new);
 void		ft_varadd_back(t_var **var, t_var *new);
 void		ft_vardelone(t_var *var);
 void		ft_varsclear(t_var **var);
-int			safe_new_var(t_var **list, char **equality, t_data *data);
-int			safe_existing_var(t_var **list, char **equality, t_data *data);
-int			save_var_info(t_data *data, char **equality, t_var **list);
-int			save_variables(t_data *data);
 void		print_vars(t_var *list);
-int			delete_var(t_data *data, char *var_to_del, t_var **list);
-int			refresh_mysignal_var(t_data *data);
+int			safe_new_var(t_var **list, char **equality, t_data *data);
 
 /*------ENV------*/
 t_var		*safe_env(char **env);
@@ -253,6 +259,8 @@ void		export_list(t_data *data);
 void		print_export(t_data *data);
 
 /*------ECHO------*/
+void		fill_new_var(t_data *d, char *str, int i, char *dst);
+int			tot_size(t_data *d, char *str, int single_q);
 char		*expand_var(t_data *data, char *text);
 
 /*------REFORMAT------*/
@@ -275,6 +283,7 @@ int			open_input(t_data *data);
 int			ft_open_out(char *file, t_data *data, bool trunc);
 
 /*------CLEANUP------*/
+void		delete_commands(t_data *data);
 void		data_cleanup(t_data *data);
 void		total_cleanup(t_data *data);
 
@@ -283,15 +292,12 @@ void		total_cleanup(t_data *data);
 int			ft_file_exists(char *file);
 int			ft_read_permission(char *file);
 int			ft_write_permission(char *file);
-int			ft_infile_permissions(char *file, t_command *commands, t_data *data);
-int			ft_outfile_permissions(char *file, t_command *commands, t_data *data);
+int			ft_infile_perm(char *file, t_command *commands, t_data *data);
+int			ft_outfile_perm(char *file, t_command *commands, t_data *data);
 
 /* Command path */
-char		*ft_find_command_path(char **envp, char *command, int i, t_data *data);
+char		*find_command_path(char **envp, char *command, int i, t_data *data);
 char		*ft_return_accessible_path(char **available_paths, char *command);
-void		ft_free_commands(t_data *data);
-t_command	*ft_fill_middle_commands(char **argv, char **envp, int argc);
-//t_data	*ft_commands(char **argv, char **envp, int argc);
 
 /* Aid */
 void		ft_free_char_pp(char **stack);
@@ -309,19 +315,21 @@ void		close_pipes(int	**pipe_fd, t_data *data);
 void		ft_cleanup(char *in_file, t_data *data);
 void		ft_infiles_cleanup(t_command *commands);
 
-/* Bonus */
-int			pipe_exec_coms(t_data *data);
+/* Exec commands */
+int			father_process(int **pipe_fd, int i, t_command *com, t_data *data);
+void		exec(t_command *command, t_data *data);
+int			pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i);
+int			restore_original_in_out(t_data *data);
+int			pipe_exec_coms(t_data *data, int i);
 int			exec_commands(t_data *data);
 
-bool		ft_compare_eof_ind(char *str, char *eof, t_data *data);
+/* Errors exec commands */
+bool		ft_handle_arg_n(char **command, int n_arg, t_data *data);
+bool		ft_check_for_flags(char **command, t_data *data);
+bool		ft_command_args_errors(char **command, t_data *data);
+int			return_builtin_exit_code(char **command);
 
-/* 
-int	recieve_complete_input(t_data *data);
-int	ft_check_token(t_data *data);
-int	ft_ter_input(t_data *data, int num_single_quote, int num_double_quote, int j);
-int	ft_get_ter_input(t_data *data, char *eof);
-int	ft_save_until_eof(t_data *data);
-char	*ft_reformat_input(char *input, t_data *data); */
+bool		ft_compare_eof_ind(char *str, char *eof, t_data *data);
 
 /*------SIGNALS------*/
 int			signal_handle(void);

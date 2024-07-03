@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/02 17:40:36 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 12:56:33 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	len_old_var(char *str, int i)
+static int	len_old_var(char *str, int i)
 {
 	int	size;
 
@@ -31,7 +31,7 @@ int	len_old_var(char *str, int i)
 	return (size);
 }
 
-void	len_new_var(t_data *data, char *str, int i)
+static void	len_new_var(t_data *data, char *str, int i)
 {
 	int		len_old;
 	t_var	*var;
@@ -97,51 +97,4 @@ int	tot_size(t_data *d, char *str, int single_q)
 		d->iii++;
 	}
 	return (d->size_var);
-}
-
-char	*ft_fillout_var(t_data *d, int size, char *str, int single_q)
-{
-	char	*output;
-
-	output = (char *) malloc ((size + 1) * sizeof(char));
-	if (!output)
-		return (ft_write_error_c(MALLOC_ERROR, d));
-	single_q = 0;
-	while (str[d->iii] != 0)
-	{
-		if (str[d->iii] == '\'')
-			single_q++;
-		else if (str[d->iii] == '\"' && single_q % 2 == 0)
-			;
-		else if (str[d->iii] == '$' && single_q % 2 == 0
-			&& str[d->iii + 1] != ' ' && str[d->iii + 1] != 0)
-		{
-			if (str[d->iii + 1] >= '0' && str[d->iii + 1] <= '9')
-				d->iii++;
-			else
-				fill_new_var(d, str, d->iii + 1, &output[d->jjj]);
-		}
-		else
-			output[d->jjj++] = str[d->iii];
-		d->iii++;
-	}
-	output[d->jjj] = 0;
-	return (output);
-}
-
-char	*expand_var(t_data *data, char *text)
-{
-	int		size;
-	char	*str;
-
-	if (text == NULL)
-		return (ft_strdup(""));
-	data->iii = 0;
-	data->size = 0;
-	size = tot_size(data, text, 0);
-	data->iii = 0;
-	data->jjj = 0;
-	str = ft_fillout_var(data, size, text, 0);
-	free(text);
-	return (str);
 }

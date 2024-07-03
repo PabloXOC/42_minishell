@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/03 13:53:46 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:56:47 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,5 +343,9 @@ int			fill_extra_info(t_data *data, int i, t_command *com);
 /*------EXIT CODES------*/
 int			exit_codes(int exit_code, t_data *data);
 int			exit_codes_main(int exit_code, t_data *data);
+
+
+int			ft_reformat_slash(t_data *data, t_input_var *info);
+
 
 #endif

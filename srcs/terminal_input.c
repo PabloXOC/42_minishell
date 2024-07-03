@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/03 17:19:16 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:41:35 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_control_d_heredoc(t_data *data, t_input_var *info, int i)
-{
-	char	*temp;
-
-	temp = ft_strjoin(info->terminal_input, info->list_eof[i]);
-	if (info->terminal_input != NULL)
-		free(data->input_info->terminal_input);
-	data->input_info->terminal_input = temp;
-	info->real_eof[i] = false;
-	ft_putstr_fd("warning: here-document delimited by end-of-file", 2);
-	ft_putstr_fd(" (wanted '", 2);
-	ft_putstr_fd(info->list_eof[i], 2);
-	ft_putstr_fd("')\n", 2);
-	return (SUCCESS);
-}
 
 int	ft_malloc_eof(t_data *data, t_input_var *info, int i)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:45:40 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 17:24:53 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:50:24 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,22 @@ char	*init_terminal_input(t_data *data, char *input, int i)
 	return (terminal_input);
 }
 
-int	found_end_first_line(t_data *data, int i, char *input)
+int	first_line_complete_2(t_data *data, int i, int d_q, int s_q)
 {
-	data->input_info->first_line = (char *) malloc ((i + 1) * sizeof(char));
-	if (data->input_info->first_line == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
-	ft_memcpy(data->input_info->first_line, input, i);
-	data->input_info->first_line[i] = 0;
-	data->input_info->terminal_input = init_terminal_input(data, input, i);
-	if (data->input_info->terminal_input == NULL)
-		return (MALLOC_ERROR);
-	return (SUCCESS);
+	char	*input;
+
+	input = data->input_info->init_input;
+	if (d_q % 2 == 0 && s_q % 2 == 0)
+	{
+		if (found_end_first_line(data, i, input) == MALLOC_ERROR)
+			return (MALLOC_ERROR);
+		return (SUCCESS);
+	}
+	else if (d_q % 2 == 0)
+		data->quote = '\'';
+	else
+		data->quote = '\"';
+	return (FAILURE);
 }
 
 int	first_line_complete(char *input, t_data *data, int d_q, int s_q)
@@ -66,17 +71,7 @@ int	first_line_complete(char *input, t_data *data, int d_q, int s_q)
 			return (SUCCESS);
 		}
 	}
-	if (d_q % 2 == 0 && s_q % 2 == 0)
-	{
-		if (found_end_first_line(data, i, input) == MALLOC_ERROR)
-			return (MALLOC_ERROR);
-		return (SUCCESS);
-	}
-	else if (d_q % 2 == 0)
-		data->quote = '\'';
-	else
-		data->quote = '\"';
-	return (FAILURE);
+	return (first_line_complete_2(data, i, d_q, s_q));
 }
 
 //ft_strjoin with a free for s1

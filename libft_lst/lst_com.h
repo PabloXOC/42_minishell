@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:51:57 by farah             #+#    #+#             */
-/*   Updated: 2024/07/03 16:57:47 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:45:51 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,5 @@ void		ft_lstdelone_com(t_command *lst, void (*del)(char **));
 void		ft_lstclear_com(t_command **lst, void (*del)(char **));
 void		ft_lstadd_front_com(t_command **lst, t_command *new);
 void		ft_lstadd_back_com(t_command **lst, t_command *new);
-
-
 
 #endif

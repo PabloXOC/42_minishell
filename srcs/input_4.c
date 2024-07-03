@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 16:26:54 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:46:35 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,17 @@ int	ft_len_to_eof(t_data *data, t_input_var *input_info, int i, int k)
 		len++;
 	}
 	return (len);
+}
+
+int	found_end_first_line(t_data *data, int i, char *input)
+{
+	data->input_info->first_line = (char *) malloc ((i + 1) * sizeof(char));
+	if (data->input_info->first_line == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
+	ft_memcpy(data->input_info->first_line, input, i);
+	data->input_info->first_line[i] = 0;
+	data->input_info->terminal_input = init_terminal_input(data, input, i);
+	if (data->input_info->terminal_input == NULL)
+		return (MALLOC_ERROR);
+	return (SUCCESS);
 }

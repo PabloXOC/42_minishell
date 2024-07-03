@@ -39,7 +39,7 @@ SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/input.c $(SRC_DIR)/comman
 	$(SRC_DIR)/files.c $(SRC_DIR)/input_2.c $(SRC_DIR)/input_3.c $(SRC_DIR)/exit_codes.c $(SRC_DIR)/remove_slash.c $(SRC_DIR)/commands2.c \
 	$(SRC_DIR)/echo2.c $(SRC_DIR)/utils2.c $(SRC_DIR)/pipes_errors_coms.c $(SRC_DIR)/pipes_exec_coms2.c \
 	$(SRC_DIR)/variables_utils.c $(SRC_DIR)/variables_utils2.c $(SRC_DIR)/variables2.c \
-	$(SRC_DIR)/input_4.c
+	$(SRC_DIR)/input_4.c $(SRC_DIR)/reformat_2.c
 OBJS = $(SRCS:.c=.o)
 
 # Executable name

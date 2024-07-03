@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/03 16:29:24 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:42:52 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,9 @@ char		*expand_var(t_data *data, char *text);
 
 /*------REFORMAT------*/
 char		*ft_reformat_input(char *input, t_data *data);
+int			ft_count_sep_char_util(char *input, int i);
+int			ft_count_sep_char(char *input);
+char		*ft_paste_char(char *output, char *added, int pos, int size);
 
 /*------CHECK IF VAR------*/
 bool		ft_isspecial(const char *str);

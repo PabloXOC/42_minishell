@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_input_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:21:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/01 13:43:53 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:43:58 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ char	*ft_find_eof(char *str, int i, t_data *data)
 	return (eof);
 }
 
-//compare two strings and retrun bool. it is specially designed for the eof situation
 bool	ft_compare_eof(char *str, char *eof, t_data *data)
 {
 	int	size;

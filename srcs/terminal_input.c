@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/03 17:18:08 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:19:16 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	ft_control_d_heredoc(t_data *data, t_input_var *info, int i)
 		free(data->input_info->terminal_input);
 	data->input_info->terminal_input = temp;
 	info->real_eof[i] = false;
-	//error message
+	ft_putstr_fd("warning: here-document delimited by end-of-file", 2);
+	ft_putstr_fd(" (wanted '", 2);
+	ft_putstr_fd(info->list_eof[i], 2);
+	ft_putstr_fd("')\n", 2);
 	return (SUCCESS);
 }
 

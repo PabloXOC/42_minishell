@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 16:21:14 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:26:23 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 int	ft_control_d_quote(t_data *data, t_input_var *info)
 {
 	data->control_d = true;
-	//error message
-	//bash: unexpected EOF while looking for matching `"'
-	//bash: syntax error: unexpected end of file
+	exit_codes(EXIT_2, data);
+	ft_putstr_fd("unexpected EOF while looking for matching '", 2);
+	ft_putchar_fd(data->quote, 2);
+	ft_putstr_fd("'\nsyntax error: unexpected end of file\n", 2);
 	return (SUCCESS);
 }
 

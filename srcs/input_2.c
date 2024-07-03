@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:45:40 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 12:59:04 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:24:53 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ int	first_line_complete(char *input, t_data *data, int d_q, int s_q)
 			return (MALLOC_ERROR);
 		return (SUCCESS);
 	}
+	else if (d_q % 2 == 0)
+		data->quote = '\'';
+	else
+		data->quote = '\"';
 	return (FAILURE);
 }
 

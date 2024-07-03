@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 16:02:02 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:03:48 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	minishell_2(t_data *data, t_input_var *info)
 {
 	if (refresh_mysignal_var(data) == MALLOC_ERROR)
 		return (exit_codes(EXIT_1, data));
+
 	add_history(data->input_info->first_line_and_final_text);
 	info->first_line_split = ft_minishell_split(info->first_line_ref, ' ');
 	if (data->input_info->first_line_split == NULL)

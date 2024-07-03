@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 14:00:14 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:02:02 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	minishell_2(t_data *data, t_input_var *info)
 	if (data->input_info->first_line_split == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	ft_reformat_slash(data, data->input_info);
-	print_char_pp(info->first_line_split);
 	if (check_if_we_save_variables(data, data->input_info) == true)
 		save_variables(data);
 	if (data->fatal_error == true)
@@ -56,8 +55,6 @@ int	minishell(t_data *data)
 	total_cleanup(data);
 	return (SUCCESS);
 }
-
-//what happens when export? do we save_variables or execute_commands
 
 int	main(int argc, char **argv, char **env)
 {

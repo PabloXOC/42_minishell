@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_detection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/01 13:50:59 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:28:37 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	ft_check_token(t_data *data, t_input_var *info)
 			if (ft_invalid_token(info->first_line_ref, i) == true)
 			{
 				info->invalid_token = true;
+				ft_putstr_fd("syntax error near unexpected token\n", 2);
+				exit_codes(EXIT_2, data);
 				return (INVALID_TOKEN);
 			}
 		}

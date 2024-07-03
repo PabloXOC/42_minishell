@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/03 16:09:37 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:29:24 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ typedef struct s_input_var
 typedef struct s_data
 {
 	char		*user;
-	char		*hostname;
 	char		*dir;
 	char		*entry;
 	char		**env;
@@ -174,7 +173,6 @@ int			ft_count_words(char **argv);
 void		print_char_pp(char **stack);
 void		ft_free_char_pp(char **stack);
 bool		ft_quote_switch(char *str, int i, bool single_q, bool double_q);
-int			ft_control_d(t_data *data);
 
 /*------INPUT------*/
 char		*ft_join_input(char *s1, char *s2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_appearance.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/07/02 16:25:45 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 15:54:30 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	get_user(t_data *data, char **env)
 	return (SUCCESS);
 }
 
-/* int	get_hostname(void); */
-
 int	ft_get_dir(t_data *data, char **env)
 {
 	int	i;
@@ -54,7 +52,6 @@ int	refresh_terminal_entry(t_data *data)
 {
 	int		len_user;
 	int		len_dir;
-	int		len_hostname;
 	char	*entry;
 
 	if (data->entry != NULL)
@@ -64,17 +61,14 @@ int	refresh_terminal_entry(t_data *data)
 	}
 	len_user = ft_strlen(data->user);
 	len_dir = ft_strlen(data->dir);
-	len_hostname = ft_strlen("faraway");
-	entry = (char *)malloc((len_user + len_dir + len_hostname + 5));
+	entry = (char *)malloc((len_user + len_dir + 5));
 	if (entry == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	ft_memcpy(&entry[0], data->user, len_user);
-	ft_memcpy(&entry[len_user], "@", 1);
-	ft_memcpy(&entry[len_user + 1], "faraway", len_hostname);
-	ft_memcpy(&entry[len_user + 1 + len_hostname], ":", 1);
-	ft_memcpy(&entry[len_user + 2 + len_hostname], data->dir, len_dir);
-	ft_memcpy(&entry[len_user + 2 + len_hostname + len_dir], "$ ", 2);
-	entry[len_user + 4 + len_hostname + len_dir] = 0;
+	ft_memcpy(&entry[len_user], ":", 1);
+	ft_memcpy(&entry[len_user + 1], data->dir, len_dir);
+	ft_memcpy(&entry[len_user + 1 + len_dir], "$ ", 2);
+	entry[len_user + 3 + len_dir] = 0;
 	data->entry = entry;
 	return (SUCCESS);
 }

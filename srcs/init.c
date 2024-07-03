@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/02 15:54:31 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 15:53:00 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_data	*data_init(char **env)
 	if (data == NULL)
 		return ((t_data *) ft_write_error_c(MALLOC_ERROR, data));
 	data->user = NULL;
-	data->hostname = NULL;
 	data->dir = NULL;
 	data->entry = NULL;
 	data->env = env;

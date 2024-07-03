@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/02 16:23:51 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 15:53:36 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	total_cleanup(t_data *data)
 		ft_free_input_info(data);
 		if (data->user != NULL)
 			free(data->user);
-		if (data->hostname != NULL)
-			free(data->hostname);
 		if (data->dir != NULL)
 			free(data->dir);
 		if (data->entry != NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 17:26:23 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:36:39 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ int	ft_ask_user_for_more_input(t_data *data)
 	return (SUCCESS);
 }
 
-int	ft_combine_fl_ft_2(t_data *data, t_input_var *info, int i, char *str)
+int	ft_combine_fl_ft_2(t_data *data, t_input_var *info, int i, char **str)
 {
 	if (i == 0 || info->real_eof[i - 1] == true)
-		str = ft_join_input(str, "\n");
-	if (str == NULL)
+		(*str) = ft_join_input((*str), "\n");
+	if ((*str) == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	str = ft_join_input(str, info->text_input[i]);
-	if (str == NULL)
+	(*str) = ft_join_input((*str), info->text_input[i]);
+	if ((*str) == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	if (info->real_eof[i] == true)
-		str = ft_join_input(str, info->list_eof[i]);
-	if (str == NULL)
+		(*str) = ft_join_input((*str), info->list_eof[i]);
+	if ((*str) == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	return (SUCCESS);
 }
@@ -66,7 +66,7 @@ int	ft_combine_fl_ft(t_data *data, t_input_var *info, int i)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	while (i < info->n_eof)
 	{
-		if (ft_combine_fl_ft_2(data, info, i, str) != SUCCESS)
+		if (ft_combine_fl_ft_2(data, info, i, &str) != SUCCESS)
 			return (MALLOC_ERROR);
 		i++;
 	}

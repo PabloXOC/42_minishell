@@ -20,7 +20,7 @@ NAME = lst_com.a
 #files
 SRCS = ft_lstadd_back_com.c ft_lstadd_front_com.c ft_lstclear_com.c \
 	ft_lstdelone_com.c ft_lstiter_com.c ft_lstlast_com.c \
-	 ft_lstmap_com.c ft_lstnew_com.c ft_lstsize_com.c \
+	 ft_lstnew_com.c ft_lstsize_com.c \
 
 OBJS = $(SRCS:.c=.o)
 

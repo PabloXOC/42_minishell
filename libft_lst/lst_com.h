@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_com.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:51:57 by farah             #+#    #+#             */
-/*   Updated: 2024/06/20 20:56:22 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 16:57:47 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,14 @@ typedef struct s_command
 	t_command	*next;
 }					t_command;
 
-int	ft_lstsize_com(t_command *lst);
+int			ft_lstsize_com(t_command *lst);
 t_command	*ft_lstnew_com(char **content);
-t_command	*ft_lstmap_com(t_command *lst, void *(*f)(void *), void (*del)(char **));
 t_command	*ft_lstlast_com(t_command *lst);
-void	ft_lstiter_com(t_command *lst, void (*f)(void *));
-void	ft_lstdelone_com(t_command *lst, void (*del)(char **));
-void	ft_lstclear_com(t_command **lst, void (*del)(char **));
-void	ft_lstadd_front_com(t_command **lst, t_command *new);
-void	ft_lstadd_back_com(t_command **lst, t_command *new);
+void		ft_lstiter_com(t_command *lst, void (*f)(void *));
+void		ft_lstdelone_com(t_command *lst, void (*del)(char **));
+void		ft_lstclear_com(t_command **lst, void (*del)(char **));
+void		ft_lstadd_front_com(t_command **lst, t_command *new);
+void		ft_lstadd_back_com(t_command **lst, t_command *new);
 
 
 

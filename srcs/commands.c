@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/02 18:47:05 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 10:20:04 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,25 +125,6 @@ static int	write_in_command(t_data *data, t_input_var *info)
 	return (add_command_to_list(data, com, full_com));
 }
 
-void	path_commands(t_data *data)
-{
-	int			i;
-	t_command	*com;
-
-	com = data->command_list;
-	while (com != NULL)
-	{
-		i = 0;
-		while (com->content[i] != NULL)
-		{
-			com->content[i] = expand_var(data, com->content[i]);
-			i++;
-		}
-		com->full_path = ft_find_command_path(data->env, com->content[0], 0);
-		com = com->next;
-	}
-}
-
 int	save_pipelines(t_data *data, t_input_var *info)
 {
 	if (data->input_info->first_line_split == NULL)
@@ -168,7 +149,6 @@ int	save_pipelines(t_data *data, t_input_var *info)
 			}
 		}
 	}
-	path_commands(data);
 	return (SUCCESS);
 }
 

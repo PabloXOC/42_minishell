@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_command_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:33:45 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/01 13:31:06 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:36:24 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_return_accessible_path(char **available_paths, char *command)
 	return (NULL);
 }
 
-char	*ft_find_command_path(char **envp, char *command, int i)
+char	*ft_find_command_path(char **envp, char *command, int i, t_data *data)
 {
 	char	*temp_path;
 	char	**available_paths;
@@ -51,7 +51,7 @@ char	*ft_find_command_path(char **envp, char *command, int i)
 		{
 			temp_path = ft_strtrim(envp[i], "PATH=");
 			if (temp_path == NULL)
-				return (NULL);
+				return (ft_write_error_c(MALLOC_ERROR, data));
 			available_paths = ft_split(temp_path, ':');
 			free(temp_path);
 			temp_path = ft_return_accessible_path(available_paths, command);
@@ -63,45 +63,4 @@ char	*ft_find_command_path(char **envp, char *command, int i)
 		i++;
 	}
 	return (NULL);
-}
-
-static int	ft_fill_nodes(t_command **node, t_command **head,
-	char **command, char *path)
-{
-	if (command == NULL || path == NULL)
-	{
-		if (*head != NULL)
-			ft_lstclear_com(head, &ft_free_char_pp);
-		return (ERROR);
-	}
-	if (*head != NULL)
-	{
-		*node = ft_lstnew_com(command);
-		ft_lstadd_back_com(head, *node);
-	}
-	if (*head == NULL)
-		*head = ft_lstnew_com(command);
-	return (OK);
-}
-
-t_command	*ft_fill_commands(char **argv, char **envp, int argc)
-{
-	t_command	*node;
-	t_command	*head;
-	int			pos;
-	char		**command;
-	char		*path;
-
-	pos = 1;
-	head = NULL;
-	node = NULL;
-	while (pos < (argc - 1))
-	{
-		command = ft_split(argv[pos], 32);
-		path = ft_find_command_path(envp, command[0], 0);
-		if (ft_fill_nodes(&node, &head, command, path) == ERROR)
-			return (NULL);
-		pos++;
-	}
-	return (head);
 }

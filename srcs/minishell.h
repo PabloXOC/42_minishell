@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/02 19:28:39 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/03 10:34:00 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ int			ft_infile_permissions(char *file, t_command *commands, t_data *data);
 int			ft_outfile_permissions(char *file, t_command *commands, t_data *data);
 
 /* Command path */
-char		*ft_find_command_path(char **envp, char *command, int i);
+char		*ft_find_command_path(char **envp, char *command, int i, t_data *data);
 char		*ft_return_accessible_path(char **available_paths, char *command);
 void		ft_free_commands(t_data *data);
 t_command	*ft_fill_middle_commands(char **argv, char **envp, int argc);

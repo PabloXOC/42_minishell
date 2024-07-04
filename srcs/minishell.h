@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/03 17:51:16 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:57:07 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <curses.h>
 # include <string.h>
 # include <errno.h>
+#include <termios.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <sys/types.h>
@@ -129,7 +130,7 @@ typedef struct s_data
 	int			iii;
 	int			jjj;
 	int			size_var;
-
+	int			jj;
 	int			kkk;
 	int			idx_com;
 	int			size;
@@ -142,7 +143,7 @@ typedef struct s_data
 
 typedef enum e_command_code
 {
-	ECHO,
+	//ECHO,
 	CD,
 	PWD,
 	EXPORT,

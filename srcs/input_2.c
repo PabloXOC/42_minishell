@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:45:40 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 17:50:24 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:16:19 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	first_line_complete(char *input, t_data *data, int d_q, int s_q)
 	while (input[++i] != 0)
 	{
 		if (input[i] == '\\' && (input[i + 1] == '\'' || input[i + 1] == '\"'))
-			i += 2;
+			i++;
 		else if (input[i] == '\'' && d_q % 2 == 0)
 			s_q++;
 		else if (input[i] == '\"' && s_q % 2 == 0)

@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/01 18:26:16 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:58:32 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,9 @@ int	recieve_complete_input(t_data *data)
 	if (ft_empty(info->init_input) == true)
 		return (EMPTY);
 	data->control_d = false;
+	g_exit_status = 0;
 	while (first_line_complete(info->init_input, data, 0, 0) == FAILURE
-		&& data->control_d == false)
+		&& data->control_d == false && g_exit_status == 0)
 	{
 		if (ft_ask_user_for_more_input(data) == MALLOC_ERROR)
 			return (MALLOC_ERROR);

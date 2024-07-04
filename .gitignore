@@ -151,3 +151,5 @@ pseudo.c
 minishell
 *.ber
 *.ar
+test
+test.c

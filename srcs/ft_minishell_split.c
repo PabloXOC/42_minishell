@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:39 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/04 20:35:42 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:03:33 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char	**ft_fill_array(char const *s, char c, char **array)
 	while (s[i] != '\0')
 	{
 		len_word = ft_len_words(i, s, c);
-		printf("len word: %i\n", len_word);
+		//printf("len word: %i\n", len_word);
 		array[row] = ft_substr(s, i, len_word);
 		if (array[row] == NULL)
 		{

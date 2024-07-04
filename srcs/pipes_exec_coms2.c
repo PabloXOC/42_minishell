@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/04 20:07:39 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:04:31 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	refresh_content_com(t_command *com, t_data *data)
 		}
 		i++;
 	}
-	print_char_pp(com->content);
+	//print_char_pp(com->content);
 	com->full_path = find_command_path(data->env, com->content[0], 0, data);
 	if (data->fatal_error == true)
 		return (ERROR);
@@ -131,7 +131,6 @@ int	exec_commands(t_data *data)
 		if (find_command(data, data->command_list, data->env) == INVALID_COMMAND
 			&& data->fatal_error == false)
 			return (pipe_exec_coms(data, 0));
-		g_exit_status = 0;
 	}
 	if (list_len > 1)
 		return (pipe_exec_coms(data, 0));

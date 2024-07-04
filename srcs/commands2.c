@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/04 20:09:05 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:03:24 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	save_pipelines(t_data *data, t_input_var *info)
 			}
 		}
 	}
-	print_commands(data);
 	return (SUCCESS);
 }
 

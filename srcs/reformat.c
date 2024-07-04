@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/03 16:34:04 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:04:45 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*ft_skip_quote_2(char *input, char *output, t_data *d)
 	output[d->i] = input[d->j];
 	d->i++;
 	d->j++;
-	while (input[d->j] != '\"')
+	while ((d->j > 0 || input[d->j] != '\"') && input[d->j] != '\"')
 	{
 		output[d->i] = input[d->j];
 		d->i++;
@@ -40,12 +40,12 @@ static char	*ft_skip_quote_2(char *input, char *output, t_data *d)
 
 static char	*ft_skip_quote(char *input, char *output, t_data *d)
 {
-	if (input[d->j] == '\'')
+	if ((d->j > 0 || input[d->j] != '\'') && input[d->j] == '\'')
 	{
 		output[d->i] = input[d->j];
 		d->i++;
 		d->j++;
-		while (input[d->j] != '\'')
+		while ((d->j > 0 || input[d->j] != '\'') && input[d->j] != '\'')
 		{
 			output[d->i] = input[d->j];
 			d->i++;
@@ -53,7 +53,7 @@ static char	*ft_skip_quote(char *input, char *output, t_data *d)
 		}
 		output[d->i] = input[d->j];
 	}
-	else if (input[d->j] == '\"')
+	else if ((d->j > 0 || input[d->j] != '\"') && input[d->j] == '\"')
 		output = ft_skip_quote_2(input, output, d);
 	return (output);
 }
@@ -90,14 +90,16 @@ static char	*ft_make_new_string(char *input, char *output, t_data *d)
 char	*ft_reformat_input(char *input, t_data *data)
 {
 	int		n_sep;
+	int		len;
 	char	*output;
-
+	
 	n_sep = ft_count_sep_char(input);
-	output = (char *) malloc ((ft_strlen(input) + n_sep + 1) * sizeof(char));
+	len = ft_strlen(input);
+	output = (char *) malloc ((len + n_sep + 1) * sizeof(char));
 	if (!output)
 		return (ft_write_error_c(MALLOC_ERROR, data));
-	output = ft_memset(output, 100, ft_strlen(input) + n_sep);
+	//output = ft_memset(output, 100, len + n_sep);
 	output = ft_make_new_string(input, output, data);
-	output[ft_strlen(input) + n_sep] = 0;
+	output[len + n_sep] = 0;
 	return (output);
 }

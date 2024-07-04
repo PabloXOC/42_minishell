@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/04 18:57:07 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:31:42 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,11 +221,14 @@ int			terminal_entry(t_data *data, char **env);
 /*------VARIABLES------*/
 int			safe_existing_var(t_var **list, char **equality, t_data *data);
 int			save_var_info(t_data *data, char **equality, t_var **list);
-int			save_variables(t_data *data);
+int			save_variables(t_data *data, int i);
 int			delete_head_var(t_var *vars, t_var *temp_var, t_var **list);
 int			delete_middle_var(t_var *vars, t_var *temp_var);
 int			delete_var(t_data *data, char *var_to_del, t_var **list);
 int			refresh_mysignal_var(t_data *data);
+int			refresh_home_var(t_data *data);
+int			create_preset_vars(t_data *data);
+void		modify_exp_and_env(t_data *data, char *var, char *new_cont);
 
 /*------VARIABLES UTILS------*/
 t_var		*ft_varnew(char *var, char *content);
@@ -258,7 +261,7 @@ int			unset_var(t_data *data, t_command *full_com);
 int			save_export_el(t_data *data, char *var, char *cont);
 void		modify_export(t_data *data, char *var, char *new_cont);
 int			export_var(t_data *data, t_command *full_com, t_var **list);
-void		export_list(t_data *data);
+int			export_list(t_data *data);
 void		print_export(t_data *data);
 
 /*------ECHO------*/
@@ -328,6 +331,7 @@ int			pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i);
 int			restore_original_in_out(t_data *data);
 int			pipe_exec_coms(t_data *data, int i);
 int			exec_commands(t_data *data);
+int			refresh_content_com(t_command *com, t_data *data);
 
 /* Errors exec commands */
 bool		ft_handle_arg_n(char **command, int n_arg, t_data *data);

@@ -3,25 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 17:42:47 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:00:24 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	export_list(t_data *data)
+int	export_list(t_data *data)
 {
 	t_var	*env_list;
+	char	**equality;
 
 	env_list = data->env_lst;
 	while (env_list != NULL)
 	{
-		save_export_el(data, env_list->var, env_list->content);
+		if (save_export_el(data, env_list->var, env_list->content) != SUCCESS)
+			return (MALLOC_ERROR);
+		equality = (char **)malloc(3 * sizeof(char *));
+		if (equality == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		equality[2] = NULL;
+		equality[0] = ft_strdup(env_list->var);
+		equality[1] = ft_strdup(env_list->content);
+		if (equality[0] == NULL || equality[1] == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		save_var_info(data, equality, &data->var);
 		env_list = env_list->next;
 	}
+	return (SUCCESS);
 }
 
 static void	init_idx(t_data *data)

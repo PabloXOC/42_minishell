@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_split.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:39 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 16:44:43 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:35:42 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,13 @@ static int	ft_len_words(int i, char const *s, char c)
 	char	quote;
 
 	len_word = 0;
-	len_word = 0;
 	while (s[i] != c && s[i] != '\0')
 	{
-		if (s[i] == '"' || s[i] == '\'')
+		if ((i == 0 || s[i - 1] != '\\') && (s[i] == '"' || s[i] == '\''))
 		{
 			quote = s[i++];
 			len_word++;
-			while (s[i] != quote && s[i] != '\0')
+			while (s[i] != quote && s[i] != '\0' && s[i - 1] != '\\')
 			{
 				len_word++;
 				i++;
@@ -86,11 +85,12 @@ static char	**ft_fill_array(char const *s, char c, char **array)
 
 	i = 0;
 	row = 0;
-	while ((s[i] == c || s[i] == '"' || s[i] == '\'') && s[i] != '\0')
+	while ((s[i] == c) && s[i] != '\0')
 		i++;
 	while (s[i] != '\0')
 	{
 		len_word = ft_len_words(i, s, c);
+		printf("len word: %i\n", len_word);
 		array[row] = ft_substr(s, i, len_word);
 		if (array[row] == NULL)
 		{

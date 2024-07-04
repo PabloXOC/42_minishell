@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/03 12:50:20 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:09:05 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 {
 	char	*com;
 
+	if (refresh_content_com(data->command_list, data) == ERROR)
+		return (ERROR);
 	com = full_com->content[0];
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
 		return (change_dir(data, full_com));
@@ -23,9 +25,8 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	{
 		if (full_com->content[1] == NULL)
 			print_export(data);
-		else
-			if (export_var(data, full_com, &data->var) != SUCCESS)
-				return (MALLOC_ERROR);
+		else if (export_var(data, full_com, &data->var) != SUCCESS)
+			return (MALLOC_ERROR);
 		return (SUCCESS);
 	}
 	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
@@ -46,6 +47,7 @@ int	save_pipelines(t_data *data, t_input_var *info)
 		return (0);
 	while (data->input_info->first_line_split[data->idx_com] != NULL)
 	{
+		ft_printf("SPPLIT: %s\n", data->input_info->first_line_split[data->idx_com]);
 		if (ft_there_is_equal(info->first_line_split[data->idx_com]) == true
 			&& ft_isspecial(info->first_line_split[data->idx_com]) == false
 			&& ft_starts_with_number(info->first_line_split[data->idx_com])
@@ -64,6 +66,7 @@ int	save_pipelines(t_data *data, t_input_var *info)
 			}
 		}
 	}
+	print_commands(data);
 	return (SUCCESS);
 }
 

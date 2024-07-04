@@ -6,7 +6,7 @@
 /*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/03 13:44:32 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:24:21 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,10 @@ int	save_var_info(t_data *data, char **equality, t_var **list)
 	return (SUCCESS);
 }
 
-int	save_variables(t_data *data)
+int	save_variables(t_data *data, int i)
 {
 	char	**equality;
-	int		i;
 
-	i = 0;
 	while (data->input_info->first_line_split[i] != NULL)
 	{
 		if (ft_strrchr(data->input_info->first_line_split[i], '=') != NULL)
@@ -71,7 +69,10 @@ int	save_variables(t_data *data)
 				ft_free_char_pp(equality);
 				return (MALLOC_ERROR);
 			}
+			modify_exp_and_env(data, equality[0], equality[1]);
 			save_var_info(data, equality, &data->var);
+			if (refresh_home_var(data) != SUCCESS)
+				return (MALLOC_ERROR);
 			if (data->fatal_error == true)
 				return (MALLOC_ERROR);
 		}

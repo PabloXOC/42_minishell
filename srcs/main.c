@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/04 16:36:12 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:31:33 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	minishell_2(t_data *data, t_input_var *info)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	ft_reformat_slash(data, data->input_info);
 	if (check_if_we_save_variables(data, data->input_info) == true)
-		save_variables(data);
+		save_variables(data, 0);
 	if (data->fatal_error == true)
 		return (MALLOC_ERROR);
 	if (save_pipelines(data, data->input_info) != NO_COMMANDS)
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 		return (exit_codes_main(EXIT_1, data));
 	if (terminal_entry(data, env) == MALLOC_ERROR)
 		return (exit_codes_main(EXIT_1, data));
-	if (refresh_mysignal_var(data) == MALLOC_ERROR)
+	if (create_preset_vars(data) == MALLOC_ERROR)
 		return (exit_codes_main(EXIT_1, data));
 	if (minishell(data) != SUCCESS)
 		return (exit_codes_main(EXIT_1, data));

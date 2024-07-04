@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:45:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 17:45:17 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:25:02 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ char	*expand_var(t_data *data, char *text)
 
 	if (text == NULL)
 		return (ft_strdup(""));
+	if (ft_strncmp(text, "~", 2) == 0)
+	{
+		if (return_content_var(data->env_lst, "HOME") == NULL)
+			return (NULL);
+		str = ft_strdup(return_content_var(data->env_lst, "HOME"));
+		if (str == NULL)
+			return (ft_write_error_c(MALLOC_ERROR, data));
+		return (str);
+	}
 	data->iii = 0;
 	data->size = 0;
 	size = tot_size(data, text, 0);

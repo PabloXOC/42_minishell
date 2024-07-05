@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/04 20:31:21 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/05 10:56:27 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,8 @@ int	recieve_complete_input(t_data *data)
 	if (ft_empty(info->init_input) == true)
 		return (EMPTY);
 	data->control_d = false;
-	g_exit_status = 0;
 	while (first_line_complete(info->init_input, data, 0, 0) == FAILURE
-		&& data->control_d == false && g_exit_status == 0)
+		&& data->control_d == false && data->exit == false)
 	{
 		if (ft_ask_user_for_more_input(data) == MALLOC_ERROR)
 			return (MALLOC_ERROR);

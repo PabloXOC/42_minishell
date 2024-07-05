@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/01 13:24:55 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:28:34 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	print_env(t_data *data)
 		ft_printf("%s=%s\n", node->var, node->content);
 		node = node->next;
 	}
+	exit_codes(EXIT_0, data);
 	return (SUCCESS);
 }
 

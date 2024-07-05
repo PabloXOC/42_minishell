@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/04 18:05:38 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:26:19 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,11 @@ void	modify_export(t_data *data, char *var, char *new_cont)
 	return ;
 }
 
-int	export_var(t_data *data, t_command *full_com, t_var **list)
+int	export_var(t_data *data, t_command *full_com, t_var **list, int i)
 {
 	char	**equality;
 	t_var	*temp_var;
-	int		i;
 
-	i = 1;
 	while (full_com->content[i] != NULL)
 	{
 		if (ft_strrchr(full_com->content[i], '=') != NULL)
@@ -94,6 +92,7 @@ int	export_var(t_data *data, t_command *full_com, t_var **list)
 			modify_export(data, full_com->content[i], NULL);
 		i++;
 	}
+	exit_codes(EXIT_0, data);
 	return (SUCCESS);
 }
 
@@ -110,4 +109,5 @@ void	print_export(t_data *data)
 			ft_printf("declare -x %s\n", node->var, node->content);
 		node = node->next;
 	}
+	exit_codes(EXIT_0, data);
 }

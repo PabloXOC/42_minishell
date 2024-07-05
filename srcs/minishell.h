@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/04 20:31:42 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:38:38 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef enum e_command_code
 
 typedef enum e_exit_code
 {
+	EXIT_0 = 0,
 	EXIT_1 = 1,
 	EXIT_2 = 2,
 	EXIT_126 = 126,
@@ -260,7 +261,7 @@ int			unset_var(t_data *data, t_command *full_com);
 /*------EXPORT------*/
 int			save_export_el(t_data *data, char *var, char *cont);
 void		modify_export(t_data *data, char *var, char *new_cont);
-int			export_var(t_data *data, t_command *full_com, t_var **list);
+int			export_var(t_data *data, t_command *full_com, t_var **list, int i);
 int			export_list(t_data *data);
 void		print_export(t_data *data);
 
@@ -331,7 +332,8 @@ int			pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i);
 int			restore_original_in_out(t_data *data);
 int			pipe_exec_coms(t_data *data, int i);
 int			exec_commands(t_data *data);
-int			refresh_content_com(t_command *com, t_data *data);
+int			refresh_content_com(t_command *com, t_data *data, int i);
+int			refresh_name_com(t_command *com, t_data *data);
 
 /* Errors exec commands */
 bool		ft_handle_arg_n(char **command, int n_arg, t_data *data);

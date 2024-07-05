@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/03 12:48:19 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:24:44 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,51 @@ void	home_dir(t_data *data, t_command *full_com)
 			exit_codes(EXIT_2, data);
 		}
 		else
+		{
 			modify_dir_env(data);
+			exit_codes(EXIT_0, data);
+		}
+	}
+	return ;
+}
+
+void	old_dir(t_data *data, t_command *full_com)
+{
+	char	*old_dir;
+
+	old_dir = return_content_var(data->env_lst, "OLDPWD");
+	if (old_dir == NULL)
+	{
+		ft_putstr_fd("cd: OLDPWD not set\n", 2);
+		exit_codes(EXIT_2, data);
+	}
+	else
+	{
+		if (chdir(old_dir) == -1)
+		{
+			ft_putstr_fd(full_com->content[0], 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(old_dir, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			exit_codes(EXIT_2, data);
+		}
+		else
+		{
+			modify_dir_env(data);
+			exit_codes(EXIT_0, data);
+		}
 	}
 	return ;
 }
 
 int	change_dir(t_data *data, t_command *full_com)
 {
+	char	*new_dir;
+
 	if (full_com->content[1] == NULL)
 		home_dir(data, full_com);
+	else if (ft_strncmp(full_com->content[1], "-", 2) == 0)
+		old_dir(data, full_com);
 	else
 	{
 		if (chdir(full_com->content[1]) == -1)
@@ -67,7 +103,10 @@ int	change_dir(t_data *data, t_command *full_com)
 			exit_codes(EXIT_2, data);
 		}
 		else
+		{
 			modify_dir_env(data);
+			exit_codes(EXIT_0, data);
+		}
 	}
 	return (SUCCESS);
 }

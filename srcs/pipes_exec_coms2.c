@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/04 21:04:31 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:36:50 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,8 @@ static char	**create_new_char_pp(char **content, char **new_content,
 	return (new_stack);
 }
 
-int	refresh_content_com(t_command *com, t_data *data)
+int	refresh_content_com(t_command *com, t_data *data, int i)
 {
-	int	i;
-
-	i = 0;
 	if (refresh_mysignal_var(data) == MALLOC_ERROR)
 		return (ERROR);
 	while (com->content[i] != NULL)
@@ -90,6 +87,29 @@ int	refresh_content_com(t_command *com, t_data *data)
 	return (SUCCESS);
 }
 
+int	refresh_name_com(t_command *com, t_data *data)
+{
+	if (refresh_mysignal_var(data) == MALLOC_ERROR)
+		return (ERROR);
+	if (com->content[0][0] != '$')
+	{
+		com->content[0] = expand_var(data, com->content[0]);
+		if (com->content[0] == NULL)
+			return (ERROR);
+	}
+	else
+	{
+		com->content[0] = expand_var(data, com->content[0]);
+		if (com->content[0] == NULL)
+			return (ERROR);
+		com->content = create_new_char_pp(com->content, ft_split(com->content[0], 32), data, 0);
+	}
+	com->full_path = find_command_path(data->env, com->content[0], 0, data);
+	if (data->fatal_error == true)
+		return (ERROR);
+	return (SUCCESS);
+}
+
 int	pipe_exec_coms(t_data *data, int i)
 {
 	int			**pipe_fd;
@@ -102,14 +122,14 @@ int	pipe_exec_coms(t_data *data, int i)
 	if (pipe_fd == NULL)
 		return (ERROR);
 	dup2(com->fd_in, STDIN_FILENO);
-	if (refresh_content_com(com, data) == ERROR)
+	if (refresh_name_com(com, data) == ERROR)
 		return (ERROR);
 	if (pipe_commands(com, data, pipe_fd, i++) == ERROR)
 		return (ERROR);
 	com = com->next;
 	while (com != NULL)
 	{
-		if (refresh_content_com(com, data) == ERROR)
+		if (refresh_name_com(com, data) == ERROR)
 			return (ERROR);
 		if (pipe_commands(com, data, pipe_fd, i++) == ERROR)
 			return (ERROR);

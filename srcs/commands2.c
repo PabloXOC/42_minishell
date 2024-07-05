@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   commands2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/04 21:03:24 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:06:03 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	check_if_builtin();
+
 int	find_command(t_data *data, t_command *full_com, char **env)
 {
 	char	*com;
 
-	if (refresh_content_com(data->command_list, data) == ERROR)
+	if (refresh_name_com(data->command_list, data) == ERROR)
 		return (ERROR);
 	com = full_com->content[0];
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
@@ -25,7 +27,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	{
 		if (full_com->content[1] == NULL)
 			print_export(data);
-		else if (export_var(data, full_com, &data->var) != SUCCESS)
+		else if (export_var(data, full_com, &data->var, 1) != SUCCESS)
 			return (MALLOC_ERROR);
 		return (SUCCESS);
 	}
@@ -36,6 +38,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	if (ft_strncmp(com, "exit", ft_strlen(com)) == 0)
 	{
 		data->exit = true;
+		exit_codes(EXIT_0, data);
 		return (SUCCESS);
 	}
 	return (INVALID_COMMAND);
@@ -47,7 +50,6 @@ int	save_pipelines(t_data *data, t_input_var *info)
 		return (0);
 	while (data->input_info->first_line_split[data->idx_com] != NULL)
 	{
-		ft_printf("SPPLIT: %s\n", data->input_info->first_line_split[data->idx_com]);
 		if (ft_there_is_equal(info->first_line_split[data->idx_com]) == true
 			&& ft_isspecial(info->first_line_split[data->idx_com]) == false
 			&& ft_starts_with_number(info->first_line_split[data->idx_com])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_save_input.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:02:00 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/01 11:51:28 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:48:40 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	ft_charcomp(const char *str1, const char *str2)
 	return (true);
 }
 
-static bool	ft_isalnum_bool(int c)
+bool	ft_isalnum_bool(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57))
 		return (true);

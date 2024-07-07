@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/05 11:36:50 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/07 09:27:16 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ static char	**create_new_char_pp(char **content, char **new_content,
 
 int	refresh_content_com(t_command *com, t_data *data, int i)
 {
-	if (refresh_mysignal_var(data) == MALLOC_ERROR)
-		return (ERROR);
 	while (com->content[i] != NULL)
 	{
 		if (com->content[i][0] != '$')
@@ -89,8 +87,6 @@ int	refresh_content_com(t_command *com, t_data *data, int i)
 
 int	refresh_name_com(t_command *com, t_data *data)
 {
-	if (refresh_mysignal_var(data) == MALLOC_ERROR)
-		return (ERROR);
 	if (com->content[0][0] != '$')
 	{
 		com->content[0] = expand_var(data, com->content[0]);
@@ -107,6 +103,7 @@ int	refresh_name_com(t_command *com, t_data *data)
 	com->full_path = find_command_path(data->env, com->content[0], 0, data);
 	if (data->fatal_error == true)
 		return (ERROR);
+	//print_char_pp(com->content);
 	return (SUCCESS);
 }
 
@@ -142,14 +139,17 @@ int	pipe_exec_coms(t_data *data, int i)
 int	exec_commands(t_data *data)
 {
 	int	list_len;
+	int	status;
 
 	list_len = ft_lstsize_com(data->command_list);
 	if (list_len == 1)
 	{
-		if (ft_command_args_errors(data->command_list->content, data) == true)
+		if (refresh_name_com(data->command_list, data) == ERROR)
+			return (ERROR);
+		status = find_command(data, data->command_list, data->env);
+		if (status > 0 && status != INVALID_COMMAND && data->fatal_error == false)
 			return (SUCCESS);
-		if (find_command(data, data->command_list, data->env) == INVALID_COMMAND
-			&& data->fatal_error == false)
+		if (status == INVALID_COMMAND && data->fatal_error == false)
 			return (pipe_exec_coms(data, 0));
 	}
 	if (list_len > 1)

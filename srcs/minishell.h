@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/05 11:38:38 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/07 09:56:21 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ typedef struct s_var		t_var;
 typedef enum e_cases
 {
 	SUCCESS,
-	FAILURE,
+	FAILURE = 10,
+	ERROR,
 	MALLOC_ERROR,
 	EMPTY,
 	INVALID_COMMAND,
@@ -139,6 +140,7 @@ typedef struct s_data
 	char		quote;
 	//errors
 	bool		fatal_error;
+	bool		write_error;
 }			t_data;
 
 typedef enum e_command_code
@@ -262,8 +264,9 @@ int			unset_var(t_data *data, t_command *full_com);
 int			save_export_el(t_data *data, char *var, char *cont);
 void		modify_export(t_data *data, char *var, char *new_cont);
 int			export_var(t_data *data, t_command *full_com, t_var **list, int i);
+int			export(t_data *data, t_command *full_com, t_var **list, int i);
 int			export_list(t_data *data);
-void		print_export(t_data *data);
+int			print_export(t_data *data);
 
 /*------ECHO------*/
 void		fill_new_var(t_data *d, char *str, int i, char *dst);
@@ -277,6 +280,8 @@ int			ft_count_sep_char(char *input);
 char		*ft_paste_char(char *output, char *added, int pos, int size);
 
 /*------CHECK IF VAR------*/
+bool		ft_charcomp(const char *str1, const char *str2);
+bool		ft_isalnum_bool(int c);
 bool		ft_isspecial(const char *str);
 bool		ft_starts_with_number(const char *str);
 bool		check_if_we_save_variables(t_data *data, t_input_var *info);

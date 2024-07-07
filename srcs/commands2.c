@@ -6,30 +6,43 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/05 12:06:03 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/07 09:56:42 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_if_builtin();
+bool	check_if_builtin(t_data *data, char *com)
+{
+	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0
+		|| ft_strncmp(com, "export", ft_strlen(com)) == 0
+		|| ft_strncmp(com, "unset", ft_strlen(com)) == 0
+		|| ft_strncmp(com, "env", ft_strlen(com)) == 0
+		|| ft_strncmp(com, "exit", ft_strlen(com)) == 0)
+	{
+		refresh_content_com(data->command_list, data, 1);
+		return (true);
+	}
+	return (false);
+}
 
 int	find_command(t_data *data, t_command *full_com, char **env)
 {
 	char	*com;
 
-	if (refresh_name_com(data->command_list, data) == ERROR)
-		return (ERROR);
+	if (check_if_builtin(data, full_com->content[0]) == false)
+		return (INVALID_COMMAND);
 	com = full_com->content[0];
+	if (ft_command_args_errors(data->command_list->content, data) == true)
+		return (ERROR);
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
 		return (change_dir(data, full_com));
 	if (ft_strncmp(com, "export", ft_strlen(com)) == 0)
 	{
 		if (full_com->content[1] == NULL)
-			print_export(data);
-		else if (export_var(data, full_com, &data->var, 1) != SUCCESS)
-			return (MALLOC_ERROR);
-		return (SUCCESS);
+			return (print_export(data));
+		else
+			return (export(data, full_com, &data->var, 1));
 	}
 	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
 		return (unset_var(data, full_com));
@@ -38,8 +51,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	if (ft_strncmp(com, "exit", ft_strlen(com)) == 0)
 	{
 		data->exit = true;
-		exit_codes(EXIT_0, data);
-		return (SUCCESS);
+		return (exit_codes(EXIT_0, data));
 	}
 	return (INVALID_COMMAND);
 }

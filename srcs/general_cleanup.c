@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:44:52 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 17:44:54 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:55:26 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	data_cleanup(t_data *data)
 	data->idx_com = 0;
 	data->size = 0;
 	data->pointer = 0;
+	data->write_error = false;
 }
 
 void	total_cleanup(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/05 12:07:11 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/07 09:57:43 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	exec(t_command *command, t_data *data)
 
 int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 {
+	int	status;
+
 	data->fork_id = fork();
 	if (father_process(pipe_fd, i, com, data) == MALLOC_ERROR)
 		return (ft_write_error_i(MALLOC_ERROR, data));
@@ -74,10 +76,11 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 		if (i == ft_lstsize_com(data->command_list) - 1 && com->fd_out < 2)
 			if (dup2(data->stdout_cpy, STDOUT_FILENO) == -1)
 				exit(ft_write_error_i(ERROR, data));
-		if (ft_command_args_errors(com->content, data) == true)
+		status = find_command(data, com, data->env);
+		if (status != ERROR && status != INVALID_COMMAND)
+			exit(status);
+		if (status == ERROR)
 			exit(return_builtin_exit_code(com->content));
-		if (find_command(data, com, data->env) == SUCCESS)
-			exit(0);
 		exec(com, data);
 	}
 	return (SUCCESS);

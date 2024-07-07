@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/02 18:06:56 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/06 13:58:17 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_open_infile(char *file, t_command *commands)
 	if (fd == -1)
 		return (ERROR);
 	commands->fd_in = fd;
-	return (OK);
+	return (SUCCESS);
 }
 
 int	ft_open_outfile(char *file, t_command *commands)
@@ -44,7 +44,7 @@ int	ft_open_outfile(char *file, t_command *commands)
 	if (fd == -1)
 		return (ERROR);
 	commands->fd_out = fd;
-	return (OK);
+	return (SUCCESS);
 }
 
 void	close_all_fds(t_command *command)

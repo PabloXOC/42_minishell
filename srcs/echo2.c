@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:45:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/04 18:25:02 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/07 08:48:04 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*expand_var(t_data *data, char *text)
 	data->iii = 0;
 	data->size = 0;
 	size = tot_size(data, text, 0);
+	//printf("size: %i\n", size);
 	data->iii = 0;
 	data->jjj = 0;
 	str = ft_fillout_var(data, size, text, 0);

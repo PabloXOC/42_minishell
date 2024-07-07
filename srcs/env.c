@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/05 11:28:34 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/07 09:23:02 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ int	print_env(t_data *data)
 		ft_printf("%s=%s\n", node->var, node->content);
 		node = node->next;
 	}
-	exit_codes(EXIT_0, data);
-	return (SUCCESS);
+	return (exit_codes(EXIT_0, data));
 }
 
 t_var	*safe_env(char **env)

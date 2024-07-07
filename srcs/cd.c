@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/05 11:24:44 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/07 09:08:31 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,28 @@
 
 void	modify_dir_env(t_data *data)
 {
-	if (data->dir != NULL)
+	if (getcwd(NULL, 500) != NULL)
 	{
-		modify_env(data, "OLDPWD", data->dir);
-		modify_export(data, "OLDPWD", data->dir);
-		free(data->dir);
+		if (data->dir != NULL)
+		{
+			modify_env(data, "OLDPWD", data->dir);
+			modify_export(data, "OLDPWD", data->dir);
+			free(data->dir);
+		}
+		data->dir = getcwd(NULL, 500);
+		modify_env(data, "PWD", data->dir);
+		modify_export(data, "PWD", data->dir);
 	}
-	data->dir = getcwd(NULL, 500);
-	modify_env(data, "PWD", data->dir);
-	modify_export(data, "PWD", data->dir);
+	else
+	{
+		ft_putstr_fd("cd: error retrieving current directory: ", 2);
+		ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
+		ft_putstr_fd("No such file or directory\n", 2);
+	}
 	return ;
 }
 
-void	home_dir(t_data *data, t_command *full_com)
+int	home_dir(t_data *data, t_command *full_com)
 {
 	char	*home_dir;
 
@@ -34,7 +43,7 @@ void	home_dir(t_data *data, t_command *full_com)
 	if (home_dir == NULL)
 	{
 		ft_putstr_fd("cd: HOME not set\n", 2);
-		exit_codes(EXIT_2, data);
+		return (exit_codes(EXIT_2, data));
 	}
 	else
 	{
@@ -44,7 +53,7 @@ void	home_dir(t_data *data, t_command *full_com)
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(home_dir, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
-			exit_codes(EXIT_2, data);
+			return (exit_codes(EXIT_2, data));
 		}
 		else
 		{
@@ -52,10 +61,10 @@ void	home_dir(t_data *data, t_command *full_com)
 			exit_codes(EXIT_0, data);
 		}
 	}
-	return ;
+	return (exit_codes(EXIT_0, data));
 }
 
-void	old_dir(t_data *data, t_command *full_com)
+int	old_dir(t_data *data, t_command *full_com)
 {
 	char	*old_dir;
 
@@ -63,7 +72,7 @@ void	old_dir(t_data *data, t_command *full_com)
 	if (old_dir == NULL)
 	{
 		ft_putstr_fd("cd: OLDPWD not set\n", 2);
-		exit_codes(EXIT_2, data);
+		return (exit_codes(EXIT_2, data));
 	}
 	else
 	{
@@ -73,7 +82,7 @@ void	old_dir(t_data *data, t_command *full_com)
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(old_dir, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
-			exit_codes(EXIT_2, data);
+			return (exit_codes(EXIT_2, data));
 		}
 		else
 		{
@@ -81,17 +90,17 @@ void	old_dir(t_data *data, t_command *full_com)
 			exit_codes(EXIT_0, data);
 		}
 	}
-	return ;
+	return (exit_codes(EXIT_0, data));
 }
 
 int	change_dir(t_data *data, t_command *full_com)
 {
-	char	*new_dir;
+	DIR	*new_dir;
 
 	if (full_com->content[1] == NULL)
-		home_dir(data, full_com);
+		return (home_dir(data, full_com));
 	else if (ft_strncmp(full_com->content[1], "-", 2) == 0)
-		old_dir(data, full_com);
+		return (old_dir(data, full_com));
 	else
 	{
 		if (chdir(full_com->content[1]) == -1)
@@ -100,7 +109,7 @@ int	change_dir(t_data *data, t_command *full_com)
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(full_com->content[1], 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
-			exit_codes(EXIT_2, data);
+			return (exit_codes(EXIT_2, data));
 		}
 		else
 		{
@@ -108,5 +117,5 @@ int	change_dir(t_data *data, t_command *full_com)
 			exit_codes(EXIT_0, data);
 		}
 	}
-	return (SUCCESS);
+	return (exit_codes(EXIT_0, data));
 }

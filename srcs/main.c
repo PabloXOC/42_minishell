@@ -6,7 +6,7 @@
 /*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/05 10:58:42 by farah            ###   ########.fr       */
+/*   Updated: 2024/07/07 08:49:09 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ int	minishell_2(t_data *data, t_input_var *info)
 	if (data->input_info->first_line_split == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	ft_reformat_slash(data, data->input_info);
+	//print_char_pp(info->first_line_split);
 	if (check_if_we_save_variables(data, data->input_info) == true)
 		save_variables(data, 0);
 	if (data->fatal_error == true)
 		return (MALLOC_ERROR);
 	if (save_pipelines(data, data->input_info) != NO_COMMANDS)
 	{
-		if (data->fatal_error == true)
+		if (data->fatal_error == true || data->write_error == true)
 			return (ERROR);
 		if (exec_commands(data) != SUCCESS)
 			return (FAILURE);
@@ -44,12 +45,14 @@ int	minishell(t_data *data)
 		if (recieve_complete_input(data) == SUCCESS && data->exit == false)
 		{
 			mini_2 = minishell_2(data, data->input_info);
-			if (mini_2 != SUCCESS)
-				return (mini_2);
+			/* if (mini_2 != SUCCESS)
+				return (mini_2); */
 		}
 		else if (data->input_info->invalid_token == true)
 			add_history(data->input_info->first_line);
 		data_cleanup(data);
+		if (refresh_mysignal_var(data) == MALLOC_ERROR)
+			return (exit_codes(EXIT_1, data));
 	}
 	rl_clear_history();
 	total_cleanup(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_com.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:51:57 by farah             #+#    #+#             */
-/*   Updated: 2024/07/03 17:45:51 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/07 09:05:52 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdbool.h>
-
-# define OK 0
-# define ERROR 1
-# define NO_INFILE 2
-# define NO_PERMISSIONS 3
 
 typedef struct s_command	t_command;
 

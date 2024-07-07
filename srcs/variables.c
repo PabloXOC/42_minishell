@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/04 18:24:21 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:53:07 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	save_variables(t_data *data, int i)
 		}
 		i++;
 	}
-	return (SUCCESS);
+	return (exit_codes(EXIT_0, data));
 }
 
 int	delete_head_var(t_var *vars, t_var *temp_var, t_var **list)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:28:55 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/03 17:43:04 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:51:29 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_write_error_i(t_cases case_code, t_data *data)
 	if (case_code == WRITE_ERROR)
 	{
 		exit_codes(EXIT_1, data);
-		data->fatal_error = true;
+		data->write_error = true;
 		return (WRITE_ERROR);
 	}
 	return (ext_write_error_i(case_code, data));

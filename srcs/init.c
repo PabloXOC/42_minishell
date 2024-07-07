@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/04 18:00:24 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:50:53 by farah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_data	*data_init(char **env)
 	data->var_export = NULL;
 	data->next_eof = NULL;
 	data->fatal_error = false;
+	data->write_error = false;
 	init_idx(data);
 	export_list(data);
 	return (data);

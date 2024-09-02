@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/03 13:32:54 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/09/01 15:15:35 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_varsclear(t_var **var)
 	}
 }
 
-int	safe_new_var(t_var **list, char **equality, t_data *data)
+int	save_new_var(t_var **list, char **equality, t_data *data)
 {
 	t_var	*temp_var;
 

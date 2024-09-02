@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/07 09:56:21 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/01 15:16:45 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,10 +219,10 @@ int			get_user(t_data *data, char **env);
 //int	get_hostname();
 int			ft_get_dir(t_data *data, char **env);
 int			refresh_terminal_entry(t_data *data);
-int			terminal_entry(t_data *data, char **env);
+int			terminal_entry_info(t_data *data, char **env);
 
 /*------VARIABLES------*/
-int			safe_existing_var(t_var **list, char **equality, t_data *data);
+int			save_existing_var(t_var **list, char **equality, t_data *data);
 int			save_var_info(t_data *data, char **equality, t_var **list);
 int			save_variables(t_data *data, int i);
 int			delete_head_var(t_var *vars, t_var *temp_var, t_var **list);
@@ -243,10 +243,10 @@ void		ft_varadd_back(t_var **var, t_var *new);
 void		ft_vardelone(t_var *var);
 void		ft_varsclear(t_var **var);
 void		print_vars(t_var *list);
-int			safe_new_var(t_var **list, char **equality, t_data *data);
+int			save_new_var(t_var **list, char **equality, t_data *data);
 
 /*------ENV------*/
-t_var		*safe_env(char **env);
+t_var		*save_env(char **env);
 int			print_env(t_data *data);
 void		modify_env(t_data *data, char *var, char *new_cont);
 char		*return_content_var(t_var *var_list, char *text);

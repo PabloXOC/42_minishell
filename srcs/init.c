@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/06 13:50:53 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/01 15:02:25 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_data	*data_init(char **env)
 	data->dir = NULL;
 	data->entry = NULL;
 	data->env = env;
-	data->env_lst = safe_env(env);
 	data->exit = false;
 	data->input_info = NULL;
 	data->command_list = NULL;
@@ -72,6 +71,7 @@ t_data	*data_init(char **env)
 	data->next_eof = NULL;
 	data->fatal_error = false;
 	data->write_error = false;
+	data->env_lst = save_env(env);
 	init_idx(data);
 	export_list(data);
 	return (data);

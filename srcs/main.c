@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/07 08:49:09 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/02 11:57:26 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **env)
 		return (EXIT_1);
 	if (signal_handle() == FAILURE)
 		return (exit_codes_main(EXIT_1, data));
-	if (terminal_entry(data, env) == MALLOC_ERROR)
+	if (terminal_entry_info(data, env) == MALLOC_ERROR)
 		return (exit_codes_main(EXIT_1, data));
 	if (create_preset_vars(data) == MALLOC_ERROR)
 		return (exit_codes_main(EXIT_1, data));

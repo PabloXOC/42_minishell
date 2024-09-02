@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/06 16:53:07 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/01 15:16:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	safe_existing_var(t_var **list, char **equality, t_data *data)
+int	save_existing_var(t_var **list, char **equality, t_data *data)
 {
 	t_var	*temp_var;
 
@@ -39,8 +39,8 @@ int	save_var_info(t_data *data, char **equality, t_var **list)
 
 	if (*list != NULL)
 	{
-		if (safe_existing_var(list, equality, data) == FAILURE)
-			return (safe_new_var(list, equality, data));
+		if (save_existing_var(list, equality, data) == FAILURE)
+			return (save_new_var(list, equality, data));
 	}
 	if (*list == NULL)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/07 09:23:02 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/01 14:59:01 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	print_env(t_data *data)
 	return (exit_codes(EXIT_0, data));
 }
 
-t_var	*safe_env(char **env)
+t_var	*save_env(char **env)
 {
 	int		i;
 	t_var	*head;

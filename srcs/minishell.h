@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/02 12:51:23 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/03 19:09:09 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,14 @@ typedef struct s_data
 	char		*dir;
 	char		*entry;
 	char		**env;
-	t_var		*env_lst;
+	t_var		*env_lst; //ADD THIS
 
 	int			paired; //to deal with '' ""
 	bool		exit; //if command == exit
 	bool		control_d;
 	int			input_index; //until where have we read the input
-	t_input_var	*input_info;
-	t_command	*command_list; //list of the commands in the input + command info
+	t_input_var	*input_info; //ADD THIS
+	t_command	*command_list; //list of the commands in the input + command info //ADD THIS
 	int			stdin_cpy;
 	int			stdout_cpy;
 	char		*next_eof;

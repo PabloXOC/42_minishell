@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/02 11:57:26 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/02 12:52:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	minishell(t_data *data)
 			/* if (mini_2 != SUCCESS)
 				return (mini_2); */
 		}
-		else if (data->input_info->invalid_token == true)
+		else if (data->input_info->invalid_token == true
+			|| data->input_info->incomplete_input == true)
 			add_history(data->input_info->first_line);
 		data_cleanup(data);
 		if (refresh_mysignal_var(data) == MALLOC_ERROR)

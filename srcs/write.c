@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:28:55 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/06 13:51:29 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/02 12:52:48 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ int	ext_write_error_i(t_cases case_code, t_data *data)
 		exit_codes(EXIT_1, data);
 		data->fatal_error = true;
 		return (ERROR);
+	}
+	if (case_code == INCOMPLETE_INPUT)
+	{
+		exit_codes(EXIT_8, data);
+		data->input_info->incomplete_input = true;
+		ft_printf("msh: syntax error: open quotes\n");
+		return (INCOMPLETE_INPUT);
 	}
 	return (SUCCESS);
 }

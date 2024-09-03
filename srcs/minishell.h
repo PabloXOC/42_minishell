@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/01 15:16:45 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/02 12:51:23 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef enum e_cases
 	WRITE_ERROR,
 	CONTROL_D,
 	NO_COMMANDS,
+	INCOMPLETE_INPUT,
 }		t_cases;
 
 typedef struct s_var
@@ -100,6 +101,7 @@ typedef struct s_input_var
 	char		**text_input; //    text of  < or <<
 	bool		*real_eof;
 	bool		invalid_token;
+	bool		incomplete_input;
 }				t_input_var;
 
 typedef struct s_data
@@ -159,6 +161,7 @@ typedef enum e_exit_code
 	EXIT_0 = 0,
 	EXIT_1 = 1,
 	EXIT_2 = 2,
+	EXIT_8 = 8,
 	EXIT_126 = 126,
 	EXIT_127 = 127,
 	EXIT_128 = 128,

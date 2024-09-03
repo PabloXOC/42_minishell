@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:45:40 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/01 15:31:08 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/02 12:56:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,19 @@ int	first_line_complete(char *input, t_data *data, int d_q, int s_q)
 	i = -1;
 	while (input[++i] != 0)
 	{
+		if (input[i] == '\n')
+			break ;
 		if (input[i] == '\\' && (input[i + 1] == '\'' || input[i + 1] == '\"'))
 			i++;
 		else if (input[i] == '\'' && d_q % 2 == 0)
 			s_q++;
 		else if (input[i] == '\"' && s_q % 2 == 0)
 			d_q++;
-		if (d_q % 2 == 0 && s_q % 2 == 0 && input[i] == '\n')
-		{
-			if (found_end_first_line(data, i, input) == MALLOC_ERROR)
-				return (MALLOC_ERROR);
-			return (SUCCESS);
-		}
+	}
+	if (s_q % 2 != 0 || d_q % 2 != 0)
+	{
+		found_end_first_line(data, i, data->input_info->init_input);
+		return (ft_write_error_i(INCOMPLETE_INPUT, data));
 	}
 	return (first_line_complete_2(data, i, d_q, s_q));
 }

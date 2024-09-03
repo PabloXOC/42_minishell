@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reformat.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/04 21:04:45 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:36:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_ifs(char *input, char *output, int i, int j)
 		ft_paste_char(output, " | ", i, 3);
 }
 
-static char	*ft_skip_quote_2(char *input, char *output, t_data *d)
+/* static char	*ft_skip_quote_2(char *input, char *output, t_data *d)
 {
 	output[d->i] = input[d->j];
 	d->i++;
@@ -55,6 +55,49 @@ static char	*ft_skip_quote(char *input, char *output, t_data *d)
 	}
 	else if ((d->j > 0 || input[d->j] != '\"') && input[d->j] == '\"')
 		output = ft_skip_quote_2(input, output, d);
+	return (output);
+} */
+
+static char	*ft_skip_quote_2(char *input, char *output, t_data *d)
+{
+	output[d->i] = input[d->j];
+	d->i++;
+	d->j++;
+	while ((d->j > 0 || input[d->j] != '\"') && input[d->j] != '\"')
+	{
+		output[d->i++] = input[d->j++];
+		while (input[d->j - 1] != '\\' && input[d->j] != '\'')
+			output[d->i++] = input[d->j++];
+		output[d->i] = input[d->j];
+	}
+	while ((d->j > 0 || input[d->j] != '\"') && input[d->j] != '\"')
+	{
+		output[d->i++] = input[d->j++];
+		while (input[d->j - 1] != '\\' && input[d->j] != '\'')
+			output[d->i++] = input[d->j++];
+		output[d->i] = input[d->j];
+	}
+	return (output);
+}
+
+static char	*ft_skip_quote(char *input, char *output, t_data *d)
+{
+	if ((d->j == 0 || input[d->j - 1] != '\\') && input[d->j] == '\'')
+	{
+		output[d->i++] = input[d->j++];
+		while (input[d->j] != '\'' ||
+			(input[d->j] == '\'' && input[d->j - 1] == '\\'))
+			output[d->i++] = input[d->j++];
+		output[d->i] = input[d->j];
+	}
+	if ((d->j == 0 || input[d->j - 1] != '\\') && input[d->j] == '\"')
+	{
+		output[d->i++] = input[d->j++];
+		while (input[d->j] != '\"' ||
+			(input[d->j] == '\"' && input[d->j - 1] == '\\'))
+			output[d->i++] = input[d->j++];
+		output[d->i] = input[d->j];
+	}
 	return (output);
 }
 

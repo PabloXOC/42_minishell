@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/01 15:02:25 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/02 12:51:54 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	init_input_struct(t_data *data)
 	data->input_info->first_line_and_final_text = NULL;
 	data->input_info->n_eof = 0;
 	data->input_info->invalid_token = false;
+	data->input_info->incomplete_input = false;
 	data->input_info->text_input = NULL;
 	return (SUCCESS);
 }

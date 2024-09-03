@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/06 14:21:43 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/02 12:50:13 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	recieve_complete_input_2(t_data *data)
 int	recieve_complete_input(t_data *data)
 {
 	t_input_var	*info;
+	int			ret;
 
 	if (init_input_struct(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
@@ -75,12 +76,17 @@ int	recieve_complete_input(t_data *data)
 		return (EMPTY);
 	data->control_d = false;
 	//g_exit_status = 0;
-	while (first_line_complete(info->init_input, data, 0, 0) == FAILURE
+	ret = first_line_complete(info->init_input, data, 0, 0);
+	if (ret != SUCCESS)
+		return (ret);
+	/* if (first_line_complete(info->init_input, data, 0, 0) == SUCCESS
 		&& data->control_d == false)
 	{
 		if (ft_ask_user_for_more_input(data) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
 	}
+	else
+		return (INCOMPLETE_INPUT); */
 	if (data->input_info->first_line == NULL)
 		return (MALLOC_ERROR);
 	info->first_line_ref = ft_reformat_input(info->first_line, data);

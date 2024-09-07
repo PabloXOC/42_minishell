@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:44:52 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/06 13:55:26 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/07 12:48:39 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,36 @@ void	delete_commands(t_data *data)
 	close_all_fds(data->command_list);
 	ft_lstclear_com(&data->command_list, &ft_free_char_pp);
 	data->command_list = NULL;
-	data->idx_com = 0;
+	data->v->idx_com = 0;
 }
 
 void	ft_free_input_info(t_data *data)
 {
-	if (data->input_info != NULL)
+	if (data->input_info_g != NULL)
 	{
-		if (data->input_info->final_text != NULL)
-			free(data->input_info->final_text);
-		if (data->input_info->first_line != NULL)
-			free(data->input_info->first_line);
-		if (data->input_info->first_line_and_final_text != NULL)
-			free(data->input_info->first_line_and_final_text);
-		if (data->input_info->first_line_ref != NULL)
-			free(data->input_info->first_line_ref);
-		if (data->input_info->first_line_split != NULL)
-			ft_free_char_pp(data->input_info->first_line_split);
-		if (data->input_info->init_input != NULL)
-			free(data->input_info->init_input);
-		if (data->input_info->init_input_split != NULL)
-			free(data->input_info->init_input_split);
-		if (data->input_info->list_eof != NULL)
-			ft_free_char_pp(data->input_info->list_eof);
-		if (data->input_info->terminal_input != NULL)
-			free(data->input_info->terminal_input);
-		if (data->input_info->text_input != NULL)
-			ft_free_char_pp(data->input_info->text_input);
-		free(data->input_info);
+		if (data->input_info_g->final_text != NULL)
+			free(data->input_info_g->final_text);
+		if (data->input_info_g->first_line != NULL)
+			free(data->input_info_g->first_line);
+		if (data->input_info_g->first_line_and_final_text != NULL)
+			free(data->input_info_g->first_line_and_final_text);
+		if (data->input_info_g->first_line_ref != NULL)
+			free(data->input_info_g->first_line_ref);
+		if (data->input_info_g->first_line_split != NULL)
+			ft_free_char_pp(data->input_info_g->first_line_split);
+		if (data->input_info_g->init_input != NULL)
+			free(data->input_info_g->init_input);
+		if (data->input_info_g->init_input_split != NULL)
+			free(data->input_info_g->init_input_split);
+		if (data->input_info_g->list_eof != NULL)
+			ft_free_char_pp(data->input_info_g->list_eof);
+		if (data->input_info_g->terminal_input != NULL)
+			free(data->input_info_g->terminal_input);
+		if (data->input_info_g->text_input != NULL)
+			ft_free_char_pp(data->input_info_g->text_input);
+		free(data->input_info_g);
 	}
-	data->input_info = NULL;
+	data->input_info_g = NULL;
 }
 
 void	data_cleanup(t_data *data)
@@ -54,22 +54,19 @@ void	data_cleanup(t_data *data)
 	delete_commands(data);
 	ft_free_input_info(data);
 	data->command_list = NULL;
-	if (data->next_eof != NULL)
-		free(data->next_eof);
-	data->next_eof = NULL;
-	data->input_index = 0;
-	data->stdin_cpy = 0;
-	data->stdout_cpy = 0;
-	data->i = 0;
-	data->i_ter = 0;
-	data->j = -1;
-	data->k = 0;
-	data->ii = 0;
-	data->kk = 1;
-	data->idx_com = 0;
-	data->size = 0;
-	data->pointer = 0;
-	data->write_error = false;
+	data->v->input_index = 0;
+	data->v->stdin_cpy = 0;
+	data->v->stdout_cpy = 0;
+	data->v->i = 0;
+	data->v->i_ter = 0;
+	data->v->j = -1;
+	data->v->k = 0;
+	data->v->ii = 0;
+	data->v->kk = 1;
+	data->v->idx_com = 0;
+	data->v->size = 0;
+	data->v->pointer = 0;
+	data->v->write_error = false;
 }
 
 void	total_cleanup(t_data *data)
@@ -87,8 +84,6 @@ void	total_cleanup(t_data *data)
 			free(data->dir);
 		if (data->entry != NULL)
 			free(data->entry);
-		if (data->next_eof != NULL)
-			free(data->next_eof);
 		free(data);
 	}
 }

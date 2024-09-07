@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:45:40 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/02 12:56:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/04 19:40:49 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*init_terminal_input(t_data *data, char *input, int i)
 	size = ft_strlen(&input[i]);
 	terminal_input = (char *) malloc ((size + 1) * sizeof(char));
 	if (terminal_input == NULL)
-		return (ft_write_error_c(MALLOC_ERROR, data));
+		return (ft_write_error_c(MALLOC_ERROR, data, NULL));
 	j = 0;
 	while (input[i] != 0)
 	{
@@ -37,7 +37,7 @@ int	first_line_complete_2(t_data *data, int i, int d_q, int s_q)
 {
 	char	*input;
 
-	input = data->input_info->init_input;
+	input = data->input_info_g->init_input;
 	if (d_q % 2 == 0 && s_q % 2 == 0)
 	{
 		if (found_end_first_line(data, i, input) == MALLOC_ERROR)
@@ -45,9 +45,9 @@ int	first_line_complete_2(t_data *data, int i, int d_q, int s_q)
 		return (SUCCESS);
 	}
 	else if (d_q % 2 == 0)
-		data->quote = '\'';
+		data->v->quote = '\'';
 	else
-		data->quote = '\"';
+		data->v->quote = '\"';
 	return (FAILURE);
 }
 
@@ -69,7 +69,7 @@ int	first_line_complete(char *input, t_data *data, int d_q, int s_q)
 	}
 	if (s_q % 2 != 0 || d_q % 2 != 0)
 	{
-		found_end_first_line(data, i, data->input_info->init_input);
+		found_end_first_line(data, i, data->input_info_g->init_input);
 		return (ft_write_error_i(INCOMPLETE_INPUT, data));
 	}
 	return (first_line_complete_2(data, i, d_q, s_q));
@@ -105,23 +105,23 @@ int	ft_eofsize_total(t_data *data, int i, int j)
 {
 	bool	found;
 
-	while (data->input_info->list_eof[j] != 0)
+	while (data->input_info_g->list_eof[j] != 0)
 	{
 		found = false;
 		while (found == false)
 		{
-			if (data->input_info->terminal_input[i] == '\n')
+			if (data->input_info_g->terminal_input[i] == '\n')
 				i++;
-			if (ft_compare_eof(&data->input_info->terminal_input[i],
-					data->input_info->list_eof[j], data))
+			if (ft_compare_eof(&data->input_info_g->terminal_input[i],
+					data->input_info_g->list_eof[j], data))
 			{
 				found = true;
-				i += ft_strlen(data->input_info->list_eof[j]);
+				i += ft_strlen(data->input_info_g->list_eof[j]);
 			}
-			else if (data->input_info->terminal_input[i] != '\n')
+			else if (data->input_info_g->terminal_input[i] != '\n')
 			{
 				i++;
-				while (data->input_info->terminal_input[i] != '\n')
+				while (data->input_info_g->terminal_input[i] != '\n')
 					i++;
 			}
 		}

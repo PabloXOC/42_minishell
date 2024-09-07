@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:27:40 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/06 13:41:38 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/04 16:25:45 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	create_temp_file(t_command *com, t_data *data)
 	return (SUCCESS);
 }
 
-static int	fill_input_info(t_data *data, int i, t_command *com)
+static int	fill_input_info(t_data *data, t_input_var *info, int i, t_command *com)
 {
-	if (ft_strncmp(data->input_info->first_line_split[i], "<<", 2) == 0)
+	if (ft_strncmp(info->first_line_split[i], "<<", 2) == 0)
 	{
 		ft_infiles_cleanup(com);
-		com->text_input = data->input_info->text_input[data->pointer++];
+		com->text_input = info->text_input[data->v->pointer++];
 		com->file_input = false;
 		if (com->file_input == false && com->text_input != NULL)
 		{
@@ -43,10 +43,10 @@ static int	fill_input_info(t_data *data, int i, t_command *com)
 		}
 		return (SUCCESS);
 	}
-	else if (ft_strncmp(data->input_info->first_line_split[i], "<", 1) == 0)
+	else if (ft_strncmp(info->first_line_split[i], "<", 1) == 0)
 	{
 		ft_infiles_cleanup(com);
-		com->redirect_input = data->input_info->first_line_split[++i];
+		com->redirect_input = info->first_line_split[++i];
 		com->file_input = true;
 		if (com->redirect_input != NULL)
 			if (ft_infile_perm(com->redirect_input, com, data) != SUCCESS)
@@ -56,11 +56,11 @@ static int	fill_input_info(t_data *data, int i, t_command *com)
 	return (ERROR);
 }
 
-static int	fill_output_info(t_data *data, int i, t_command *com)
+static int	fill_output_info(t_data *data, t_input_var *info, int i, t_command *com)
 {
-	if (ft_strncmp(data->input_info->first_line_split[i], ">>", 2) == 0)
+	if (ft_strncmp(info->first_line_split[i], ">>", 2) == 0)
 	{
-		com->redirect_output = data->input_info->first_line_split[++i];
+		com->redirect_output = info->first_line_split[++i];
 		com->append_output = true;
 		if (com->fd_out > 2)
 			close(com->fd_out);
@@ -69,9 +69,9 @@ static int	fill_output_info(t_data *data, int i, t_command *com)
 				return (WRITE_ERROR);
 		return (SUCCESS);
 	}
-	else if (ft_strncmp(data->input_info->first_line_split[i], ">", 1) == 0)
+	else if (ft_strncmp(info->first_line_split[i], ">", 1) == 0)
 	{
-		com->redirect_output = data->input_info->first_line_split[++i];
+		com->redirect_output = info->first_line_split[++i];
 		com->append_output = false;
 		if (com->fd_out > 2)
 			close(com->fd_out);
@@ -83,14 +83,14 @@ static int	fill_output_info(t_data *data, int i, t_command *com)
 	return (ERROR);
 }
 
-int	fill_extra_info(t_data *data, int i, t_command *com)
+int	fill_extra_info(t_data *data, t_input_var *info, int i, t_command *com)
 {
-	if (fill_input_info(data, i, com) != ERROR)
+	if (fill_input_info(data, info, i, com) != ERROR)
 	{
 		i++;
 		return (SUCCESS);
 	}
-	else if (fill_output_info(data, i, com) != ERROR)
+	else if (fill_output_info(data, info, i, com) != ERROR)
 	{
 		i++;
 		return (SUCCESS);

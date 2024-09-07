@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_save_input.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:02:00 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/06 14:48:40 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/04 15:25:19 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,22 @@ bool	check_if_we_save_variables(t_data *data, t_input_var *info)
 	int	i;
 
 	i = 0;
-	while (data->input_info->first_line_split[i] != 0)
+	while (info->first_line_split[i] != 0)
 	{
-		if (ft_charcomp(data->input_info->first_line_split[i], ">") == true
-			|| ft_charcomp(data->input_info->first_line_split[i], "<") == true
-			|| ft_charcomp(data->input_info->first_line_split[i], ">>") == true
-			|| ft_charcomp(data->input_info->first_line_split[i], "<<") == true)
+		if (ft_charcomp(info->first_line_split[i], ">") == true
+			|| ft_charcomp(info->first_line_split[i], "<") == true
+			|| ft_charcomp(info->first_line_split[i], ">>") == true
+			|| ft_charcomp(info->first_line_split[i], "<<") == true)
 			i++;
 		else if (ft_charcomp(info->first_line_split[i], "|") == true)
 			return (false);
 		else if (ft_there_is_equal(info->first_line_split[i]) == false)
 			return (false);
-		else if (ft_isspecial(data->input_info->first_line_split[i]) == true)
+		else if (ft_isspecial(info->first_line_split[i]) == true)
 			return (false);
 		else if (ft_starts_with_number(info->first_line_split[i]) == true)
 			return (false);
-		if (data->input_info->first_line_split[i] != 0)
+		if (info->first_line_split[i] != 0)
 			i++;
 	}
 	return (true);

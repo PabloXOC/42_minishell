@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_aid2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/02 18:56:56 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/04 19:38:16 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_create_file_name(t_data *data)
 	{
 		number = ft_itoa(n);
 		if (number == NULL)
-			return (ft_write_error_c(MALLOC_ERROR, data));
+			return (ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
 		if (ft_file_exists(number) == ERROR)
 			return (number);
 		n++;
@@ -39,7 +39,7 @@ int	**open_pipes(t_data *data)
 	len_com = ft_lstsize_com(data->command_list);
 	pipe_fd = (int **) malloc (len_com * sizeof(int *));
 	if (pipe_fd == NULL)
-		return ((int **) ft_write_error_c(MALLOC_ERROR, data));
+		return ((int **) ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
 	i = 0;
 	while (i < len_com)
 	{
@@ -47,7 +47,7 @@ int	**open_pipes(t_data *data)
 		if (pipe(pipe_fd[i]) == -1)
 		{
 			perror("Pipe failure");
-			return ((int **) ft_write_error_c(ERROR, data));
+			return ((int **) ft_write_error_c(ERROR, data, data->specific[data->sc_pos]));
 		}
 		i++;
 	}

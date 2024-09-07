@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_command_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:33:45 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/07/03 12:57:48 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:38:23 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_command_path(char **envp, char *command, int i, t_data *data)
 		{
 			temp_path = ft_strtrim(envp[i], "PATH=");
 			if (temp_path == NULL)
-				return (ft_write_error_c(MALLOC_ERROR, data));
+				return (ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
 			available_paths = ft_split(temp_path, ':');
 			free(temp_path);
 			temp_path = ft_return_accessible_path(available_paths, command);

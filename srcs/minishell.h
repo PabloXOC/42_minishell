@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/03 19:09:09 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/07 15:06:05 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@
 # define BC    "\033[1;36m"      /* Bold Cyan */
 # define BW   "\033[1;37m"      /* Bold White */
 
-typedef enum e_cases		t_cases;
-typedef struct s_var		t_var;
+typedef enum e_cases t_cases;
+typedef struct s_var t_var;
+typedef struct s_data t_data;
+typedef struct s_specific t_specific;
+typedef struct s_intervar t_intervar;
 
 typedef enum e_cases
 {
@@ -102,7 +105,60 @@ typedef struct s_input_var
 	bool		*real_eof;
 	bool		invalid_token;
 	bool		incomplete_input;
+	t_specific *spec;
 }				t_input_var;
+
+typedef struct s_specific
+{
+	//bool		control_d;
+	t_input_var	*input_info;
+/* 	int			stdin_cpy;
+	int			stdout_cpy; */
+	char		*next_eof;
+/* 	int			i;
+	int			i_ter;
+	int			j;
+	int			k;
+	int			ii;
+	int			kk;
+	int			iii;
+	int			jjj;
+	int			size_var;
+	
+	int			kkk;
+	int			idx_com;
+	int			size;
+	int			pointer; */
+	int			jj;
+	
+	t_data		*data;
+}				t_specific;
+
+typedef struct s_intervar
+{
+	int			stdin_cpy;
+	int			stdout_cpy;
+	int			i;
+	int			i_ter;
+	int			j;
+	int			k;
+	int			ii;
+	int			kk;
+	int			iii;
+	int			jjj;
+	int			size_var;
+	int			jj;
+	int			kkk;
+	int			idx_com;
+	int			size;
+	int			pointer;
+	int			input_index;
+	char		quote;
+	pid_t		fork_id;
+	t_data		*data;
+	bool		write_error;
+}				t_intervar;
+
 
 typedef struct s_data
 {
@@ -112,38 +168,19 @@ typedef struct s_data
 	char		**env;
 	t_var		*env_lst; //ADD THIS
 
-	int			paired; //to deal with '' ""
-	bool		exit; //if command == exit
-	bool		control_d;
-	int			input_index; //until where have we read the input
-	t_input_var	*input_info; //ADD THIS
-	t_command	*command_list; //list of the commands in the input + command info //ADD THIS
-	int			stdin_cpy;
-	int			stdout_cpy;
-	char		*next_eof;
-	t_var		*var; //list of all variables
-	t_var		*var_export; //list of all export variables
-	int			i;
-	int			i_ter;
-	int			j;
-	int			k;
-	int			ii;
+	t_specific **specific;
+	int			n_semicolons;
+	bool		exit;
+	bool		control_d_g;
+	t_input_var	*input_info_g; //ADD THIS
+	t_command	*command_list;
+	t_var		*var;
+	t_var		*var_export;
 	int			kk;
-
-	int			iii;
-	int			jjj;
-	int			size_var;
-	int			jj;
-	int			kkk;
-	int			idx_com;
-	int			size;
-	int			pointer;
-	pid_t		fork_id;
-	char		quote;
-	//errors
 	bool		fatal_error;
-	bool		write_error;
-}			t_data;
+	int			sc_pos;
+	t_intervar	*v;
+}				t_data;
 
 typedef enum e_command_code
 {
@@ -154,7 +191,7 @@ typedef enum e_command_code
 	UNSET,
 	ENV,
 	EXIT
-}			t_command_code;
+}	t_command_code;
 
 typedef enum e_exit_code
 {
@@ -192,30 +229,29 @@ char		*ft_join_input(char *s1, char *s2);
 int			ft_eofsize_total(t_data *data, int i, int j);
 void		ft_save_until_eof_2(t_data *data, int k, int len, int i);
 int			ft_save_until_eof(t_data *data);
-int			ft_len_to_eof(t_data *data, t_input_var *input_info, int i, int k);
+int			ft_len_to_eof(t_data *data, int i, int k);
 int			ft_ask_user_for_more_input(t_data *data);
-int			ft_combine_fl_ft(t_data *data, t_input_var *info, int i);
-int			found_end_first_line(t_data *data, int i, char *input);
+int			ft_combine_fl_ft(t_data *data, int i);
 
 /*------TERMINAL_INPUT------*/
 int			ft_terminal_input(t_data *data, int n_single_q, int n_double_q);
 
 /*------TERMINAL_INPUT_UTILS------*/
-int			ft_eofsize(char *str, int i, bool single_q, bool double_q);
+int			ft_eofsize(char *str, int i, bool single_q, bool dwrite_in_commandouble_q);
 char		*ft_write_eof(char *str, char *eof, int size, int i);
 char		*ft_find_eof(char *str, int i, t_data *data);
 bool		ft_compare_eof(char *str, char *eof, t_data *data);
-int			ft_control_d_heredoc(t_data *data, t_input_var *info, int i);
+int			ft_control_d_heredoc(t_data *data, t_input_var *info_g, int i);
 
 /*------COMMANDS------*/
 int			find_command(t_data *data, t_command *com, char **env);
-int			write_in_command(t_data *data, t_input_var *info);
-int			save_pipelines(t_data *data, t_input_var *info);
+int			write_in_command(t_data *data, t_specific *spec, t_input_var *info);
+int			save_pipelines(t_data *data, t_input_var *info, t_specific *spec);
 void		print_commands(t_data *data);
 
 /*------WRITE------*/
 int			ft_write_error_i(t_cases case_code, t_data *data);
-char		*ft_write_error_c(t_cases case_code, t_data *data);
+char		*ft_write_error_c(t_cases case_code, t_data *data, t_specific *spec);
 
 /*------TERMINAL------*/
 int			get_user(t_data *data, char **env);
@@ -227,7 +263,7 @@ int			terminal_entry_info(t_data *data, char **env);
 /*------VARIABLES------*/
 int			save_existing_var(t_var **list, char **equality, t_data *data);
 int			save_var_info(t_data *data, char **equality, t_var **list);
-int			save_variables(t_data *data, int i);
+int			save_variables(t_data *data, t_input_var *info, int i);
 int			delete_head_var(t_var *vars, t_var *temp_var, t_var **list);
 int			delete_middle_var(t_var *vars, t_var *temp_var);
 int			delete_var(t_data *data, char *var_to_del, t_var **list);
@@ -354,16 +390,21 @@ bool		ft_compare_eof_ind(char *str, char *eof, t_data *data);
 /*------SIGNALS------*/
 int			signal_handle(void);
 int			ft_control_d(t_data *data);
-int			minishell(t_data *data);
+int			minishell(t_data *data, int i);
 
 /*------FILES------*/
 int			create_temp_file(t_command *com, t_data *data);
-int			fill_extra_info(t_data *data, int i, t_command *com);
+int			fill_extra_info(t_data *data, t_input_var *info, int i, t_command *com);
 
 /*------EXIT CODES------*/
 int			exit_codes(int exit_code, t_data *data);
 int			exit_codes_main(int exit_code, t_data *data);
 
 int			ft_reformat_slash(t_data *data, t_input_var *info);
+
+/*------SEMICOLON_BREAK------*/
+int ft_break_semicolons(t_data *data, int i);
+int ft_split_semicolon(t_data *data);
+void	ft_reset_vars(t_data *data);
 
 #endif

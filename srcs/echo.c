@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:44:41 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/03 17:44:44 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:24:41 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ static void	len_new_var(t_data *data, char *str, int i)
 	{
 		if (ft_strncmp(&str[i], var->var, len_old) == 0)
 		{
-			data->iii += len_old;
-			data->size_var += ft_strlen(var->content);
+			data->v->iii += len_old;
+			data->v->size_var += ft_strlen(var->content);
 			return ;
 		}
 		var = var->next;
 	}
-	data->iii += len_old;
+	data->v->iii += len_old;
 }
 
 void	fill_new_var(t_data *d, char *str, int i, char *dst)
@@ -66,35 +66,35 @@ void	fill_new_var(t_data *d, char *str, int i, char *dst)
 	{
 		if (ft_strncmp(&str[i], var->var, len_old) == 0)
 		{
-			d->iii += len_old;
-			d->jjj += ft_strlen(var->content);
+			d->v->iii += len_old;
+			d->v->jjj += ft_strlen(var->content);
 			ft_memcpy(dst, var->content, ft_strlen(var->content));
 			return ;
 		}
 		var = var->next;
 	}
-	d->iii += len_old;
+	d->v->iii += len_old;
 }
 
 int	tot_size(t_data *d, char *str, int single_q)
 {
-	while (str[d->iii] != 0)
+	while (str[d->v->iii] != 0)
 	{
-		if (str[d->iii] == '\'')
+		if (str[d->v->iii] == '\'')
 			single_q++;
-		else if (str[d->iii] == '\"' && single_q % 2 == 0)
+		else if (str[d->v->iii] == '\"' && single_q % 2 == 0)
 			;
-		else if (str[d->iii] == '$' && single_q % 2 == 0
-			&& str[d->iii + 1] != ' ' && str[d->iii + 1] != 0)
+		else if (str[d->v->iii] == '$' && single_q % 2 == 0
+			&& str[d->v->iii + 1] != ' ' && str[d->v->iii + 1] != 0)
 		{
-			if (str[d->iii + 1] >= '0' && str[d->iii + 1] <= '9')
-				d->iii++;
+			if (str[d->v->iii + 1] >= '0' && str[d->v->iii + 1] <= '9')
+				d->v->iii++;
 			else
-				len_new_var(d, str, d->iii + 1);
+				len_new_var(d, str, d->v->iii + 1);
 		}
 		else
-			d->size_var++;
-		d->iii++;
+			d->v->size_var++;
+		d->v->iii++;
 	}
-	return (d->size_var);
+	return (d->v->size_var);
 }

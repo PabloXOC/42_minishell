@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/02 12:51:54 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/07 12:45:46 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,25 @@ int	export_list(t_data *data)
 	return (SUCCESS);
 }
 
-static void	init_idx(t_data *data)
+void	ft_reset_vars(t_data *data)
 {
-	data->input_index = 0;
-	data->i = 0;
-	data->i_ter = 0;
-	data->j = -1;
-	data->k = 0;
-	data->ii = 0;
-	data->kk = 1;
-	data->idx_com = 0;
-	data->size = 0;
-	data->pointer = 0;
+	data->v->input_index = 0;
+	data->v->i = 0;
+	data->v->i_ter = 0;
+	data->v->j = -1;
+	data->v->k = 0;
+	data->v->ii = 0;
+	data->v->kk = 1;
+	data->v->idx_com = 0;
+	data->v->size = 0;
+	data->v->pointer = 0;
+	data->v->stdin_cpy = 0;
+	data->v->stdout_cpy = 0;
+	data->v->stdin_cpy = STDIN_FILENO;
+	data->v->stdout_cpy = STDOUT_FILENO;
+	data->v->fork_id = 0;
+	data->v->quote = 0;
+	data->v->write_error = false;
 }
 
 t_data	*data_init(char **env)
@@ -56,46 +63,49 @@ t_data	*data_init(char **env)
 
 	data = (t_data *) malloc (sizeof (t_data));
 	if (data == NULL)
-		return ((t_data *) ft_write_error_c(MALLOC_ERROR, data));
+		return ((t_data *) ft_write_error_c(MALLOC_ERROR, data, NULL));
 	data->user = NULL;
 	data->dir = NULL;
 	data->entry = NULL;
 	data->env = env;
 	data->exit = false;
-	data->input_info = NULL;
 	data->command_list = NULL;
-	data->stdin_cpy = 0;
-	data->stdout_cpy = 0;
+	
 	data->var = NULL;
 	data->var_export = NULL;
-	data->next_eof = NULL;
+	//data->next_eof = NULL;
 	data->fatal_error = false;
-	data->write_error = false;
+	//data->write_error = false;
 	data->env_lst = save_env(env);
-	init_idx(data);
+	data->v = NULL;
+	data->v = (t_intervar *) malloc (sizeof (t_intervar));
+	if (data->v == NULL)
+		return ((t_data *) ft_write_error_c(MALLOC_ERROR, data, NULL));
+	ft_reset_vars(data);
 	export_list(data);
 	return (data);
 }
 
 int	init_input_struct(t_data *data)
 {
-	data->input_info = (t_input_var *)malloc(sizeof(t_input_var));
-	if (data->input_info == NULL)
+	data->input_info_g = (t_input_var *)malloc(sizeof(t_input_var));
+	if (data->input_info_g == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	data->input_info->first_line_ref = NULL;
-	data->input_info->first_line = NULL;
-	data->input_info->init_input_split = NULL;
-	data->input_info->init_input = NULL;
-	data->input_info->first_line_split = NULL;
-	data->input_info->search_eof = NULL;
-	data->input_info->terminal_input = NULL;
-	data->input_info->final_text = NULL;
-	data->input_info->final_text_last = NULL;
-	data->input_info->list_eof = NULL;
-	data->input_info->first_line_and_final_text = NULL;
-	data->input_info->n_eof = 0;
-	data->input_info->invalid_token = false;
-	data->input_info->incomplete_input = false;
-	data->input_info->text_input = NULL;
+	data->input_info_g->first_line_ref = NULL;
+	data->input_info_g->first_line = NULL;
+	data->input_info_g->init_input_split = NULL;
+	data->input_info_g->init_input = NULL;
+	data->input_info_g->first_line_split = NULL;
+	data->input_info_g->search_eof = NULL;
+	data->input_info_g->terminal_input = NULL;
+	data->input_info_g->final_text = NULL;
+	data->input_info_g->final_text_last = NULL;
+	data->input_info_g->list_eof = NULL;
+	data->input_info_g->first_line_and_final_text = NULL;
+	data->input_info_g->n_eof = 0;
+	data->input_info_g->invalid_token = false;
+	data->input_info_g->incomplete_input = false;
+	data->input_info_g->text_input = NULL;
+	data->control_d_g = false;
 	return (SUCCESS);
 }

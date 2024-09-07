@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_detection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/03 16:28:37 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:28:25 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	ft_found_io(char *str, int i, t_data *data)
 {
 	if (str[i] == '<' && str[i + 1] == '<')
 	{
-		data->input_info->n_eof++;
+		data->input_info_g->n_eof++;
 		return (true);
 	}
 	if (str[i] == '<' && str[i + 1] == ' ')
@@ -71,7 +71,7 @@ int	ft_check_token(t_data *data, t_input_var *info)
 	int	i;
 
 	i = 0;
-	while (data->input_info->first_line_ref[i] != '\0')
+	while (data->input_info_g->first_line_ref[i] != '\0')
 	{
 		if (info->first_line_ref[i] == '\'' || info->first_line_ref[i] == '\"')
 			i = ft_skip_quote(info->first_line_ref, i, info->first_line_ref[i]);

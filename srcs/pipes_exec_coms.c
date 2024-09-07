@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/07 09:57:43 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/04 19:27:01 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 {
 	int	status;
 
-	if (data->fork_id == -1)
+	if (data->v->fork_id == -1)
 	{
 		perror("Fork failure");
 		return (ft_write_error_i(ERROR, data));
 	}
-	if (data->fork_id > 0)
+	if (data->v->fork_id > 0)
 	{
 		close(pipe_fd[i][1]);
 		if (dup2(pipe_fd[i][0], STDIN_FILENO) == -1)
@@ -34,7 +34,7 @@ int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 					return (ft_write_error_i(ERROR, data));
 			}
 		}
-		waitpid(data->fork_id, &status, 0);
+		waitpid(data->v->fork_id, &status, 0);
 		exit_codes(WEXITSTATUS(status), data);
 	}
 	return (SUCCESS);
@@ -62,10 +62,10 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 {
 	int	status;
 
-	data->fork_id = fork();
+	data->v->fork_id = fork();
 	if (father_process(pipe_fd, i, com, data) == MALLOC_ERROR)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	if (data->fork_id == 0)
+	if (data->v->fork_id == 0)
 	{
 		close(pipe_fd[i][0]);
 		if (dup2(pipe_fd[i][1], STDOUT_FILENO) == -1)
@@ -74,7 +74,7 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 			if (dup2(com->fd_out, STDOUT_FILENO) == -1)
 				exit(ft_write_error_i(ERROR, data));
 		if (i == ft_lstsize_com(data->command_list) - 1 && com->fd_out < 2)
-			if (dup2(data->stdout_cpy, STDOUT_FILENO) == -1)
+			if (dup2(data->v->stdout_cpy, STDOUT_FILENO) == -1)
 				exit(ft_write_error_i(ERROR, data));
 		status = find_command(data, com, data->env);
 		if (status != ERROR && status != INVALID_COMMAND)
@@ -88,11 +88,11 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 
 int	restore_original_in_out(t_data *data)
 {
-	if (dup2(data->stdin_cpy, STDIN_FILENO) == -1)
+	if (dup2(data->v->stdin_cpy, STDIN_FILENO) == -1)
 		return (ERROR);
-	if (dup2(data->stdout_cpy, STDOUT_FILENO) == -1)
+	if (dup2(data->v->stdout_cpy, STDOUT_FILENO) == -1)
 		return (ERROR);
-	close(data->stdin_cpy);
-	close(data->stdout_cpy);
+	close(data->v->stdin_cpy);
+	close(data->v->stdout_cpy);
 	return (SUCCESS);
 }

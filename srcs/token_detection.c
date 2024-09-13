@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/04 19:28:25 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/13 10:24:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static bool	ft_invalid_token(char *str, int i)
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '\n')
+		return (true);
+	if (str[i] == ';')
 		return (true);
 	if (str[i] == '\0')
 		return (true);

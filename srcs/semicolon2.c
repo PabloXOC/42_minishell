@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:52:43 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/07 14:48:53 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:36:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int ft_split_semicolon(t_data *data)
 	int	i;
 
 	size = 0;
+	tot_size = 0;
 	i = 0;
 	while (i <= data->n_semicolons)
 	{
@@ -73,11 +74,6 @@ int ft_split_semicolon(t_data *data)
 			return (MALLOC_ERROR);
 		tot_size += size;
 		i++;
-	}
-	i = 0;
-	while (i <= data->n_semicolons)
-	{
-		ft_printf("AA:%s\n", data->specific[i]->input_info->first_line_ref);
 	}
 	return (SUCCESS);
 }

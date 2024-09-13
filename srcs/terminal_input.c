@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/04 19:16:37 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/13 11:16:03 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,12 @@ int	ft_terminal_input(t_data *data, int s_q, int d_q)
 		return (MALLOC_ERROR);
 	while (f_line[data->v->i_ter] != 0)
 	{
-		if (f_line[data->v->i_ter] == '\\' && (f_line[data->v->i_ter + 1] == '\''
-				|| f_line[data->v->i_ter + 1] == '\"'))
-			data->v->i_ter += 2;
-		else if (f_line[data->v->i_ter] == '\'' && d_q % 2 == 0)
-			s_q++;
-		else if (f_line[data->v->i_ter] == '\"' && s_q % 2 == 0)
-			d_q++;
+		if (f_line[data->v->i_ter] == '\"' && s_q % 2 == 0
+			&& (data->v->i_ter == 0 || f_line[data->v->i_ter - 1] != '\\'))
+			d_q += 1;
+		if (f_line[data->v->i_ter] == '\'' && d_q % 2 == 0
+			&& (data->v->i_ter == 0 || f_line[data->v->i_ter - 1] != '\\'))
+			s_q += 1;
 		if (ft_terminal_input_util(data, s_q, d_q, f_line) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
 		data->v->i_ter++;

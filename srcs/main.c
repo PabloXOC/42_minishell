@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/07 15:06:54 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/13 19:11:07 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	minishell_2(t_data *data, t_specific *spec, t_input_var *info)
 		save_variables(data, info, 0);
 	if (data->fatal_error == true)
 		return (MALLOC_ERROR);
-	/* if (save_pipelines(data, info, spec) != NO_COMMANDS)
+	if (save_pipelines(data, info, spec) != NO_COMMANDS)
 	{
 		if (data->fatal_error == true || data->v->write_error == true)
 			return (ERROR);
 		if (exec_commands(data) != SUCCESS)
 			return (FAILURE);
-	} */
+	}
 	return (SUCCESS);
 }
 
@@ -45,13 +45,13 @@ int	minishell(t_data *data, int i)
 		if (recieve_complete_input(data) == SUCCESS && data->exit == false)
 		{
 			add_history(data->input_info_g->first_line_and_final_text);
-			while (i < data->n_semicolons)
+			i = 0;
+			while (i <= data->n_semicolons)
 			{
 				data->sc_pos = i;
 				ft_reset_vars(data);
 				mini_2 = minishell_2(data, data->specific[i],
 					data->specific[i]->input_info);
-				
 				if (mini_2 == MALLOC_ERROR)
 					return (MALLOC_ERROR);
 				i++;

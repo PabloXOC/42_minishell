@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/07 12:45:46 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/13 11:07:10 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_reset_vars(t_data *data)
 	data->v->stdout_cpy = STDOUT_FILENO;
 	data->v->fork_id = 0;
 	data->v->quote = 0;
+	data->v->n_eof_saved = 0;
 	data->v->write_error = false;
 }
 

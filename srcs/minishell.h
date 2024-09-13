@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/07 15:06:05 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/13 10:50:30 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,25 +112,9 @@ typedef struct s_specific
 {
 	//bool		control_d;
 	t_input_var	*input_info;
-/* 	int			stdin_cpy;
-	int			stdout_cpy; */
 	char		*next_eof;
-/* 	int			i;
-	int			i_ter;
-	int			j;
-	int			k;
-	int			ii;
-	int			kk;
-	int			iii;
-	int			jjj;
-	int			size_var;
-	
-	int			kkk;
-	int			idx_com;
-	int			size;
-	int			pointer; */
 	int			jj;
-	
+	int			n_eof;
 	t_data		*data;
 }				t_specific;
 
@@ -153,6 +137,7 @@ typedef struct s_intervar
 	int			size;
 	int			pointer;
 	int			input_index;
+	int			n_eof_saved;
 	char		quote;
 	pid_t		fork_id;
 	t_data		*data;

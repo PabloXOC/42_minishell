@@ -134,7 +134,7 @@ typedef struct s_intervar
 	int			jj;
 	int			kkk;
 	int			idx_com;
-	int			size;
+	//int			size;
 	int			pointer;
 	int			input_index;
 	int			n_eof_saved;

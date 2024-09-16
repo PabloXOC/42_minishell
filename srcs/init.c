@@ -46,7 +46,7 @@ void	ft_reset_vars(t_data *data)
 	data->v->ii = 0;
 	data->v->kk = 1;
 	data->v->idx_com = 0;
-	data->v->size = 0;
+	data->v->size_var = 0;
 	data->v->pointer = 0;
 	data->v->stdin_cpy = 0;
 	data->v->stdout_cpy = 0;

@@ -22,17 +22,19 @@ int	minishell_2(t_data *data, t_specific *spec, t_input_var *info)
 	if (info->first_line_split == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	ft_reformat_slash(data, info);
-	if (check_if_we_save_variables(data, info) == true)
+	print_char_pp(info->first_line_split_ref);
+	/* if (check_if_we_save_variables(data, info) == true)
 		save_variables(data, info, 0);
 	if (data->fatal_error == true)
 		return (MALLOC_ERROR);
+	//print_char_pp(info->first_line_split);
 	if (save_pipelines(data, info, spec) != NO_COMMANDS)
 	{
 		if (data->fatal_error == true || data->v->write_error == true)
 			return (ERROR);
 		if (exec_commands(data) != SUCCESS)
 			return (FAILURE);
-	}
+	} */
 	return (SUCCESS);
 }
 

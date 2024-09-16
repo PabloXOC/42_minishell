@@ -102,7 +102,7 @@ int	size_removing_slash(t_data *d, char *old_str, int s_q, int d_q)
 	}
 	return (len);
 }
-char	*ft_new_string(t_data *d, char *old_str, int s_q, int d_q)
+static char	*ft_new_string(t_data *d, char *old_str, int s_q, int d_q)
 {
 	char	*str;
 	int		len;

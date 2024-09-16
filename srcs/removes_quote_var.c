@@ -38,7 +38,7 @@ int	ft_calc_size(char *old_str, int s_q, int d_q)
 	}
 	return (len);
 }
-void	ft_new_string(char *old_str, char **new_str, int s_q, int d_q)
+static void	ft_new_string(char *old_str, char **new_str, int s_q, int d_q)
 {
 	int		j;
 	int		i;
@@ -73,7 +73,7 @@ char *ft_remove_quotes_var(char **list, t_data *data)
 	if (new_str == NULL)
 		return (ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
 	new_str[new_size] = 0;
-	ft_new_string(list[1], *new_str, 0, 0);
+	ft_new_string(list[1], &new_str, 0, 0);
 	free(list[1]);
 	return (new_str);
 }

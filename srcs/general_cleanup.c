@@ -64,7 +64,7 @@ void	data_cleanup(t_data *data)
 	data->v->ii = 0;
 	data->v->kk = 1;
 	data->v->idx_com = 0;
-	data->v->size = 0;
+	data->v->size_var = 0;
 	data->v->pointer = 0;
 	data->v->write_error = false;
 }

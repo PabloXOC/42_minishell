@@ -79,7 +79,6 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 			exit(status);
 		if (status == ERROR)
 			exit(return_builtin_exit_code(com->content));
-		print_commands(data);
 		exec(com, data);
 	}
 	return (SUCCESS);

@@ -83,8 +83,6 @@ int	save_variables(t_data *data, t_input_var *info, int i)
 				ft_free_char_pp(equality);
 				return (MALLOC_ERROR);
 			}
-			//sacar comillas
-			equality[1] = ft_remove_quotes_var(equality);
 			modify_exp_and_env(data, equality[0], equality[1]);
 			save_var_info(data, equality, &data->var);
 			if (refresh_home_var(data) != SUCCESS)

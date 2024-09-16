@@ -94,5 +94,6 @@ int	write_in_command(t_data *data, t_specific *spec, t_input_var *info)
 			return (ERROR);
 		data->v->idx_com++;
 	}
+	com->full_path = find_command_path(data->env, com->content[0], 0, data);
 	return (add_command_to_list(data, com, full_com));
 }

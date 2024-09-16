@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/13 10:24:42 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/14 18:00:50 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 //boolan, returns true if it finds a < > << >>
 static bool	ft_found_io(char *str, int i, t_data *data)
 {
-	if (str[i] == '<' && str[i + 1] == '<')
+	if (str[i] == '<' && str[i + 1] == '<' && (i <= 1 || str[i - 2] != '\\'))
 	{
 		data->input_info_g->n_eof++;
 		return (true);
 	}
-	if (str[i] == '<' && str[i + 1] == ' ')
+	if (str[i] == '<' && str[i + 1] == ' ' && (i <= 1 || str[i - 2] != '\\'))
 		return (true);
-	if (str[i] == '>' && str[i + 1] == '>')
+	if (str[i] == '>' && str[i + 1] == '>' &&  (i <= 1 || str[i - 2] != '\\'))
 		return (true);
-	if (str[i] == '>' && str[i + 1] == ' ')
+	if (str[i] == '>' && str[i + 1] == ' ' &&  (i <= 1 || str[i - 2] != '\\'))
 		return (true);
 	return (false);
 }

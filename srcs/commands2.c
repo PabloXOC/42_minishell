@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/04 16:23:50 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/16 15:40:51 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 {
 	char	*com;
 
+	//pasar dentro la funcion el nombre del comando reformateado (en vez de esto: full_com->content[0])
 	if (check_if_builtin(data, full_com->content[0]) == false)
 		return (INVALID_COMMAND);
+	//reformat de todo (full command)
 	com = full_com->content[0];
 	if (ft_command_args_errors(data->command_list->content, data) == true)
 		return (ERROR);

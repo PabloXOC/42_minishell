@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:52:43 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/12 16:36:42 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/14 18:04:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_size_next_semicolon(t_data *data, int n_semi, char *str, int start)
+int	ft_pos_semicolon(t_data *data, int n_semi, char *str)
 {
 	int	s_q;
 	int	d_q;
@@ -22,22 +22,46 @@ int	ft_size_next_semicolon(t_data *data, int n_semi, char *str, int start)
 	s_q = 0;
 	d_q = 0;
 	j = 0;
-	count = 0;
+	count = 1;
+	if (n_semi == 0)
+		return (0);
 	while (str[j] != 0)
 	{
 		if (str[j] == '\"' && s_q % 2 == 0 && (j == 0 || str[j - 1] != '\\'))
-			d_q == 0;
+			d_q++;
 		if (str[j] == '\'' && d_q % 2 == 0 && (j == 0 || str[j - 1] != '\\'))
-			s_q == 0;
-		if (str[j] == ';' && s_q % 2 == 0 && d_q % 2 == 0)
+			s_q++;
+		if (str[j] == ';' && str[j - 1] != '\\' && s_q % 2 == 0 && d_q % 2 == 0)
 		{
 			if (count == n_semi)
-				return (j - start);
+				return (j + 1);
 			count++;
 		}
 		j++;
 	}
-	return (j - start);
+	return (j);
+}
+
+int	ft_size_semicolon(t_data *data, int pos, char *str)
+{
+	int	s_q;
+	int	d_q;
+	int	j;
+
+	s_q = 0;
+	d_q = 0;
+	j = pos;
+	while (str[j] != 0)
+	{
+		if (str[j] == '\"' && s_q % 2 == 0 && (j == 0 || str[j - 1] != '\\'))
+			d_q++;
+		if (str[j] == '\'' && d_q % 2 == 0 && (j == 0 || str[j - 1] != '\\'))
+			s_q++;
+		if (str[j] == ';' && str[j - 1] != '\\' && s_q % 2 == 0 && d_q % 2 == 0)
+			return (j - pos);
+		j++;
+	}
+	return (j);
 }
 
 int	ft_copy_text(t_data *data, int size, int start, int semi_pos)
@@ -58,22 +82,14 @@ int	ft_copy_text(t_data *data, int size, int start, int semi_pos)
 	return (SUCCESS);
 }
 
-int ft_split_semicolon(t_data *data)
+int ft_split_semicolon(t_data *data, int i)
 {
-	int	size;
-	int tot_size;
-	int	i;
+	int	pos;
+	int size;
 
-	size = 0;
-	tot_size = 0;
-	i = 0;
-	while (i <= data->n_semicolons)
-	{
-		size = ft_size_next_semicolon(data, i, data->input_info_g->first_line_ref, tot_size);
-		if (ft_copy_text(data, size, tot_size, i) == MALLOC_ERROR)
-			return (MALLOC_ERROR);
-		tot_size += size;
-		i++;
-	}
+	pos = ft_pos_semicolon(data, i, data->input_info_g->first_line_ref);
+	size = ft_size_semicolon(data, pos, data->input_info_g->first_line_ref);
+	if (ft_copy_text(data, size, pos, i) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
 	return (SUCCESS);
 }

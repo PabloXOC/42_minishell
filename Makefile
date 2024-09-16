@@ -40,7 +40,7 @@ SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/input.c $(SRC_DIR)/comman
 	$(SRC_DIR)/echo2.c $(SRC_DIR)/utils2.c $(SRC_DIR)/pipes_errors_coms.c $(SRC_DIR)/pipes_exec_coms2.c \
 	$(SRC_DIR)/variables_utils.c $(SRC_DIR)/variables_utils2.c $(SRC_DIR)/variables2.c \
 	$(SRC_DIR)/input_4.c $(SRC_DIR)/reformat_2.c $(SRC_DIR)/terminal_input_utils_2.c $(SRC_DIR)/semicolon1.c \
-	$(SRC_DIR)/semicolon2.c
+	$(SRC_DIR)/semicolon2.c $(SRC_DIR)/ft_split_var.c $(SRC_DIR)/removes_quote_var.c
 	
 OBJS = $(SRCS:.c=.o)
 

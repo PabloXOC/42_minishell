@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:27:40 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/09/04 16:25:45 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/16 15:22:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	fill_input_info(t_data *data, t_input_var *info, int i, t_command *co
 	else if (ft_strncmp(info->first_line_split[i], "<", 1) == 0)
 	{
 		ft_infiles_cleanup(com);
-		com->redirect_input = info->first_line_split[++i];
+		com->redirect_input = info->first_line_split_ref[++i];
 		com->file_input = true;
 		if (com->redirect_input != NULL)
 			if (ft_infile_perm(com->redirect_input, com, data) != SUCCESS)
@@ -60,7 +60,7 @@ static int	fill_output_info(t_data *data, t_input_var *info, int i, t_command *c
 {
 	if (ft_strncmp(info->first_line_split[i], ">>", 2) == 0)
 	{
-		com->redirect_output = info->first_line_split[++i];
+		com->redirect_output = info->first_line_split_ref[++i];
 		com->append_output = true;
 		if (com->fd_out > 2)
 			close(com->fd_out);
@@ -71,7 +71,7 @@ static int	fill_output_info(t_data *data, t_input_var *info, int i, t_command *c
 	}
 	else if (ft_strncmp(info->first_line_split[i], ">", 1) == 0)
 	{
-		com->redirect_output = info->first_line_split[++i];
+		com->redirect_output = info->first_line_split_ref[++i];
 		com->append_output = false;
 		if (com->fd_out > 2)
 			close(com->fd_out);

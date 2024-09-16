@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/04 19:38:49 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/14 19:17:54 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ static char	*ft_make_new_string(char *input, char *output, t_data *d)
 	while (input[++d->v->j] != 0)
 	{
 		output = ft_skip_quote(input, output, d);
-		if ((input[d->v->j] == '<' && input[d->v->j + 1] == '<')
+		if ((input[d->v->j] == '<' || input[d->v->j] == '>' || input[d->v->j] == '|') && input[d->v->j - 1] == '\\')
+			output[d->v->i] = input[d->v->j];
+		else if ((input[d->v->j] == '<' && input[d->v->j + 1] == '<')
 			|| (input[d->v->j] == '>' && input[d->v->j + 1] == '>'))
 		{
 			if (input[d->v->j] == '<')

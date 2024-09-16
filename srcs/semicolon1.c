@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:16:44 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/13 19:42:32 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/14 18:01:41 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int ft_count_semicolons(t_data *data, int s_q, int d_q)
 			s_q++;
 		if (s_q % 2 == 0 && str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
 			d_q++;
-		if (str[i] == ';')
+		if (str[i - 1] != '\\' && str[i] == ';' && s_q % 2 == 0 && d_q % 2 == 0 )
 			count++;
 		i++;
     }
@@ -71,7 +71,7 @@ int	ft_complete_specific(t_data *data, int i)
 	if (data->specific[i]->input_info == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	ft_set_to_null_2(data->specific[i]->input_info, data, i);
-	if (ft_split_semicolon(data) == MALLOC_ERROR)
+	if (ft_split_semicolon(data, i) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }

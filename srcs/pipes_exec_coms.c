@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/04 19:27:01 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/16 15:28:24 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	exec(t_command *command, t_data *data)
 {
 	if (refresh_content_com(command, data, 1) == ERROR)
 		exit (exit_codes(EXIT_1, data));
+	//reformat
 	if (execve(command->full_path, command->content, data->env) == -1)
 	{
 		if (errno == EACCES)

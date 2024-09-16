@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:44:41 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/04 16:24:41 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/14 19:07:03 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	len_old_var(char *str, int i)
 			return (size);
 		else if (str[i] == '?' && size == 0)
 			return (1);
-		else if (ft_isalnum(str[i]) == 0)
+		else if (ft_isalpha(str[i]) == 0)
 			return (size);
 		i++;
 		size++;
@@ -76,15 +76,22 @@ void	fill_new_var(t_data *d, char *str, int i, char *dst)
 	d->v->iii += len_old;
 }
 
-int	tot_size(t_data *d, char *str, int single_q)
+int	tot_size(t_data *d, char *str, int s_q, int d_q)
 {
+	
 	while (str[d->v->iii] != 0)
 	{
-		if (str[d->v->iii] == '\'')
-			single_q++;
-		else if (str[d->v->iii] == '\"' && single_q % 2 == 0)
-			;
-		else if (str[d->v->iii] == '$' && single_q % 2 == 0
+		if (str[d->v->iii] == '\'' && d_q % 2 == 0 && (d->v->i == 0 || str[d->v->i - 1] != '\\'))
+		{
+			s_q++;
+			d->v->size_var++;
+		}
+		else if (str[d->v->iii] == '\"' && s_q % 2 == 0 && (d->v->i == 0 || str[d->v->i - 1] != '\\'))
+		{
+			d_q++;
+			d->v->size_var++;
+		}
+		else if (str[d->v->iii] == '$' && s_q % 2 == 0
 			&& str[d->v->iii + 1] != ' ' && str[d->v->iii + 1] != 0)
 		{
 			if (str[d->v->iii + 1] >= '0' && str[d->v->iii + 1] <= '9')
@@ -92,8 +99,6 @@ int	tot_size(t_data *d, char *str, int single_q)
 			else
 				len_new_var(d, str, d->v->iii + 1);
 		}
-		else
-			d->v->size_var++;
 		d->v->iii++;
 	}
 	return (d->v->size_var);

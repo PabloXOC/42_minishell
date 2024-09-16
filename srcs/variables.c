@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/04 15:26:04 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/16 16:27:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,29 @@ int	save_var_info(t_data *data, char **equality, t_var **list)
 	return (SUCCESS);
 }
 
+int	ft_search_for_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != 0)
+	{
+		if (str[i] == '=')
+			return (SUCCESS);
+		i++;
+	}
+	return (FAILURE);
+}
+
 int	save_variables(t_data *data, t_input_var *info, int i)
 {
 	char	**equality;
 
 	while (info->first_line_split[i] != NULL)
 	{
-		if (ft_strrchr(info->first_line_split[i], '=') != NULL)
+		if (ft_search_for_equal(info->first_line_split[i]) == SUCCESS)
 		{
-			equality = ft_split(info->first_line_split[i], '=');
+			equality = ft_split_var(info->first_line_split_ref[i], '=');
 			if (equality == NULL)
 				return (ft_write_error_i(MALLOC_ERROR, data));
 			equality[1] = expand_var(data, equality[1]);
@@ -69,6 +83,8 @@ int	save_variables(t_data *data, t_input_var *info, int i)
 				ft_free_char_pp(equality);
 				return (MALLOC_ERROR);
 			}
+			//sacar comillas
+			equality[1] = ft_remove_quotes_var(equality);
 			modify_exp_and_env(data, equality[0], equality[1]);
 			save_var_info(data, equality, &data->var);
 			if (refresh_home_var(data) != SUCCESS)

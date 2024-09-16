@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_split.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:39 by pximenez          #+#    #+#             */
-/*   Updated: 2024/07/06 17:25:10 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/14 11:37:29 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	count_words(char const *s, char c, int count, int i)
 		count = 1;
 	while (s[i] != '\0')
 	{
-		if (s[i] == '"' || s[i] == '\'')
+		if (s[i] == '\"' || s[i] == '\'')
 		{
 			quote = s[i++];
 			while (s[i] != quote && s[i] != '\0')
@@ -47,7 +47,7 @@ static int	count_words(char const *s, char c, int count, int i)
 			if (s[i] != '\0')
 				count++;
 		}
-		if ((s[i] != '"' && s[i] != '\''))
+		if ((s[i] != '\"' && s[i] != '\''))
 			i++;
 	}
 	return (count);

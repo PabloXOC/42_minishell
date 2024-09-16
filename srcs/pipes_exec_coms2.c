@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/07 15:07:55 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/16 16:31:10 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	refresh_content_com(t_command *com, t_data *data, int i)
 		}
 		i++;
 	}
-	//print_char_pp(com->content);
 	com->full_path = find_command_path(data->env, com->content[0], 0, data);
 	if (data->fatal_error == true)
 		return (ERROR);
@@ -103,7 +102,6 @@ int	refresh_name_com(t_command *com, t_data *data)
 	com->full_path = find_command_path(data->env, com->content[0], 0, data);
 	if (data->fatal_error == true)
 		return (ERROR);
-	//print_char_pp(com->content);
 	return (SUCCESS);
 }
 
@@ -119,8 +117,6 @@ int	pipe_exec_coms(t_data *data, int i)
 	if (pipe_fd == NULL)
 		return (ERROR);
 	dup2(com->fd_in, STDIN_FILENO);
-	if (refresh_name_com(com, data) == ERROR)
-		return (ERROR);
 	if (pipe_commands(com, data, pipe_fd, i++) == ERROR)
 		return (ERROR);
 	com = com->next;
@@ -153,6 +149,10 @@ int	exec_commands(t_data *data)
 			return (pipe_exec_coms(data, 0));
 	}
 	if (list_len > 1)
+	{
+		if (refresh_name_com(data->command_list, data) == ERROR)
+			return (ERROR);
 		return (pipe_exec_coms(data, 0));
+	}
 	return (SUCCESS);
 }

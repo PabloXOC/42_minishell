@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/13 10:50:30 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/16 11:52:20 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct s_intervar
 	int			pointer;
 	int			input_index;
 	int			n_eof_saved;
+	int			size_tot;
 	char		quote;
 	pid_t		fork_id;
 	t_data		*data;
@@ -294,7 +295,7 @@ int			print_export(t_data *data);
 
 /*------ECHO------*/
 void		fill_new_var(t_data *d, char *str, int i, char *dst);
-int			tot_size(t_data *d, char *str, int single_q);
+int			tot_size(t_data *d, char *str, int s_q, int d_q);
 char		*expand_var(t_data *data, char *text);
 
 /*------REFORMAT------*/
@@ -387,9 +388,13 @@ int			exit_codes_main(int exit_code, t_data *data);
 
 int			ft_reformat_slash(t_data *data, t_input_var *info);
 
+
+char		 **ft_split_var(char const *s, char c);
+
+
 /*------SEMICOLON_BREAK------*/
 int ft_break_semicolons(t_data *data, int i);
-int ft_split_semicolon(t_data *data);
+int ft_split_semicolon(t_data *dat, int i);
 void	ft_reset_vars(t_data *data);
 
 #endif

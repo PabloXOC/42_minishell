@@ -12,28 +12,10 @@
 
 #include "minishell.h"
 
-bool	check_if_builtin(t_data *data, char *com)
-{
-	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0
-		|| ft_strncmp(com, "export", ft_strlen(com)) == 0
-		|| ft_strncmp(com, "unset", ft_strlen(com)) == 0
-		|| ft_strncmp(com, "env", ft_strlen(com)) == 0
-		|| ft_strncmp(com, "exit", ft_strlen(com)) == 0)
-	{
-		refresh_content_com(data->command_list, data, 1);
-		return (true);
-	}
-	return (false);
-}
-
 int	find_command(t_data *data, t_command *full_com, char **env)
 {
 	char	*com;
 
-	//pasar dentro la funcion el nombre del comando reformateado (en vez de esto: full_com->content[0])
-	if (check_if_builtin(data, full_com->content[0]) == false)
-		return (INVALID_COMMAND);
-	//reformat de todo (full command)
 	com = full_com->content[0];
 	if (ft_command_args_errors(data->command_list->content, data) == true)
 		return (ERROR);

@@ -42,9 +42,6 @@ int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 
 void	exec(t_command *command, t_data *data)
 {
-	if (refresh_content_com(command, data, 1) == ERROR)
-		exit (exit_codes(EXIT_1, data));
-	//reformat
 	if (execve(command->full_path, command->content, data->env) == -1)
 	{
 		if (errno == EACCES)
@@ -82,6 +79,7 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 			exit(status);
 		if (status == ERROR)
 			exit(return_builtin_exit_code(com->content));
+		print_commands(data);
 		exec(com, data);
 	}
 	return (SUCCESS);

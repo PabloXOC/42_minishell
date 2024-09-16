@@ -122,8 +122,6 @@ int	pipe_exec_coms(t_data *data, int i)
 	com = com->next;
 	while (com != NULL)
 	{
-		if (refresh_name_com(com, data) == ERROR)
-			return (ERROR);
 		if (pipe_commands(com, data, pipe_fd, i++) == ERROR)
 			return (ERROR);
 		com = com->next;
@@ -140,8 +138,6 @@ int	exec_commands(t_data *data)
 	list_len = ft_lstsize_com(data->command_list);
 	if (list_len == 1)
 	{
-		if (refresh_name_com(data->command_list, data) == ERROR)
-			return (ERROR);
 		status = find_command(data, data->command_list, data->env);
 		if (status > 0 && status != INVALID_COMMAND && data->fatal_error == false)
 			return (SUCCESS);
@@ -150,8 +146,6 @@ int	exec_commands(t_data *data)
 	}
 	if (list_len > 1)
 	{
-		if (refresh_name_com(data->command_list, data) == ERROR)
-			return (ERROR);
 		return (pipe_exec_coms(data, 0));
 	}
 	return (SUCCESS);

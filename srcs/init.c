@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/13 11:07:10 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:18:46 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_data	*data_init(char **env)
 	data->entry = NULL;
 	data->env = env;
 	data->exit = false;
-	data->command_list = NULL;
+	
 	
 	data->var = NULL;
 	data->var_export = NULL;

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:44:52 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/07 12:48:39 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:20:14 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	delete_commands(t_data *data)
 {
-	close_all_fds(data->command_list);
-	ft_lstclear_com(&data->command_list, &ft_free_char_pp);
-	data->command_list = NULL;
+	close_all_fds(data->specific[data->sc_pos]->command_list);
+	ft_lstclear_com(&data->specific[data->sc_pos]->command_list, &ft_free_char_pp);
+	data->specific[data->sc_pos]->command_list = NULL;
 	data->v->idx_com = 0;
 }
 
@@ -53,7 +53,7 @@ void	data_cleanup(t_data *data)
 {
 	delete_commands(data);
 	ft_free_input_info(data);
-	data->command_list = NULL;
+	data->specific[data->sc_pos]->command_list = NULL;
 	data->v->input_index = 0;
 	data->v->stdin_cpy = 0;
 	data->v->stdout_cpy = 0;

@@ -6,74 +6,142 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:52:30 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/16 16:30:19 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:07:39 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	ft_handle_s_quote(t_data *d, char *old_str, int len)
+{
+	d->v->jj++;
+	while (old_str[d->v->jj] != '\'' && old_str[d->v->jj != 0])
+	{
+		d->v->jj++;
+		len++;
+	}
+	if (old_str[d->v->jj] == '\'')
+		d->v->jj++;
+	return (len);
+}
 
-int	ft_calc_size(char *old_str, int s_q, int d_q)
+int	ft_handle_d_quote(t_data *d, char *old_str, int len)
+{
+	d->v->jj++;
+	while (old_str[d->v->jj] != '\"' && old_str[d->v->jj != 0]
+		&& old_str[d->v->jj - 1] == '\\')
+	{
+		if (old_str[d->v->jj] == '\\' && ft_isalnum(old_str[d->v->jj + 1]) == 0)
+			d->v->jj += 2;
+		else
+			d->v->jj++;
+		len++;
+	}
+	if (old_str[d->v->jj] == '\"')
+		d->v->jj++;
+	return (len);
+}
+
+int	ft_paste_s_quote(t_data *d, char *old_str, char **str, int i)
+{
+	d->v->jj++;
+	while (old_str[d->v->jj] != '\'' && old_str[d->v->jj != 0]
+		&& (d->v->jj == 0 || old_str[d->v->jj - 1] == '\\'))
+		(*str)[i++] = old_str[d->v->jj++];
+	if (old_str[d->v->jj] == '\'')
+		d->v->jj++;
+	return (i);
+}
+
+int	ft_paste_d_quote(t_data *d, char *old_str, char **str, int i)
+{
+	d->v->jj++;
+	while (old_str[d->v->jj] != '\"' && old_str[d->v->jj] != 0)
+	{
+		if (old_str[d->v->jj] == '\\' && (ft_isalnum(old_str[d->v->jj + 1]) == 0))
+		{
+			(*str)[i++] = old_str[d->v->jj + 1];
+			d->v->jj += 2;
+		}
+		else
+			(*str)[i++] = old_str[d->v->jj++];
+	}
+	if (old_str[d->v->jj] == '\"')
+		d->v->jj++;
+	return (i);
+}
+
+int	ft_calc_size(t_data *d, char *old_str)
 {
 	int	len;
-    int i;
 
-	i = 0;
+	d->v->jj = 0;
 	len = 0;
-	while (old_str[i] != 0)
+	while (old_str[d->v->jj] != 0)
 	{
-		if (old_str[i] == '\'' && d_q % 2 == 0 && (i == 0 || old_str[i - 1] != '\\'))
-			s_q++;
-		else if (old_str[i] == '\"' && s_q % 2 == 0 && (i == 0 || old_str[i - 1] != '\\'))
-			d_q++;
-		else if (old_str[i] == '\\' && d_q % 2 == 0)
+		if (old_str[d->v->jj] == '\'' && (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
+			len = ft_handle_s_quote(d, old_str, len);
+		else if (old_str[d->v->jj] == '\"' && (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
+			len = ft_handle_d_quote(d, old_str, len);
+		else if (old_str[d->v->jj] == '\\')
 		{
-			if (old_str[i + 1] == '\'')
-				i++;
-			else if (old_str[i + 1] == '\"')
-				i++;
+			if (old_str[d->v->jj + 1] == 0)
+				return (len);
+			d->v->jj += 2;
+			len++;
 		}
-		i++;
-		len++;
+		else
+		{
+			d->v->jj++;
+			len++;
+		}
 	}
 	return (len);
 }
-static void	ft_new_string(char *old_str, char **new_str, int s_q, int d_q)
-{
-	int		j;
-	int		i;
 
-	i = 0;
-	j = 0;
+static void	ft_new_string(t_data *d, char *old_str, char **new_str, int i)
+{
+	d->v->jj = 0;
 	while (old_str[i] != 0)
 	{
-		if (old_str[i] == '\'' && d_q % 2 == 0 && (i == 0 || old_str[i - 1] != '\\'))
-			s_q++;
-		else if (old_str[i] == '\"' && s_q % 2 == 0 && (i == 0 || old_str[i - 1] != '\\'))
-			d_q++;
-		else if (old_str[i] == '\\' && d_q % 2 == 0)
+		if (old_str[i] == '\'' && (i == 0 || old_str[i - 1] != '\\'))
+			i = ft_paste_s_quote(d, old_str, new_str, i);
+		else if (old_str[i] == '\"' && (i == 0 || old_str[i - 1] != '\\'))
+			i = ft_paste_d_quote(d, old_str, new_str, i);
+		else if (old_str[i] == '\\')
 		{
-			if (old_str[i + 1] == '\'')
-				i++;
-			else if (old_str[i + 1] == '\"')
-				i++;
+			if (old_str[i + 1] == 0)
+			{
+				(*new_str)[d->v->jj++] = 0;
+				return ;
+			}
+			i++;
+			(*new_str)[d->v->jj++] = old_str[i++];
 		}
-		*(new_str)[j++] = old_str[i++];
+		else
+			(*new_str)[d->v->jj++] = old_str[i++];
 	}
+	(*new_str)[d->v->jj++] = 0;
 }
 
-char *ft_remove_quotes_var(char **list, t_data *data)
+int	ft_remove_quotes_bar(char ***list, t_data *data)
 {
 	int i;
 	int new_size;
 	char *new_str;
 
-	new_size = ft_calc_size(list[1], 0, 0);
-	new_str = (char *) malloc ((new_size + 1) * sizeof (char));
-	if (new_str == NULL)
-		return (ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
-	new_str[new_size] = 0;
-	ft_new_string(list[1], &new_str, 0, 0);
-	free(list[1]);
-	return (new_str);
+	i = 0;
+	while ((*list)[i] != 0)
+	{
+		new_size = ft_calc_size(data, (*list)[i]);
+		new_str = (char *) malloc ((new_size + 1) * sizeof (char));
+		if (new_str == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		new_str[new_size] = 0;
+		ft_new_string(data, (*list)[i], &new_str, 0);
+		free((*list)[i]);
+		(*list)[i] = new_str;
+		i++;
+	}
+	return (SUCCESS);
 }

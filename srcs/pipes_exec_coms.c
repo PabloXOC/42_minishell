@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/16 15:28:24 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:16:29 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 		if (com->fd_out > 2)
 			if (dup2(com->fd_out, STDOUT_FILENO) == -1)
 				exit(ft_write_error_i(ERROR, data));
-		if (i == ft_lstsize_com(data->command_list) - 1 && com->fd_out < 2)
+		if (i == ft_lstsize_com(data->specific[data->sc_pos]->command_list) - 1 && com->fd_out < 2)
 			if (dup2(data->v->stdout_cpy, STDOUT_FILENO) == -1)
 				exit(ft_write_error_i(ERROR, data));
 		status = find_command(data, com, data->env);

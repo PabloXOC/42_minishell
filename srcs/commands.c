@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/16 15:14:05 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:33:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static char	**return_full_com(t_data *data, t_input_var *info, int i)
 static int	add_command_to_list(t_data *data, t_command *com,
 		char **full_com)
 {
-	if (data->command_list == NULL)
-		data->command_list = com;
+	if (data->specific[data->sc_pos]->command_list == NULL)
+		data->specific[data->sc_pos]->command_list = com;
 	else
-		ft_lstadd_back_com(&data->command_list, com);
+		ft_lstadd_back_com(&data->specific[data->sc_pos]->command_list, com);
 	if (full_com == NULL)
 		return (NO_COMMANDS);
 	return (SUCCESS);
@@ -94,6 +94,5 @@ int	write_in_command(t_data *data, t_specific *spec, t_input_var *info)
 			return (ERROR);
 		data->v->idx_com++;
 	}
-	com->full_path = find_command_path(data->env, com->content[0], 0, data);
 	return (add_command_to_list(data, com, full_com));
 }

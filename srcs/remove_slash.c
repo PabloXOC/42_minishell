@@ -6,152 +6,158 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/16 16:00:04 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 12:21:03 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_handle_s_quote(t_data *data, char *old_str)
-{
-	int	len;
 
-	data->v->jj++;
-	len = 0;
-	while (old_str[data->v->jj] != '\'' && old_str[data->v->jj != 0])
+
+static int	len_old_var(char *str, int i)
+{
+	int	size;
+
+	size = 0;
+	if (str[i] == '?')
+		return (1);
+	while (str[i] != 0)
 	{
-		data->v->jj++;
-		len++;
+		if (str[i] == ' ' && str[i] == '\'' && str[i] == '\"')
+			return (size);
+		else if (ft_isalpha(str[i]) == 0)
+			return (size);
+		i++;
+		size++;
 	}
-	if (old_str[data->v->jj] == '\'')
-		data->v->jj++;
-	return (len + 2);
+	return (size);
 }
 
-int	ft_handle_d_quote(t_data *data, char *old_str)
+void	ft_count_vars(t_data *d, char *str, int i)
 {
-	int	len;
+	int		len_old;
 
-	data->v->jj++;
-	len = 0;
-	while (old_str[data->v->jj] != '\"' && old_str[data->v->jj != 0]
-		&& (data->v->jj == 0 || old_str[data->v->jj - 1] == '\\'))
+	d->v->jj++;
+	len_old = len_old_var(str, i);
+	d->v->jj += len_old;
+	if (len_old == 0)
+		return ;
+	while (d->var != NULL)
 	{
-		if (old_str[data->v->jj] == '\\' && (ft_isalnum(old_str[data->v->jj + 1]) == 0))
-			data->v->jj += 2;
-		else
-			data->v->jj++;
-		len++;
-	}
-	if (old_str[data->v->jj] == '\"')
-		data->v->jj++;
-	return (len + 2);
-}
-
-int	ft_paste_s_quote(t_data *d, char *old_str, char **str, int i)
-{
-	(*str)[i++] = old_str[d->v->jj++];
-	while (old_str[d->v->jj] != '\'' && old_str[d->v->jj != 0]
-		&& (d->v->jj == 0 || old_str[d->v->jj - 1] == '\\'))
-		(*str)[i++] = old_str[d->v->jj++];
-	if (old_str[d->v->jj] == '\'')
-		(*str)[i++] = old_str[d->v->jj++];
-	return (i);
-}
-
-int	ft_paste_d_quote(t_data *d, char *old_str, char **str, int i)
-{
-	(*str)[i++] = old_str[d->v->jj++];
-	while (old_str[d->v->jj] != '\"' && old_str[d->v->jj] != 0)
-	{
-		if (old_str[d->v->jj] == '\\' && (ft_isalnum(old_str[d->v->jj + 1]) == 0))
+		if (ft_strncmp(&str[i], d->var->var, len_old) == 0)
 		{
-			(*str)[i++] = old_str[d->v->jj + 1];
-			d->v->jj += 2;
+			d->v->len += ft_strlen(d->var->content);
+			return ;
 		}
-		else
-			(*str)[i++] = old_str[d->v->jj++];
+		d->var = d->var->next;
 	}
-	if (old_str[d->v->jj] == '\"')
-		(*str)[i++] = old_str[d->v->jj++];
-	return (i);
 }
 
-int	size_removing_slash(t_data *d, char *old_str, int s_q, int d_q)
+int	ft_size_new(t_data *d, char *old_str, int s_q, int d_q)
 {
-	int	len;
+	int	var_counter;
 
-	d->v->jj = 0;
-	len = 0;
+	var_counter = 0;
 	while (old_str[d->v->jj] != 0)
 	{
-		if (old_str[d->v->jj] == '\'' && d_q % 2 == 0 && (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
-			len += ft_handle_s_quote(d, old_str);
-		else if (old_str[d->v->jj] == '\"' && s_q % 2 == 0 && (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
-			len += ft_handle_d_quote(d, old_str);
-		else if (old_str[d->v->jj] == '\\' && s_q % 2 == 0 && d_q % 2 == 0)
+		if ((old_str[d->v->jj] == '\'') && d_q % 2 == 0
+			&& (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
+			s_q++;
+		if (old_str[d->v->jj] == '\"' && s_q % 2 == 0
+			&& (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
+			d_q++;
+		if (old_str[d->v->jj] == '$' && s_q % 2 == 0
+			&& (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
 		{
-			d->v->jj += 2;
-			len++;
+			ft_count_vars(d, old_str, d->v->jj + 1);
+			var_counter++;
 		}
 		else
 		{
 			d->v->jj++;
-			len++;
+			d->v->len++;
 		}
 	}
-	return (len);
+	return (var_counter);
 }
-static char	*ft_new_string(t_data *d, char *old_str, int s_q, int d_q)
-{
-	char	*str;
-	int		len;
-	int		pos;
 
-	len = size_removing_slash(d, old_str, 0, 0);
-	str = (char *) malloc ((len + 1) * sizeof(char));
-	if (str == NULL)
-		return (ft_write_error_c(MALLOC_ERROR, d, d->specific[d->sc_pos]));
+int	ft_paste_new_var(t_data *d, char **new_str, char *old_str, int i)
+{
+	int		len_old;
+	int		len_new;
+	int		k;
+
+	k = 0;
+	d->v->jj++;
+	len_old = len_old_var(old_str, d->v->jj);
+	if (len_old == 0)
+		return (i);
+	while (d->var != NULL)
+	{
+		if (ft_strncmp(&old_str[d->v->jj], d->var->var, len_old) == 0)
+		{
+			len_new += ft_strlen(d->var->content);
+			while (k < len_new)
+				(*new_str)[i++] = d->var->content[k++];
+			d->v->jj += len_old;
+			return (i);
+		}
+		d->var = d->var->next;
+	}
+	return (i);
+}
+
+void	ft_make_new_string(t_data *d, char *old_str, char **new_str)
+{
+	int	s_q;
+	int	d_q;
+	int	i;
+
 	d->v->jj = 0;
-	pos = 0;
+	i = 0;
+	s_q = 0;
+	d_q = 0;
 	while (old_str[d->v->jj] != 0)
 	{
-		if (old_str[d->v->jj] == '\'' && d_q % 2 == 0 && (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
-			pos = ft_paste_s_quote(d, old_str, &str, pos);
-		else if (old_str[d->v->jj] == '\"' && s_q % 2 == 0 && (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
-			pos = ft_paste_d_quote(d, old_str, &str, pos);
-		else if (old_str[d->v->jj] == '\\' && s_q % 2 == 0 && d_q % 2 == 0)
-			d->v->jj++;
-		str[pos] = old_str[d->v->jj];
-		d->v->jj++;
-		pos++;
+		if (old_str[d->v->jj] == '\'' && d_q % 2 == 0
+			&& (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
+			s_q++;
+		if (old_str[d->v->jj] == '\"' && s_q % 2 == 0
+			&& (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
+			d_q++;
+		if (old_str[d->v->jj] == '$' && s_q % 2 == 0
+			&& (d->v->jj == 0 || old_str[d->v->jj - 1] != '\\'))
+			i = ft_paste_new_var(d, new_str, old_str, i);
+		else
+			(*new_str)[i++] = old_str[d->v->jj++];
 	}
-	str[len] = 0;
-	return (str);
 }
 
-int	ft_reformat_slash(t_data *data, t_input_var *info)
+int	ft_reformat_vars(t_data *data, t_input_var *info)
 {
-	int		i;
-	char	**new_split;
+	char	*new_str;
+	char	*old_str;
+	int		var_counter;
 
-	i = 0;
-	while (info->first_line_split[i] != 0)
-		i++;
-	new_split = (char **) malloc ((i + 1) * sizeof(char *));
-	if (new_split == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
-	i = 0;
-	while (info->first_line_split[i] != 0)
+	new_str = NULL;
+	var_counter = 1;
+	old_str = ft_strdup(info->first_line_ref);
+	while (var_counter > 0)
 	{
-		new_split[i] = ft_new_string(data, info->first_line_split[i], 0, 0);
-		if (new_split[i] == NULL)
-			return (MALLOC_ERROR);
-		//free(info->first_line_split[i]);
-		i++;
+		if (new_str != NULL)
+		{
+			free(old_str);
+			old_str = new_str;
+		}
+		data->v->jj = 0;
+		data->v->len = 0;
+		var_counter = ft_size_new(data, old_str, 0, 0);
+		new_str = (char *) malloc ((data->v->len + 1) * sizeof (char));
+		if (new_str == NULL)
+			return (ft_write_error_i(MALLOC_ERROR, data));
+		new_str[data->v->len] = 0;
+		ft_make_new_string(data, old_str, &new_str);
 	}
-	new_split[i] = 0;
-	//free(info->first_line_split);
-	info->first_line_split_ref = new_split;
+	info->first_line_vars = new_str;
 	return (SUCCESS);
 }

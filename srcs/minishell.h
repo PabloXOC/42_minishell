@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/16 11:52:20 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:34:37 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_input_var
 	int			n_eof; //how many eof to look for
 	char		*first_line_and_final_text;//first_line + final_text
 	char		**text_input; //    text of  < or <<
+	char		*first_line_vars;
 	bool		*real_eof;
 	bool		invalid_token;
 	bool		incomplete_input;
@@ -112,6 +113,7 @@ typedef struct s_specific
 {
 	//bool		control_d;
 	t_input_var	*input_info;
+	t_command	*command_list;
 	char		*next_eof;
 	int			jj;
 	int			n_eof;
@@ -143,6 +145,10 @@ typedef struct s_intervar
 	pid_t		fork_id;
 	t_data		*data;
 	bool		write_error;
+
+	int			s_q;
+	int			d_q;
+	int			len;
 }				t_intervar;
 
 
@@ -159,7 +165,7 @@ typedef struct s_data
 	bool		exit;
 	bool		control_d_g;
 	t_input_var	*input_info_g; //ADD THIS
-	t_command	*command_list;
+
 	t_var		*var;
 	t_var		*var_export;
 	int			kk;
@@ -386,8 +392,8 @@ int			fill_extra_info(t_data *data, t_input_var *info, int i, t_command *com);
 int			exit_codes(int exit_code, t_data *data);
 int			exit_codes_main(int exit_code, t_data *data);
 
-int			ft_reformat_slash(t_data *data, t_input_var *info);
-
+int			ft_reformat_vars(t_data *data, t_input_var *info);
+int			ft_remove_quotes_bar(char ***list, t_data *data);
 
 char		 **ft_split_var(char const *s, char c);
 
@@ -396,5 +402,11 @@ char		 **ft_split_var(char const *s, char c);
 int ft_break_semicolons(t_data *data, int i);
 int ft_split_semicolon(t_data *dat, int i);
 void	ft_reset_vars(t_data *data);
+
+
+
+int	expand_squiggle(t_data *data, char ***array, int i);
+int	reformat_final(t_data *data,t_specific *spec);
+
 
 #endif

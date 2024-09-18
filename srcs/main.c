@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/16 15:48:00 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:34:47 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@ int	minishell_2(t_data *data, t_specific *spec, t_input_var *info)
 		return (exit_codes(EXIT_1, data));
 	if (ft_empty(spec->input_info->first_line_ref) == true) //make better
 		return (ft_write_error_i(EMPTY, data));
-	info->first_line_split = ft_minishell_split(info->first_line_ref, ' ');
+	ft_reformat_vars(data, info);
+	info->first_line_split = ft_minishell_split(info->first_line_vars, ' ');
 	if (info->first_line_split == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	ft_reformat_slash(data, info);
 	if (check_if_we_save_variables(data, info) == true)
 		save_variables(data, info, 0);
 	if (data->fatal_error == true)
 		return (MALLOC_ERROR);
 	if (save_pipelines(data, info, spec) != NO_COMMANDS)
 	{
+		if (reformat_final(data, spec) == MALLOC_ERROR)
+			return (MALLOC_ERROR);
+		print_char_pp(info->spec->command_list->content);
 		if (data->fatal_error == true || data->v->write_error == true)
 			return (ERROR);
 		if (exec_commands(data) != SUCCESS)

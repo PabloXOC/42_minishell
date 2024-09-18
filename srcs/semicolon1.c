@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:16:44 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/14 18:01:41 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:19:27 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void ft_set_to_null(t_specific *spec, t_data *data)
 	spec->data = data;
 	spec->jj = 0;
 	spec->n_eof = 0;
+	spec->command_list = NULL;
 }
 
 void ft_set_to_null_2(t_input_var *i_v, t_data *data, int i)

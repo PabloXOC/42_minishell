@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/16 15:40:51 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:15:26 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	char	*com;
 
 	com = full_com->content[0];
-	if (ft_command_args_errors(data->command_list->content, data) == true)
+	if (ft_command_args_errors(data->specific[data->sc_pos]->command_list->content, data) == true)
 		return (ERROR);
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
 		return (change_dir(data, full_com));
@@ -71,7 +71,7 @@ void	print_commands(t_data *data)
 {
 	t_command	*com;
 
-	com = data->command_list;
+	com = data->specific[data->sc_pos]->command_list;
 	while (com != NULL)
 	{
 		if (com->content != NULL)

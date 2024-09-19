@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/14 19:17:54 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:29:15 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*ft_skip_quote(char *input, char *output, t_data *d)
 	return (output);
 }
 
-static char	*ft_make_new_string(char *input, char *output, t_data *d)
+static char	*ft_fill_new_string(char *input, char *output, t_data *d)
 {
 	while (input[++d->v->j] != 0)
 	{
@@ -109,7 +109,7 @@ char	*ft_reformat_input(char *input, t_data *data)
 	if (!output)
 		return (ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
 	//output = ft_memset(output, 100, len + n_sep);
-	output = ft_make_new_string(input, output, data);
+	output = ft_fill_new_string(input, output, data);
 	output[len + n_sep] = 0;
 	return (output);
 }

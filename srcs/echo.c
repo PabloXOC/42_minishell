@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:44:41 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/14 19:07:03 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:28:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	len_old_var(char *str, int i)
+static int	ft_len_old_var(char *str, int i)
 {
 	int	size;
 
@@ -36,7 +36,7 @@ static void	len_new_var(t_data *data, char *str, int i)
 	int		len_old;
 	t_var	*var;
 
-	len_old = len_old_var(str, i);
+	len_old = ft_len_old_var(str, i);
 	if (len_old == 0)
 		return ;
 	var = data->var;

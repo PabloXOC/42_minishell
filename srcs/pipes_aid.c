@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_aid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/06 13:58:17 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/19 15:23:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,4 @@ int	ft_open_outfile(char *file, t_command *commands)
 	return (SUCCESS);
 }
 
-void	close_all_fds(t_command *command)
-{
-	t_command	*com;
 
-	com = command;
-	while (com != NULL)
-	{
-		if (com->fd_in > 2)
-			close(com->fd_in);
-		if (com->fd_out > 2)
-			close(com->fd_out);
-		if (com->temp_file != NULL)
-		{
-			unlink(com->temp_file);
-			free(com->temp_file);
-			com->temp_file = NULL;
-		}
-		com = com->next;
-	}
-}

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/18 20:34:47 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:45:12 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,44 @@ int	minishell_2(t_data *data, t_specific *spec, t_input_var *info)
 	return (SUCCESS);
 }
 
-int	minishell(t_data *data, int i)
+int	minishell1(t_data *data)
 {
 	int	mini_2;
+	int	ret;
 
+	ft_reset_vars(data);
+	ret = recieve_complete_input(data);
+	if (ret == SUCCESS && data->exit == false)
+	{
+		add_history(data->input_info_g->first_line_and_final_text);
+		data->sc_pos = 0;
+		while (data->sc_pos <= data->n_semicolons)
+		{
+			ft_reset_vars(data);
+			mini_2 = minishell_2(data, data->specific[data->sc_pos],
+				data->specific[data->sc_pos]->input_info);
+			if (mini_2 == MALLOC_ERROR)
+				return (MALLOC_ERROR);
+			data->sc_pos++;
+		}
+	}
+	else if (ret = MALLOC_ERROR)
+		return (MALLOC_ERROR);
+	else if (data->input_info_g->invalid_token == true
+		|| data->input_info_g->incomplete_input == true)
+		add_history(data->input_info_g->first_line);
+	return (SUCCESS);
+}
+
+int	minishell(t_data *data)
+{
 	while (data->fatal_error == false && data->exit == false)
 	{
-		if (recieve_complete_input(data) == SUCCESS && data->exit == false)
+		if (minishell1(data) == MALLOC_ERROR)
 		{
-			add_history(data->input_info_g->first_line_and_final_text);
-			i = 0;
-			while (i <= data->n_semicolons)
-			{
-				data->sc_pos = i;
-				ft_reset_vars(data);
-				mini_2 = minishell_2(data, data->specific[i],
-					data->specific[i]->input_info);
-				if (mini_2 == MALLOC_ERROR)
-					return (MALLOC_ERROR);
-				i++;
-			}
+			total_cleanup(data);
+			return (MALLOC_ERROR);
 		}
-		else if (data->input_info_g->invalid_token == true
-			|| data->input_info_g->incomplete_input == true)
-			add_history(data->input_info_g->first_line);
 		data_cleanup(data);
 		if (refresh_mysignal_var(data) == MALLOC_ERROR)
 			return (exit_codes(EXIT_1, data));
@@ -88,7 +102,7 @@ int	main(int argc, char **argv, char **env)
 		return (exit_codes_main(EXIT_1, data));
 	if (create_preset_vars(data) == MALLOC_ERROR)
 		return (exit_codes_main(EXIT_1, data));
-	if (minishell(data, 0) != SUCCESS)
+	if (minishell(data) != SUCCESS)
 		return (exit_codes_main(EXIT_1, data));
 	return (SUCCESS);
 }

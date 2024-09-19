@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   variables _utils.c                                 :+:      :+:    :+:   */
+/*   variables_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/03 13:32:03 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:57:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ t_var	*ft_varnew(char *var, char *content)
 {
 	t_var	*new_node;
 
+	if (var == NULL)
+		return (NULL);
+	if (content == NULL)
+		return (NULL);
 	new_node = (t_var *)malloc(sizeof(t_var));
 	if (!(new_node))
 		return (NULL);

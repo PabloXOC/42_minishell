@@ -17,7 +17,7 @@
 
 int		g_exit_status = 0;
 
-void	handle_sigint(int sig)
+/* void	handle_sigint(int sig)
 {
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_on_new_line();
@@ -25,7 +25,7 @@ void	handle_sigint(int sig)
 	rl_redisplay();
 	//rl_done = 1;
 	exit_codes(EXIT_130, NULL);
-}
+} */
 
 void	catch_sigint(int signum)
 {
@@ -34,7 +34,6 @@ void	catch_sigint(int signum)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	//rl_done = 1;
 	exit_codes(EXIT_130, NULL);
 }
 

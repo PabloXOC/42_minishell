@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:39 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/14 11:37:29 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:56:35 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,7 @@ static char	**ft_fill_array(char const *s, char c, char **array)
 	while (s[i] != '\0')
 	{
 		len_word = ft_len_words(i, s, c);
-		//printf("len word: %i\n", len_word);
 		array[row] = ft_substr(s, i, len_word);
-		//printf("word: %s\n", array[row]);
 		if (array[row] == NULL)
 		{
 			ft_free_malloc(array, row);

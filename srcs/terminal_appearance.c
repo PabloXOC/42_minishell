@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/09/04 19:03:25 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:52:08 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	refresh_terminal_entry(t_data *data)
 	}
 	len_user = ft_strlen(data->user);
 	len_dir = ft_strlen(data->dir);
-	entry = (char *)malloc((len_user + len_dir + 5)); //?
+	entry = (char *)malloc((len_user + len_dir + 5));
 	if (entry == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
 	ft_memcpy(&entry[0], data->user, len_user);

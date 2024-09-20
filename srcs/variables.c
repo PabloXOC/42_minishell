@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/19 16:20:36 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 18:07:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	save_var_info(t_data *data, char **equality, t_var **list)
 {
-	t_var	*temp_var;
-
 	if (*list != NULL)
 	{
 		if (save_existing_var(list, equality, data) == FAILURE)

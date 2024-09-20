@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/19 18:35:07 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 18:17:11 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	export_list(t_data *data)
 		equality[0] = ft_strdup(env_list->var);
 		equality[1] = ft_strdup(env_list->content);
 		if (equality[0] == NULL || equality[1] == NULL)
+		{
+			ft_free_char_pp(equality);
 			return (ft_write_error_i(MALLOC_ERROR, data));
+		}
 		save_var_info(data, equality, &data->var);
 		env_list = env_list->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/19 16:09:03 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 18:05:10 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,12 @@ int	ft_reformat_vars(t_data *data, t_input_var *info)
 	new_str = NULL;
 	var_counter = 1;
 	old_str = ft_strdup(info->first_line_ref);
+	if (old_str == NULL)
+		return (ft_write_error_i(MALLOC_ERROR, data));
 	while (var_counter > 0)
 	{
 		if (new_str != NULL)
-		{
-			free(old_str);
 			old_str = new_str;
-		}
 		data->v->jj = 0;
 		data->v->len = 0;
 		var_counter = ft_size_new(data, old_str, 0, 0);
@@ -117,6 +116,7 @@ int	ft_reformat_vars(t_data *data, t_input_var *info)
 			return (ft_write_error_i(MALLOC_ERROR, data));
 		new_str[data->v->len] = 0;
 		ft_make_new_string(data, old_str, &new_str);
+		free(old_str);
 	}
 	info->first_line_vars = new_str;
 	return (SUCCESS);

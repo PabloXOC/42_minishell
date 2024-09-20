@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:39:06 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/19 18:29:15 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:59:31 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static char	*ft_fill_new_string(char *input, char *output, t_data *d)
 			output[d->v->i] = input[d->v->j];
 		d->v->i++;
 	}
-	output[d->v->i] = 0;
+	//output[d->v->i] = 0;
 	return (output);
 }
 

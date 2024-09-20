@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/20 12:29:36 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:23:04 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	minishell_2(t_data *data, t_specific *spec, t_input_var *info)
 	{
 		if (reformat_final(data, spec) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
-		print_char_pp(info->spec->command_list->content);
+		//print_char_pp(info->spec->command_list->content);
 		if (data->fatal_error == true || data->v->write_error == true)
 			return (ERROR);
 		if (exec_commands(data) != SUCCESS)

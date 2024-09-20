@@ -6,19 +6,16 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:52:30 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/19 16:10:35 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:53:34 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
 int	ft_paste_s_quote(t_data *d, char *old_str, char **str, int i)
 {
 	d->v->jj++;
-	while (old_str[d->v->jj] != '\'' && old_str[d->v->jj != 0]
-		&& (d->v->jj == 0 || old_str[d->v->jj - 1] == '\\'))
+	while (old_str[d->v->jj] != '\'' && old_str[d->v->jj] != 0)
 		(*str)[i++] = old_str[d->v->jj++];
 	if (old_str[d->v->jj] == '\'')
 		d->v->jj++;

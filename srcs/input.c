@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/04 19:23:32 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:54:57 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	recieve_complete_input(t_data *data)
 	if (ft_empty(info->init_input) == true)
 		return (EMPTY);
 	data->control_d_g = false;
-	//g_exit_status = 0;
 	ret = first_line_complete(info->init_input, data, 0, 0);
 	if (ret != SUCCESS)
 		return (ret);

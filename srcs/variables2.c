@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/07/05 11:00:44 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/20 16:44:15 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int	refresh_mysignal_var(t_data *data)
 	equality[0] = ft_strdup("?");
 	equality[1] = ft_itoa(g_exit_status);
 	if (equality[0] == NULL || equality[1] == NULL)
+	{
+		ft_free_char_pp(equality);
 		return (ft_write_error_i(MALLOC_ERROR, data));
+	}
 	save_var_info(data, equality, &data->var);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:16:44 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/19 16:12:57 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:28:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int ft_break_semicolons(t_data *data, int i)
 	int	semicolon_count;
 
 	semicolon_count = ft_count_semicolons(data, 0, 0);
-	data->specific = (t_specific **) malloc ((semicolon_count + 1) * sizeof (t_specific *));
+	data->specific = (t_specific **) malloc ((semicolon_count + 2) * sizeof (t_specific *));
 	if (data->specific == NULL)
 		return (ft_write_error_i(MALLOC_ERROR, data));
-	
+	data->specific[semicolon_count + 1] = 0;
 	while (i < semicolon_count + 1)
 	{
 		data->specific[i] = (t_specific *) malloc (sizeof (t_specific));

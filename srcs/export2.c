@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/19 18:32:11 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 18:19:00 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	save_export_el(t_data *data, char *var, char *cont)
 {
 	t_var	*exp_lst;
 	t_var	*temp_el;
-	int		i;
 
 	if (data->var_export == NULL)
 		return (fill_export_list(data, var, cont));

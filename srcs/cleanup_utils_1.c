@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:40:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/19 18:31:06 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 12:22:20 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_free_specific(t_data *data, t_specific **specific)
 	int	i;
 
 	i = 0;
-	while (i < data->n_semicolons)
+	while (i <= data->n_semicolons)
 	{
 		ft_free_commands(data, specific[i]->command_list);
 		ft_free_input_info(specific[i]->input_info);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/07/06 15:27:27 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/20 12:42:25 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_char_pp(char **stack)
 	int	i;
 
 	i = 0;
-	while (stack[i] != NULL && stack[i] != "")
+	while (stack[i] != 0 && stack[i] != "")
 	{
 		free(stack[i]);
 		i++;

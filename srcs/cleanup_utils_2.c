@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:40:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/19 15:42:21 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 12:32:47 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@
 void	ft_free_input_info2(t_input_var *info)
 {
 	if (info->terminal_input != NULL)
-			free(info->terminal_input);
+		free(info->terminal_input);
 	if (info->text_input != NULL)
 		ft_free_char_pp(info->text_input);
-	if (info->first_line_split_ref != NULL)
-		ft_free_char_pp(info->first_line_split_ref);
 	if (info->search_eof != NULL)
 		free(info->search_eof);
 	if (info->final_text_last != NULL)

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:44:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/19 11:39:42 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 12:55:09 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ char	**ft_new_array(t_data *d, char **old_array, char **temp_array, int w_count)
 	char	**new_array;
 
 	size = ft_count_size_array(old_array) - 1;
-	new_array = (char **) malloc ((w_count + size) * sizeof (char));
+	new_array = (char **) malloc ((w_count + size + 1) * sizeof (char *));
 	if (new_array == NULL)
 		return (ft_write_error_a(MALLOC_ERROR, d, d->specific[d->sc_pos]));
-	new_array[w_count + size - 1] = 0;
+	new_array[w_count + size] = 0;
 	i = -1;
 	while (++i < w_count)
 	{

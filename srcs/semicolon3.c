@@ -6,36 +6,36 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:16:44 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/19 16:13:14 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:00:01 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_count_semicolons(t_data *data, int s_q, int d_q)
+int	ft_count_semicolons(t_data *data, int s_q, int d_q)
 {
-    int i;
-    int count;
-    char *str;
+	int		i;
+	int		count;
+	char	*str;
 
-    str = data->input_info_g->first_line_ref;
-    i = 0;
+	str = data->input_info_g->first_line_ref;
+	i = 0;
 	count = 0;
-    while (str[i])
-    {
-        if (d_q % 2 == 0 && str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
+	while (str[i])
+	{
+		if (d_q % 2 == 0 && str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
 			s_q++;
 		if (s_q % 2 == 0 && str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
 			d_q++;
-		if (str[i - 1] != '\\' && str[i] == ';' && s_q % 2 == 0 && d_q % 2 == 0 )
+		if (str[i - 1] != '\\' && str[i] == ';' && s_q % 2 == 0 && d_q % 2 == 0)
 			count++;
 		i++;
-    }
+	}
 	data->n_semicolons = count;
 	return (count);
 }
 
-void ft_set_to_null(t_specific *spec, t_data *data)
+void	ft_set_to_null(t_spec *spec, t_data *data)
 {
 	spec->input_info = NULL;
 	spec->next_eof = NULL;
@@ -45,7 +45,7 @@ void ft_set_to_null(t_specific *spec, t_data *data)
 	spec->command_list = NULL;
 }
 
-void ft_set_to_null_2(t_input_var *i_v, t_data *data, int i)
+void	ft_set_to_null_2(t_info *i_v, t_data *data, int i)
 {
 	i_v->init_input = NULL;
 	i_v->init_input_split = NULL;
@@ -62,5 +62,5 @@ void ft_set_to_null_2(t_input_var *i_v, t_data *data, int i)
 	i_v->real_eof = NULL;
 	i_v->invalid_token = false;
 	i_v->incomplete_input = false;
-	i_v->spec = data->specific[i];
+	i_v->spec = data->spec[i];
 }

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:40:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/20 17:36:56 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 13:49:38 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_free_commands(t_data *data, t_command *com)
 	data->v->idx_com = 0;
 }
 
-void	ft_free_specific(t_data *data, t_specific **specific)
+void	ft_free_specific(t_data *data, t_spec **specific)
 {
 	int	i;
 
@@ -59,13 +59,12 @@ void	ft_free_specific(t_data *data, t_specific **specific)
 			free(specific[i]);
 			i++;
 		}
-		free(data->specific);
-		data->specific = NULL;
+		free(data->spec);
+		data->spec = NULL;
 	}
-	
 }
 
-void    ft_dataclear(t_data *data)
+void	ft_dataclear(t_data *data)
 {
 	if (data->user != NULL)
 		free(data->user);

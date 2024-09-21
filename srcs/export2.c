@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/20 18:19:00 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:32:39 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	fill_export_list(t_data *data, char *var, char *cont)
 {
 	data->var_export = ft_varnew(ft_strdup(var), ft_strdup(cont));
 	if (data->var_export == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	return (SUCCESS);
 }
 

@@ -6,12 +6,11 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/20 18:05:10 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:12:10 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	ft_size_new(t_data *d, char *old_str, int s_q, int d_q)
 {
@@ -93,7 +92,7 @@ void	ft_make_new_string(t_data *d, char *old_str, char **new_str)
 	}
 }
 
-int	ft_reformat_vars(t_data *data, t_input_var *info)
+int	ft_reformat_vars(t_data *data, t_info *info)
 {
 	char	*new_str;
 	char	*old_str;

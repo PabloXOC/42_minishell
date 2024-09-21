@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/19 15:55:27 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:28:39 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 char	**new_equality(char **equality, t_data *data)
 {
 	char	**new_eq;
+
 	new_eq = (char **)malloc(3 * sizeof(char *));
 	if (new_eq == NULL)
 	{
 		ft_free_char_pp(equality);
-		return ((char **) ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
+		return ((char **) error_c(MALLOC_ERROR,
+				data, data->spec[data->sc_n]));
 	}
 	new_eq[2] = NULL;
 	new_eq[0] = ft_strdup(equality[0]);
@@ -27,7 +29,8 @@ char	**new_equality(char **equality, t_data *data)
 	if (new_eq[0] == NULL || new_eq[1] == NULL)
 	{
 		ft_free_char_pp(equality);
-		return ((char **) ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
+		return ((char **) error_c(MALLOC_ERROR,
+				data, data->spec[data->sc_n]));
 	}
 	ft_free_char_pp(equality);
 	return (new_eq);
@@ -42,7 +45,7 @@ int	export_var(t_data *data, t_command *full_com, t_var **list, int i)
 	{
 		equality = ft_split(full_com->content[i], '=');
 		if (equality == NULL)
-			return (ft_write_error_i(MALLOC_ERROR, data));
+			return (error_i(MALLOC_ERROR, data));
 		if (equality[1] == NULL)
 			equality = new_equality(equality, data);
 		modify_export(data, equality[0], equality[1]);

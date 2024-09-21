@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:27:40 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/09/16 15:22:22 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:28:45 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	create_temp_file(t_command *com, t_data *data)
 		return (MALLOC_ERROR);
 	fd = open(com->temp_file, O_RDWR | O_CREAT, 0644);
 	if (fd == -1)
-		return (ft_write_error_i(OPEN_ERROR, data));
+		return (error_i(OPEN_ERROR, data));
 	write(fd, com->text_input, ft_strlen(com->text_input));
 	close(fd);
 	return (SUCCESS);
 }
 
-static int	fill_input_info(t_data *data, t_input_var *info, int i, t_command *com)
+int	fill_input_info(t_data *data, t_info *info, int i, t_command *com)
 {
 	if (ft_strncmp(info->first_line_split[i], "<<", 2) == 0)
 	{
@@ -56,7 +56,7 @@ static int	fill_input_info(t_data *data, t_input_var *info, int i, t_command *co
 	return (ERROR);
 }
 
-static int	fill_output_info(t_data *data, t_input_var *info, int i, t_command *com)
+int	fill_output_info(t_data *data, t_info *info, int i, t_command *com)
 {
 	if (ft_strncmp(info->first_line_split[i], ">>", 2) == 0)
 	{
@@ -83,7 +83,7 @@ static int	fill_output_info(t_data *data, t_input_var *info, int i, t_command *c
 	return (ERROR);
 }
 
-int	fill_extra_info(t_data *data, t_input_var *info, int i, t_command *com)
+int	fill_extra_info(t_data *data, t_info *info, int i, t_command *com)
 {
 	if (fill_input_info(data, info, i, com) != ERROR)
 	{

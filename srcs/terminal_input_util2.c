@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminal_input_utils_2.c                           :+:      :+:    :+:   */
+/*   terminal_input_util2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:41:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/04 19:17:05 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:00:12 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_control_d_heredoc(t_data *data, t_input_var *info_g, int i)
+int	ft_control_d_heredoc(t_data *data, t_info *info_g, int i)
 {
 	char	*temp;
 

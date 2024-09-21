@@ -6,22 +6,20 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:52:43 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/14 18:04:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:55:52 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pos_semicolon(t_data *data, int n_semi, char *str)
+int	ft_pos_semicolon(t_data *data, int n_semi, char *str, int j)
 {
-	int	s_q;
 	int	d_q;
-	int	j;
+	int	s_q;
 	int	count;
 
 	s_q = 0;
 	d_q = 0;
-	j = 0;
 	count = 1;
 	if (n_semi == 0)
 		return (0);
@@ -66,28 +64,28 @@ int	ft_size_semicolon(t_data *data, int pos, char *str)
 
 int	ft_copy_text(t_data *data, int size, int start, int semi_pos)
 {
-	int	i;
-	int	j;
-	char *str;
-	
+	int		i;
+	int		j;
+	char	*str;
+
 	i = start;
 	j = 0;
 	str = (char *) malloc ((size + 1) * sizeof (char));
 	if (str == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	while (j < size)
 		str[j++] = data->input_info_g->first_line_ref[i++];
 	str[j] = 0;
-	data->specific[semi_pos]->input_info->first_line_ref = str;
+	data->spec[semi_pos]->input_info->first_line_ref = str;
 	return (SUCCESS);
 }
 
-int ft_split_semicolon(t_data *data, int i)
+int	ft_split_semicolon(t_data *data, int i)
 {
 	int	pos;
-	int size;
+	int	size;
 
-	pos = ft_pos_semicolon(data, i, data->input_info_g->first_line_ref);
+	pos = ft_pos_semicolon(data, i, data->input_info_g->first_line_ref, 0);
 	size = ft_size_semicolon(data, pos, data->input_info_g->first_line_ref);
 	if (ft_copy_text(data, size, pos, i) == MALLOC_ERROR)
 		return (MALLOC_ERROR);

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/18 20:16:29 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:31:06 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 	if (data->v->fork_id == -1)
 	{
 		perror("Fork failure");
-		return (ft_write_error_i(ERROR, data));
+		return (error_i(ERROR, data));
 	}
 	if (data->v->fork_id > 0)
 	{
 		close(pipe_fd[i][1]);
 		if (dup2(pipe_fd[i][0], STDIN_FILENO) == -1)
-			return (ft_write_error_i(ERROR, data));
+			return (error_i(ERROR, data));
 		if (com->next != NULL)
 		{
 			if (com->next->fd_in > 2)
 			{
 				if (dup2(com->next->fd_in, STDIN_FILENO) == -1)
-					return (ft_write_error_i(ERROR, data));
+					return (error_i(ERROR, data));
 			}
 		}
 		waitpid(data->v->fork_id, &status, 0);
@@ -62,18 +62,19 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 
 	data->v->fork_id = fork();
 	if (father_process(pipe_fd, i, com, data) == MALLOC_ERROR)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	if (data->v->fork_id == 0)
 	{
 		close(pipe_fd[i][0]);
 		if (dup2(pipe_fd[i][1], STDOUT_FILENO) == -1)
-			exit(ft_write_error_i(ERROR, data));
+			exit(error_i(ERROR, data));
 		if (com->fd_out > 2)
 			if (dup2(com->fd_out, STDOUT_FILENO) == -1)
-				exit(ft_write_error_i(ERROR, data));
-		if (i == ft_lstsize_com(data->specific[data->sc_pos]->command_list) - 1 && com->fd_out < 2)
+				exit(error_i(ERROR, data));
+		if (i == ft_lstsize_com(data->spec[data->sc_n]->command_list) - 1
+			&& com->fd_out < 2)
 			if (dup2(data->v->stdout_cpy, STDOUT_FILENO) == -1)
-				exit(ft_write_error_i(ERROR, data));
+				exit(error_i(ERROR, data));
 		status = find_command(data, com, data->env);
 		if (status != ERROR && status != INVALID_COMMAND)
 			exit(status);

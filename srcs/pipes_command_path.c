@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:33:45 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/09/04 19:38:23 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:30:57 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_command_path(char **envp, char *command, int i, t_data *data)
 		{
 			temp_path = ft_strtrim(envp[i], "PATH=");
 			if (temp_path == NULL)
-				return (ft_write_error_c(MALLOC_ERROR, data, data->specific[data->sc_pos]));
+				return (error_c(MALLOC_ERROR, data, data->spec[data->sc_n]));
 			available_paths = ft_split(temp_path, ':');
 			free(temp_path);
 			temp_path = ft_return_accessible_path(available_paths, command);

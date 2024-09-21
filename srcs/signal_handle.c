@@ -46,16 +46,23 @@ void	catch_sigquit(int signum)
 
 int	signal_handle(void)
 {
-	//struct sigaction	sa;
 	signal(SIGINT, catch_sigint);
 	signal(SIGQUIT, catch_sigquit);
-	/* sa.sa_handler = catch_sigint;
+	return (SUCCESS);
+}
+
+/* int	signal_handle(void)
+{
+	struct sigaction	sa;
+	signal(SIGINT, catch_sigint);
+	signal(SIGQUIT, catch_sigquit);
+	sa.sa_handler = catch_sigint;
 	sa.sa_flags = 0;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 	{
 		perror("sigaction");
 		return (FAILURE);
 	}
-	signal(SIGQUIT, SIG_IGN); */
+	signal(SIGQUIT, SIG_IGN);
 	return (SUCCESS);
-}
+} */

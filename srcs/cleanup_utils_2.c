@@ -6,14 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:40:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/20 12:32:47 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 13:49:55 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void	ft_free_input_info2(t_input_var *info)
+void	ft_free_input_info2(t_info *info)
 {
 	if (info->terminal_input != NULL)
 		free(info->terminal_input);
@@ -23,13 +22,13 @@ void	ft_free_input_info2(t_input_var *info)
 		free(info->search_eof);
 	if (info->final_text_last != NULL)
 		free(info->final_text_last);
-	if (info->first_line_vars)
+	if (info->first_line_vars != NULL)
 		free(info->first_line_vars);
-	if (info->real_eof)
+	if (info->real_eof != NULL)
 		free(info->real_eof);
 }
 
-void	ft_free_input_info(t_input_var *info)
+void	ft_free_input_info(t_info *info)
 {
 	if (info != NULL)
 	{

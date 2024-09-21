@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/20 17:02:40 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:29:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_save_until_eof(t_data *data)
 	}
 	data->input_info_g->final_text = (char *) malloc ((len) * sizeof (char));
 	if (data->input_info_g->final_text == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	ft_save_until_eof_2(data, 0, len, 1);
 	return (SUCCESS);
 }
@@ -77,7 +77,7 @@ int	found_end_first_line(t_data *data, int i, char *input)
 {
 	data->input_info_g->first_line = (char *) malloc ((i + 1) * sizeof(char));
 	if (data->input_info_g->first_line == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	ft_memcpy(data->input_info_g->first_line, input, i);
 	data->input_info_g->first_line[i] = 0;
 	data->input_info_g->terminal_input = init_terminal_input(data, input, i);

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/20 16:54:57 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:29:05 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_copy_until_eof(t_data *data, int i, int j)
 	len = ft_len_to_eof(data, data->kk, i);
 	str = (char *) malloc ((len + 1) * sizeof (char));
 	if (str == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	while (j < len)
 	{
 		str[j] = data->input_info_g->terminal_input[data->kk];
@@ -56,15 +56,15 @@ int	recieve_complete_input_2(t_data *data)
 		return (MALLOC_ERROR);
 	if (ft_combine_fl_ft(data, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
-	if (ft_break_semicolons(data, 0) == MALLOC_ERROR) //to do
+	if (ft_break_semicolons(data, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	return (SUCCESS);
 }
 
 int	recieve_complete_input(t_data *data)
 {
-	t_input_var	*info;
-	int			ret;
+	t_info	*info;
+	int		ret;
 
 	if (init_input_struct(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);

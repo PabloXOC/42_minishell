@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/18 20:15:26 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 13:54:00 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	char	*com;
 
 	com = full_com->content[0];
-	if (ft_command_args_errors(data->specific[data->sc_pos]->command_list->content, data) == true)
+	if (ft_command_args_errors(data->spec[data->sc_n]
+			->command_list->content, data) == true)
 		return (ERROR);
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
 		return (change_dir(data, full_com));
@@ -40,7 +41,7 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	return (INVALID_COMMAND);
 }
 
-int	save_pipelines(t_data *data, t_input_var *info, t_specific *spec)
+int	save_pipelines(t_data *data, t_info *info, t_spec *spec)
 {
 	if (info->first_line_split == NULL)
 		return (0);
@@ -55,7 +56,7 @@ int	save_pipelines(t_data *data, t_input_var *info, t_specific *spec)
 		{
 			while (info->first_line_split[data->v->idx_com] != NULL)
 			{
-				if (write_in_command(data, spec, info) == NO_COMMANDS)
+				if (write_in_command(data, spec, info, 0) == NO_COMMANDS)
 					return (NO_COMMANDS);
 				if (data->fatal_error == true)
 					return (ERROR);
@@ -71,7 +72,7 @@ void	print_commands(t_data *data)
 {
 	t_command	*com;
 
-	com = data->specific[data->sc_pos]->command_list;
+	com = data->spec[data->sc_n]->command_list;
 	while (com != NULL)
 	{
 		if (com->content != NULL)

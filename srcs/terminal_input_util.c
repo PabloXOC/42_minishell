@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminal_input_utils.c                             :+:      :+:    :+:   */
+/*   terminal_input_util.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:21:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/04 19:40:35 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:31:45 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*ft_find_eof(char *str, int i, t_data *data)
 	size = ft_eofsize(str, i, false, false);
 	eof = (char *) malloc ((size + 1) * sizeof(char));
 	if (eof == NULL)
-		return (ft_write_error_c(MALLOC_ERROR, data, NULL));
+		return (error_c(MALLOC_ERROR, data, NULL));
 	ft_write_eof(str, eof, size, i);
 	return (eof);
 }

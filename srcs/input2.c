@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_2.c                                          :+:      :+:    :+:   */
+/*   input2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:45:40 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/04 19:40:49 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:29:08 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*init_terminal_input(t_data *data, char *input, int i)
 	size = ft_strlen(&input[i]);
 	terminal_input = (char *) malloc ((size + 1) * sizeof(char));
 	if (terminal_input == NULL)
-		return (ft_write_error_c(MALLOC_ERROR, data, NULL));
+		return (error_c(MALLOC_ERROR, data, NULL));
 	j = 0;
 	while (input[i] != 0)
 	{
@@ -70,7 +70,7 @@ int	first_line_complete(char *input, t_data *data, int d_q, int s_q)
 	if (s_q % 2 != 0 || d_q % 2 != 0)
 	{
 		found_end_first_line(data, i, data->input_info_g->init_input);
-		return (ft_write_error_i(INCOMPLETE_INPUT, data));
+		return (error_i(INCOMPLETE_INPUT, data));
 	}
 	return (first_line_complete_2(data, i, d_q, s_q));
 }

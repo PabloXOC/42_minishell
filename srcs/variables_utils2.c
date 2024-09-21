@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/01 15:15:35 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:32:02 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	save_new_var(t_var **list, char **equality, t_data *data)
 	temp_var = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
 	ft_free_char_pp(equality);
 	if (temp_var == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	ft_varadd_back(list, temp_var);
 	return (SUCCESS);
 }

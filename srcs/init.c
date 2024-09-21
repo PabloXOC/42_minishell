@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/20 18:17:11 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:28:55 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	export_list(t_data *data)
 			return (MALLOC_ERROR);
 		equality = (char **) malloc (3 * sizeof(char *));
 		if (equality == NULL)
-			return (ft_write_error_i(MALLOC_ERROR, data));
+			return (error_i(MALLOC_ERROR, data));
 		equality[2] = NULL;
 		equality[0] = ft_strdup(env_list->var);
 		equality[1] = ft_strdup(env_list->content);
 		if (equality[0] == NULL || equality[1] == NULL)
 		{
 			ft_free_char_pp(equality);
-			return (ft_write_error_i(MALLOC_ERROR, data));
+			return (error_i(MALLOC_ERROR, data));
 		}
 		save_var_info(data, equality, &data->var);
 		env_list = env_list->next;
@@ -75,15 +75,13 @@ void	ft_reset_vars(t_data *data)
 
 int	data_init2(t_data *data)
 {
-	data->var = NULL;
-	data->var_export = NULL;
 	data->kk = 0;
 	data->fatal_error = false;
-	data->sc_pos = 0;
+	data->sc_n = 0;
 	data->v = NULL;
-	data->v = (t_intervar *) malloc (sizeof (t_intervar));
+	data->v = (t_v *) malloc (sizeof (t_v));
 	if (data->v == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	ft_reset_vars(data);
 	return (SUCCESS);
 }
@@ -94,23 +92,24 @@ t_data	*data_init(char **env)
 
 	data = (t_data *) malloc (sizeof (t_data));
 	if (data == NULL)
-		return ((t_data *) ft_write_error_c(MALLOC_ERROR, data, NULL));
+		return ((t_data *) error_c(MALLOC_ERROR, data, NULL));
 	data->user = NULL;
 	data->dir = NULL;
 	data->entry = NULL;
 	data->env = env;
 	data->env_lst = save_env(env);
 	if (data->env_lst == NULL)
-		return ((t_data *) ft_write_error_c(MALLOC_ERROR, data, NULL));
+		return ((t_data *) error_c(MALLOC_ERROR, data, NULL));
+	data->var_export = NULL;
+	data->var = NULL;
 	if (export_list(data) == MALLOC_ERROR)
 		return (NULL);
-	data->specific = NULL;
+	data->spec = NULL;
 	data->n_semicolons = 0;
 	data->exit = false;
 	data->control_d_g = false;
 	data->input_info_g = NULL;
 	if (data_init2(data) == MALLOC_ERROR)
-		return ((t_data *) ft_write_error_c(MALLOC_ERROR, data, NULL));
+		return ((t_data *) error_c(MALLOC_ERROR, data, NULL));
 	return (data);
 }
-

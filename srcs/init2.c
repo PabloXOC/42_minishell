@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:42:44 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/20 16:51:15 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:29:00 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	init_input_struct(t_data *data)
 {
-	data->input_info_g = (t_input_var *) malloc (sizeof(t_input_var));
+	data->input_info_g = (t_info *) malloc (sizeof(t_info));
 	if (data->input_info_g == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	data->input_info_g->init_input = NULL;
 	data->input_info_g->init_input_split = NULL;
 	data->input_info_g->first_line = NULL;

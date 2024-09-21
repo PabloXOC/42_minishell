@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/20 18:07:22 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:32:08 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	save_var_info(t_data *data, char **equality, t_var **list)
 		*list = ft_varnew(ft_strdup(equality[0]), ft_strdup(equality[1]));
 		ft_free_char_pp(equality);
 		if (*list == NULL)
-			return (ft_write_error_i(MALLOC_ERROR, data));
+			return (error_i(MALLOC_ERROR, data));
 	}
 	return (SUCCESS);
 }
@@ -43,7 +43,7 @@ int	ft_search_for_equal(char *str)
 	return (FAILURE);
 }
 
-int	save_variables(t_data *data, t_input_var *info, int i)
+int	save_variables(t_data *data, t_info *info, int i)
 {
 	char	**equality;
 
@@ -53,7 +53,7 @@ int	save_variables(t_data *data, t_input_var *info, int i)
 		{
 			equality = ft_split_var(info->first_line_split[i], '=');
 			if (equality == NULL)
-				return (ft_write_error_i(MALLOC_ERROR, data));
+				return (error_i(MALLOC_ERROR, data));
 			equality[1] = expand_var(data, equality[1]); //here
 			if (equality[1] == NULL)
 			{

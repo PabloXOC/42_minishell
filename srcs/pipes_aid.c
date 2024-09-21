@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/19 15:23:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:11:52 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,3 @@ int	ft_open_outfile(char *file, t_command *commands)
 	commands->fd_out = fd;
 	return (SUCCESS);
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:44:41 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/19 18:28:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/20 19:52:55 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,16 @@ void	fill_new_var(t_data *d, char *str, int i, char *dst)
 
 int	tot_size(t_data *d, char *str, int s_q, int d_q)
 {
-	
 	while (str[d->v->iii] != 0)
 	{
-		if (str[d->v->iii] == '\'' && d_q % 2 == 0 && (d->v->i == 0 || str[d->v->i - 1] != '\\'))
+		if (str[d->v->iii] == '\'' && d_q % 2 == 0
+			&& (d->v->i == 0 || str[d->v->i - 1] != '\\'))
 		{
 			s_q++;
 			d->v->size_var++;
 		}
-		else if (str[d->v->iii] == '\"' && s_q % 2 == 0 && (d->v->i == 0 || str[d->v->i - 1] != '\\'))
+		else if (str[d->v->iii] == '\"' && s_q % 2 == 0
+			&& (d->v->i == 0 || str[d->v->i - 1] != '\\'))
 		{
 			d_q++;
 			d->v->size_var++;

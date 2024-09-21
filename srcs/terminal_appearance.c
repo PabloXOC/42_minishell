@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:59:43 by farah             #+#    #+#             */
-/*   Updated: 2024/09/20 16:52:08 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:31:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_user(t_data *data, char **env)
 		{
 			data->user = ft_strtrim(env[i], "LOGNAME=");
 			if (data->user == NULL)
-				return (ft_write_error_i(MALLOC_ERROR, data));
+				return (error_i(MALLOC_ERROR, data));
 		}
 		i++;
 	}
@@ -41,7 +41,7 @@ int	ft_get_dir(t_data *data, char **env)
 		{
 			data->dir = ft_strtrim(env[i], "PWD=");
 			if (data->dir == NULL)
-				return (ft_write_error_i(MALLOC_ERROR, data));
+				return (error_i(MALLOC_ERROR, data));
 		}
 		i++;
 	}
@@ -63,7 +63,7 @@ int	refresh_terminal_entry(t_data *data)
 	len_dir = ft_strlen(data->dir);
 	entry = (char *)malloc((len_user + len_dir + 5));
 	if (entry == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	ft_memcpy(&entry[0], data->user, len_user);
 	ft_memcpy(&entry[len_user], ":", 1);
 	ft_memcpy(&entry[len_user + 1], data->dir, len_dir);

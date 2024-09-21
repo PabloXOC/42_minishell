@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reformat_2.c                                       :+:      :+:    :+:   */
+/*   reformat2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:28:35 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/14 19:16:55 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:52:03 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,13 @@ int	ft_count_sep_char_util(char *input, int i)
 }
 
 //find how many additional characters we are going to require
-int	ft_count_sep_char(char *input)
+int	ft_count_sep_char(char *input, int i, int count)
 {
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
 	while (input[i] != 0)
 	{
 		i = ft_count_sep_char_util(input, i);
-		if ((input[i] == '<' || input[i] == '>' || input[i] == '|') && (i == 0 || input[i - 1] == '\\'))
+		if ((input[i] == '<' || input[i] == '>' || input[i] == '|')
+			&& (i == 0 || input[i - 1] == '\\'))
 			i++;
 		else if ((input[i] == '<' && input[i + 1] == '<')
 			|| (input[i] == '>' && input[i + 1] == '>'))
@@ -71,5 +67,16 @@ char	*ft_paste_char(char *output, char *added, int pos, int size)
 		output[pos + i] = added[i];
 		i++;
 	}
+	return (output);
+}
+
+char	*ft_fill_new_string2(char *input, char *output, t_data *d)
+{
+	if (input[d->v->j] == '<')
+		output = ft_paste_char(output, " << ", d->v->i, 4);
+	else
+		output = ft_paste_char(output, " >> ", d->v->i, 4);
+	d->v->i += 3;
+	d->v->j += 1;
 	return (output);
 }

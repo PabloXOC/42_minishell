@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:28:55 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/19 11:37:26 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:27:23 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ext_write_error_i(t_cases case_code, t_data *data)
+int	ext_error_i(t_cases case_code, t_data *data)
 {
 	if (case_code == ERROR)
 	{
@@ -30,7 +30,7 @@ int	ext_write_error_i(t_cases case_code, t_data *data)
 	return (SUCCESS);
 }
 
-int	ft_write_error_i(t_cases case_code, t_data *data)
+int	error_i(t_cases case_code, t_data *data)
 {
 	if (case_code == MALLOC_ERROR)
 	{
@@ -52,34 +52,10 @@ int	ft_write_error_i(t_cases case_code, t_data *data)
 		data->v->write_error = true;
 		return (WRITE_ERROR);
 	}
-	return (ext_write_error_i(case_code, data));
+	return (ext_error_i(case_code, data));
 }
 
-char	*ft_write_error_c(t_cases case_code, t_data *data, t_specific *spec)
-{
-	if (case_code == MALLOC_ERROR)
-	{
-		exit_codes(EXIT_1, data);
-		ft_printf("Memory allocation failed: %s\n", strerror(errno));
-		data->fatal_error = true;
-		return (NULL);
-	}
-	if (case_code == ERROR)
-	{
-		exit_codes(EXIT_1, data);
-		data->fatal_error = true;
-		return (NULL);
-	}
-	if (case_code == INVALID_COMMAND)
-	{
-		ft_printf("Command '%s' not found.\n",
-			spec->input_info->first_line_split[0]);
-		return (NULL);
-	}
-	return (NULL);
-}
-
-char	**ft_write_error_a(t_cases case_code, t_data *data, t_specific *spec)
+char	*error_c(t_cases case_code, t_data *data, t_spec *spec)
 {
 	if (case_code == MALLOC_ERROR)
 	{

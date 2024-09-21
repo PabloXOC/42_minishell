@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/18 20:33:22 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:28:11 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	len_com(t_data *data, t_input_var *info, int i)
+static int	len_com(t_data *data, t_info *info, int i)
 {
 	int	len;
 
@@ -37,7 +37,7 @@ static int	len_com(t_data *data, t_input_var *info, int i)
 	return (len);
 }
 
-static char	**return_full_com(t_data *data, t_input_var *info, int i)
+static char	**return_full_com(t_data *data, t_info *info, int i)
 {
 	char	**full_command;
 
@@ -45,10 +45,11 @@ static char	**return_full_com(t_data *data, t_input_var *info, int i)
 		full_command = NULL;
 	else
 	{
-		full_command = (char **)malloc((len_com(data, info, i) + 1) * sizeof(char *));
+		full_command = (char **)malloc((len_com(data, info, i) + 1)
+				* sizeof(char *));
 		if (full_command == NULL)
 		{
-			ft_write_error_c(MALLOC_ERROR, data, info->spec);
+			error_c(MALLOC_ERROR, data, info->spec);
 			return (NULL);
 		}
 		full_command[len_com(data, info, i)] = NULL;
@@ -59,26 +60,24 @@ static char	**return_full_com(t_data *data, t_input_var *info, int i)
 static int	add_command_to_list(t_data *data, t_command *com,
 		char **full_com)
 {
-	if (data->specific[data->sc_pos]->command_list == NULL)
-		data->specific[data->sc_pos]->command_list = com;
+	if (data->spec[data->sc_n]->command_list == NULL)
+		data->spec[data->sc_n]->command_list = com;
 	else
-		ft_lstadd_back_com(&data->specific[data->sc_pos]->command_list, com);
+		ft_lstadd_back_com(&data->spec[data->sc_n]->command_list, com);
 	if (full_com == NULL)
 		return (NO_COMMANDS);
 	return (SUCCESS);
 }
 
-int	write_in_command(t_data *data, t_specific *spec, t_input_var *info)
+int	write_in_command(t_data *data, t_spec *spec, t_info *info, int pos)
 {
 	t_command	*com;
 	char		**full_com;
-	int			pos;
 
 	full_com = return_full_com(data, info, data->v->idx_com);
 	com = ft_lstnew_com(full_com);
 	if (com == NULL || data->fatal_error == true)
 		return (MALLOC_ERROR);
-	pos = 0;
 	while (info->first_line_split[data->v->idx_com] != NULL
 		&& ft_strncmp(info->first_line_split[data->v->idx_com], "|", 1) != 0)
 	{
@@ -86,9 +85,10 @@ int	write_in_command(t_data *data, t_specific *spec, t_input_var *info)
 			data->v->idx_com++;
 		else
 		{
-			full_com[pos++] = ft_strdup(info->first_line_split[data->v->idx_com]);
+			full_com[pos++]
+				= ft_strdup(info->first_line_split[data->v->idx_com]);
 			if (full_com[pos - 1] == NULL)
-				return (ft_write_error_i(MALLOC_ERROR, data));
+				return (error_i(MALLOC_ERROR, data));
 		}
 		if (data->fatal_error == true)
 			return (ERROR);

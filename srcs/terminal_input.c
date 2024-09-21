@@ -6,23 +6,23 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/13 11:16:03 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:44:59 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_malloc_eof(t_data *data, t_input_var *info, int i)
+int	ft_malloc_eof(t_data *data, t_info *info, int i)
 {
 	info->list_eof = (char **) malloc ((info->n_eof + 1) * (sizeof (char *)));
 	if (info->list_eof == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	info->text_input = (char **) malloc ((info->n_eof + 1) * (sizeof (char *)));
 	if (info->text_input == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	info->real_eof = (bool *) malloc ((info->n_eof) * (sizeof (bool)));
 	if (info->real_eof == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	while (i < info->n_eof)
 	{
 		info->real_eof[i] = true;
@@ -33,7 +33,7 @@ int	ft_malloc_eof(t_data *data, t_input_var *info, int i)
 	return (SUCCESS);
 }
 
-int	ft_add_text(t_data *data, t_input_var *info_g, int i)
+int	ft_add_text(t_data *data, t_info *info_g, int i)
 {
 	char	*more_input;
 	char	*temp;
@@ -41,7 +41,7 @@ int	ft_add_text(t_data *data, t_input_var *info_g, int i)
 	more_input = NULL;
 	info_g->terminal_input = ft_join_input(info_g->terminal_input, "\n");
 	if (info_g->terminal_input == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
 	if (more_input == NULL)
 		return (ft_control_d_heredoc(data, info_g, i));
@@ -57,22 +57,23 @@ int	ft_add_text(t_data *data, t_input_var *info_g, int i)
 }
 
 //for every << we must compare the eof
-int	ft_get_ter_input(t_data *data, t_input_var *info_g, int i, char *f_line)
+int	ft_get_ter_input(t_data *d, t_info *info_g, int i, char *f_line)
 {
-	info_g->list_eof[data->v->k] = ft_find_eof(f_line, i + 2, data);
-	if (info_g->list_eof[data->v->k] == NULL)
+	info_g->list_eof[d->v->k] = ft_find_eof(f_line, i + 2, d);
+	if (info_g->list_eof[d->v->k] == NULL)
 		return (MALLOC_ERROR);
-	while (data->exit == false)
+	while (d->exit == false)
 	{
-		while (info_g->terminal_input != 0 && info_g->terminal_input[data->v->ii] != 0)
+		while (info_g->terminal_input != 0
+			&& info_g->terminal_input[d->v->ii] != 0)
 		{
-			if (info_g->terminal_input[data->v->ii] == '\n'
-				&& ft_compare_eof(&info_g->terminal_input[data->v->ii + 1],
-					info_g->list_eof[data->v->k], data) == true)
+			if (info_g->terminal_input[d->v->ii] == '\n'
+				&& ft_compare_eof(&info_g->terminal_input[d->v->ii + 1],
+					info_g->list_eof[d->v->k], d) == true)
 				return (SUCCESS);
-			data->v->ii++;
+			d->v->ii++;
 		}
-		if (ft_add_text(data, info_g, data->v->k) == MALLOC_ERROR)
+		if (ft_add_text(d, info_g, d->v->k) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
 	}
 	return (SUCCESS);

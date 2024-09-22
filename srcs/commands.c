@@ -64,9 +64,7 @@ static int	add_command_to_list(t_data *data, t_command *com,
 		data->spec[data->sc_n]->command_list = com;
 	else
 		ft_lstadd_back_com(&data->spec[data->sc_n]->command_list, com);
-/* 	if (full_com == NULL)
-		ft_lstdelone_com(com, &ft_free_char_pp);
- */	if (full_com != NULL)
+	if (full_com != NULL)
 		data->spec[data->sc_n]->no_commands = false;
 	return (SUCCESS);
 }

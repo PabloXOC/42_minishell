@@ -38,7 +38,7 @@ char	*ft_return_accessible_path(char **available_paths, char *command)
 	return (NULL);
 }
 
-char	*find_command_path(char **envp, char *command, int i, t_data *data)
+/* char	*find_command_path(char **envp, char *command, int i, t_data *data)
 {
 	char	*temp_path;
 	char	**available_paths;
@@ -62,5 +62,27 @@ char	*find_command_path(char **envp, char *command, int i, t_data *data)
 		}
 		i++;
 	}
+	return (NULL);
+} */
+
+char	*find_command_path(char *command, t_data *data)
+{
+	char	**available_paths;
+	char	*path_var;
+
+	if (command == NULL)
+		return (NULL);
+	path_var = return_content_var(data->env_lst, "PATH");
+	if (path_var != NULL)
+	{
+		available_paths = ft_split(path_var, ':');
+		path_var = ft_return_accessible_path(available_paths, command);
+		ft_free_char_pp(available_paths);
+		if (path_var == NULL)
+			return (ft_strdup(command));
+		return (path_var);
+	}
+	if (path_var == NULL)
+		return (ft_strdup(command));
 	return (NULL);
 }

@@ -92,8 +92,7 @@ int	reformat_final(t_data *data, t_spec *spec)
 				return (MALLOC_ERROR);
 			if (ft_expand_first_word(data, com) == MALLOC_ERROR)
 				return (MALLOC_ERROR);
-			com->full_path = find_command_path(data->env,
-					com->content[0], 0, data);
+			com->full_path = find_command_path(com->content[0], data);
 			if (com->full_path == NULL)
 				return (error_i(MALLOC_ERROR, data));
 		}

@@ -349,7 +349,7 @@ void	ft_infiles_cleanup(t_command *commands);
 
 /*------PIPES_COMMAND_PATH-------*/
 char	*ft_return_accessible_path(char **available_paths, char *command);
-char	*find_command_path(char **envp, char *command, int i, t_data *data);
+char	*find_command_path(char *command, t_data *data);
 
 /*------PIPES_ERRORS_COMS-------*/
 bool	ft_handle_arg_n(char **command, int n_arg, t_data *data);

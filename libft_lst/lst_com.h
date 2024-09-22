@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_com.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:51:57 by farah             #+#    #+#             */
-/*   Updated: 2024/07/07 09:05:52 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/21 18:06:20 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_command
 	bool		no_permissions;
 	bool		no_infile;
 	char		*temp_file;
+	bool		previous_error;
 	t_command	*next;
 }					t_command;
 

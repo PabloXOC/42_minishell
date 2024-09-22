@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_com.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:35:16 by pximenez          #+#    #+#             */
-/*   Updated: 2024/06/20 20:56:30 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/21 18:07:34 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_command	*ft_lstnew_com(char **content)
 	new_node->no_infile = false;
 	new_node->temp_file = NULL;
 	new_node->next = NULL;
+	new_node->previous_error = false;
 	return (new_node);
 }
 

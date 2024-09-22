@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 14:30:41 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 18:10:28 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data)
 	{
 		perror(file);
 		exit_codes(EXIT_1, data);
+		commands->previous_error = true;
 		commands->no_infile = true;
 		commands->temp_file = ft_strdup(file);
 		if (commands->temp_file == NULL)
@@ -50,6 +51,7 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data)
 	{
 		perror(file);
 		exit_codes(EXIT_1, data);
+		commands->previous_error = true;
 		commands->no_permissions = true;
 		commands->temp_file = ft_create_file_name(data);
 		if (commands->temp_file == NULL)
@@ -73,6 +75,7 @@ int	ft_outfile_perm(char *file, t_command *commands, t_data *data)
 	if (ft_write_permission(file) == ERROR)
 	{
 		perror(file);
+		commands->previous_error = true;
 		return (error_i(WRITE_ERROR, data));
 	}
 	if (ft_open_outfile(file, commands) == ERROR)

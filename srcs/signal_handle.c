@@ -27,20 +27,25 @@ int		g_exit_status = 0;
 	exit_codes(EXIT_130, NULL);
 } */
 
+//control c
 void	catch_sigint(int signum)
 {
 	(void)signum;
+	kill(0, SIGCHLD);
+	exit_codes(EXIT_130, NULL);
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	exit_codes(EXIT_130, NULL);
 }
 
+
+//control bar
 void	catch_sigquit(int signum)
 {
 	(void)signum;
 	printf("Quit: 3\n");
+	exit_codes(EXIT_131, NULL);
 	kill(0, SIGCHLD);
 }
 

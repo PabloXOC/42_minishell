@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 14:31:06 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 18:11:05 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 			}
 		}
 		waitpid(data->v->fork_id, &status, 0);
-		exit_codes(WEXITSTATUS(status), data);
+		if (com->previous_error == false)
+			exit_codes(WEXITSTATUS(status), data);
 	}
 	return (SUCCESS);
 }

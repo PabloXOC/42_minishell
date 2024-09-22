@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 14:12:10 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 16:40:25 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,27 @@ int	ft_size_new(t_data *d, char *old_str, int s_q, int d_q)
 int	ft_paste_new_var(t_data *d, char **new_str, char *old_str, int i)
 {
 	int		len_old;
-	int		len_new;
 	int		k;
+	int		jj;
+	t_var	*var;
 
 	k = 0;
 	d->v->jj++;
 	len_old = len_old_var(old_str, d->v->jj);
 	if (len_old == 0)
 		return (i);
-	while (d->var != NULL)
+	jj = d->v->jj;
+	d->v->jj += len_old;
+	var = d->var;
+	while (var != NULL)
 	{
-		if (ft_strncmp(&old_str[d->v->jj], d->var->var, len_old) == 0)
+		if (ft_strncmp(&old_str[jj], var->var, len_old) == 0)
 		{
-			len_new += ft_strlen(d->var->content);
-			while (k < len_new)
-				(*new_str)[i++] = d->var->content[k++];
-			d->v->jj += len_old;
+			while (k < ft_strlen(var->content))
+				(*new_str)[i++] = var->content[k++];
 			return (i);
 		}
-		d->var = d->var->next;
+		var = var->next;
 	}
 	return (i);
 }
@@ -102,7 +104,7 @@ int	ft_reformat_vars(t_data *data, t_info *info)
 	var_counter = 1;
 	old_str = ft_strdup(info->first_line_ref);
 	if (old_str == NULL)
-		return (ft_write_error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	while (var_counter > 0)
 	{
 		if (new_str != NULL)
@@ -112,7 +114,7 @@ int	ft_reformat_vars(t_data *data, t_info *info)
 		var_counter = ft_size_new(data, old_str, 0, 0);
 		new_str = (char *) malloc ((data->v->len + 1) * sizeof (char));
 		if (new_str == NULL)
-			return (ft_write_error_i(MALLOC_ERROR, data));
+			return (error_i(MALLOC_ERROR, data));
 		new_str[data->v->len] = 0;
 		ft_make_new_string(data, old_str, &new_str);
 		free(old_str);

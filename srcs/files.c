@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:27:40 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/09/21 14:28:45 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:20:32 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int	fill_input_info(t_data *data, t_info *info, int i, t_command *com)
 	if (ft_strncmp(info->first_line_split[i], "<<", 2) == 0)
 	{
 		ft_infiles_cleanup(com);
-		com->text_input = info->text_input[data->v->pointer++];
+		com->text_input = ft_strdup(info->text_input[data->v->pointer++]);
+		if (com->text_input == NULL)
+			return (error_i(MALLOC_ERROR, data));
 		com->file_input = false;
 		if (com->file_input == false && com->text_input != NULL)
 		{
@@ -46,7 +48,9 @@ int	fill_input_info(t_data *data, t_info *info, int i, t_command *com)
 	else if (ft_strncmp(info->first_line_split[i], "<", 1) == 0)
 	{
 		ft_infiles_cleanup(com);
-		com->redirect_input = info->first_line_split[++i];
+		com->redirect_input = ft_strdup(info->first_line_split[++i]);
+		if (com->redirect_input == NULL)
+			return (error_i(MALLOC_ERROR, data));
 		com->file_input = true;
 		if (com->redirect_input != NULL)
 			if (ft_infile_perm(com->redirect_input, com, data) != SUCCESS)
@@ -60,7 +64,9 @@ int	fill_output_info(t_data *data, t_info *info, int i, t_command *com)
 {
 	if (ft_strncmp(info->first_line_split[i], ">>", 2) == 0)
 	{
-		com->redirect_output = info->first_line_split[++i];
+		com->redirect_output = ft_strdup(info->first_line_split[++i]);
+		if (com->redirect_output == NULL)
+			return (error_i(MALLOC_ERROR, data));
 		com->append_output = true;
 		if (com->fd_out > 2)
 			close(com->fd_out);
@@ -71,7 +77,9 @@ int	fill_output_info(t_data *data, t_info *info, int i, t_command *com)
 	}
 	else if (ft_strncmp(info->first_line_split[i], ">", 1) == 0)
 	{
-		com->redirect_output = info->first_line_split[++i];
+		com->redirect_output = ft_strdup(info->first_line_split[++i]);
+		if (com->redirect_output == NULL)
+			return (error_i(MALLOC_ERROR, data));
 		com->append_output = false;
 		if (com->fd_out > 2)
 			close(com->fd_out);

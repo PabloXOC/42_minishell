@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:28:35 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 14:52:03 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:13:31 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_count_sep_char(char *input, int i, int count)
 	{
 		i = ft_count_sep_char_util(input, i);
 		if ((input[i] == '<' || input[i] == '>' || input[i] == '|')
-			&& (i == 0 || input[i - 1] == '\\'))
+			&& (i != 0 && input[i - 1] == '\\'))
 			i++;
 		else if ((input[i] == '<' && input[i + 1] == '<')
 			|| (input[i] == '>' && input[i + 1] == '>'))

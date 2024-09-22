@@ -35,5 +35,6 @@ int	init_input_struct(t_data *data)
 	data->input_info_g->invalid_token = false;
 	data->input_info_g->incomplete_input = false;
 	data->input_info_g->spec = NULL;
+	data->input_info_g->first_line_vars = NULL;
 	return (SUCCESS);
 }

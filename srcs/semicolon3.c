@@ -62,5 +62,6 @@ void	ft_set_to_null_2(t_info *i_v, t_data *data, int i)
 	i_v->real_eof = NULL;
 	i_v->invalid_token = false;
 	i_v->incomplete_input = false;
+	i_v->first_line_vars = NULL;
 	i_v->spec = data->spec[i];
 }

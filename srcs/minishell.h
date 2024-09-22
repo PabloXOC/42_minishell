@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 17:31:09 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/22 15:14:08 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,7 +377,7 @@ char	*ft_fill_new_string2(char *input, char *output, t_data *d);
 int		ft_size_new(t_data *d, char *old_str, int s_q, int d_q);
 int		ft_paste_new_var(t_data *d, char **new_str, char *old_str, int i);
 void	ft_make_new_string(t_data *d, char *old_str, char **new_str);
-int		ft_reformat_vars(t_data *data, t_info *info);
+int		ft_reformat_vars(t_data *data, t_info *info, int count, int i);
 
 /*------REMOVE_SLASH2-------*/
 void	ft_count_vars(t_data *d, char *str, int i);
@@ -436,8 +436,17 @@ int		ft_get_ter_input(t_data *d, t_info *info_g, int i, char *f_line);
 int		ft_terminal_input_util(t_data *data, int s_q, int d_q, char *f_line);
 int		ft_terminal_input(t_data *data, int s_q, int d_q);
 
+/*------TOKEN_DETECTION_UTIL-------*/
+bool	ft_check_next(char **array, char *str, int i);
+bool	ft_check_both2(char **array, char *str, int i);
+bool	ft_check_both(char **array, char *str, int i);
+
+
 /*------TOKEN_DETECTION-------*/
 int		ft_check_token(t_data *data, t_info *info);
+
+/*------TOKEN_DETECTION2-------*/
+int		ft_check_token2(t_data *data, t_info *info);
 
 /*------UNSET-------*/
 int		unset_var(t_data *data, t_command *full_com);

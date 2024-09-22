@@ -39,7 +39,6 @@ void	catch_sigint(int signum)
 	rl_redisplay();
 }
 
-
 //control bar
 void	catch_sigquit(int signum)
 {

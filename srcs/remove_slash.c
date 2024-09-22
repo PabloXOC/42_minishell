@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 16:40:25 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/22 14:03:53 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,30 +94,29 @@ void	ft_make_new_string(t_data *d, char *old_str, char **new_str)
 	}
 }
 
-int	ft_reformat_vars(t_data *data, t_info *info)
+int	ft_reformat_vars(t_data *data, t_info *info, int count, int i)
 {
 	char	*new_str;
 	char	*old_str;
-	int		var_counter;
 
 	new_str = NULL;
-	var_counter = 1;
 	old_str = ft_strdup(info->first_line_ref);
 	if (old_str == NULL)
 		return (error_i(MALLOC_ERROR, data));
-	while (var_counter > 0)
+	while (count > 0 && i <= 1)
 	{
 		if (new_str != NULL)
 			old_str = new_str;
 		data->v->jj = 0;
 		data->v->len = 0;
-		var_counter = ft_size_new(data, old_str, 0, 0);
+		count = ft_size_new(data, old_str, 0, 0);
 		new_str = (char *) malloc ((data->v->len + 1) * sizeof (char));
 		if (new_str == NULL)
 			return (error_i(MALLOC_ERROR, data));
 		new_str[data->v->len] = 0;
 		ft_make_new_string(data, old_str, &new_str);
 		free(old_str);
+		i++;
 	}
 	info->first_line_vars = new_str;
 	return (SUCCESS);

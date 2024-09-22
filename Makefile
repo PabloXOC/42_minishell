@@ -39,7 +39,8 @@ SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/cd.c $(SRC_DIR)/check_if_save_input.c $(SRC_
 	$(SRC_DIR)/reformat.c $(SRC_DIR)/reformat2.c $(SRC_DIR)/remove_slash.c $(SRC_DIR)/remove_slash2.c \
 	$(SRC_DIR)/removes_quote_var.c $(SRC_DIR)/removes_quote_var2.c $(SRC_DIR)/semicolon1.c $(SRC_DIR)/semicolon2.c \
 	$(SRC_DIR)/semicolon3.c $(SRC_DIR)/signal_handle.c $(SRC_DIR)/terminal_appearance.c $(SRC_DIR)/terminal_input_util.c \
-	$(SRC_DIR)/terminal_input_util2.c $(SRC_DIR)/terminal_input.c $(SRC_DIR)/token_detection.c $(SRC_DIR)/unset.c \
+	$(SRC_DIR)/terminal_input_util2.c $(SRC_DIR)/terminal_input.c $(SRC_DIR)/token_detection_util.c \
+	$(SRC_DIR)/token_detection.c $(SRC_DIR)/token_detection2.c $(SRC_DIR)/unset.c \
 	$(SRC_DIR)/utils.c $(SRC_DIR)/utils2.c $(SRC_DIR)/variables_utils.c $(SRC_DIR)/variables_utils2.c \
 	$(SRC_DIR)/variables.c $(SRC_DIR)/variables2.c $(SRC_DIR)/variables3.c $(SRC_DIR)/write.c \
 	

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 14:29:05 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/22 15:13:28 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,13 @@ int	ft_individual_eof(t_data *data, int i)
 
 int	recieve_complete_input_2(t_data *data)
 {
+	int	check_token2;
+
 	if (ft_check_token(data, data->input_info_g) == INVALID_TOKEN)
 		return (INVALID_TOKEN);
+	check_token2 = ft_check_token2(data, data->input_info_g);
+	if (check_token2 != SUCCESS)
+		return (check_token2);
 	if (ft_terminal_input(data, 0, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	if (ft_save_until_eof(data) == MALLOC_ERROR)

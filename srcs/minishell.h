@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/22 15:14:08 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:13:31 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,8 +258,11 @@ t_var	*find_env_el(t_data *data, char *name);
 int		exit_codes(int exit_code, t_data *data);
 int		exit_codes_main(int exit_code, t_data *data);
 
-/*------EXPORT-------*/
+/*------EXPAND_SQUIGGLE-------*/
+int		expand_squiggle(t_data *data, char ***array, int i);
+int		expand_squiggle2(t_data *data, char ***array, int i);
 
+/*------EXPORT-------*/
 char	**new_equality(char **equality, t_data *data);
 int		export_var(t_data *data, t_command *full_com, t_var **list, int i);
 int		export(t_data *data, t_command *full_com, t_var **list, int i);
@@ -318,7 +321,6 @@ int		ft_len_to_eof(t_data *data, int i, int k);
 int		found_end_first_line(t_data *data, int i, char *input);
 
 /*------MORE_REFORMATS-------*/
-int		expand_squiggle(t_data *data, char ***array, int i);
 int		ft_count_size_array(char **array);
 char	**ft_new_array(t_data *d, char **old_a, char **temp_a, int w_count);
 int		ft_expand_first_word(t_data *data, t_command *com);
@@ -440,7 +442,6 @@ int		ft_terminal_input(t_data *data, int s_q, int d_q);
 bool	ft_check_next(char **array, char *str, int i);
 bool	ft_check_both2(char **array, char *str, int i);
 bool	ft_check_both(char **array, char *str, int i);
-
 
 /*------TOKEN_DETECTION-------*/
 int		ft_check_token(t_data *data, t_info *info);

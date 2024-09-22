@@ -97,7 +97,7 @@ int	change_dir(t_data *data, t_command *full_com)
 {
 	DIR	*new_dir;
 
-	if (full_com->content[1] == NULL)
+	if (full_com->content[1] == NULL || ft_strncmp(full_com->content[1], "~", 2) == 0)
 		return (home_dir(data, full_com));
 	else if (ft_strncmp(full_com->content[1], "-", 2) == 0)
 		return (old_dir(data, full_com));

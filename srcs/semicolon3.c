@@ -43,6 +43,7 @@ void	ft_set_to_null(t_spec *spec, t_data *data)
 	spec->jj = 0;
 	spec->n_eof = 0;
 	spec->command_list = NULL;
+	spec->no_commands = true;
 }
 
 void	ft_set_to_null_2(t_info *i_v, t_data *data, int i)

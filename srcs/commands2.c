@@ -56,8 +56,9 @@ int	save_pipelines(t_data *data, t_info *info, t_spec *spec)
 		{
 			while (info->first_line_split[data->v->idx_com] != NULL)
 			{
-				if (write_in_command(data, spec, info, 0) == NO_COMMANDS)
-					return (NO_COMMANDS);
+				/* if (write_in_command(data, spec, info, 0) == NO_COMMANDS)
+					return (NO_COMMANDS); */
+				write_in_command(data, spec, info, 0);
 				if (data->fatal_error == true)
 					return (ERROR);
 				if (info->first_line_split[data->v->idx_com] != NULL)
@@ -65,6 +66,8 @@ int	save_pipelines(t_data *data, t_info *info, t_spec *spec)
 			}
 		}
 	}
+	if (spec->no_commands == true)
+		return (NO_COMMANDS);
 	return (SUCCESS);
 }
 

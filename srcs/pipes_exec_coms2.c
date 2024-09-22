@@ -45,6 +45,8 @@ int	exec_commands(t_data *data)
 	list_len = ft_lstsize_com(data->spec[data->sc_n]->command_list);
 	if (list_len == 1)
 	{
+		if (data->spec[data->sc_n]->command_list->content == NULL)
+			return (SUCCESS);
 		status = find_command(data,
 				data->spec[data->sc_n]->command_list, data->env);
 		if (status > 0 && status != INVALID_COMMAND

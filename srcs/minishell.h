@@ -116,6 +116,7 @@ typedef struct s_spec
 	char		*next_eof;
 	int			jj;
 	int			n_eof;
+	bool		no_commands;
 	t_data		*data;
 }				t_spec;
 

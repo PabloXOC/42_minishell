@@ -76,6 +76,8 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 			&& com->fd_out < 2)
 			if (dup2(data->v->stdout_cpy, STDOUT_FILENO) == -1)
 				exit(error_i(ERROR, data));
+		if (com->content == NULL)
+			exit (0);
 		status = find_command(data, com, data->env);
 		if (status != ERROR && status != INVALID_COMMAND)
 			exit(status);

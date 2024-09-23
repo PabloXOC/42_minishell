@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:42:48 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/22 17:08:40 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:43:58 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ int	expand_squiggle(t_data *data, char ***array, int i)
 		if (ft_strncmp((*array)[i], "~", 2) == 0)
 		{
 			if (return_content_var(data->env_lst, "HOME") == NULL)
-			{
-				free((*array)[i]);
-				(*array)[i] = ft_strdup("");
-				if ((*array)[i] == NULL)
-					return (error_i(MALLOC_ERROR, data));
-			}
+				return (SUCCESS);
 			else
 			{
 				free((*array)[i]);
@@ -95,12 +90,7 @@ int	expand_squiggle2(t_data *data, char ***array, int i)
 		if (ft_strncmp2((*array)[i], "~/", 2) == 0)
 		{
 			if (return_content_var(data->env_lst, "HOME") == NULL)
-			{
-				free((*array)[i]);
-				(*array)[i] = ft_strdup("");
-				if ((*array)[i] == NULL)
-					return (error_i(MALLOC_ERROR, data));
-			}
+				return (SUCCESS);
 			else if (expand_squiggle2_ext(data, array, i) == MALLOC_ERROR)
 				return (MALLOC_ERROR);
 		}

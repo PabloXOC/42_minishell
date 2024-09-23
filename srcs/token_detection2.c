@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/22 15:19:40 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:23:48 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_check_token2(t_data *data, t_info *info)
 	if (array == NULL)
 		return (error_i(MALLOC_ERROR, data));
 	i = 0;
-	print_char_pp(array);
 	while (array[i] != 0)
 	{
 		if (ft_find_token(array[i]) == true)

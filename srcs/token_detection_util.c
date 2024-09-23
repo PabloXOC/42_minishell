@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 15:11:07 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/22 15:21:10 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:11:07 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool	ft_check_both2(char **array, char *str, int i)
 
 bool	ft_check_both(char **array, char *str, int i)
 {
-	if (ft_strncmp(str, "|", ft_strlen(str)))
+	if (ft_strncmp(str, "|", ft_strlen(str)) == 0)
 	{
 		if (array[i + 1] == NULL)
 			return (true);

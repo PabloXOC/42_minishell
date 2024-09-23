@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:53:03 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 17:05:31 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:22:20 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ void	ft_free_char_pp(char **stack)
 	int	i;
 
 	i = 0;
-	while (stack[i] != 0)
+	if (stack != NULL)
 	{
-		free(stack[i]);
-		i++;
+		while (stack[i] != 0)
+		{
+			if (stack[i] != NULL)
+				free(stack[i]);
+			i++;
+		}
 	}
 	free (stack);
 }

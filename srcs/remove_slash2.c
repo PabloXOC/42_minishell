@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 16:30:03 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:46:57 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	len_old_var(char *str, int i)
 	{
 		if (str[i] == ' ' && str[i] == '\'' && str[i] == '\"')
 			return (size);
-		else if (ft_isalpha(str[i]) == 0 && str[i] != '_')
+		else if (ft_isalnum(str[i]) == 0 && str[i] != '_')
 			return (size);
 		i++;
 		size++;

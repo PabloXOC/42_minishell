@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:39 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/19 15:56:35 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/23 18:21:35 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	count_words(char const *s, char c, int count, int i)
 			if (s[i] != '\0')
 				count++;
 		}
-		if ((s[i] != '\"' && s[i] != '\''))
+		if ((s[i] != '\"' && s[i] != '\'' && s[i] != '\0'))
 			i++;
 	}
 	return (count);

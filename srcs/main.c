@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/22 17:05:24 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:28:49 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	minishell_2(t_data *data, t_spec *spec, t_info *info)
 	info->first_line_split = ft_minishell_split(info->first_line_vars, ' ');
 	if (info->first_line_split == NULL)
 		return (error_i(MALLOC_ERROR, data));
+	print_char_pp(info->first_line_split);
 	if (check_if_we_save_variables(data, info) == true)
 		save_variables(data, info, 0);
 	if (data->fatal_error == true)

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 14:28:11 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:27:34 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	write_in_command(t_data *data, t_spec *spec, t_info *info, int pos)
 	{
 		ft_lstdelone_com(com, &ft_free_char_pp);
 		return (SUCCESS);
-
 	}
 	return (add_command_to_list(data, com, full_com));
 }

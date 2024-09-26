@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/23 17:28:49 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/26 18:12:24 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	minishell(t_data *data)
 			total_cleanup(data);
 			return (MALLOC_ERROR);
 		}
-		if (data->exit == false)
+		if (data->fatal_error == false && data->exit == false)
 			data_cleanup(data);
 		if (refresh_mysignal_var(data) == MALLOC_ERROR)
 			return (exit_codes(EXIT_1, data));

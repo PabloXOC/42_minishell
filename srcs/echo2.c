@@ -65,3 +65,30 @@ char	*expand_var(t_data *data, char *text)
 	free(text);
 	return (str);
 }
+
+int	print_echo(t_command *full_com)
+{
+	bool	flag;
+	int		i;
+
+	flag == false;
+	i = 1;
+	if (full_com->content[i] != NULL)
+	{
+		if (strncmp("-n", full_com->content[i], 3) == 0)
+		{
+			i++;
+			flag = true;
+		}
+		while (full_com->content[i] != NULL)
+		{
+			printf("%s", full_com->content[i]);
+			if (full_com->content[i + 1] != NULL)
+				printf(" ");
+			i++;
+		}
+	}
+	if (flag == false)
+		printf("\n");
+	return (SUCCESS);
+}

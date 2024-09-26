@@ -240,6 +240,7 @@ void	print_commands(t_data *data);
 /*------ECHO-------*/
 void	fill_new_var(t_data *d, char *str, int i, char *dst);
 int		tot_size(t_data *d, char *str, int s_q, int d_q);
+int		print_echo(t_command *full_com);
 
 /*------ECHO2-------*/
 char	*ft_fillout_var(t_data *d, char *str, int s_q, int d_q);

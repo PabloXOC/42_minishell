@@ -20,6 +20,8 @@ int	find_command(t_data *data, t_command *full_com, char **env)
 	if (ft_command_args_errors(data->spec[data->sc_n]
 			->command_list->content, data) == true)
 		return (ERROR);
+	if (ft_strncmp(com, "echo", ft_strlen(com)) == 0)
+		return (print_echo(full_com));
 	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
 		return (change_dir(data, full_com));
 	if (ft_strncmp(com, "export", ft_strlen(com)) == 0)

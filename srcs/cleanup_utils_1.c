@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:40:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 13:49:38 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:26:38 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,22 @@ void	ft_free_commands(t_data *data, t_command *com)
 	data->v->idx_com = 0;
 }
 
-void	ft_free_specific(t_data *data, t_spec **specific)
+void	ft_free_specific(t_data *data, t_spec **spec)
 {
 	int	i;
 
 	i = 0;
-	if (specific != NULL)
+	if (spec != NULL)
 	{
-		while (specific[i] != 0)
+		while (spec[i] != 0)
 		{
-			if (specific[i]->command_list != NULL)
-				ft_free_commands(data, specific[i]->command_list);
-			if (specific[i]->input_info != NULL)
-				ft_free_input_info(specific[i]->input_info);
-			if (specific[i]->next_eof != NULL)
-				free(specific[i]->next_eof);
-			free(specific[i]);
+			if (spec[i]->command_list != NULL)
+				ft_free_commands(data, spec[i]->command_list);
+			if (spec[i]->input_info != NULL)
+				ft_free_input_info(spec[i]->input_info);
+			if (spec[i]->next_eof != NULL)
+				free(spec[i]->next_eof);
+			free(spec[i]);
 			i++;
 		}
 		free(data->spec);

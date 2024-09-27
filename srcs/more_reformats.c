@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:44:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/22 16:48:27 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:10:43 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,5 @@ int	reformat_final(t_data *data, t_spec *spec)
 		}
 		com = com->next;
 	}
+	return (SUCCESS);
 }

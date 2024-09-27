@@ -6,17 +6,19 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:41:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 14:00:12 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:40:05 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_control_d_heredoc(t_data *data, t_info *info_g, int i)
+int	ft_control_d_heredoc(t_info *info_g, int i)
 {
 	char	*temp;
 
 	temp = ft_strjoin(info_g->terminal_input, info_g->list_eof[i]);
+	if (temp == NULL)
+		return (error_i(MALLOC_ERROR, info_g->data));
 	if (info_g->terminal_input != NULL)
 		free(info_g->terminal_input);
 	info_g->terminal_input = temp;

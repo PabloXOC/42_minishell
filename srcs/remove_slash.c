@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:51:29 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/22 14:03:53 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:10:01 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_paste_new_var(t_data *d, char **new_str, char *old_str, int i)
 	{
 		if (ft_strncmp(&old_str[jj], var->var, len_old) == 0)
 		{
-			while (k < ft_strlen(var->content))
+			while (k < (int) ft_strlen(var->content))
 				(*new_str)[i++] = var->content[k++];
 			return (i);
 		}

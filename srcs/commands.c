@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/23 17:27:34 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:00:34 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	len_com(t_data *data, t_info *info, int i)
+static int	len_com(t_info *info, int i)
 {
 	int	len;
 
@@ -41,18 +41,18 @@ static char	**return_full_com(t_data *data, t_info *info, int i)
 {
 	char	**full_command;
 
-	if (len_com(data, info, i) == 0)
+	if (len_com(info, i) == 0)
 		full_command = NULL;
 	else
 	{
-		full_command = (char **)malloc((len_com(data, info, i) + 1)
+		full_command = (char **)malloc((len_com(info, i) + 1)
 				* sizeof(char *));
 		if (full_command == NULL)
 		{
 			error_c(MALLOC_ERROR, data, info->spec);
 			return (NULL);
 		}
-		full_command[len_com(data, info, i)] = NULL;
+		full_command[len_com(info, i)] = NULL;
 	}
 	return (full_command);
 }

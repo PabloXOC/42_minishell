@@ -13,7 +13,7 @@ RESET	:= \033[0m
 # Compilers
 
 CC = cc
-CFLAGS = -g
+CFLAGS = -g -Wall -Wextra -Werror
 LIB_DIR = libft/
 LIBFT_LST_DIR = libft_lst/
 

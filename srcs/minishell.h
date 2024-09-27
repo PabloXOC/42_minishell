@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/22 17:13:31 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:38:13 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_info
 	bool		invalid_token;
 	bool		incomplete_input;
 	t_spec		*spec;
+	t_data		*data;
 }				t_info;
 
 typedef struct s_spec
@@ -213,7 +214,7 @@ bool	ft_charcomp(const char *str1, const char *str2);
 bool	ft_isalnum_bool(int c);
 bool	ft_isspecial(const char *str);
 bool	ft_starts_with_number(const char *str);
-bool	check_if_we_save_variables(t_data *data, t_info *info);
+bool	check_if_we_save_variables(t_info *info);
 
 /*------CLEANUP_UTILS_1-------*/
 void	close_all_fds(t_command *command);
@@ -233,7 +234,7 @@ void	total_cleanup(t_data *data);
 int		write_in_command(t_data *data, t_spec *spec, t_info *info, int pos);
 
 /*------COMMANDS2-------*/
-int		find_command(t_data *data, t_command *full_com, char **env);
+int		find_command(t_data *data, t_command *full_com);
 int		save_pipelines(t_data *data, t_info *info, t_spec *spec);
 void	print_commands(t_data *data);
 
@@ -275,7 +276,7 @@ int		fill_export_list(t_data *data, char *var, char *cont);
 int		save_export_el(t_data *data, char *var, char *cont);
 void	modify_export(t_data *data, char *var, char *new_cont);
 bool	ft_export_isspecial(const char *str);
-bool	check_if_we_save_export_var(t_data *data, char *var);
+bool	check_if_we_save_export_var(char *var);
 
 /*------FILES-------*/
 int		create_temp_file(t_command *com, t_data *data);
@@ -311,7 +312,7 @@ char	*ft_join_input(char *s1, char *s2);
 int		ft_eofsize_total(t_data *data, int i, int j);
 
 /*------INPUT3-------*/
-int		ft_control_d_quote(t_data *data, t_info *info);
+int		ft_control_d_quote(t_data *data);
 int		ft_ask_user_for_more_input(t_data *data);
 int		ft_combine_fl_ft_2(t_data *data, int i, char **str);
 int		ft_combine_fl_ft(t_data *data, int i);
@@ -388,24 +389,27 @@ void	ft_count_vars(t_data *d, char *str, int i);
 int		len_old_var(char *str, int i);
 
 /*------REMOVES_QUOTE_VAR-------*/
-int		ft_paste_s_quote(t_data *d, char *old_str, char **str, int i);
-int		ft_paste_d_quote(t_data *d, char *old_str, char **str, int i);
+
 int		ft_calc_size(t_data *d, char *old_str, int len);
 int		ft_remove_quotes_bar(char ***list, t_data *data);
+int		ft_assemble(char **list, t_data *data, char ***new_list, int i);
+
 
 /*------REMOVES_QUOTE_VAR2-------*/
 int		ft_handle_s_quote(t_data *d, char *old_str, int len);
 int		ft_handle_d_quote(t_data *d, char *old_str, int len);
+int		ft_paste_s_quote(t_data *d, char *old_str, char **str, int i);
+int		ft_paste_d_quote(t_data *d, char *old_str, char **str, int i);
 
 /*------SEMICOLON1-------*/
 int		ft_complete_specific(t_data *data, int i);
-int		ft_assign_eof(t_spec *spec, int s_q, int _d_q);
-int		ft_count_eof(t_spec *spec, int s_q, int d_q);
+int		ft_assign_eof(t_spec *spec);
+void	ft_count_eof(t_spec *spec, int s_q, int d_q);
 int		ft_break_semicolons(t_data *data, int i);
 
 /*------SEMICOLON2-------*/
-int		ft_pos_semicolon(t_data *data, int n_semi, char *str, int j);
-int		ft_size_semicolon(t_data *data, int pos, char *str);
+int		ft_pos_semicolon(int n_semi, char *str, int j);
+int		ft_size_semicolon(int pos, char *str);
 int		ft_copy_text(t_data *data, int size, int start, int semi_pos);
 int		ft_split_semicolon(t_data *data, int i);
 
@@ -425,13 +429,13 @@ int		terminal_entry_info(t_data *data, char **env);
 
 /*------TERMINAL_INPUT_UTIL-------*/
 int		ft_eofsize(char *str, int i, bool single_q, bool double_q);
-char	*ft_write_eof(char *str, char *eof, int size, int i);
+void	ft_write_eof(char *str, char **eof, int size, int i);
 char	*ft_find_eof(char *str, int i, t_data *data);
 bool	ft_compare_eof(char *str, char *eof, t_data *data);
-bool	ft_compare_eof_ind(char *str, char *eof, t_data *data);
+bool	ft_compare_eof_ind(char *str, char *eof);
 
 /*------TERMINAL_INPUT_UTIL2-------*/
-int		ft_control_d_heredoc(t_data *data, t_info *info_g, int i);
+int		ft_control_d_heredoc(t_info *info_g, int i);
 
 /*------TERMINAL_INPUT-------*/
 int		ft_malloc_eof(t_data *data, t_info *info, int i);
@@ -488,7 +492,7 @@ int		delete_head_var(t_var *vars, t_var *temp_var, t_var **list);
 int		delete_middle_var(t_var *vars, t_var *temp_var);
 
 /*------VARIABLES2-------*/
-int		delete_var(t_data *data, char *var_to_del, t_var **list);
+int		delete_var(char *var_to_del, t_var **list);
 int		refresh_mysignal_var(t_data *data);
 int		refresh_home_var(t_data *data);
 int		create_preset_vars(t_data *data);

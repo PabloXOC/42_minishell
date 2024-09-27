@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:45:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 14:28:27 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:02:16 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ char	*ft_fillout_var(t_data *d, char *str, int s_q, int d_q)
 
 char	*expand_var(t_data *data, char *text)
 {
-	int		size;
 	char	*str;
 
-	size = 0;
 	if (text == NULL)
 		return (ft_strdup(""));
 	if (ft_strncmp(text, "~", 2) == 0)
@@ -71,7 +69,7 @@ int	print_echo(t_command *full_com)
 	bool	flag;
 	int		i;
 
-	flag == false;
+	flag = false;
 	i = 1;
 	if (full_com->content[i] != NULL)
 	{

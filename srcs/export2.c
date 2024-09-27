@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 14:32:39 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:04:08 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ bool	ft_export_isspecial(const char *str)
 	return (false);
 }
 
-bool	check_if_we_save_export_var(t_data *data, char *var)
+bool	check_if_we_save_export_var(char *var)
 {
 	if (ft_export_isspecial(var) == true)
 		return (false);

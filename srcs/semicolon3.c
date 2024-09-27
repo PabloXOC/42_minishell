@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:16:44 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 14:00:01 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:39:54 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_set_to_null(t_spec *spec, t_data *data)
 	spec->jj = 0;
 	spec->n_eof = 0;
 	spec->command_list = NULL;
+	if (spec->command_list != NULL)
+		ft_printf("hi");
 	spec->no_commands = true;
 }
 
@@ -64,5 +66,6 @@ void	ft_set_to_null_2(t_info *i_v, t_data *data, int i)
 	i_v->invalid_token = false;
 	i_v->incomplete_input = false;
 	i_v->first_line_vars = NULL;
+	i_v->data = data;
 	i_v->spec = data->spec[i];
 }

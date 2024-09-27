@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:52:43 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 14:55:52 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:13:05 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pos_semicolon(t_data *data, int n_semi, char *str, int j)
+int	ft_pos_semicolon(int n_semi, char *str, int j)
 {
 	int	d_q;
 	int	s_q;
@@ -40,7 +40,7 @@ int	ft_pos_semicolon(t_data *data, int n_semi, char *str, int j)
 	return (j);
 }
 
-int	ft_size_semicolon(t_data *data, int pos, char *str)
+int	ft_size_semicolon(int pos, char *str)
 {
 	int	s_q;
 	int	d_q;
@@ -85,8 +85,8 @@ int	ft_split_semicolon(t_data *data, int i)
 	int	pos;
 	int	size;
 
-	pos = ft_pos_semicolon(data, i, data->input_info_g->first_line_ref, 0);
-	size = ft_size_semicolon(data, pos, data->input_info_g->first_line_ref);
+	pos = ft_pos_semicolon(i, data->input_info_g->first_line_ref, 0);
+	size = ft_size_semicolon(pos, data->input_info_g->first_line_ref);
 	if (ft_copy_text(data, size, pos, i) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	return (SUCCESS);

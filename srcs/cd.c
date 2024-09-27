@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: farah <farah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/07/07 09:08:31 by farah            ###   ########.fr       */
+/*   Updated: 2024/09/27 19:31:47 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,8 @@ int	old_dir(t_data *data, t_command *full_com)
 
 int	change_dir(t_data *data, t_command *full_com)
 {
-	DIR	*new_dir;
-
-	if (full_com->content[1] == NULL || ft_strncmp(full_com->content[1], "~", 2) == 0)
+	if (full_com->content[1] == NULL
+		|| ft_strncmp(full_com->content[1], "~", 2) == 0)
 		return (home_dir(data, full_com));
 	else if (ft_strncmp(full_com->content[1], "-", 2) == 0)
 		return (old_dir(data, full_com));

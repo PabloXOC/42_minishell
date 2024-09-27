@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:02:00 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 13:46:47 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 13:59:13 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	ft_starts_with_number(const char *str)
 	return (false);
 }
 
-bool	check_if_we_save_variables(t_data *data, t_info *info)
+bool	check_if_we_save_variables(t_info *info)
 {
 	int	i;
 

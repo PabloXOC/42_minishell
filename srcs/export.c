@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 14:28:39 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:04:38 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ char	**new_equality(char **equality, t_data *data)
 int	export_var(t_data *data, t_command *full_com, t_var **list, int i)
 {
 	char	**equality;
-	t_var	*temp_var;
 
 	if (ft_strrchr(full_com->content[i], '=') != NULL)
 	{
-		equality = ft_split(full_com->content[i], '=');
+		equality = ft_split_var(full_com->content[i], '=');
 		if (equality == NULL)
 			return (error_i(MALLOC_ERROR, data));
 		if (equality[1] == NULL)
@@ -71,7 +70,7 @@ int	export(t_data *data, t_command *full_com, t_var **list, int i)
 	error = false;
 	while (full_com->content[i] != NULL)
 	{
-		if (check_if_we_save_export_var(data, full_com->content[i]) == true)
+		if (check_if_we_save_export_var(full_com->content[i]) == true)
 			export_var(data, full_com, list, i);
 		else
 		{

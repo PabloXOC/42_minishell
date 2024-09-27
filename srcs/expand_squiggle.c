@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:42:48 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/22 17:43:58 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:03:18 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static int	expand_squiggle2_ext(t_data *data, char ***array, int i)
 	(*array)[i] = ft_strjoin(str1, str2);
 	if ((*array)[i] == NULL)
 		return (error_i(MALLOC_ERROR, data));
+	return (SUCCESS);
 }
 
 int	expand_squiggle2(t_data *data, char ***array, int i)

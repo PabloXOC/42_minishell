@@ -6,18 +6,19 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 14:32:14 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:18:10 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	delete_var(t_data *data, char *var_to_del, t_var **list)
+int	delete_var(char *var_to_del, t_var **list)
 {
 	t_var	*vars;
 	t_var	*temp_var;
 
 	vars = *list;
+	temp_var = NULL;
 	if (vars == NULL)
 		return (SUCCESS);
 	if (vars != NULL)

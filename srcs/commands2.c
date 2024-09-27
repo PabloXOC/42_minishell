@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 13:54:00 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:32:30 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_command(t_data *data, t_command *full_com, char **env)
+int	find_command(t_data *data, t_command *full_com)
 {
 	char	*com;
 
@@ -58,8 +58,6 @@ int	save_pipelines(t_data *data, t_info *info, t_spec *spec)
 		{
 			while (info->first_line_split[data->v->idx_com] != NULL)
 			{
-				/* if (write_in_command(data, spec, info, 0) == NO_COMMANDS)
-					return (NO_COMMANDS); */
 				write_in_command(data, spec, info, 0);
 				if (data->fatal_error == true)
 					return (ERROR);

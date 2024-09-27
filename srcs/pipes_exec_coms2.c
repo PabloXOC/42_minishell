@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 17:48:42 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:08:41 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	exec_commands(t_data *data)
 		if (data->spec[data->sc_n]->command_list->content == NULL)
 			return (SUCCESS);
 		status = find_command(data,
-				data->spec[data->sc_n]->command_list, data->env);
+				data->spec[data->sc_n]->command_list);
 		if (status > 0 && status != INVALID_COMMAND
 			&& data->fatal_error == false)
 			return (SUCCESS);

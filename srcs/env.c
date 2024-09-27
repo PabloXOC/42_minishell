@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/20 16:38:06 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:02:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	save_env2(char **env, t_var **head, char **el)
 
 t_var	*save_env(char **env)
 {
-	int		i;
 	t_var	*head;
 	char	**el;
 

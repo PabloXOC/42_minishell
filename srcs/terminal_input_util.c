@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:21:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 14:31:45 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:08:44 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_eofsize(char *str, int i, bool single_q, bool double_q)
 }
 
 //save the eof to the variable
-char	*ft_write_eof(char *str, char *eof, int size, int i)
+void	ft_write_eof(char *str, char **eof, int size, int i)
 {
 	int		j;
 	bool	single_q;
@@ -53,25 +53,23 @@ char	*ft_write_eof(char *str, char *eof, int size, int i)
 	{
 		if (str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
 		{
-			eof[j++] = str[i + 1];
-			i += 2;
+			(*eof)[j++] = str[i + 1];
+			i++;
 		}
 		else if (str[i] == '\'' && double_q == false)
 			single_q = ft_quote_switch(str, i, single_q, double_q);
 		else if (str[i] == '\"' && single_q == false)
 			double_q = ft_quote_switch(str, i, single_q, double_q);
 		else
-			eof[j++] = str[i];
+			(*eof)[j++] = str[i];
 		i++;
 	}
-	eof[j] = 0;
-	return (eof);
+	(*eof)[j] = 0;
 }
 
 //given the position in the str, we determine what the eof will be
 char	*ft_find_eof(char *str, int i, t_data *data)
 {
-	int		j;
 	int		size;
 	char	*eof;
 
@@ -81,7 +79,7 @@ char	*ft_find_eof(char *str, int i, t_data *data)
 	eof = (char *) malloc ((size + 1) * sizeof(char));
 	if (eof == NULL)
 		return (error_c(MALLOC_ERROR, data, NULL));
-	ft_write_eof(str, eof, size, i);
+	ft_write_eof(str, &eof, size, i);
 	return (eof);
 }
 
@@ -102,14 +100,14 @@ bool	ft_compare_eof(char *str, char *eof, t_data *data)
 		return (false);
 	if (str[i] == '\n' || str[i] == '\0')
 	{
-		data->input_info_g->search_eof = &str[i + 1];
+		data->input_info_g->search_eof = ft_strdup(&str[i + 1]);
 		return (true);
 	}
 	else
 		return (false);
 }
 
-bool	ft_compare_eof_ind(char *str, char *eof, t_data *data)
+bool	ft_compare_eof_ind(char *str, char *eof)
 {
 	int	size;
 	int	i;

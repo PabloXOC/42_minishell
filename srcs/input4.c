@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 14:29:22 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:14:29 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_len_to_eof(t_data *data, int i, int k)
 	{
 		if ((data->input_info_g->terminal_input[i - 1] == '\n' || len == 0)
 			&& ft_compare_eof_ind(&data->input_info_g->terminal_input[i],
-				data->input_info_g->list_eof[k], data) == true)
+				data->input_info_g->list_eof[k]) == true)
 			return (len);
 		i++;
 		len++;

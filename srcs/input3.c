@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:46:18 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/21 14:29:18 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:05:23 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_control_d_quote(t_data *data, t_info *info)
+int	ft_control_d_quote(t_data *data)
 {
 	data->control_d_g = true;
 	exit_codes(EXIT_2, data);
@@ -33,7 +33,7 @@ int	ft_ask_user_for_more_input(t_data *data)
 		return (error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
 	if (more_input == NULL)
-		return (ft_control_d_quote(data, info_g));
+		return (ft_control_d_quote(data));
 	info_g->init_input = ft_strjoin(info_g->init_input, more_input);
 	if (info_g->init_input == NULL)
 		return (error_i(MALLOC_ERROR, data));

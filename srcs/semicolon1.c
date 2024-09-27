@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:16:44 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 14:31:30 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:11:59 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_complete_specific(t_data *data, int i)
 	return (SUCCESS);
 }
 
-int	ft_assign_eof(t_spec *spec, int s_q, int _d_q)
+int	ft_assign_eof(t_spec *spec)
 {
 	char	**text_list;
 	int		i;
@@ -48,7 +48,7 @@ int	ft_assign_eof(t_spec *spec, int s_q, int _d_q)
 	return (SUCCESS);
 }
 
-int	ft_count_eof(t_spec *spec, int s_q, int d_q)
+void	ft_count_eof(t_spec *spec, int s_q, int d_q)
 {
 	int		i;
 	int		count;
@@ -87,7 +87,8 @@ int	ft_break_semicolons(t_data *data, int i)
 		if (ft_complete_specific(data, i) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
 		ft_count_eof(data->spec[i], 0, 0);
-		ft_assign_eof(data->spec[i], 0, 0);
+		if (ft_assign_eof(data->spec[i]))
+			return (MALLOC_ERROR);
 		i++;
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 14:44:59 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:36:43 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,13 @@ int	ft_add_text(t_data *data, t_info *info_g, int i)
 		return (error_i(MALLOC_ERROR, data));
 	more_input = readline("> ");
 	if (more_input == NULL)
-		return (ft_control_d_heredoc(data, info_g, i));
-	else
-	{
-		temp = ft_strjoin(info_g->terminal_input, more_input);
-		if (info_g->terminal_input != NULL)
-			free(info_g->terminal_input);
-		info_g->terminal_input = temp;
-	}
+		return (ft_control_d_heredoc(info_g, i));
+	temp = ft_strjoin(info_g->terminal_input, more_input);
+	if (temp == NULL)
+		return (error_i(MALLOC_ERROR, data));
+	if (info_g->terminal_input != NULL)
+		free(info_g->terminal_input);
+	info_g->terminal_input = temp;
 	free(more_input);
 	return (SUCCESS);
 }

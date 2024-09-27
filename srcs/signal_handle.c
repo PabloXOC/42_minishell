@@ -28,7 +28,7 @@ int		g_exit_status = 0;
 } */
 
 //control c
-void	catch_sigint(int signum)
+/* void	catch_sigint(int signum)
 {
 	(void)signum;
 	kill(0, SIGCHLD);
@@ -37,21 +37,46 @@ void	catch_sigint(int signum)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+} */
+
+void	catch_sigint(int signum)
+{
+	(void)signum;
+	if (isatty(STDIN_FILENO))
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		exit_codes(EXIT_130, NULL);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 //control bar
-void	catch_sigquit(int signum)
+
+/* void	catch_sigquit(int signum)
 {
 	(void)signum;
 	printf("Quit: 3\n");
 	exit_codes(EXIT_131, NULL);
 	kill(0, SIGCHLD);
+} */
+
+void	catch_sigquit(int signum)
+{
+	(void)signum;
+	if (!isatty(STDIN_FILENO))
+	{
+		write(STDOUT_FILENO, "Quit: 3\n", 8);
+		exit_codes(EXIT_131, NULL);
+		kill(0, SIGCHLD);
+	}
 }
 
 int	signal_handle(void)
 {
 	signal(SIGINT, catch_sigint);
-	signal(SIGQUIT, catch_sigquit);
+	signal(SIGQUIT, SIG_IGN);
 	return (SUCCESS);
 }
 

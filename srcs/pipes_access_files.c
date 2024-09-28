@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 18:10:28 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/28 15:39:05 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,21 @@ int	ft_write_permission(char *file)
 	return (SUCCESS);
 }
 
-int	ft_infile_perm(char *file, t_command *commands, t_data *data)
+int	ft_infile_perm2(t_data *data, t_command *commands, char *file)
+{
+	perror(file);
+	exit_codes(EXIT_1, data);
+	commands->previous_error = true;
+	commands->no_permissions = true;
+	commands->temp_file = ft_create_file_name(data);
+	if (commands->temp_file == NULL)
+		return (error_i(MALLOC_ERROR, data));
+	if (ft_open_infile(commands->temp_file, commands) == ERROR)
+		return (error_i(OPEN_ERROR, data));
+	return (SUCCESS);
+}
+
+int	ft_infile_perm(char *file, t_command *commands, t_data *data, int ret)
 {
 	if (ft_file_exists(file) == ERROR)
 	{
@@ -49,7 +63,10 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data)
 	}
 	else if (ft_read_permission(file) == ERROR)
 	{
-		perror(file);
+		ret = ft_infile_perm2(data, commands, file);
+		if (ret != SUCCESS)
+			return (ret);
+		/* perror(file);
 		exit_codes(EXIT_1, data);
 		commands->previous_error = true;
 		commands->no_permissions = true;
@@ -57,7 +74,7 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data)
 		if (commands->temp_file == NULL)
 			return (error_i(MALLOC_ERROR, data));
 		if (ft_open_infile(commands->temp_file, commands) == ERROR)
-			return (error_i(OPEN_ERROR, data));
+			return (error_i(OPEN_ERROR, data)); */
 	}
 	else if (ft_open_infile(file, commands) == ERROR)
 		return (error_i(OPEN_ERROR, data));

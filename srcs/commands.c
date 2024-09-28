@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/27 14:00:34 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/28 15:27:29 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,44 @@ static int	add_command_to_list(t_data *data, t_command *com,
 	return (SUCCESS);
 }
 
-int	write_in_command(t_data *data, t_spec *spec, t_info *info, int pos)
+static int	write_in_command2(t_data *data, t_command *com, char **full_com)
+{
+	t_info	*info;
+
+	info = data->spec[data->sc_n]->input_info;
+	if (fill_extra_info(data, info, data->v->idx_com, com) == SUCCESS)
+		data->v->idx_com++;
+	else
+	{
+		full_com[data->v->pos++]
+			= ft_strdup(info->first_line_split[data->v->idx_com]);
+		if (full_com[data->v->pos - 1] == NULL)
+			return (error_i(MALLOC_ERROR, data));
+	}
+	if (data->fatal_error == true)
+		return (ERROR);
+	data->v->idx_com++;
+	return (SUCCESS);
+}
+
+int	write_in_command(t_data *data, t_spec *spec, t_info *info, int ret)
 {
 	t_command	*com;
 	char		**full_com;
 
 	full_com = return_full_com(data, info, data->v->idx_com);
+	if (full_com == NULL)
+		return (MALLOC_ERROR);
 	com = ft_lstnew_com(full_com);
+	data->v->pos = 0;
 	if (com == NULL || data->fatal_error == true)
 		return (MALLOC_ERROR);
 	while (info->first_line_split[data->v->idx_com] != NULL
 		&& ft_strncmp(info->first_line_split[data->v->idx_com], "|", 1) != 0)
 	{
-		if (fill_extra_info(data, info, data->v->idx_com, com) == SUCCESS)
-			data->v->idx_com++;
-		else
-		{
-			full_com[pos++]
-				= ft_strdup(info->first_line_split[data->v->idx_com]);
-			if (full_com[pos - 1] == NULL)
-				return (error_i(MALLOC_ERROR, data));
-		}
-		if (data->fatal_error == true)
-			return (ERROR);
-		data->v->idx_com++;
+		ret = write_in_command2(data, com, full_com);
+		if (ret != SUCCESS)
+			return (ret);
 	}
 	if (full_com == NULL && spec->command_list == NULL)
 	{

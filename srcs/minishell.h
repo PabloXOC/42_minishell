@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/27 19:38:13 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/28 15:37:35 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_v
 	int			k;
 	int			ii;
 	int			kk;
+	int			ij;
 	int			iii;
 	int			jjj;
 	int			size_var;
@@ -141,6 +142,7 @@ typedef struct s_v
 	int			input_index;
 	int			n_eof_saved;
 	int			size_tot;
+	int			pos;
 	char		quote;
 	pid_t		fork_id;
 	t_data		*data;
@@ -231,7 +233,7 @@ void	data_cleanup(t_data *data);
 void	total_cleanup(t_data *data);
 
 /*------COMMANDS-------*/
-int		write_in_command(t_data *data, t_spec *spec, t_info *info, int pos);
+int		write_in_command(t_data *data, t_spec *spec, t_info *info, int ret);
 
 /*------COMMANDS2-------*/
 int		find_command(t_data *data, t_command *full_com);
@@ -333,7 +335,7 @@ int		reformat_final(t_data *data, t_spec *spec);
 int		ft_file_exists(char *file);
 int		ft_read_permission(char *file);
 int		ft_write_permission(char *file);
-int		ft_infile_perm(char *file, t_command *commands, t_data *data);
+int		ft_infile_perm(char *file, t_command *commands, t_data *data, int ret);
 int		ft_outfile_perm(char *file, t_command *commands, t_data *data);
 
 /*------PIPES_AID-------*/
@@ -393,7 +395,6 @@ int		len_old_var(char *str, int i);
 int		ft_calc_size(t_data *d, char *old_str, int len);
 int		ft_remove_quotes_bar(char ***list, t_data *data);
 int		ft_assemble(char **list, t_data *data, char ***new_list, int i);
-
 
 /*------REMOVES_QUOTE_VAR2-------*/
 int		ft_handle_s_quote(t_data *d, char *old_str, int len);

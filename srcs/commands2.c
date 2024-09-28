@@ -6,11 +6,25 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/28 15:27:39 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/28 16:43:52 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	find_command2(t_data *data, t_command *full_com, char *com)
+{
+	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
+		return (unset_var(data, full_com));
+	if (ft_strncmp(com, "env", ft_strlen(com)) == 0)
+		return (print_env(data));
+	if (ft_strncmp(com, "exit", ft_strlen(com)) == 0)
+	{
+		data->exit = true;
+		return (exit_codes(EXIT_0, data));
+	}
+	return (INVALID_COMMAND);
+}
 
 int	find_command(t_data *data, t_command *full_com)
 {
@@ -31,16 +45,7 @@ int	find_command(t_data *data, t_command *full_com)
 		else
 			return (export(data, full_com, &data->var, 1));
 	}
-	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
-		return (unset_var(data, full_com));
-	if (ft_strncmp(com, "env", ft_strlen(com)) == 0)
-		return (print_env(data));
-	if (ft_strncmp(com, "exit", ft_strlen(com)) == 0)
-	{
-		data->exit = true;
-		return (exit_codes(EXIT_0, data));
-	}
-	return (INVALID_COMMAND);
+	return (find_command2(data, full_com, com));
 }
 
 int	save_pipelines(t_data *data, t_info *info, t_spec *spec)

@@ -31,7 +31,7 @@ READLINE = -lreadline
 SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/cd.c $(SRC_DIR)/check_if_save_input.c $(SRC_DIR)/cleanup_utils_1.c \
 	$(SRC_DIR)/cleanup_utils_2.c $(SRC_DIR)/cleanup.c $(SRC_DIR)/commands.c $(SRC_DIR)/commands2.c \
 	$(SRC_DIR)/echo.c $(SRC_DIR)/echo2.c $(SRC_DIR)/env.c $(SRC_DIR)/env2.c $(SRC_DIR)/exit_codes.c $(SRC_DIR)/expand_squiggle.c \
-	$(SRC_DIR)/export.c $(SRC_DIR)/export2.c $(SRC_DIR)/files.c $(SRC_DIR)/ft_minishell_split.c \
+	$(SRC_DIR)/export.c $(SRC_DIR)/export2.c $(SRC_DIR)/files.c $(SRC_DIR)/files2.c $(SRC_DIR)/ft_minishell_split.c \
 	$(SRC_DIR)/ft_split_var.c $(SRC_DIR)/init.c $(SRC_DIR)/init2.c $(SRC_DIR)/input.c \
 	$(SRC_DIR)/input2.c $(SRC_DIR)/input3.c $(SRC_DIR)/input4.c $(SRC_DIR)/more_reformats.c \
 	$(SRC_DIR)/pipes_access_files.c $(SRC_DIR)/pipes_aid.c $(SRC_DIR)/pipes_aid2.c $(SRC_DIR)/pipes_cleanup.c \

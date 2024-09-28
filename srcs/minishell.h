@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/28 15:37:35 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/28 16:51:14 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ typedef struct s_v
 	int			k;
 	int			ii;
 	int			kk;
-	int			ij;
 	int			iii;
 	int			jjj;
 	int			size_var;
@@ -281,7 +280,15 @@ bool	ft_export_isspecial(const char *str);
 bool	check_if_we_save_export_var(char *var);
 
 /*------FILES-------*/
+int		fill_input_info2(t_data *data, t_info *info, t_command *com, int i);
+int		fill_input_info(t_data *data, t_info *info, int i, t_command *com);
+int		fill_output_info2(t_data *data, t_info *info, t_command *com, int i);
+int		fill_output_info(t_data *data, t_info *info, int i, t_command *com);
+int		fill_output_info(t_data *data, t_info *info, int i, t_command *com);
+
+/*------FILES2-------*/
 int		create_temp_file(t_command *com, t_data *data);
+
 int		fill_extra_info(t_data *data, t_info *info, int i, t_command *com);
 
 /*------FT_MINISHELL_SPLIT-------*/
@@ -332,16 +339,18 @@ int		ft_expand_first_word(t_data *data, t_command *com);
 int		reformat_final(t_data *data, t_spec *spec);
 
 /*------PIPE_ACCESS_FILES-------*/
-int		ft_file_exists(char *file);
-int		ft_read_permission(char *file);
+
 int		ft_write_permission(char *file);
 int		ft_infile_perm(char *file, t_command *commands, t_data *data, int ret);
+int		ft_infile_perm2(t_data *data, t_command *commands, char *file);
 int		ft_outfile_perm(char *file, t_command *commands, t_data *data);
 
 /*------PIPES_AID-------*/
 int		ft_char_pp_len(char **stack);
 int		ft_open_infile(char *file, t_command *commands);
 int		ft_open_outfile(char *file, t_command *commands);
+int		ft_file_exists(char *file);
+int		ft_read_permission(char *file);
 
 /*------PIPES_AID2-------*/
 char	*ft_create_file_name(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 14:11:52 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/28 16:52:02 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,19 @@ int	ft_open_outfile(char *file, t_command *commands)
 	if (fd == -1)
 		return (ERROR);
 	commands->fd_out = fd;
+	return (SUCCESS);
+}
+
+int	ft_file_exists(char *file)
+{
+	if (access(file, F_OK) == -1)
+		return (ERROR);
+	return (SUCCESS);
+}
+
+int	ft_read_permission(char *file)
+{
+	if (access(file, R_OK) == -1)
+		return (ERROR);
 	return (SUCCESS);
 }

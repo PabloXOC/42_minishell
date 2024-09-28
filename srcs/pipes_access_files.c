@@ -6,25 +6,11 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/09/28 15:39:05 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/09/28 16:45:36 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_file_exists(char *file)
-{
-	if (access(file, F_OK) == -1)
-		return (ERROR);
-	return (SUCCESS);
-}
-
-int	ft_read_permission(char *file)
-{
-	if (access(file, R_OK) == -1)
-		return (ERROR);
-	return (SUCCESS);
-}
 
 int	ft_write_permission(char *file)
 {
@@ -66,15 +52,6 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data, int ret)
 		ret = ft_infile_perm2(data, commands, file);
 		if (ret != SUCCESS)
 			return (ret);
-		/* perror(file);
-		exit_codes(EXIT_1, data);
-		commands->previous_error = true;
-		commands->no_permissions = true;
-		commands->temp_file = ft_create_file_name(data);
-		if (commands->temp_file == NULL)
-			return (error_i(MALLOC_ERROR, data));
-		if (ft_open_infile(commands->temp_file, commands) == ERROR)
-			return (error_i(OPEN_ERROR, data)); */
 	}
 	else if (ft_open_infile(file, commands) == ERROR)
 		return (error_i(OPEN_ERROR, data));

@@ -86,6 +86,7 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 		return (error_i(MALLOC_ERROR, data));
 	if (data->v->fork_id == 0)
 	{
+		signal(SIGQUIT, catch_sigquit);
 		close(pipe_fd[i][0]);
 		if (dup2(pipe_fd[i][1], STDOUT_FILENO) == -1)
 			exit(error_i(ERROR, data));

@@ -421,6 +421,7 @@ void	ft_set_to_null_2(t_info *i_v, t_data *data, int i);
 
 /*------SIGNAL_HANDLE-------*/
 int		signal_handle(void);
+void	catch_sigquit(int signum);
 
 /*------TERMINAL_APPERANCE-------*/
 int		get_user(t_data *data, char **env);

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:33:45 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/09/27 19:32:44 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:12:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_return_accessible_path(char **available_paths, char *command)
 
 	i = 0;
 	if (available_paths == NULL)
+		return (NULL);
+	if (ft_strncmp("", command, 1) == 0)
 		return (NULL);
 	while (available_paths[i] != NULL)
 	{

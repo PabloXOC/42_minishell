@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/28 16:43:52 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:05:22 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	find_command2(t_data *data, t_command *full_com, char *com)
 {
-	if (ft_strncmp(com, "unset", ft_strlen(com)) == 0)
+	if (ft_strncmp(com, "unset", ft_strlen(com) + 1) == 0)
 		return (unset_var(data, full_com));
-	if (ft_strncmp(com, "env", ft_strlen(com)) == 0)
+	if (ft_strncmp(com, "env", ft_strlen(com) + 1) == 0)
 		return (print_env(data));
-	if (ft_strncmp(com, "exit", ft_strlen(com)) == 0)
+	if (ft_strncmp(com, "exit", ft_strlen(com) + 1) == 0)
 	{
 		data->exit = true;
 		return (exit_codes(EXIT_0, data));
@@ -34,11 +34,11 @@ int	find_command(t_data *data, t_command *full_com)
 	if (ft_command_args_errors(data->spec[data->sc_n]
 			->command_list->content, data) == true)
 		return (ERROR);
-	if (ft_strncmp(com, "echo", ft_strlen(com)) == 0)
+	if (ft_strncmp(com, "echo", ft_strlen(com) + 1) == 0)
 		return (print_echo(full_com));
-	if (ft_strncmp(com, "cd", ft_strlen(com)) == 0)
+	if (ft_strncmp(com, "cd", ft_strlen(com) + 1) == 0)
 		return (change_dir(data, full_com));
-	if (ft_strncmp(com, "export", ft_strlen(com)) == 0)
+	if (ft_strncmp(com, "export", ft_strlen(com) + 1) == 0)
 	{
 		if (full_com->content[1] == NULL)
 			return (print_export(data));

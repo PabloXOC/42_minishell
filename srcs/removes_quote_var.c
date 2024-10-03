@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:52:30 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/27 19:34:24 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/03 10:59:28 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,15 @@ int	ft_remove_quotes_bar(char ***list, t_data *data)
 	char	**new_list;
 
 	new_size = ft_size_array((*list), data);
+	if (new_size == 0)
+	{
+		ft_free_char_pp(*list);
+		new_list = (char **) malloc ((1 + 1) * sizeof (char *));
+		new_list[1] = 0;
+		new_list[0] = ft_strdup("");
+		(*list) = new_list;
+		return (SUCCESS);
+	}
 	new_list = (char **) malloc ((new_size + 1) * sizeof (char *));
 	if (new_list == NULL)
 		return (error_i(MALLOC_ERROR, data));

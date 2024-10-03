@@ -95,7 +95,7 @@ int	write_in_command(t_data *data, t_spec *spec, t_info *info, int ret)
 	char		**full_com;
 
 	full_com = return_full_com(data, info, data->v->idx_com);
-	if (full_com == NULL)
+	if (data->fatal_error == true)
 		return (MALLOC_ERROR);
 	com = ft_lstnew_com(full_com);
 	data->v->pos = 0;

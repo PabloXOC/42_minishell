@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/09/28 15:27:29 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/08 21:34:44 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,13 @@ static int	add_command_to_list(t_data *data, t_command *com,
 static int	write_in_command2(t_data *data, t_command *com, char **full_com)
 {
 	t_info	*info;
+	int		ret;
 
 	info = data->spec[data->sc_n]->input_info;
-	if (fill_extra_info(data, info, data->v->idx_com, com) == SUCCESS)
+	ret = fill_extra_info(data, info, data->v->idx_com, com);
+	if (ret == AMBIG_REDIRECT)
+		return (AMBIG_REDIRECT);
+	if (ret == SUCCESS)
 		data->v->idx_com++;
 	else
 	{

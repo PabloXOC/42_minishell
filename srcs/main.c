@@ -6,13 +6,13 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/27 19:21:33 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/09 01:35:17 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	minishell_2(t_data *data, t_spec *spec, t_info *info)
+int	minishell_2(t_data *data, t_spec *spec, t_info *info, int ret)
 {
 	if (refresh_mysignal_var(data) == MALLOC_ERROR)
 		return (exit_codes(EXIT_1, data));
@@ -26,7 +26,8 @@ int	minishell_2(t_data *data, t_spec *spec, t_info *info)
 		save_variables(data, info, 0);
 	if (data->fatal_error == true)
 		return (MALLOC_ERROR);
-	if (save_pipelines(data, info, spec) != NO_COMMANDS)
+	ret = save_pipelines(data, info, spec);
+	if (ret != NO_COMMANDS && ret != AMBIG_REDIRECT)
 	{
 		if (reformat_final(data, spec) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
@@ -53,7 +54,7 @@ int	minishell1(t_data *data)
 		{
 			ft_reset_vars(data);
 			mini_2 = minishell_2(data, data->spec[data->sc_n],
-					data->spec[data->sc_n]->input_info);
+					data->spec[data->sc_n]->input_info, 0);
 			if (mini_2 == MALLOC_ERROR)
 				return (MALLOC_ERROR);
 			data->sc_n++;
@@ -99,7 +100,6 @@ int	main(int argc, char **argv, char **env)
 	data->echo_path = find_command_path("echo", data);
 	if (data->echo_path == NULL)
 		return (exit_codes_main(EXIT_1, data));
-	printf("%s", data->echo_path);
 	if (signal_handle() == FAILURE)
 		return (exit_codes_main(EXIT_1, data));
 	if (terminal_entry_info(data, env) == MALLOC_ERROR)

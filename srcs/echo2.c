@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:45:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/27 14:02:16 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/09 01:36:13 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ int	change_echo_path(t_command *full_com, t_data *data)
 		free(full_com->full_path);
 	full_com->full_path = ft_strdup(data->echo_path);
 	if (full_com->full_path == NULL)
-		return(error_i(MALLOC_ERROR, data));
+		return (error_i(MALLOC_ERROR, data));
 	return (INVALID_COMMAND);
 }

@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/28 16:51:14 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/09 01:35:02 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef enum e_cases
 	CONTROL_D,
 	NO_COMMANDS,
 	INCOMPLETE_INPUT,
+	AMBIG_REDIRECT
 }		t_cases;
 
 typedef struct s_var
@@ -203,7 +204,7 @@ typedef enum e_exit_code
 int		main(int argc, char **argv, char **env);
 int		minishell(t_data *data);
 int		minishell1(t_data *data);
-int		minishell_2(t_data *data, t_spec *spec, t_info *info);
+int		minishell_2(t_data *data, t_spec *spec, t_info *info, int ret);
 
 /*------CD-------*/
 int		change_dir(t_data *data, t_command *full_com);
@@ -294,6 +295,7 @@ int		fill_extra_info(t_data *data, t_info *info, int i, t_command *com);
 
 /*------FT_MINISHELL_SPLIT-------*/
 char	**ft_minishell_split(char const *s, char c);
+int		identify_amb(char *str, t_data *data);
 
 /*------FT_SPLIT_VAR-------*/
 char	**ft_split_var(char const *s, char c);

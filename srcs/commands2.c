@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/10/03 11:05:22 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/09 01:34:00 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	save_pipelines(t_data *data, t_info *info, t_spec *spec)
 		{
 			while (info->first_line_split[data->v->idx_com] != NULL)
 			{
-				write_in_command(data, spec, info, 0);
+				if (write_in_command(data, spec, info, 0) == AMBIG_REDIRECT)
+					return (AMBIG_REDIRECT);
 				if (data->fatal_error == true)
 					return (ERROR);
 				if (info->first_line_split[data->v->idx_com] != NULL)

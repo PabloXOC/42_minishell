@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:39 by pximenez          #+#    #+#             */
-/*   Updated: 2024/10/03 14:35:21 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/09 01:34:35 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ static int	count_words(char const *str, char c, int count, int i)
 
 	s_q = 0;
 	d_q = 0;
-	if (str[0] != c && str[0] != '\0')
-		count = 1;
 	while (str[i] != '\0')
 	{
-		if (s_q % 2 == 0 && str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
+		if (s_q % 2 == 0 && str[i] == '\\'
+			&& (str[i + 1] == '\'' || str[i + 1] == '\"'))
 			i++;
 		else if (str[i] == '\'' && d_q % 2 == 0)
 			s_q++;
@@ -62,7 +61,8 @@ static int	ft_len_words(char const *str, char c, int s_q, int d_q)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (s_q % 2 == 0 && str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
+		if (s_q % 2 == 0 && str[i] == '\\'
+			&& (str[i + 1] == '\'' || str[i + 1] == '\"'))
 			i++;
 		else if (str[i] == '\'' && d_q % 2 == 0)
 			s_q++;
@@ -107,7 +107,10 @@ char	**ft_minishell_split(char const *s, char c)
 	int		nwords;
 	char	**array;
 
-	nwords = count_words(s, c, 0, 0);
+	if (s[0] != c && s[0] != '\0')
+		nwords = count_words(s, c, 1, 0);
+	else
+		nwords = count_words(s, c, 0, 0);
 	array = (char **)malloc((nwords + 1) * sizeof(char *));
 	if (!(array))
 		return (NULL);

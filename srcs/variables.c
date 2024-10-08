@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/28 16:52:54 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/03 12:07:47 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@ int	save_variables(t_data *data, t_info *info, int i)
 			equality = ft_split_var(info->first_line_split[i], '=');
 			if (equality == NULL)
 				return (error_i(MALLOC_ERROR, data));
-			equality[1] = expand_var(data, equality[1]);
-			if (equality[1] == NULL)
-			{
-				ft_free_char_pp(equality);
-				return (MALLOC_ERROR);
-			}
 			modify_exp_and_env(data, equality[0], equality[1]);
 			save_var_info(data, equality, &data->var);
 			if (refresh_home_var(data) != SUCCESS)

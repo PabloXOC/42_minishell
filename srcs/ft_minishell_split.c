@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:39 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/23 18:21:35 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/03 14:35:21 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,56 +25,54 @@ static void	ft_free_malloc(char **array, int row)
 	free(array);
 }
 
-static int	count_words(char const *s, char c, int count, int i)
+static int	count_words(char const *str, char c, int count, int i)
 {
-	char	quote;
+	int	s_q;
+	int	d_q;
 
-	if (s[0] != c && s[0] != '\0')
+	s_q = 0;
+	d_q = 0;
+	if (str[0] != c && str[0] != '\0')
 		count = 1;
-	while (s[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if (s[i] == '\"' || s[i] == '\'')
-		{
-			quote = s[i++];
-			while (s[i] != quote && s[i] != '\0')
-				i++;
+		if (s_q % 2 == 0 && str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
 			i++;
-		}
-		if (s[i] == c)
+		else if (str[i] == '\'' && d_q % 2 == 0)
+			s_q++;
+		else if (str[i] == '\"' && s_q % 2 == 0)
+			d_q++;
+		if (str[i] == c && s_q % 2 == 0 && d_q % 2 == 0)
 		{
-			while (s[i] == c)
+			while (str[i] == c)
 				i++;
-			if (s[i] != '\0')
+			if (str[i] != '\0')
 				count++;
 		}
-		if ((s[i] != '\"' && s[i] != '\'' && s[i] != '\0'))
+		else
 			i++;
 	}
 	return (count);
 }
 
-static int	ft_len_words(int i, char const *s, char c)
+static int	ft_len_words(char const *str, char c, int s_q, int d_q)
 {
-	int		len_word;
-	char	quote;
+	int		i;
 
-	len_word = 0;
-	while (s[i] != c && s[i] != '\0')
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if ((i == 0 || s[i - 1] != '\\') && (s[i] == '"' || s[i] == '\''))
-		{
-			quote = s[i++];
-			len_word++;
-			while (s[i] != quote && s[i] != '\0' && s[i - 1] != '\\')
-			{
-				len_word++;
-				i++;
-			}
-		}
-		len_word++;
+		if (s_q % 2 == 0 && str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
+			i++;
+		else if (str[i] == '\'' && d_q % 2 == 0)
+			s_q++;
+		else if (str[i] == '\"' && s_q % 2 == 0)
+			d_q++;
 		i++;
+		if (str[i] == c && s_q % 2 == 0 && d_q % 2 == 0)
+			return (i);
 	}
-	return (len_word);
+	return (i);
 }
 
 static char	**ft_fill_array(char const *s, char c, char **array)
@@ -89,7 +87,7 @@ static char	**ft_fill_array(char const *s, char c, char **array)
 		i++;
 	while (s[i] != '\0')
 	{
-		len_word = ft_len_words(i, s, c);
+		len_word = ft_len_words(&s[i], c, 0, 0);
 		array[row] = ft_substr(s, i, len_word);
 		if (array[row] == NULL)
 		{

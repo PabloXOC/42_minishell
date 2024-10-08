@@ -6,14 +6,11 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:07:53 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 14:10:53 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:57:42 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "minishell.h"
 
 static char	**ft_free(char **str_ptr, int number)
 {
@@ -55,7 +52,7 @@ static char	*ft_second_word(char const *s, int pos)
 	return (output);
 }
 
-static char	**ft_middle(char const *s, char c, char **str_ptr)
+static int	ft_middle(char const *s, char c, char ***str_ptr)
 {
 	int	i;
 	int	len_word;
@@ -67,20 +64,20 @@ static char	**ft_middle(char const *s, char c, char **str_ptr)
 		len_word++;
 		i++;
 	}
-	str_ptr[0] = (char *) malloc((len_word + 1) * sizeof(char));
-	if (str_ptr[0] == NULL)
-		return (NULL);
+	(*str_ptr)[0] = (char *) malloc((len_word + 1) * sizeof(char));
+	if ((*str_ptr)[0] == NULL)
+		return (MALLOC_ERROR);
 	i = 0;
 	while (i < len_word)
 	{
-		str_ptr[0][i] = s[i];
+		(*str_ptr)[0][i] = s[i];
 		i++;
 	}
-	str_ptr[0][len_word] = '\0';
-	str_ptr[1] = ft_second_word(s, len_word + 1);
-	if (str_ptr[1] == NULL)
-		return (NULL);
-	return (str_ptr);
+	(*str_ptr)[0][len_word] = '\0';
+	(*str_ptr)[1] = ft_second_word(s, len_word + 1);
+	if ((*str_ptr)[1] == NULL)
+		return (MALLOC_ERROR);
+	return (SUCCESS);
 }
 
 char	**ft_split_var(char const *s, char c)
@@ -93,7 +90,8 @@ char	**ft_split_var(char const *s, char c)
 	if (str_ptr == NULL)
 		return (NULL);
 	str_ptr[n_words] = NULL;
-	str_ptr = ft_middle(s, c, str_ptr);
+	if (ft_middle(s, c, &str_ptr) != SUCCESS)
+		return (NULL);
 	if (str_ptr == NULL)
 		return (ft_free(str_ptr, n_words));
 	return (str_ptr);

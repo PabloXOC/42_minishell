@@ -6,7 +6,7 @@
 /*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:44:49 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/22 14:08:06 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/10/03 14:35:08 by paxoc01          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static bool	ft_invalid_token(char *str, int i)
 static int	ft_skip_quote(char *str, int i, char c)
 {
 	i++;
-	while (str[i] != c)
+	while (str[i] != c || (c == '\"' && str[i] == c && str[i - 1] == '\\'))
 	{
 		if (str[i] == '\0')
 			return (i);

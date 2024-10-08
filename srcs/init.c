@@ -83,6 +83,7 @@ int	data_init2(t_data *data)
 	if (data->v == NULL)
 		return (error_i(MALLOC_ERROR, data));
 	ft_reset_vars(data);
+	data->echo_path = NULL;
 	return (SUCCESS);
 }
 

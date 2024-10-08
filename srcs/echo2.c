@@ -64,29 +64,12 @@ char	*expand_var(t_data *data, char *text)
 	return (str);
 }
 
-int	print_echo(t_command *full_com)
+int	change_echo_path(t_command *full_com, t_data *data)
 {
-	bool	flag;
-	int		i;
-
-	flag = false;
-	i = 1;
-	if (full_com->content[i] != NULL)
-	{
-		if (strncmp("-n", full_com->content[i], 3) == 0)
-		{
-			i++;
-			flag = true;
-		}
-		while (full_com->content[i] != NULL)
-		{
-			printf("%s", full_com->content[i]);
-			if (full_com->content[i + 1] != NULL)
-				printf(" ");
-			i++;
-		}
-	}
-	if (flag == false)
-		printf("\n");
-	return (SUCCESS);
+	if (full_com->full_path != NULL)
+		free(full_com->full_path);
+	full_com->full_path = ft_strdup(data->echo_path);
+	if (full_com->full_path == NULL)
+		return(error_i(MALLOC_ERROR, data));
+	return (INVALID_COMMAND);
 }

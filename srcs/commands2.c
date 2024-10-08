@@ -35,7 +35,7 @@ int	find_command(t_data *data, t_command *full_com)
 			->command_list->content, data) == true)
 		return (ERROR);
 	if (ft_strncmp(com, "echo", ft_strlen(com) + 1) == 0)
-		return (print_echo(full_com));
+		return (change_echo_path(full_com, data));
 	if (ft_strncmp(com, "cd", ft_strlen(com) + 1) == 0)
 		return (change_dir(data, full_com));
 	if (ft_strncmp(com, "export", ft_strlen(com) + 1) == 0)

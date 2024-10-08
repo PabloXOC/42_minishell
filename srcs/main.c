@@ -96,6 +96,10 @@ int	main(int argc, char **argv, char **env)
 	data = data_init(env);
 	if (data == NULL)
 		return (EXIT_1);
+	data->echo_path = find_command_path("echo", data);
+	if (data->echo_path == NULL)
+		return (exit_codes_main(EXIT_1, data));
+	printf("%s", data->echo_path);
 	if (signal_handle() == FAILURE)
 		return (exit_codes_main(EXIT_1, data));
 	if (terminal_entry_info(data, env) == MALLOC_ERROR)

@@ -74,4 +74,6 @@ void	ft_dataclear(t_data *data)
 		free(data->entry);
 	if (data->v != NULL)
 		free(data->v);
+	if (data->echo_path != NULL)
+		free(data->echo_path);
 }

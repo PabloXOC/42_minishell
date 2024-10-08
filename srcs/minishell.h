@@ -172,6 +172,7 @@ typedef struct s_data
 	bool		fatal_error;
 	int			sc_n;
 	t_v			*v;
+	char		*echo_path;
 }				t_data;
 
 typedef enum e_command_code
@@ -242,7 +243,7 @@ void	print_commands(t_data *data);
 /*------ECHO-------*/
 void	fill_new_var(t_data *d, char *str, int i, char *dst);
 int		tot_size(t_data *d, char *str, int s_q, int d_q);
-int		print_echo(t_command *full_com);
+int		change_echo_path(t_command *full_com, t_data *data);
 
 /*------ECHO2-------*/
 char	*ft_fillout_var(t_data *d, char *str, int s_q, int d_q);

@@ -74,7 +74,7 @@ char	*find_command_path(char *command, t_data *data)
 
 	if (command == NULL)
 		return (NULL);
-	path_var = return_content_var(data->env_lst, "PATH");
+	path_var = return_content_var(data->var, "PATH");
 	if (path_var != NULL)
 	{
 		available_paths = ft_split(path_var, ':');

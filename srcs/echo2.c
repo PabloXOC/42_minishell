@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:45:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/10/09 01:36:13 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:38:24 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,35 @@ char	*expand_var(t_data *data, char *text)
 	return (str);
 }
 
-int	change_echo_path(t_command *full_com, t_data *data)
+int	exec_echo_search(t_command *full_com, int i, int j, bool *n)
 {
-	if (full_com->full_path != NULL)
-		free(full_com->full_path);
-	full_com->full_path = ft_strdup(data->echo_path);
-	if (full_com->full_path == NULL)
-		return (error_i(MALLOC_ERROR, data));
-	return (INVALID_COMMAND);
+	while (full_com->content[i] != 0)
+	{
+		if (full_com->content[i][0] != '-')
+			return (i);
+		j = 1;
+		while (full_com->content[i][j] != 0)
+		{
+			if (full_com->content[i][j] != 'n')
+				return (i);
+			j++;
+		}
+		(*n) = true;
+		i++;
+	}
+	return (i);
+}
+int	exec_echo(t_command *full_com, int i, bool n)
+{
+	i = exec_echo_search(full_com, 1, 0, &n);
+	while (full_com->content[i] != 0)
+	{
+		ft_printf("%s", full_com->content[i]);
+		if (full_com->content[i + 1] != 0)
+			ft_printf(" ");
+		i++;
+	}
+	if (n == false)
+		ft_printf("\n");
+	return (SUCCESS);
 }

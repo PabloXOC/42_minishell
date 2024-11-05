@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/11/05 14:58:38 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:24:41 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ void	print_commands(t_data *data);
 /*------ECHO-------*/
 void	fill_new_var(t_data *d, char *str, int i, char *dst);
 int		tot_size(t_data *d, char *str, int s_q, int d_q);
-int		change_echo_path(t_command *full_com, t_data *data);
+int		exec_echo(t_command *full_com, int i, bool n);
 
 /*------ECHO2-------*/
 char	*ft_fillout_var(t_data *d, char *str, int s_q, int d_q);

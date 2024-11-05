@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/10/09 15:31:02 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:50:47 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	minishell(t_data *data)
 			return (exit_codes(EXIT_1, data));
 	}
 	rl_clear_history();
+	//write(1, "hi\n", 3);
 	total_cleanup(data);
 	return (SUCCESS);
 }
@@ -110,5 +111,6 @@ int	main(int argc, char **argv, char **env)
 		return (exit_codes_main(EXIT_1, data));
 	if (minishell(data) != SUCCESS)
 		return (exit_codes_main(EXIT_1, data));
-	return (SUCCESS);
+	//write(1, "hi\n", 3);
+	return (g_exit_status);
 }

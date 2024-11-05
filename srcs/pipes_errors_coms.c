@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_errors_coms.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/07/03 13:16:31 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:15:52 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ bool	ft_command_args_errors(char **command, t_data *data)
 	if (ft_strncmp(command[0], "unset", ft_strlen(command[0])) == 0)
 		return (ft_check_for_flags(command, data));
 	if (ft_strncmp(command[0], "env", ft_strlen(command[0])) == 0)
-		return (ft_handle_arg_n(command, 1, data));
-	if (ft_strncmp(command[0], "exit", ft_strlen(command[0])) == 0)
 		return (ft_handle_arg_n(command, 1, data));
 	return (false);
 }

@@ -154,3 +154,6 @@ minishell
 test
 test.c
 notexec
+
+minishell_tester
+minishell_tester/*

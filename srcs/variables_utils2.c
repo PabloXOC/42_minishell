@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/09/21 14:32:02 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/05 13:18:45 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,16 @@ void	ft_vardelone(t_var *var)
 void	ft_varsclear(t_var **var)
 {
 	t_var	*temp;
+	int	i;
 
+	i = 0;
 	while (*var != NULL)
 	{
+		//ft_printf("%d", i);
 		temp = (*var)->next;
 		ft_vardelone(*var);
 		*var = temp;
+		i++;
 	}
 }
 

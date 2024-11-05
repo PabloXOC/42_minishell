@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/11/05 13:18:45 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:33:54 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,18 @@ void	ft_vardelone(t_var *var)
 			free(var->content);
 		if (var->var != NULL)
 			free(var->var);
+		free(var);
 	}
-	free(var);
 }
 
 void	ft_varsclear(t_var **var)
 {
 	t_var	*temp;
-	int	i;
+	int		i;
 
 	i = 0;
 	while (*var != NULL)
 	{
-		//ft_printf("%d", i);
 		temp = (*var)->next;
 		ft_vardelone(*var);
 		*var = temp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:08:35 by farah             #+#    #+#             */
-/*   Updated: 2024/10/03 12:07:47 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/05 17:28:23 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ int	save_variables(t_data *data, t_info *info, int i)
 int	delete_head_var(t_var *vars, t_var *temp_var, t_var **list)
 {
 	temp_var = vars->next;
-	if (temp_var->content != NULL)
-		free(temp_var->content);
-	if (temp_var->var != NULL)
-		free(temp_var->var);
+	if (vars->content != NULL)
+		free(vars->content);
+	if (vars->var != NULL)
+		free(vars->var);
 	free(vars);
 	*list = temp_var;
 	return (SUCCESS);

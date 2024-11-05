@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/10/09 01:35:02 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/05 14:58:38 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -407,12 +407,14 @@ int		len_old_var(char *str, int i);
 int		ft_calc_size(t_data *d, char *old_str, int len);
 int		ft_remove_quotes_bar(char ***list, t_data *data);
 int		ft_assemble(char **list, t_data *data, char ***new_list, int i);
+void	ft_new_string(t_data *d, char *old_str, char **new_str, int i);
 
 /*------REMOVES_QUOTE_VAR2-------*/
 int		ft_handle_s_quote(t_data *d, char *old_str, int len);
 int		ft_handle_d_quote(t_data *d, char *old_str, int len);
 int		ft_paste_s_quote(t_data *d, char *old_str, char **str, int i);
 int		ft_paste_d_quote(t_data *d, char *old_str, char **str, int i);
+int		ft_assemble_file_name(t_data *data, char **file_name);
 
 /*------SEMICOLON1-------*/
 int		ft_complete_specific(t_data *data, int i);

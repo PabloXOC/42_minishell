@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:27:40 by ffauth-p          #+#    #+#             */
-/*   Updated: 2024/10/09 01:35:45 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/05 15:04:53 by ffauth-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	fill_input_info2(t_data *data, t_info *info, t_command *com, int i)
 	if (identify_amb(info->first_line_split[i + 1], data) == AMBIG_REDIRECT)
 		return (AMBIG_REDIRECT);
 	ft_infiles_cleanup(com);
+	ft_assemble_file_name(data, &info->first_line_split[i + 1]);
 	com->redirect_input = ft_strdup(info->first_line_split[i + 1]);
 	if (com->redirect_input == NULL)
 		return (error_i(MALLOC_ERROR, data));
@@ -59,6 +60,7 @@ int	fill_output_info2(t_data *data, t_info *info, t_command *com, int i)
 {
 	if (identify_amb(info->first_line_split[i + 1], data) == AMBIG_REDIRECT)
 		return (AMBIG_REDIRECT);
+	ft_assemble_file_name(data, &info->first_line_split[i + 1]);
 	com->redirect_output = ft_strdup(info->first_line_split[i + 1]);
 	if (com->redirect_output == NULL)
 		return (error_i(MALLOC_ERROR, data));
@@ -77,6 +79,7 @@ int	fill_output_info(t_data *data, t_info *info, int i, t_command *com)
 	{
 		if (identify_amb(info->first_line_split[i + 1], data) == AMBIG_REDIRECT)
 			return (AMBIG_REDIRECT);
+		ft_assemble_file_name(data, &info->first_line_split[i + 1]);
 		com->redirect_output = ft_strdup(info->first_line_split[i + 1]);
 		if (com->redirect_output == NULL)
 			return (error_i(MALLOC_ERROR, data));

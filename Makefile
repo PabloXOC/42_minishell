@@ -43,7 +43,7 @@ SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/cd.c $(SRC_DIR)/check_if_save_input.c $(SRC_
 	$(SRC_DIR)/token_detection.c $(SRC_DIR)/token_detection2.c $(SRC_DIR)/unset.c \
 	$(SRC_DIR)/utils.c $(SRC_DIR)/utils2.c $(SRC_DIR)/variables_utils.c $(SRC_DIR)/variables_utils2.c \
 	$(SRC_DIR)/variables.c $(SRC_DIR)/variables2.c $(SRC_DIR)/variables3.c $(SRC_DIR)/write.c \
-	
+	$(SRC_DIR)/handle_exit.c 
 	
 OBJS = $(SRCS:.c=.o)
 

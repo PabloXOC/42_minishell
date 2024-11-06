@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:45:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/11/05 16:38:24 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:26:44 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,18 @@ int	exec_echo_search(t_command *full_com, int i, int j, bool *n)
 	}
 	return (i);
 }
+
 int	exec_echo(t_command *full_com, int i, bool n)
 {
 	i = exec_echo_search(full_com, 1, 0, &n);
 	while (full_com->content[i] != 0)
 	{
-		ft_printf("%s", full_com->content[i]);
+		write(full_com->fd_out, full_com->content[i], ft_strlen(full_com->content[i]));
 		if (full_com->content[i + 1] != 0)
-			ft_printf(" ");
+			write(full_com->fd_out, " ", 1);
 		i++;
 	}
 	if (n == false)
-		ft_printf("\n");
+		write(full_com->fd_out, "\n", 1);
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/28 16:37:46 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/06 15:13:32 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 		return (error_i(MALLOC_ERROR, data));
 	if (data->v->fork_id == 0)
 	{
+		signal(SIGINT, catch_sigint_child);
 		signal(SIGQUIT, catch_sigquit);
 		close(pipe_fd[i][0]);
 		if (dup2(pipe_fd[i][1], STDOUT_FILENO) == -1)

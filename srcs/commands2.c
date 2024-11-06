@@ -6,77 +6,11 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/11/05 17:19:54 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:41:39 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	is_full_n(char *str)
-{
-	int i;
-
-	i = 0;
-	if (str[i] == '+')
-		i++;
-	while (str[i] != 0)
-	{
-		if (ft_isdigit(str[i]) == 0)
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-int	ft_atoi_exit(const char *str)
-{
-	int	loop;
-	int	temp;
-
-	temp = 0;
-	loop = 0;
-	while (str[loop] == 32)
-		loop++;
-	if (str[loop] == '+' || str[loop] == '-')
-		loop++;
-	while (str[loop] >= '0' && str[loop] <= '9')
-	{
-		temp = 10 * temp + str[loop] - '0';
-		loop++;
-	}
-	return (temp);
-}
-
-int	count_arg(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i] != 0)
-		i++;
-	return (i);
-}
-
-int	handle_exit(t_command *full_com, t_data *data)
-{
-	data->exit = true;
-	write(1, "exit\n", 5);
-	if (count_arg(full_com->content) == 1)
-		exit_codes(EXIT_0, data);
-	else if (count_arg(full_com->content) > 2)
-	{
-		write(2, "exit: too many arguments\n", 25);
-		exit_codes(EXIT_1, data);
-	}
-	else if (is_full_n(full_com->content[1]) == false)
-	{
-		write(2, "exit: numeric argument required\n", 32);
-		return (exit_codes(EXIT_1, data));
-	}
-	else
-		exit_codes(ft_atoi_exit(full_com->content[1]), data);
-	return (SUCCESS);
-}
 
 int	find_command2(t_data *data, t_command *full_com, char *com)
 {

@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/11/05 17:24:41 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:43:36 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,6 +437,9 @@ void	ft_set_to_null_2(t_info *i_v, t_data *data, int i);
 int		signal_handle(void);
 void	catch_sigquit(int signum);
 
+void catch_sigint_child(int signum);
+
+
 /*------TERMINAL_APPERANCE-------*/
 int		get_user(t_data *data, char **env);
 int		ft_get_dir(t_data *data, char **env);
@@ -523,5 +526,7 @@ int		error_i(t_cases case_code, t_data *data);
 char	*error_c(t_cases case_code, t_data *data, t_spec *spec);
 
 /*------PROTOYPES-------*/
+
+int		handle_exit(t_command *full_com, t_data *data);
 
 #endif

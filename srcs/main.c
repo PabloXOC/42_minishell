@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffauth-p <ffauth-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/11/05 17:32:52 by ffauth-p         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:11:53 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	minishell_2(t_data *data, t_spec *spec, t_info *info, int ret)
 			return (ERROR);
 		if (exec_commands(data) != SUCCESS)
 			return (FAILURE);
+		refresh_mysignal_var(data);
 	}
 	return (SUCCESS);
 }
@@ -85,7 +86,6 @@ int	minishell(t_data *data)
 			return (exit_codes(EXIT_1, data));
 	}
 	rl_clear_history();
-	//write(1, "hi\n", 3);
 	total_cleanup(data);
 	return (SUCCESS);
 }
@@ -100,9 +100,6 @@ int	main(int argc, char **argv, char **env)
 	data = data_init(env);
 	if (data == NULL)
 		return (EXIT_1);
-	data->echo_path = find_command_path("echo", data);
-	if (data->echo_path == NULL)
-		return (exit_codes_main(EXIT_1, data));
 	if (signal_handle() == FAILURE)
 		return (exit_codes_main(EXIT_1, data));
 	if (terminal_entry_info(data, env) == MALLOC_ERROR)
@@ -111,6 +108,5 @@ int	main(int argc, char **argv, char **env)
 		return (exit_codes_main(EXIT_1, data));
 	if (minishell(data) != SUCCESS)
 		return (exit_codes_main(EXIT_1, data));
-	//write(1, "hi\n", 3);
 	return (g_exit_status);
 }

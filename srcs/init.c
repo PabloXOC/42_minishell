@@ -43,6 +43,7 @@ void	ft_reset_vars2(t_data *d)
 {
 	d->v->s_q = 0;
 	d->v->d_q = 0;
+	d->kk = 0;
 	d->v->len = 0;
 }
 

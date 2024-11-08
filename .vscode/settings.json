@@ -29,7 +29,7 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "attach",
-            "program": "minishell",
+            "program": "${workspaceFolder}/minishell",
             "MIMode": "gdb",
             "setupCommands": [
                 {

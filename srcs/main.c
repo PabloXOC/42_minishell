@@ -51,7 +51,7 @@ int	minishell1(t_data *data)
 	ret = recieve_complete_input(data);
 	if (ret == SUCCESS && data->exit == false)
 	{
-		add_history(data->input_info_g->first_line_and_final_text);
+		add_history(data->input_info_g->first_line);
 		data->sc_n = 0;
 		while (data->sc_n <= data->n_semicolons)
 		{

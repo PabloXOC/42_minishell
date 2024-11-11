@@ -35,6 +35,7 @@ int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 			}
 		}
 		waitpid(data->v->fork_id, &status, 0);
+		ft_printf("%d, %d\n", g_exit_status, WEXITSTATUS(status));
 		if (com->previous_error == false)
 			exit_codes(WEXITSTATUS(status), data);
 	}
@@ -85,8 +86,10 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 		return (error_i(MALLOC_ERROR, data));
 	if (data->v->fork_id == 0)
 	{
-		signal(SIGINT, catch_sigint_child);
-		signal(SIGQUIT, catch_sigquit);
+		signal(SIGINT, SIG_DFL);
+		//signal(SIGQUIT, SIG_DFL);
+		/* signal(SIGINT, catch_sigint);
+		signal(SIGQUIT, catch_sigquit); */
 		close(pipe_fd[i][0]);
 		if (dup2(pipe_fd[i][1], STDOUT_FILENO) == -1)
 			exit(error_i(ERROR, data));

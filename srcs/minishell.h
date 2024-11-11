@@ -438,6 +438,7 @@ int		signal_handle(void);
 void	catch_sigquit(int signum);
 
 void catch_sigint_child(int signum);
+void	catch_sigint(int signum);
 
 
 /*------TERMINAL_APPERANCE-------*/

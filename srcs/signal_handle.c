@@ -17,7 +17,7 @@
 
 int		g_exit_status = 0;
 
-/*void catch_sigint_child(int signum)
+/* void catch_sigint_child(int signum)
 {
 	(void)signum;
 	ft_printf("hi");
@@ -31,7 +31,7 @@ int		g_exit_status = 0;
 		rl_redisplay();
 		kill(0, SIGCHLD);
 	}
-}*/
+} */
 
 void catch_sigint_child(int signum)
 {
@@ -69,7 +69,7 @@ void	catch_sigquit(int signum)
 {
 	(void)signum;
     write(STDOUT_FILENO, "Quit: 3\n", 8);
-    exit(exit_codes(EXIT_131, NULL));
+    //exit(exit_codes(EXIT_131, NULL));
 }
 
 int	signal_handle(void)

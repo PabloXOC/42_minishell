@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-//echo "'cat lol.c | cat > lol.c'"
-
 int	minishell_2(t_data *data, t_spec *spec, t_info *info, int ret)
 {
 	if (refresh_mysignal_var(data) == MALLOC_ERROR)

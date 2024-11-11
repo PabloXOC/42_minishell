@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/11/06 14:43:36 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:02:10 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ typedef enum e_cases
 	CONTROL_D,
 	NO_COMMANDS,
 	INCOMPLETE_INPUT,
-	AMBIG_REDIRECT
+	AMBIG_REDIRECT,
+	CONTROL_C
 }		t_cases;
 
 typedef struct s_var
@@ -170,6 +171,7 @@ typedef struct s_data
 	t_var		*var;
 	t_var		*var_export;
 	int			kk;
+	bool		open_error;
 	bool		fatal_error;
 	int			sc_n;
 	t_v			*v;
@@ -198,6 +200,8 @@ typedef enum e_exit_code
 	EXIT_128 = 128,
 	EXIT_130 = 130,
 	EXIT_131 = 131,
+	EXIT_260 = 260,
+	EXIT_261 = 261,
 }			t_exit_code;
 
 /*------PROTOYPES-------*/
@@ -434,10 +438,11 @@ void	ft_set_to_null(t_spec *spec, t_data *data);
 void	ft_set_to_null_2(t_info *i_v, t_data *data, int i);
 
 /*------SIGNAL_HANDLE-------*/
-int		signal_handle(void);
+void	signal_handle(void);
+void	signal_handle2(void);
 void	catch_sigquit(int signum);
 
-void catch_sigint_child(int signum);
+void 	catch_sigint_child(int signum);
 void	catch_sigint(int signum);
 
 

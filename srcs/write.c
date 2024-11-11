@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:28:55 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/21 14:27:23 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/11 17:02:30 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	error_i(t_cases case_code, t_data *data)
 	{
 		exit_codes(EXIT_1, data);
 		perror("Open failure");
-		data->fatal_error = true;
+		data->open_error = true;
 		return (OPEN_ERROR);
 	}
 	if (case_code == WRITE_ERROR)

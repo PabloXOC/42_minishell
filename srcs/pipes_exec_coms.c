@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/11/06 15:13:32 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:40:50 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,15 @@ int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 			}
 		}
 		waitpid(data->v->fork_id, &status, 0);
-		ft_printf("%d, %d\n", g_exit_status, WEXITSTATUS(status));
-		if (com->previous_error == false)
+		if (g_exit_status == 260 || g_exit_status == 261)
+		{
+			g_exit_status = g_exit_status - 130;
+			exit_codes(g_exit_status, data);
+		}
+		else if (com->previous_error == false)
+		{
 			exit_codes(WEXITSTATUS(status), data);
+		}
 	}
 	return (SUCCESS);
 }
@@ -86,10 +92,6 @@ int	pipe_commands(t_command *com, t_data *data, int **pipe_fd, int i)
 		return (error_i(MALLOC_ERROR, data));
 	if (data->v->fork_id == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		//signal(SIGQUIT, SIG_DFL);
-		/* signal(SIGINT, catch_sigint);
-		signal(SIGQUIT, catch_sigquit); */
 		close(pipe_fd[i][0]);
 		if (dup2(pipe_fd[i][1], STDOUT_FILENO) == -1)
 			exit(error_i(ERROR, data));

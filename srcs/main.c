@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/11/06 15:11:53 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:28:52 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ int	main(int argc, char **argv, char **env)
 	data = data_init(env);
 	if (data == NULL)
 		return (EXIT_1);
-	if (signal_handle() == FAILURE)
-		return (exit_codes_main(EXIT_1, data));
 	if (terminal_entry_info(data, env) == MALLOC_ERROR)
 		return (exit_codes_main(EXIT_1, data));
 	if (create_preset_vars(data) == MALLOC_ERROR)

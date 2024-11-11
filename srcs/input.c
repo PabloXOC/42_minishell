@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/09/27 14:43:14 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/11 13:28:46 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	recieve_complete_input_2(t_data *data)
 		return (MALLOC_ERROR);
 	if (ft_break_semicolons(data, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
+	signal_handle2();
 	return (SUCCESS);
 }
 
@@ -71,6 +72,7 @@ int	recieve_complete_input(t_data *data)
 	t_info	*info;
 	int		ret;
 
+	signal_handle();
 	if (init_input_struct(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	info = data->input_info_g;

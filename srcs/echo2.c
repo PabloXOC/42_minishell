@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:45:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/11/06 14:26:44 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:23:36 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ int	exec_echo(t_command *full_com, int i, bool n)
 	}
 	if (n == false)
 		write(full_com->fd_out, "\n", 1);
-	return (SUCCESS);
+	return (exit_codes(EXIT_0, NULL));
 }

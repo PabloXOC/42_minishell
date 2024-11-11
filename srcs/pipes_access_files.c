@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_access_files.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/09/28 16:45:36 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/11 15:00:06 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data, int ret)
 		commands->temp_file = ft_strdup(file);
 		if (commands->temp_file == NULL)
 			return (error_i(MALLOC_ERROR, data));
-		if (ft_open_infile(file, commands) == ERROR)
-			return (error_i(OPEN_ERROR, data));
+		/*if (ft_open_infile(file, commands) == ERROR)
+			return (error_i(OPEN_ERROR, data));*/
 	}
 	else if (ft_read_permission(file) == ERROR)
 	{

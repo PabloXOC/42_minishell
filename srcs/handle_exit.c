@@ -17,7 +17,7 @@ static bool	is_full_n(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '+')
+	if (str[i] == '+' || str[i] == '-')
 		i++;
 	while (str[i] != 0)
 	{
@@ -32,19 +32,25 @@ static int	ft_atoi_exit(const char *str)
 {
 	int	loop;
 	int	temp;
+	int	sign;
 
 	temp = 0;
 	loop = 0;
+	sign = 1;
 	while (str[loop] == 32)
 		loop++;
 	if (str[loop] == '+' || str[loop] == '-')
+	{
+		if (str[loop] == '-')
+			sign = -1;
 		loop++;
+	}
 	while (str[loop] >= '0' && str[loop] <= '9')
 	{
 		temp = 10 * temp + str[loop] - '0';
 		loop++;
 	}
-	return (temp);
+	return (temp * sign);
 }
 
 static int	count_arg(char **args)
@@ -71,7 +77,7 @@ int	handle_exit(t_command *full_com, t_data *data)
 	else if (is_full_n(full_com->content[1]) == false)
 	{
 		write(2, "exit: numeric argument required\n", 32);
-		return (exit_codes(EXIT_1, data));
+		return (exit_codes(EXIT_2, data));
 	}
 	else
 		exit_codes(ft_atoi_exit(full_com->content[1]), data);

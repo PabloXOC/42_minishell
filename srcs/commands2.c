@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:10:17 by farah             #+#    #+#             */
-/*   Updated: 2024/11/06 11:41:39 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:32:17 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int	find_command(t_data *data, t_command *full_com)
 	char	*com;
 
 	com = full_com->content[0];
+	if (full_com->previous_error == true)
+	{
+		exit_codes(EXIT_2, NULL);
+		return (SUCCESS);
+	}
 	if (ft_command_args_errors(data->spec[data->sc_n]
 			->command_list->content, data) == true)
 		return (ERROR);

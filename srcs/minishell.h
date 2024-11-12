@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:09:10 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/11/11 17:02:10 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:58:52 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,6 +387,7 @@ int		restore_original_in_out(t_data *data);
 /*------PIPES_EXEC_COMS2-------*/
 int		pipe_exec_coms(t_data *data, int i);
 int		exec_commands(t_data *data);
+void	wait_father(t_data *data, t_command *com);
 
 /*------REFORMAT-------*/
 char	*ft_reformat_input(char *input, t_data *data);
@@ -443,9 +444,8 @@ void	signal_handle(void);
 void	signal_handle2(void);
 void	catch_sigquit(int signum);
 
-void 	catch_sigint_child(int signum);
+void	catch_sigint_child(int signum);
 void	catch_sigint(int signum);
-
 
 /*------TERMINAL_APPERANCE-------*/
 int		get_user(t_data *data, char **env);

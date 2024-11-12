@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:31:23 by farah             #+#    #+#             */
-/*   Updated: 2024/11/11 15:00:06 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:41:03 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	ft_write_permission(char *file)
 
 int	ft_infile_perm2(t_data *data, t_command *commands, char *file)
 {
-	perror(file);
+	if (commands->previous_error == false)
+		perror(file);
 	exit_codes(EXIT_1, data);
 	commands->previous_error = true;
 	commands->no_permissions = true;
@@ -36,7 +37,8 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data, int ret)
 {
 	if (ft_file_exists(file) == ERROR)
 	{
-		perror(file);
+		if (commands->previous_error == false)
+			perror(file);
 		exit_codes(EXIT_1, data);
 		commands->previous_error = true;
 		commands->no_infile = true;

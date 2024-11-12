@@ -33,9 +33,9 @@ int		g_exit_status = 0;
 	}
 } */
 
-void catch_sigint_child(int signum)
+void	catch_sigint_child(int signum)
 {
-    (void)signum;
+	(void)signum;
 	exit_codes(EXIT_260, NULL);
 }
 
@@ -67,10 +67,9 @@ void	catch_sigint(int signum)
 void	catch_sigquit(int signum)
 {
 	(void)signum;
-    write(2, "Quit: 3\n", 8);
-    exit_codes(EXIT_261, NULL);
+	write(2, "Quit: 3\n", 8);
+	exit_codes(EXIT_261, NULL);
 }
-
 
 void	signal_handle(void)
 {

@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec_coms2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/27 14:08:41 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/12 13:58:42 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	wait_father(t_data *data, t_command *com)
+{
+	int	status;
+
+	waitpid(data->v->fork_id, &status, 0);
+	if (g_exit_status == 260 || g_exit_status == 261)
+	{
+		g_exit_status = g_exit_status - 130;
+		exit_codes(g_exit_status, data);
+	}
+	else if (com->previous_error == false)
+	{
+		exit_codes(WEXITSTATUS(status), data);
+	}
+}
 
 int	pipe_exec_coms(t_data *data, int i)
 {

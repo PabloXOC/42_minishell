@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_input_util.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:21:58 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/09/27 18:08:44 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:15:25 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ bool	ft_compare_eof(char *str, char *eof, t_data *data)
 		return (false);
 	if (str[i] == '\n' || str[i] == '\0')
 	{
+		if (data->input_info_g->search_eof != NULL)
+			free(data->input_info_g->search_eof);
 		data->input_info_g->search_eof = ft_strdup(&str[i + 1]);
 		return (true);
 	}

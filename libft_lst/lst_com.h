@@ -39,6 +39,8 @@ typedef struct s_command
 	bool		no_permissions;
 	bool		no_infile;
 	char		*temp_file;
+	char		*out_temp_file;
+	bool		err_open_out_file;
 	bool		previous_error;
 	t_command	*next;
 }					t_command;

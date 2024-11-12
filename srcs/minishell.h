@@ -354,8 +354,8 @@ int		ft_outfile_perm(char *file, t_command *commands, t_data *data);
 
 /*------PIPES_AID-------*/
 int		ft_char_pp_len(char **stack);
-int		ft_open_infile(char *file, t_command *commands);
-int		ft_open_outfile(char *file, t_command *commands);
+int		ft_open_infile(char *file, t_command *commands, t_data *data);
+int		ft_open_outfile(char *file, t_command *commands, t_data *data);
 int		ft_file_exists(char *file);
 int		ft_read_permission(char *file);
 
@@ -366,6 +366,7 @@ void	close_pipes(int	**pipe_fd, t_data *data);
 
 /*------PIPES_CLEANUP-------*/
 void	ft_infiles_cleanup(t_command *commands);
+void	ft_outfiles_cleanup(t_command *commands);
 
 /*------PIPES_COMMAND_PATH-------*/
 char	*ft_return_accessible_path(char **available_paths, char *command);

@@ -27,7 +27,7 @@ int	minishell_2(t_data *data, t_spec *spec, t_info *info, int ret)
 	if (data->fatal_error == true)
 		return (MALLOC_ERROR);
 	ret = save_pipelines(data, info, spec);
-	if (ret != NO_COMMANDS && ret != AMBIG_REDIRECT)
+	if ((ret != NO_COMMANDS && ret != AMBIG_REDIRECT))
 	{
 		if (reformat_final(data, spec) == MALLOC_ERROR)
 			return (MALLOC_ERROR);

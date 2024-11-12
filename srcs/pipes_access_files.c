@@ -28,8 +28,7 @@ int	ft_infile_perm2(t_data *data, t_command *commands, char *file)
 	commands->temp_file = ft_create_file_name(data);
 	if (commands->temp_file == NULL)
 		return (error_i(MALLOC_ERROR, data));
-	if (ft_open_infile(commands->temp_file, commands) == ERROR)
-		return (error_i(OPEN_ERROR, data));
+	ft_open_infile(commands->temp_file, commands, data);
 	return (SUCCESS);
 }
 
@@ -44,8 +43,7 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data, int ret)
 		commands->temp_file = ft_strdup(file);
 		if (commands->temp_file == NULL)
 			return (error_i(MALLOC_ERROR, data));
-		/*if (ft_open_infile(file, commands) == ERROR)
-			return (error_i(OPEN_ERROR, data));*/
+		ft_open_infile(file, commands, data);
 	}
 	else if (ft_read_permission(file) == ERROR)
 	{
@@ -53,8 +51,8 @@ int	ft_infile_perm(char *file, t_command *commands, t_data *data, int ret)
 		if (ret != SUCCESS)
 			return (ret);
 	}
-	else if (ft_open_infile(file, commands) == ERROR)
-		return (error_i(OPEN_ERROR, data));
+	else
+		ft_open_infile(file, commands, data);
 	return (SUCCESS);
 }
 
@@ -62,8 +60,7 @@ int	ft_outfile_perm(char *file, t_command *commands, t_data *data)
 {
 	if (ft_file_exists(file) == ERROR)
 	{
-		if (ft_open_outfile(file, commands) == ERROR)
-			return (error_i(OPEN_ERROR, data));
+		ft_open_outfile(file, commands, data);
 		return (SUCCESS);
 	}
 	if (ft_write_permission(file) == ERROR)
@@ -72,7 +69,6 @@ int	ft_outfile_perm(char *file, t_command *commands, t_data *data)
 		commands->previous_error = true;
 		return (error_i(WRITE_ERROR, data));
 	}
-	if (ft_open_outfile(file, commands) == ERROR)
-		return (error_i(OPEN_ERROR, data));
+	ft_open_outfile(file, commands, data);
 	return (SUCCESS);
 }

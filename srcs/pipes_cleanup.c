@@ -20,6 +20,11 @@ void	ft_infiles_cleanup(t_command *commands)
 	{
 		unlink(commands->redirect_input);
 		commands->no_infile = false;
+		if (commands->temp_file != NULL)
+		{
+			free(commands->temp_file);
+			commands->temp_file = NULL;
+		}
 	}
 	if (commands->no_permissions == true)
 	{
@@ -37,5 +42,21 @@ void	ft_infiles_cleanup(t_command *commands)
 		free(commands->temp_file);
 		commands->temp_file = NULL;
 		commands->file_input = true;
+	}
+}
+
+void	ft_outfiles_cleanup(t_command *commands)
+{
+	if (commands->fd_out > 2)
+		close(commands->fd_out);
+	if (commands->err_open_out_file == true)
+	{
+		if (commands->out_temp_file != NULL)
+		{
+			unlink(commands->out_temp_file);
+			free(commands->out_temp_file);
+			commands->out_temp_file = NULL;
+		}
+		commands->err_open_out_file = false;
 	}
 }

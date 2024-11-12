@@ -29,6 +29,12 @@ void	close_all_fds(t_command *command)
 			free(com->temp_file);
 			com->temp_file = NULL;
 		}
+		if (com->out_temp_file != NULL)
+		{
+			unlink(com->out_temp_file);
+			free(com->out_temp_file);
+			com->out_temp_file = NULL;
+		}
 		com = com->next;
 	}
 }

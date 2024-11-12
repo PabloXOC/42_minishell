@@ -31,8 +31,10 @@ t_command	*ft_lstnew_com(char **content)
 	new_node->no_permissions = false;
 	new_node->no_infile = false;
 	new_node->temp_file = NULL;
+	new_node->out_temp_file = NULL;
 	new_node->next = NULL;
 	new_node->previous_error = false;
+	new_node->err_open_out_file = false;
 	return (new_node);
 }
 

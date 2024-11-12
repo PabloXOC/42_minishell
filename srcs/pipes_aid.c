@@ -22,18 +22,31 @@ int	ft_char_pp_len(char **stack)
 	return (i);
 }
 
-int	ft_open_infile(char *file, t_command *commands)
+int	ft_open_infile(char *file, t_command *commands, t_data *data)
 {
 	int		fd;
 
 	fd = open(file, O_RDONLY | O_CREAT, 0644);
 	if (fd == -1)
-		return (ERROR);
+	{
+		commands->no_infile = true;
+		if (commands->temp_file != NULL)
+			free(commands->temp_file);
+		if (commands->redirect_input != NULL)
+			free(commands->redirect_input);
+		commands->temp_file = ft_create_file_name(data);
+		if (commands->temp_file == NULL)
+			return (error_i(MALLOC_ERROR, data));
+		commands->redirect_input = ft_strdup(commands->temp_file);
+		if (commands->redirect_input == NULL)
+			return (error_i(MALLOC_ERROR, data));
+		fd = open(commands->temp_file, O_RDONLY | O_CREAT, 0644);
+	}
 	commands->fd_in = fd;
 	return (SUCCESS);
 }
 
-int	ft_open_outfile(char *file, t_command *commands)
+int	ft_open_outfile(char *file, t_command *commands, t_data *data)
 {
 	int		fd;
 
@@ -42,7 +55,16 @@ int	ft_open_outfile(char *file, t_command *commands)
 	else
 		fd = open(file, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-		return (ERROR);
+	{
+		perror(file);
+		commands->err_open_out_file = true;
+		if (commands->out_temp_file != NULL)
+			free(commands->out_temp_file);
+		commands->out_temp_file = ft_create_file_name(data);
+		if (commands->out_temp_file == NULL)
+			return (error_i(MALLOC_ERROR, data));
+		fd = open(commands->out_temp_file, O_RDWR | O_CREAT, 0644);
+	}
 	commands->fd_out = fd;
 	return (SUCCESS);
 }

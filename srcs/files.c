@@ -14,9 +14,9 @@
 
 int	fill_input_info2(t_data *data, t_info *info, t_command *com, int i)
 {
+	ft_infiles_cleanup(com);
 	if (identify_amb(info->first_line_split[i + 1], data) == AMBIG_REDIRECT)
 		return (AMBIG_REDIRECT);
-	ft_infiles_cleanup(com);
 	ft_assemble_file_name(data, &info->first_line_split[i + 1]);
 	com->redirect_input = ft_strdup(info->first_line_split[i + 1]);
 	if (com->redirect_input == NULL)
@@ -32,10 +32,10 @@ int	fill_input_info(t_data *data, t_info *info, int i, t_command *com)
 {
 	if (ft_strncmp(info->first_line_split[i], "<<", 2) == 0)
 	{
+		ft_infiles_cleanup(com);
 		if (identify_amb(info->first_line_split[data->v->pointer + 1],
 				data) == AMBIG_REDIRECT)
 			return (AMBIG_REDIRECT);
-		ft_infiles_cleanup(com);
 		com->text_input = ft_strdup(info->text_input[data->v->pointer++]);
 		if (com->text_input == NULL)
 			return (error_i(MALLOC_ERROR, data));
@@ -58,6 +58,7 @@ int	fill_input_info(t_data *data, t_info *info, int i, t_command *com)
 
 int	fill_output_info2(t_data *data, t_info *info, t_command *com, int i)
 {
+	ft_outfiles_cleanup(com);
 	if (identify_amb(info->first_line_split[i + 1], data) == AMBIG_REDIRECT)
 		return (AMBIG_REDIRECT);
 	ft_assemble_file_name(data, &info->first_line_split[i + 1]);
@@ -77,6 +78,7 @@ int	fill_output_info(t_data *data, t_info *info, int i, t_command *com)
 {
 	if (ft_strncmp(info->first_line_split[i], ">>", 2) == 0)
 	{
+		ft_outfiles_cleanup(com);
 		if (identify_amb(info->first_line_split[i + 1], data) == AMBIG_REDIRECT)
 			return (AMBIG_REDIRECT);
 		ft_assemble_file_name(data, &info->first_line_split[i + 1]);

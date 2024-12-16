@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:20:50 by paxoc01           #+#    #+#             */
-/*   Updated: 2024/11/11 14:48:51 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:49:34 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	ft_add_text(t_data *data, t_info *info_g, int i)
 	char	*temp;
 
 	more_input = NULL;
-	signal(SIGINT, SIG_DFL);
 	info_g->terminal_input = ft_join_input(info_g->terminal_input, "\n");
 	if (info_g->terminal_input == NULL)
 		return (error_i(MALLOC_ERROR, data));

@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:45:15 by pximenez          #+#    #+#             */
-/*   Updated: 2024/11/11 13:23:36 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:49:30 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int	exec_echo(t_command *full_com, int i, bool n)
 	i = exec_echo_search(full_com, 1, 0, &n);
 	while (full_com->content[i] != 0)
 	{
-		write(full_com->fd_out, full_com->content[i], ft_strlen(full_com->content[i]));
+		write(full_com->fd_out, full_com->content[i],
+			ft_strlen(full_com->content[i]));
 		if (full_com->content[i + 1] != 0)
 			write(full_com->fd_out, " ", 1);
 		i++;

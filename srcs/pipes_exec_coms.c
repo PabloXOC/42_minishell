@@ -6,7 +6,7 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/11/11 13:40:50 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:58:47 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 {
-	int	status;
-
 	if (data->v->fork_id == -1)
 	{
 		perror("Fork failure");
@@ -34,16 +32,7 @@ int	father_process(int **pipe_fd, int i, t_command *com, t_data *data)
 					return (error_i(ERROR, data));
 			}
 		}
-		waitpid(data->v->fork_id, &status, 0);
-		if (g_exit_status == 260 || g_exit_status == 261)
-		{
-			g_exit_status = g_exit_status - 130;
-			exit_codes(g_exit_status, data);
-		}
-		else if (com->previous_error == false)
-		{
-			exit_codes(WEXITSTATUS(status), data);
-		}
+		wait_father(data, com);
 	}
 	return (SUCCESS);
 }

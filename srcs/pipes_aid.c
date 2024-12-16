@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_aid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paxoc01 <paxoc01@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 12:08:19 by farah             #+#    #+#             */
-/*   Updated: 2024/09/28 16:52:02 by paxoc01          ###   ########.fr       */
+/*   Updated: 2024/11/12 13:42:02 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ int	ft_open_outfile(char *file, t_command *commands, t_data *data)
 		fd = open(file, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		perror(file);
+		if (commands->previous_error == false)
+			perror(file);
+		commands->previous_error = true;
 		commands->err_open_out_file = true;
 		if (commands->out_temp_file != NULL)
 			free(commands->out_temp_file);

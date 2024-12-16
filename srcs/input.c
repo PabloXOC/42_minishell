@@ -6,11 +6,27 @@
 /*   By: pximenez <pximenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:30:25 by pximenez          #+#    #+#             */
-/*   Updated: 2024/11/11 13:28:46 by pximenez         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:17:07 by pximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_remove_n(t_data *data, int i, t_info *info)
+{
+	char *temp;
+
+	while (info->text_input[i] != 0)
+	{
+		temp = ft_strdup(&info->text_input[i][1]);
+		if (temp == NULL)
+			return (error_i(MALLOC_ERROR, data));
+		free(info->text_input[i]);
+		info->text_input[i] = temp;
+		i++;
+	}
+	return (SUCCESS);
+}
 
 int	ft_copy_until_eof(t_data *data, int i, int j)
 {
@@ -58,6 +74,8 @@ int	recieve_complete_input_2(t_data *data)
 	if (ft_save_until_eof(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	if (ft_individual_eof(data, 0) == MALLOC_ERROR)
+		return (MALLOC_ERROR);
+	if (ft_remove_n(data, 0, data->input_info_g) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
 	if (ft_combine_fl_ft(data, 0) == MALLOC_ERROR)
 		return (MALLOC_ERROR);

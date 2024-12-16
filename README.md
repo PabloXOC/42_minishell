@@ -1,7 +1,8 @@
-# Minishell
+# 42 Minishell
 
-Minishell is a minimalistic shell implementation that adheres to POSIX standards, featuring essential shell functionalities. It is designed to emulate the behavior of Bash while offering an educational insight into process management, I/O redirection, and signal handling.
+Minishell is a small yet powerful custom shell that replicates key functionalities of traditional Unix shells like Bash. It allows users to execute commands, manage files and processes, and interact with the system through an intuitive and responsive command-line interface.  
 
+With built-in support for essential shell features like pipes, redirection, and environment variable management, Minishell provides a streamlined and efficient user experience while adhering to the expected behavior of a modern shell.
 
 ## Features
 
